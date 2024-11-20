@@ -6,5 +6,16 @@
   "repository": "git@github.com:LeohsPaixao/vue-tests.git",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "changeset": "changeset",
+    "version-packages": "changeset version"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.27.10"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0"
+  }
 }
