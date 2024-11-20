@@ -1,0 +1,14 @@
+{
+  "name": "playwright-ui-tests",
+  "version": "1.0.0",
+  "description": "Project Tests Playwright",
+  "main": "index.js",
+  "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.9.1"
+  },
+  "scripts": {}
+}

@@ -1,0 +1,12 @@
+{
+  "name": "cypress-ui-tests",
+  "version": "1.0.0",
+  "description": "Project Tests Cypress",
+  "main": "index.js",
+  "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "cypress": "^13.16.0"
+  }
+}
