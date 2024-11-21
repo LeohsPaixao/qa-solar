@@ -1,11 +1,9 @@
-import './assets/main.css'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { registerPlugins } from './plugins';
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+const app = createApp(App);
 
-const app = createApp(App)
+registerPlugins(app)
 
-app.use(router)
-
-app.mount('#app')
+app.mount('#app');
