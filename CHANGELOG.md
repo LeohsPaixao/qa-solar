@@ -1,5 +1,12 @@
 # vue-tests
 
+## 1.4.0
+
+### Minor Changes
+
+- 95745b5: feat: organizar o projeto backend
+- 6b545b3: feat: inicia o backend do projeto
+
 ## 1.3.0
 
 ### Minor Changes
