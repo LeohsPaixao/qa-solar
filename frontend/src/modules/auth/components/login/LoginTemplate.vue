@@ -54,7 +54,6 @@ const validateForm = async () => {
     errors.value = { email: '', password: '' };
     return true;
   } catch (err) {
-    console.log('Erros de validação:', err);
     const validationErrors = err.inner.reduce((acc, curr) => {
       acc[curr.path] = curr.message;
       return acc;
