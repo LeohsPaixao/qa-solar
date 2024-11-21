@@ -16,12 +16,22 @@ const Configuration = {
         "docs",
         "feat",
         "test",
+        "story",
       ]
     ]
   },
   plugins: [
     {
       rules: {
+        'scope-wrong': ({ scope }) => {
+          if (!scope) {
+            return [true, '']; // Se não houver escopo, permite o commit
+          }
+          if (scope.match(/^[a-z]/)) {
+            return [true, '']; // Se o escopo começar com letra minúscula, permite o commit
+          }
+          return [false, 'scope must start with a lowercase letter']; // Caso contrário, falha
+        },
         'subject-wrong': ({ subject }) => {
           const oldPatternCommit = /^\(|\(.+\)|\)$/g;
           if (!subject) return [false, 'subject may not be empty'];
