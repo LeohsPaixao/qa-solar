@@ -80,6 +80,9 @@ export default {
       if (!formData.fullName) {
         errors.fullName = "O Nome Completo é obrigatório.";
         isValid = false;
+      } else if (!formData.fullName.trim().includes(" ")) {
+        errors.fullName = "O Nome Completo deve conter pelo menos Nome e Sobrenome.";
+        isValid = false;
       } else {
         errors.fullName = "";
       }
@@ -122,6 +125,8 @@ export default {
       } else if (formData.password.length < 6) {
         errors.password = "A Senha deve ter no mínimo 6 caracteres.";
         isValid = false;
+      } else if (formData.password.length > 20) {
+        errors.password = "A Senha deve ter no máximo 20 caracteres.";
       } else {
         errors.password = "";
       }
@@ -141,12 +146,12 @@ export default {
 
     const validateCPF = (value) => {
       const cpf = value.replace(/\D/g, "");
-      return cpf.length === 11; // Simples validação de tamanho
+      return cpf.length === 11;
     };
 
     const validateCNPJ = (value) => {
       const cnpj = value.replace(/\D/g, "");
-      return cnpj.length === 14; // Simples validação de tamanho
+      return cnpj.length === 14;
     };
 
     const onDocTypeChange = () => {
