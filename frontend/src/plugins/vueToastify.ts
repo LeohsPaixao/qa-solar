@@ -3,7 +3,7 @@ import 'vue3-toastify/dist/index.css'
 
 const toastOptions = {
   position: 'top-right',
-  hideProgressBar: false,
+  hideProgressBar: true,
   autoClose: 4000,
   draggable: true,
   limit: 2,

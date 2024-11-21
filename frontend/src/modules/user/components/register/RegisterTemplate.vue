@@ -1,0 +1,173 @@
+<template>
+  <div class="register-container">
+    <div class="form-container">
+      <img src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
+      <h2>Bem-vindo!</h2>
+      <p>Por favor, preencha os campos abaixo para se registrar:</p>
+      <form @submit.prevent="onSubmit">
+        <div class="form-group">
+          <label for="fullName">Nome Completo <span class="required">*</span></label>
+          <input type="text" id="fullName" v-model="formData.fullName" placeholder="Insira o Nome Completo" />
+          <p class="error" v-if="errors.fullName">{{ errors.fullName }}</p>
+        </div>
+        <div class="form-group">
+          <label for="socialName">Nome Social</label>
+          <input type="text" id="socialName" v-model="formData.socialName"
+            placeholder="Insira o Nome Social (opcional)" />
+        </div>
+        <div class="form-group">
+          <label for="document">CPF/CNPJ <span class="required">*</span></label>
+          <select id="docType" v-model="formData.docType" @change="onDocTypeChange">
+            <option value="cpf">CPF</option>
+            <option value="cnpj">CNPJ</option>
+          </select>
+          <input type="text" id="document" v-model="formData.document" :placeholder="placeholder" />
+          <p class="error" v-if="errors.document">{{ errors.document }}</p>
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefone</label>
+          <input type="text" id="phone" v-model="formData.phone" placeholder="Insira o Telefone (opcional)" />
+        </div>
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" autocomplete="username" v-model="formData.email"
+            placeholder="Insira o Email" />
+          <p class="error" v-if="errors.email">{{ errors.email }}</p>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha <span class="required">*</span></label>
+          <input type="password" id="password" autocomplete="current-password" v-model="formData.password"
+            placeholder="Insira a Senha" />
+          <p class="error" v-if="errors.password">{{ errors.password }}</p>
+        </div>
+        <button type="submit" class="btn-submit">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script>
+import { reactive, ref } from "vue";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+
+export default {
+  setup() {
+
+    const formData = reactive({
+      fullName: "",
+      socialName: "",
+      document: "",
+      docType: "cpf",
+      phone: "",
+      email: "",
+      password: "",
+    });
+
+    const errors = reactive({
+      fullName: "",
+      document: "",
+      email: "",
+      password: "",
+    });
+
+    const placeholder = ref("Insira o CPF");
+
+    const validateForm = () => {
+      let isValid = true;
+
+      // Validação do Nome Completo
+      if (!formData.fullName) {
+        errors.fullName = "O Nome Completo é obrigatório.";
+        isValid = false;
+      } else if (!formData.fullName.trim().includes(" ")) {
+        errors.fullName = "O Nome Completo deve conter pelo menos Nome e Sobrenome.";
+        isValid = false;
+      } else {
+        errors.fullName = "";
+      }
+
+      // Validação do CPF/CNPJ
+      if (!formData.document) {
+        errors.document = "O CPF/CNPJ é obrigatório.";
+        isValid = false;
+      } else if (
+        formData.docType === "cpf" &&
+        !validateCPF(formData.document)
+      ) {
+        errors.document = "CPF inválido.";
+        isValid = false;
+      } else if (
+        formData.docType === "cnpj" &&
+        !validateCNPJ(formData.document)
+      ) {
+        errors.document = "CNPJ inválido.";
+        isValid = false;
+      } else {
+        errors.document = "";
+      }
+
+      // Validação do Email
+      if (!formData.email) {
+        errors.email = "O Email é obrigatório.";
+        isValid = false;
+      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        errors.email = "Email inválido.";
+        isValid = false;
+      } else {
+        errors.email = "";
+      }
+
+      // Validação da Senha
+      if (!formData.password) {
+        errors.password = "A Senha é obrigatória.";
+        isValid = false;
+      } else if (formData.password.length < 6) {
+        errors.password = "A Senha deve ter no mínimo 6 caracteres.";
+        isValid = false;
+      } else if (formData.password.length > 20) {
+        errors.password = "A Senha deve ter no máximo 20 caracteres.";
+      } else {
+        errors.password = "";
+      }
+
+      return isValid;
+    };
+
+    const onSubmit = () => {
+      if (validateForm()) {
+        toast.success("Cadastro realizado com sucesso!", { autoClose: 3000 });
+      } else {
+        toast.error("Por favor, corrija os erros no formulário.", {
+          autoClose: 5000,
+        });
+      }
+    };
+
+    const validateCPF = (value) => {
+      const cpf = value.replace(/\D/g, "");
+      return cpf.length === 11;
+    };
+
+    const validateCNPJ = (value) => {
+      const cnpj = value.replace(/\D/g, "");
+      return cnpj.length === 14;
+    };
+
+    const onDocTypeChange = () => {
+      placeholder.value =
+        formData.docType === "cpf" ? "Insira o CPF" : "Insira o CNPJ";
+    };
+
+    return {
+      formData,
+      errors,
+      placeholder,
+      onSubmit,
+      onDocTypeChange,
+    };
+  },
+};
+</script>
+
+<style src="./RegisterStyle.css"></style>

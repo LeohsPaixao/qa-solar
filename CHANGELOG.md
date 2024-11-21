@@ -1,5 +1,15 @@
 # vue-tests
 
+## 1.3.0
+
+### Minor Changes
+
+- d9d7771: feat: cria o componente RegisterTemplate.vue
+
+### Patch Changes
+
+- 5f00bdd: feat: melhora as validações do RegisterTemplate.vue
+
 ## 1.2.1
 
 ### Patch Changes
