@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import { reactive, ref } from "vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -134,12 +135,26 @@ export default {
       return isValid;
     };
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
       if (validateForm()) {
-        toast.success("Cadastro realizado com sucesso!", { autoClose: 3000 });
+        try {
+          const response = await axios.post("http://localhost:3001/register", formData);
+          toast.success(response.data.message, { autoClose: 3000 });
+
+          // Limpar o formulário após o sucesso
+          Object.keys(formData).forEach((key) => {
+            formData[key] = "";
+          });
+        } catch (error) {
+          console.error("Erro ao registrar:", error);
+          toast.error(
+            error.response?.data?.message || "Erro ao tentar registrar o usuário.",
+            { autoClose: 3000 }
+          );
+        }
       } else {
         toast.error("Por favor, corrija os erros no formulário.", {
-          autoClose: 5000,
+          autoClose: 3000,
         });
       }
     };
