@@ -16,6 +16,7 @@ const Configuration = {
         "docs",
         "feat",
         "test",
+        "story",
       ]
     ]
   },
