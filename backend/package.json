@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "api": "node src/index.js"
+    "api": "node src/server.js"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
