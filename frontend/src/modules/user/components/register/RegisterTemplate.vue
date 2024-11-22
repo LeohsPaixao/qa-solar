@@ -47,7 +47,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import { registerUser } from '@/services/api';
+import { validateFormData } from "@/utils/validateForm";
 import { reactive, ref } from "vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -75,98 +76,26 @@ export default {
     const placeholder = ref("Insira o CPF");
 
     const validateForm = () => {
-      let isValid = true;
-
-      // Validação do Nome Completo
-      if (!formData.fullName) {
-        errors.fullName = "O Nome Completo é obrigatório.";
-        isValid = false;
-      } else if (!formData.fullName.trim().includes(" ")) {
-        errors.fullName = "O Nome Completo deve conter pelo menos Nome e Sobrenome.";
-        isValid = false;
-      } else {
-        errors.fullName = "";
-      }
-
-      // Validação do CPF/CNPJ
-      if (!formData.document) {
-        errors.document = "O CPF/CNPJ é obrigatório.";
-        isValid = false;
-      } else if (
-        formData.docType === "cpf" &&
-        !validateCPF(formData.document)
-      ) {
-        errors.document = "CPF inválido.";
-        isValid = false;
-      } else if (
-        formData.docType === "cnpj" &&
-        !validateCNPJ(formData.document)
-      ) {
-        errors.document = "CNPJ inválido.";
-        isValid = false;
-      } else {
-        errors.document = "";
-      }
-
-      // Validação do Email
-      if (!formData.email) {
-        errors.email = "O Email é obrigatório.";
-        isValid = false;
-      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        errors.email = "Email inválido.";
-        isValid = false;
-      } else {
-        errors.email = "";
-      }
-
-      // Validação da Senha
-      if (!formData.password) {
-        errors.password = "A Senha é obrigatória.";
-        isValid = false;
-      } else if (formData.password.length < 6) {
-        errors.password = "A Senha deve ter no mínimo 6 caracteres.";
-        isValid = false;
-      } else if (formData.password.length > 20) {
-        errors.password = "A Senha deve ter no máximo 20 caracteres.";
-      } else {
-        errors.password = "";
-      }
-
-      return isValid;
+      const result = validateFormData(formData);
+      Object.assign(errors, result.errors);
+      return result.isValid;
     };
 
     const onSubmit = async () => {
       if (validateForm()) {
         try {
-          const response = await axios.post("http://localhost:3001/register", formData);
-          toast.success(response.data.message, { autoClose: 3000 });
+          const response = await registerUser(formData);
+          toast.success(response.message, { autoClose: 3000 });
 
-          // Limpar o formulário após o sucesso
           Object.keys(formData).forEach((key) => {
-            formData[key] = "";
+            formData[key] = '';
           });
         } catch (error) {
-          console.error("Erro ao registrar:", error);
-          toast.error(
-            error.response?.data?.message || "Erro ao tentar registrar o usuário.",
-            { autoClose: 3000 }
-          );
+          toast.error(error.message, { autoClose: 3000 });
         }
       } else {
-        toast.error("Por favor, corrija os erros no formulário.", {
-          autoClose: 3000,
-        });
+        toast.error('Por favor, corrija os erros no formulário.', { autoClose: 3000 });
       }
-    };
-
-    const validateCPF = (value) => {
-      const cpf = value.replace(/\D/g, "");
-      return cpf.length === 11;
-    };
-
-    const validateCNPJ = (value) => {
-      const cnpj = value.replace(/\D/g, "");
-      return cnpj.length === 14;
     };
 
     const onDocTypeChange = () => {
