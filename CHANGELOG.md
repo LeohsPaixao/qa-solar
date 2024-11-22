@@ -1,5 +1,11 @@
 # vue-tests
 
+## 2.0.1
+
+### Patch Changes
+
+- d1db421: feat: atualiza todos os README.md do projeto
+
 ## 2.0.0
 
 ### Major Changes
