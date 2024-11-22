@@ -1,6 +1,6 @@
 {
   "name": "vue-tests",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Simple project VUE for UI Testing with Frameworks: Cypress, Robot and Playwright",
   "main": "index.js",
   "repository": "git@github.com:LeohsPaixao/vue-tests.git",
