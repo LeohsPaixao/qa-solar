@@ -1,5 +1,4 @@
 const pool = require("../config/database");
-const messages = require("../constants/messages");
 
 module.exports.registerUser = async (req, res) => {
   const { fullName, socialName, document, docType, phone, email, password } = req.body;
@@ -11,8 +10,8 @@ module.exports.registerUser = async (req, res) => {
       [fullName, socialName, document, docType, phone, email, password]
     );
 
-    res.status(201).json({ message: messages.success.userRegistered });
+    res.status(201).json({ message: "Usuário cadastrado no QA Solar com sucesso!" });
   } catch (error) {
-    throw new Error(res.status(500).json({ message: messages.error.userRegistrationFailed }) + error.message);
+    res.status(500).json({ message: "Erro ao tentar cadastrar o usuário." });
   }
 };
