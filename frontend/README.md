@@ -1,6 +1,3 @@
-Com base no seu `package.json`, aqui está um modelo de `README.md` para o projeto frontend com tópicos técnicos claros:
-
-```markdown
 # Frontend - Vue Tests
 
 Este é o projeto frontend do monorepo **Vue Tests**, construído com **Vue 3**, **Vue Router** e outras ferramentas modernas para o desenvolvimento de aplicações web. O objetivo deste projeto é implementar interfaces de usuário e validar fluxos com foco em qualidade e boas práticas.
@@ -12,7 +9,7 @@ Este é o projeto frontend do monorepo **Vue Tests**, construído com **Vue 3**,
 - **Vue 3**: Framework principal para construção da interface.  
 - **Vue Router**: Gerenciamento de rotas.  
 - **Vee-Validate**: Validação de formulários.  
-- **Axios**: Comunicação com APIs.  
+- **Axios**: Comunicação com a API do Backend.  
 - **Vue3-Toastify**: Notificações toast.  
 - **Vite**: Ferramenta de build e desenvolvimento rápida.  
 - **TypeScript**: Tipagem estática para maior robustez no código.
@@ -22,8 +19,8 @@ Este é o projeto frontend do monorepo **Vue Tests**, construído com **Vue 3**,
 ## 🚀 Como Rodar o Projeto
 
 1. **Pré-requisitos**:
-   - Node.js `>=22.1.0`
-   - Yarn `1.22.22`
+   - [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=22.1.0-brightgreen.svg)](https://nodejs.org/)
+   - [![Yarn Version](https://img.shields.io/badge/Yarn-1.22.22-blue.svg)](https://classic.yarnpkg.com/en/docs/install/)
 
 2. **Instalação**:  
    Clone o repositório e navegue até o diretório `frontend`:
@@ -57,8 +54,10 @@ frontend/
 ├── src/
 │   ├── assets/        # Recursos estáticos (imagens, fontes, etc.)
 │   ├── components/    # Componentes Vue reutilizáveis
+│   ├── modules/       # Páginas principais da aplicação
+|   ├── plugins/       # Plugins
 │   ├── router/        # Configuração de rotas com Vue Router
-│   ├── views/         # Páginas principais da aplicação
+|   ├── utils/         # Configuração de de utilitários
 │   ├── App.vue        # Componente raiz
 │   └── main.ts        # Ponto de entrada do projeto
 ├── public/            # Arquivos públicos (ex.: index.html)
@@ -106,14 +105,3 @@ Contribuições são bem-vindas! Certifique-se de seguir as boas práticas de co
 ## 📜 Licença
 
 Este projeto está licenciado sob a [MIT License](../LICENSE).
-```
-
-### O que está incluído:
-1. **Tópico de instalação**: Passos detalhados para rodar o projeto.
-2. **Scripts disponíveis**: Listagem e descrição dos scripts principais.
-3. **Estrutura do projeto**: Explicação clara para orientar novos desenvolvedores.
-4. **Tecnologias utilizadas**: Breve descrição das dependências principais.
-5. **Configuração de lint e formatação**: Explica a configuração de qualidade do código.
-6. **Contribuição**: Incentivo para colaboração.
-
-Se precisar ajustar ou incluir mais informações, é só avisar!
