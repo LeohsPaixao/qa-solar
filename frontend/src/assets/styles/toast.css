@@ -1,0 +1,31 @@
+.Toastify__toast-container {
+  z-index: 1050;
+}
+
+.Toastify__toast-container--top-right {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.Toastify__toast {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px 16px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.Toastify__toast-body {
+  color: #333;
+  margin-right: auto;
+}
+
+.Toastify__toast--success .Toastify__toast-icon {
+  color: #4caf50;
+}
