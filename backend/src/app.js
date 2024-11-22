@@ -7,6 +7,6 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use({ path: "/", routes: routes });
+app.use("/", routes);
 
 module.exports = app;
