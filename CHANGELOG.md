@@ -1,5 +1,18 @@
 # vue-tests
 
+## 2.0.0
+
+### Major Changes
+
+- story: finaliza primeira parte do projeto
+
+## 1.5.0
+
+### Minor Changes
+
+- 7907e62: feat: cria o endpoint de login
+- 79fbe95: feat: altera o formato de conexao com o backend
+
 ## 1.4.0
 
 ### Minor Changes

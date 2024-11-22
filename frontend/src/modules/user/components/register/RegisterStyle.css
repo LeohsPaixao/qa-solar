@@ -2,30 +2,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: #ffeed9;
+  font-family: 'Arial', sans-serif;
+  padding: 1rem;
+}
+
+.form-group {
+  margin-top: 0.1rem;
+  margin-bottom: 1rem;
+  text-align: left;
 }
 
 .error {
   color: red;
   font-size: 0.8rem;
   margin-top: 0.25rem;
-}
-
-.form-container {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
+  text-align: left;
 }
 
 .logo {
-  max-width: 120px;
+  max-width: 300px;
   margin-bottom: 10px;
   margin: 0 auto 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
 h2 {
@@ -37,11 +37,6 @@ p {
   margin-bottom: 1rem;
   font-size: 0.9rem;
   color: #666666;
-}
-
-.form-group {
-  margin-bottom: 1rem;
-  text-align: left;
 }
 
 label {
@@ -68,13 +63,24 @@ input:focus {
   outline: none;
 }
 
-form select {
+/* Select  */
+select {
   width: 30%;
-  padding: 4px;
-  font-size: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 8px;
+  padding: 0.10rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.90rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  outline: none;
+}
+
+select:disabled {
+  background-color: #f0f0f0;
 }
 
 .btn-submit {

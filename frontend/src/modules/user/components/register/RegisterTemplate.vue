@@ -1,53 +1,51 @@
 <template>
   <div class="register-container">
-    <div class="form-container">
+    <form @submit.prevent="onSubmit">
       <img src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
       <h2>Bem-vindo!</h2>
       <p>Por favor, preencha os campos abaixo para se registrar:</p>
-      <form @submit.prevent="onSubmit">
-        <div class="form-group">
-          <label for="fullName">Nome Completo <span class="required">*</span></label>
-          <input type="text" id="fullName" v-model="formData.fullName" placeholder="Insira o Nome Completo" />
-          <p class="error" v-if="errors.fullName">{{ errors.fullName }}</p>
-        </div>
-        <div class="form-group">
-          <label for="socialName">Nome Social</label>
-          <input type="text" id="socialName" v-model="formData.socialName"
-            placeholder="Insira o Nome Social (opcional)" />
-        </div>
-        <div class="form-group">
-          <label for="document">CPF/CNPJ <span class="required">*</span></label>
-          <select id="docType" v-model="formData.docType" @change="onDocTypeChange">
-            <option value="cpf">CPF</option>
-            <option value="cnpj">CNPJ</option>
-          </select>
-          <input type="text" id="document" v-model="formData.document" :placeholder="placeholder" />
-          <p class="error" v-if="errors.document">{{ errors.document }}</p>
-        </div>
-        <div class="form-group">
-          <label for="phone">Telefone</label>
-          <input type="text" id="phone" v-model="formData.phone" placeholder="Insira o Telefone (opcional)" />
-        </div>
-        <div class="form-group">
-          <label for="email">Email <span class="required">*</span></label>
-          <input type="email" id="email" autocomplete="username" v-model="formData.email"
-            placeholder="Insira o Email" />
-          <p class="error" v-if="errors.email">{{ errors.email }}</p>
-        </div>
-        <div class="form-group">
-          <label for="password">Senha <span class="required">*</span></label>
-          <input type="password" id="password" autocomplete="current-password" v-model="formData.password"
-            placeholder="Insira a Senha" />
-          <p class="error" v-if="errors.password">{{ errors.password }}</p>
-        </div>
-        <button type="submit" class="btn-submit">Cadastrar</button>
-      </form>
-    </div>
+      <div class="form-group">
+        <label for="fullName">Nome Completo <span class="required">*</span></label>
+        <input type="text" id="fullName" v-model="formData.fullName" placeholder="Insira o Nome Completo" />
+        <p class="error" v-if="errors.fullName">{{ errors.fullName }}</p>
+      </div>
+      <div class="form-group">
+        <label for="socialName">Nome Social</label>
+        <input type="text" id="socialName" v-model="formData.socialName"
+          placeholder="Insira o Nome Social (opcional)" />
+      </div>
+      <div class="form-group">
+        <label for="document">CPF/CNPJ <span class="required">*</span></label>
+        <select id="docType" v-model="formData.docType" @change="onDocTypeChange">
+          <option value="cpf">CPF</option>
+          <option value="cnpj">CNPJ</option>
+        </select>
+        <input type="text" id="document" v-model="formData.document" :placeholder="placeholder" />
+        <p class="error" v-if="errors.document">{{ errors.document }}</p>
+      </div>
+      <div class="form-group">
+        <label for="phone">Telefone</label>
+        <input type="text" id="phone" v-model="formData.phone" placeholder="Insira o Telefone (opcional)" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email <span class="required">*</span></label>
+        <input type="email" id="email" autocomplete="username" v-model="formData.email" placeholder="Insira o Email" />
+        <p class="error" v-if="errors.email">{{ errors.email }}</p>
+      </div>
+      <div class="form-group">
+        <label for="password">Senha <span class="required">*</span></label>
+        <input type="password" id="password" autocomplete="current-password" v-model="formData.password"
+          placeholder="Insira a Senha" />
+        <p class="error" v-if="errors.password">{{ errors.password }}</p>
+      </div>
+      <button type="submit" class="btn-submit">Cadastrar</button>
+    </form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { registerUser } from '@/services/api';
+import { validateFormData } from "@/utils/validateForm";
 import { reactive, ref } from "vue";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
@@ -75,98 +73,26 @@ export default {
     const placeholder = ref("Insira o CPF");
 
     const validateForm = () => {
-      let isValid = true;
-
-      // Validação do Nome Completo
-      if (!formData.fullName) {
-        errors.fullName = "O Nome Completo é obrigatório.";
-        isValid = false;
-      } else if (!formData.fullName.trim().includes(" ")) {
-        errors.fullName = "O Nome Completo deve conter pelo menos Nome e Sobrenome.";
-        isValid = false;
-      } else {
-        errors.fullName = "";
-      }
-
-      // Validação do CPF/CNPJ
-      if (!formData.document) {
-        errors.document = "O CPF/CNPJ é obrigatório.";
-        isValid = false;
-      } else if (
-        formData.docType === "cpf" &&
-        !validateCPF(formData.document)
-      ) {
-        errors.document = "CPF inválido.";
-        isValid = false;
-      } else if (
-        formData.docType === "cnpj" &&
-        !validateCNPJ(formData.document)
-      ) {
-        errors.document = "CNPJ inválido.";
-        isValid = false;
-      } else {
-        errors.document = "";
-      }
-
-      // Validação do Email
-      if (!formData.email) {
-        errors.email = "O Email é obrigatório.";
-        isValid = false;
-      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        errors.email = "Email inválido.";
-        isValid = false;
-      } else {
-        errors.email = "";
-      }
-
-      // Validação da Senha
-      if (!formData.password) {
-        errors.password = "A Senha é obrigatória.";
-        isValid = false;
-      } else if (formData.password.length < 6) {
-        errors.password = "A Senha deve ter no mínimo 6 caracteres.";
-        isValid = false;
-      } else if (formData.password.length > 20) {
-        errors.password = "A Senha deve ter no máximo 20 caracteres.";
-      } else {
-        errors.password = "";
-      }
-
-      return isValid;
+      const result = validateFormData(formData);
+      Object.assign(errors, result.errors);
+      return result.isValid;
     };
 
     const onSubmit = async () => {
       if (validateForm()) {
         try {
-          const response = await axios.post("http://localhost:3001/register", formData);
-          toast.success(response.data.message, { autoClose: 3000 });
+          const response = await registerUser(formData);
+          toast.success(response.message, { autoClose: 3000 });
 
-          // Limpar o formulário após o sucesso
           Object.keys(formData).forEach((key) => {
-            formData[key] = "";
+            formData[key] = '';
           });
         } catch (error) {
-          console.error("Erro ao registrar:", error);
-          toast.error(
-            error.response?.data?.message || "Erro ao tentar registrar o usuário.",
-            { autoClose: 3000 }
-          );
+          toast.error(error.message, { autoClose: 3000 });
         }
       } else {
-        toast.error("Por favor, corrija os erros no formulário.", {
-          autoClose: 3000,
-        });
+        toast.error('Por favor, corrija os erros no formulário.', { autoClose: 3000 });
       }
-    };
-
-    const validateCPF = (value) => {
-      const cpf = value.replace(/\D/g, "");
-      return cpf.length === 11;
-    };
-
-    const validateCNPJ = (value) => {
-      const cnpj = value.replace(/\D/g, "");
-      return cnpj.length === 14;
     };
 
     const onDocTypeChange = () => {
