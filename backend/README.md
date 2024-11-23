@@ -1,6 +1,6 @@
-# Backend - Vue Tests
+# Backend - QA Solar
 
-Este é o projeto backend do monorepo **Vue Tests**, construído com **Node.js** e **Express**. Ele fornece uma API simples que interage com um banco de dados **PostgreSQL** utilizando **Prisma** como ORM. O foco principal é suportar o frontend e possibilitar a realização de testes E2E e integrações.
+Este é o projeto backend do monorepo **QA Solar**, construído com **Node.js** e **Express**. Ele fornece uma API simples que interage com um banco de dados **PostgreSQL** utilizando **Prisma** como ORM. O foco principal é suportar o frontend e possibilitar a realização de testes E2E e integrações.
 
 ---
 
