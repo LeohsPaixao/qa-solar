@@ -1,4 +1,4 @@
-TESTS_DIR = tests/test_cases
+TESTS_DIR = tests/specs
 OUTPUT_DIR = results/reports
 ARG_FILE = args.robotargs
 
