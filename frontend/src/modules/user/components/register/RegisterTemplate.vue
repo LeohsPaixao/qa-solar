@@ -63,17 +63,19 @@
         />
         <p class="error" v-if="errors.password">{{ errors.password }}</p>
       </div>
-      <button type="submit" class="btn-submit">Cadastrar</button>
+      <button type="submit" class="btn-submit" :disabled="mutation.isLoading">Cadastrar</button>
+      <p v-if="mutation.isLoading" class="loading">Cadastrando...</p>
+      <p v-if="mutation.isError" class="error">{{ mutation.error?.message }}</p>
     </form>
   </div>
 </template>
 
 <script>
-import { registerUser } from '@/services/api'
 import { validateFormData } from '@/utils/validateForm'
 import { reactive, ref } from 'vue'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { useRegisterUser } from '../../../../hooks/useRegisterUser'
 
 export default {
   setup() {
@@ -95,6 +97,7 @@ export default {
     })
 
     const placeholder = ref('Insira o CPF')
+    const mutation = useRegisterUser()
 
     const validateForm = () => {
       const result = validateFormData(formData)
@@ -102,18 +105,9 @@ export default {
       return result.isValid
     }
 
-    const onSubmit = async () => {
+    const onSubmit = () => {
       if (validateForm()) {
-        try {
-          const response = await registerUser(formData)
-          toast.success(response.message, { autoClose: 3000 })
-
-          Object.keys(formData).forEach((key) => {
-            formData[key] = ''
-          })
-        } catch (error) {
-          toast.error(error.message, { autoClose: 3000 })
-        }
+        mutation.mutate(formData)
       } else {
         toast.error('Por favor, corrija os erros no formulário.', { autoClose: 3000 })
       }
@@ -129,6 +123,7 @@ export default {
       placeholder,
       onSubmit,
       onDocTypeChange,
+      mutation,
     }
   },
 }
