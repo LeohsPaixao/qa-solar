@@ -66,11 +66,13 @@ input:focus {
 /* Select  */
 select {
   width: 30%;
-  padding: 0.10rem;
+  padding: 0.1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 0.90rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 select:focus {

@@ -4,7 +4,7 @@
 
 ---
 
-# Vue Tests Monorepo
+# QA Solar Monorepo
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=22.1.0-brightgreen.svg)](https://nodejs.org/)

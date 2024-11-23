@@ -1,23 +1,30 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "backend for Vue Project",
-  "main": "index.js",
+  "description": "backend for QA Solar Project",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "private": false,
   "scripts": {
-    "api": "node src/server.js"
+    "api": "ts-node src/server.js",
+    "format": "prettier --write src/"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
+    "chalk": "^5.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.13.1",
+    "prettier": "^3.3.3",
     "prisma": "^5.22.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
   }
 }

@@ -1,37 +1,37 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const pool = require("../config/database");
+import { PrismaClient } from '@prisma/client'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
-module.exports.loginUser = async (req, res) => {
-  const { email, password } = req.body;
+const prisma = new PrismaClient()
+
+export async function loginUser(req, res) {
+  const { email, password } = req.body
 
   try {
-    const userResult = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    const user = await prisma.user.findUnique({
+      where: { email },
+    })
 
-    if (userResult.rows.length === 0) {
-      return res.status(400).json({ message: "Usuário não encontrado." });
+    if (!user) {
+      return res.status(400).json({ message: 'Usuário não encontrado.' })
     }
 
-    const user = userResult.rows[0];
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password)
 
     if (!isPasswordValid) {
-      return res.status(400).json({ message: "A senha não confere." });
+      return res.status(400).json({ message: 'A senha não confere.' })
     }
 
-    const token = jwt.sign(
-      { userId: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+    const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    })
 
     res.status(200).json({
-      message: "Login realizado com sucesso!",
-      token
-    });
+      message: 'Login realizado com sucesso!',
+      token,
+    })
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Erro ao tentar realizar o login." });
+    console.error(error)
+    res.status(500).json({ message: 'Erro ao tentar realizar o login.' })
   }
-};
+}

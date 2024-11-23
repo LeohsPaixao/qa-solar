@@ -10,8 +10,7 @@
   </header>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style scoped>
 .app-header {
@@ -30,6 +29,7 @@
 }
 
 .app-header a {
+  font-family: 'Arial', sans-serif;
   text-decoration: none;
   color: #333;
   font-weight: bold;
