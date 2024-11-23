@@ -1,7 +1,1 @@
-cd backend/
-yarn format
-
-cd ..
-
-cd frontend/
-yarn format
+yarn format:all
