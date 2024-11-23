@@ -39,7 +39,8 @@ form:hover {
 }
 
 /* Títulos e texto */
-h2, p {
+h2,
+p {
   margin-bottom: 0.5rem;
   color: #333333;
   text-align: center;
@@ -73,7 +74,9 @@ label {
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   display: flex;
   align-items: center;
 }
@@ -84,7 +87,9 @@ label {
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   display: flex;
   align-items: center;
 }
@@ -114,7 +119,7 @@ input:disabled {
 button {
   display: block;
   width: 100%;
-  padding: 0.40rem;
+  padding: 0.4rem;
   background-color: #4caf50;
   color: white;
   border: none;
@@ -122,7 +127,9 @@ button {
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
   text-align: center;
   justify-content: center;
   align-items: center;
