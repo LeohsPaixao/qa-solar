@@ -1,6 +1,6 @@
-# Frontend - Vue Tests
+# Frontend - QA Solar
 
-Este é o projeto frontend do monorepo **Vue Tests**, construído com **Vue 3**, **Vue Router** e outras ferramentas modernas para o desenvolvimento de aplicações web. O objetivo deste projeto é implementar interfaces de usuário e validar fluxos com foco em qualidade e boas práticas.
+Este é o projeto frontend do monorepo **QA Solar**, construído com **Vue 3**, **Vue Router** e outras ferramentas modernas para o desenvolvimento de aplicações web. O objetivo deste projeto é implementar interfaces de usuário e validar fluxos com foco em qualidade e boas práticas.
 
 ---
 

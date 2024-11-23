@@ -5,17 +5,16 @@
 </template>
 
 <script setup lang="ts">
-import AppFooter from '@/components/AppFooter.vue';
-import AppHeader from '@/components/AppHeader.vue';
-import { computed } from 'vue';
-import { RouterView, useRouter } from 'vue-router';
+import AppFooter from '@/components/AppFooter.vue'
+import AppHeader from '@/components/AppHeader.vue'
+import { computed } from 'vue'
+import { RouterView, useRouter } from 'vue-router'
 
-const { currentRoute } = useRouter();
+const { currentRoute } = useRouter()
 
-const canShowHeader = computed(() =>
-  currentRoute.value.path !== '/login' &&
-  currentRoute.value.path !== '/signup'
-);
+const canShowHeader = computed(
+  () => currentRoute.value.path !== '/login' && currentRoute.value.path !== '/signup',
+)
 </script>
 
 <style src="./assets/styles/main.css"></style>

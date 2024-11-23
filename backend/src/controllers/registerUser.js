@@ -1,20 +1,34 @@
-const pool = require("../config/database");
-const bcrypt = require("bcryptjs");
+import { PrismaClient } from '@prisma/client'
+import bcrypt from 'bcryptjs'
 
-module.exports.registerUser = async (req, res) => {
-  const { fullName, socialName, document, docType, phone, email, password } = req.body;
+const prisma = new PrismaClient()
+
+export const registerUser = async (req, res) => {
+  const { fullName, socialName, document, docType, phone, email, password } = req.body
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-    await pool.query(
-      `INSERT INTO users (full_name, social_name, document, doc_type, phone, email, password) 
-       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [fullName, socialName, document, docType, phone, email, hashedPassword]
-    );
+    await prisma.user.create({
+      data: {
+        full_name: fullName,
+        social_name: socialName,
+        document,
+        doc_type: docType,
+        phone,
+        email,
+        password: hashedPassword,
+      },
+    })
 
-    res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
+    res.status(201).json({ message: 'Usuário cadastrado com sucesso!' })
   } catch (error) {
-    res.status(500).json({ message: "Erro ao tentar cadastrar o usuário." });
+    console.error('Erro ao registrar usuário:', error)
+
+    if (error.code === 'P2002' && error.meta?.target?.includes('email')) {
+      return res.status(400).json({ message: 'E-mail já está em uso.' })
+    }
+
+    res.status(500).json({ message: 'Erro ao tentar cadastrar o usuário.' })
   }
-};
+}

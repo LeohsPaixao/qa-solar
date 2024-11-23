@@ -1,1 +1,7 @@
-yarn --version
+cd backend/
+yarn format
+
+cd ..
+
+cd frontend/
+yarn format

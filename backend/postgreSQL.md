@@ -1,6 +1,6 @@
 # Configuração do PostgreSQL
 
-Este guia descreve o processo de instalação e configuração do PostgreSQL para garantir que o backend do projeto **Vue Tests** funcione corretamente. Ele inclui passos para usuários de **Windows** e **Linux**, além das permissões necessárias e a criação da tabela `users`.
+Este guia descreve o processo de instalação e configuração do PostgreSQL para garantir que o backend do projeto **QA Solar** funcione corretamente. Ele inclui passos para usuários de **Windows** e **Linux**, além das permissões necessárias e a criação da tabela `users`.
 
 ---
 
@@ -80,40 +80,12 @@ ALTER USER nome_do_usuario CREATEDB;
 
 ---
 
-## 🛠️ Criar a Tabela `users`
-
-No terminal `psql`, conecte-se ao banco de dados:
-```bash
-\c nome_do_banco
-```
-
-Crie a tabela `users`:
-```sql
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  full_name VARCHAR(255) NOT NULL,
-  social_name VARCHAR(255),
-  document VARCHAR(20) NOT NULL,
-  doc_type VARCHAR(10) NOT NULL,
-  phone VARCHAR(20),
-  email VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL
-);
-```
-
----
-
 ## 🔧 Configurar Variáveis de Ambiente
 
 No arquivo `.env` do backend, configure as variáveis relacionadas ao banco de dados:
 ```plaintext
-DATABASE_USER=nome_do_usuario
-DATABASE_PASSWORD=sua_senha
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_SCHEMA=nome_do_banco
-
-DATABASE_URL="postgresql://nome_do_usuario:sua_senha@localhost:5432/nome_do_banco?schema=public"
+DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<database>
+JWT_SECRET=<sua-chave-secreta>
 ```
 
 ---
