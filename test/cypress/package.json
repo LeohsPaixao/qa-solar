@@ -2,11 +2,26 @@
   "name": "cypress-ui-tests",
   "version": "1.0.0",
   "description": "Project Tests Cypress",
-  "main": "index.js",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "cy:run": "npx cypress run --browser chrome --config-file cypress.config.ts",
+    "cy:open": "npx cypress open --config-file cypress.config.ts"
+  },
   "dependencies": {
-    "cypress": "^13.16.0"
+    "@faker-js/faker": "^9.2.0",
+    "axios": "^1.7.7",
+    "cypress": "^13.16.0",
+    "cypress-network-idle": "^1.14.2",
+    "dotenv": "16.4.5"
+  },
+  "devDependencies": {
+    "eslint": "9.15.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-cypress": "4.1.0",
+    "eslint-plugin-import": "2.31.0",
+    "typescript": "5.7.2"
   }
 }
