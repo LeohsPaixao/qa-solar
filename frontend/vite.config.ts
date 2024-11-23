@@ -21,12 +21,5 @@ export default defineConfig({
   },
   server: {
     port: 8181,
-    proxy: {
-      '/api': {
-        target: 'https://api.exemplo.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
   },
 })

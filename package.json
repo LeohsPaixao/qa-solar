@@ -1,14 +1,22 @@
 {
   "name": "qa-solar",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Simple project VUE for UI Testing with Frameworks: Cypress, Robot and Playwright",
   "repository": "git@github.com:LeohsPaixao/qa-solar.git",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
+  "workspaces": [
+    ".",
+    "backend",
+    "frontend",
+    "test/cypress",
+    "test/playwright"
+  ],
   "scripts": {
     "changeset": "changeset",
-    "version-packages": "changeset version"
+    "version-packages": "changeset version",
+    "format:all": "yarn workspace backend format && yarn workspace frontend format"
   },
   "keywords": [
     "testing",

@@ -1,5 +1,12 @@
 # qa-solar
 
+## 2.2.1
+
+### Patch Changes
+
+- 8097c95: feat: instala vue-query para aprimorar a conexao do front com back
+- feat: atualiza o pacote do projeto principal
+
 ## 2.2.0
 
 ### Minor Changes

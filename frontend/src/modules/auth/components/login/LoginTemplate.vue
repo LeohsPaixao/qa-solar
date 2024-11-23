@@ -16,6 +16,7 @@
             data-testid="input-email"
             type="email"
             id="email"
+            autocomplete="username"
             v-model="email"
             :class="['input-email', { 'input-error': errors.email }]"
           />
@@ -29,6 +30,7 @@
             data-testid="input-password"
             type="password"
             id="password"
+            autocomplete="current-password"
             v-model="password"
             :class="['input-password', { 'input-error': errors.password }]"
           />
@@ -40,9 +42,10 @@
           data-testid="btn-login"
           class="btn btn-login"
           type="submit"
-          :disabled="!isButtonEnabled"
+          :disabled="!isButtonEnabled || mutation.isLoading"
         >
-          Entrar na Conta
+          <span v-if="mutation.isLoading">Entrando...</span>
+          <span v-else>Entrar na Conta</span>
         </button>
         <div class="link-container">
           <a
@@ -53,23 +56,24 @@
           >
           <a data-testid="link-singup" href="/signup" class="link signup">Criar uma nova conta</a>
         </div>
+        <p v-if="mutation.isError" class="error-message">{{ mutation.error?.message }}</p>
       </form>
     </div>
   </div>
 </template>
 
 <script setup>
-import { loginUser } from '@/services/api'
 import { validateEmail, validatePassword } from '@/utils/validateLogin'
 import { computed, ref } from 'vue'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { useLoginUser } from '../../../../hooks/useLoginUser.js'
 
 const email = ref('')
 const password = ref('')
 const errors = ref({ email: '', password: '' })
-
 const isButtonEnabled = computed(() => email.value.trim() !== '' && password.value.trim() !== '')
+const mutation = useLoginUser()
 
 const validateForm = () => {
   const emailError = validateEmail(email.value)
@@ -83,18 +87,9 @@ const validateForm = () => {
   return !emailError && !passwordError
 }
 
-const handleLogin = async () => {
-  const isValid = validateForm()
-  if (isValid) {
-    try {
-      const loginData = { email: email.value, password: password.value }
-      const response = await loginUser(loginData)
-
-      toast.success(response.message, { autoClose: 3000 })
-      window.localStorage.setItem('user-token', response.token)
-    } catch (error) {
-      toast.error(error.message, { autoClose: 5000 })
-    }
+const handleLogin = () => {
+  if (validateForm()) {
+    mutation.mutate({ email: email.value, password: password.value })
   } else {
     toast.error('Por favor, corrija os erros no formulário.', {
       autoClose: 5000,
