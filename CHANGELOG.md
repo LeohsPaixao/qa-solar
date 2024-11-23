@@ -1,5 +1,11 @@
 # vue-tests
 
+## 2.1.0
+
+### Minor Changes
+
+- fbd0fe3: feat: altera de query sql manual para query prisma
+
 ## 2.0.1
 
 ### Patch Changes
