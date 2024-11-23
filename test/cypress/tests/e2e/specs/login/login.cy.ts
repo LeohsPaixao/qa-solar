@@ -5,7 +5,7 @@ describe('Tela de Login', () => {
     cy.visitAndwait('/login')
   })
 
-  it('deveria ser possivel visualizar os elementos da tela', () => {
+  it('Deveria ser possivel visualizar os elementos da tela', () => {
     cy.get('[data-testid="form"]').should('be.visible')
     cy.get('[data-testid="logo"]').should('be.visible')
     cy.get('[data-testid="input-email"]').should('be.visible')
