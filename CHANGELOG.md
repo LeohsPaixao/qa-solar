@@ -1,4 +1,12 @@
-# vue-tests
+# qa-solar
+
+## 2.2.0
+
+### Minor Changes
+
+- 0c7df6e: feat: configura o projeto do playwright
+- 794d177: feat: configura o projeto de cypress
+- 13f5750: feat: configura o projeto de robot-framework
 
 ## 2.1.0
 
