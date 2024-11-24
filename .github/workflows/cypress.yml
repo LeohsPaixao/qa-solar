@@ -28,6 +28,8 @@ jobs:
           yarn prisma migrate dev
           yarn prisma:seed
           nohup yarn api > backend.log 2>&1 &
+        env:
+          DATABASE_URL: "postgresql://leopaixao:9612@localhost:5432/tests_base?schema=public"
 
       - name: Configurar e iniciar frontend
         run: |
