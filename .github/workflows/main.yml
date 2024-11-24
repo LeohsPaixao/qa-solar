@@ -31,13 +31,17 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar e iniciar backend
+      - name: Configurar node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: |
+      
+      - name: Instalar as dependências do Monorepo
+        run: yarn    
+
+      - name: Iniciar backend
+        run: |
           cd backend
-          yarn install
           yarn prisma migrate dev
           yarn prisma:seed
           nohup yarn api > backend.log 2>&1 &
@@ -47,7 +51,6 @@ jobs:
       - name: Configurar e iniciar frontend
         run: |
           cd frontend
-          yarn install
           nohup yarn serve > frontend.log 2>&1 &
 
   cypress-tests:
@@ -55,14 +58,6 @@ jobs:
     needs: setup-environment
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-
-      - name: Instalar dependências do Cypress
-        run: |
-          cd test/cypress
-          yarn install
-
       - name: Executar testes Cypress
         run: |
           cd test/cypress
@@ -80,14 +75,6 @@ jobs:
     needs: setup-environment
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-
-      - name: Instalar dependências do Playwright
-        run: |
-          cd test/playwright
-          yarn install
-
       - name: Executar testes Playwright
         run: |
           cd test/playwright
@@ -106,16 +93,13 @@ jobs:
     needs: setup-environment
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout do repositório
-        uses: actions/checkout@v4
-
       - name: Configurar Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.11
 
       - name: Instalar dependências do sistema para Robot Framework
-        run: chmod +x ./.github/scripts/chrome.sh && ./.github/scripts/chrome.sh
+        run: chmod +x .github/scripts/chrome.sh && .github/scripts/chrome.sh
 
       - name: Criar ambiente virtual para Python
         run: python -m venv venv
