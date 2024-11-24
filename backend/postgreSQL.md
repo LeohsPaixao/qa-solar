@@ -97,7 +97,7 @@ JWT_SECRET=<sua-chave-secreta>
    yarn prisma migrate dev
    ```
 
-2. Logo em seguid, execute os seeders:
+2. Logo em seguida, execute os seeders:
    ```bash
    yarn prisma:seed
    ```
