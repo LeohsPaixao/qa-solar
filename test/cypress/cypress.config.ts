@@ -15,7 +15,7 @@ export default defineConfig({
     viewportHeight: 768,
     viewportWidth: 1366,
     specPattern: './tests/e2e/**/*.cy.{js,ts}',
-    supportFile: './tests/e2e/support/e2e.{js,ts}',
+    supportFile: './tests/e2e/support/e2e.ts',
     screenshotsFolder: './tests/e2e/misc/screenshots',
     downloadsFolder: './tests/e2e/misc/downloads',
     fixturesFolder: './tests/e2e/fixtures',
