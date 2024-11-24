@@ -12,7 +12,7 @@ on:
 
 jobs:
   cypress-tests:
-    name: Iniciar servidores Frontend e Backend
+    name: Cypress Testes QA-Solar
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -61,3 +61,9 @@ jobs:
         run: |
           cd test/cypress
           yarn cy:run
+
+      - name: Salvar artefatos do Cypress
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: tests/e2e/misc/screenshots
