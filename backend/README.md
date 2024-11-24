@@ -28,7 +28,7 @@ Este é o projeto backend do monorepo **QA Solar**, construído com **Node.js** 
    ```bash
    git clone https://github.com/LeohsPaixao/vue-tests.git
    cd vue-tests/backend
-   yarn install
+   yarn
    ```
 
 3. **Configuração do Banco de Dados**:
@@ -48,6 +48,7 @@ Este é o projeto backend do monorepo **QA Solar**, construído com **Node.js** 
    ```bash
    yarn api
    ```
+   ![yarnApi](https://github.com/user-attachments/assets/787c4be5-0f54-4765-88be-90ccfbb6c70f)
 
 ---
 
