@@ -11,7 +11,7 @@ async function main() {
 
   const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
-  const genericUser = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: 'generic@example.com' },
     update: {},
     create: {
@@ -24,14 +24,11 @@ async function main() {
       password: hashedPassword,
     },
   });
-
-  console.log(genericUser.created_at ? genericUser : 'Usuário já existe');
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
+  .catch((error) => {
+    throw new Error('Não foi possivel criar o usuário genérico', + error.message)
   })
   .finally(async () => {
     await prisma.$disconnect();
