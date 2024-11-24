@@ -21,30 +21,25 @@ Este é o projeto backend do monorepo **QA Solar**, construído com **Node.js** 
 1. **Pré-requisitos**:
    - [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=22.1.0-brightgreen.svg)](https://nodejs.org/)
    - [![Yarn Version](https://img.shields.io/badge/Yarn-1.22.22-blue.svg)](https://classic.yarnpkg.com/en/docs/install/)
-   - Banco de dados **PostgreSQL**, para mais detalhes, acesse [configurar PostgreSQL](postgreSQL.md)
+   - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?logo=postgresql&logoColor=white)
 
 2. **Instalação**:
    Clone o repositório e navegue até o diretório `backend`:
    ```bash
-   git clone https://github.com/LeohsPaixao/vue-tests.git
-   cd vue-tests/backend
+   git clone https://github.com/LeohsPaixao/qa-solar.git
+   cd qa-solar/backend
    yarn
    ```
 
 3. **Configuração do Banco de Dados**:
-   - Crie um banco de dados no PostgreSQL.
+   - Crie um banco de dados no PostgreSQL, para mais detalhes, acesse [configurar PostgreSQL](postgreSQL.md)
    - Copie o arquivo `.env.example` para `.env` e preencha as informações:
      ```plaintext
-     DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<database>
+     DATABASE_URL=postgresql://USERNAME:PASSWORD@HOST:PORT/DATABASE?schema=public
      JWT_SECRET=<sua-chave-secreta>
      ```
 
-4. **Gerar as Migrações**:
-   ```bash
-   yarn prisma migrate dev
-   ```
-
-5. **Iniciar o Servidor**:
+4. **Iniciar o Servidor**:
    ```bash
    yarn api
    ```
@@ -59,6 +54,7 @@ backend/
 ├── prisma/
 │   ├── schema.prisma  # Definição do banco de dados e modelos
 │   └── migrations/    # Histórico de migrações do banco de dados
+│   └── seeders/       # Dados para popular o banco de dados
 ├── src/
 │   ├── config/        # Middlewares para validação e autenticação
 │   ├── constants/     # Mensagens e variaveis reutilizadas
@@ -78,6 +74,7 @@ backend/
 - **`yarn api`**: Inicia o servidor backend.  
 - **`yarn prisma migrate dev`**: Executa migrações no banco de dados.  
 - **`yarn prisma generate`**: Gera os clientes do Prisma com base no schema.
+- **`yarn prisma:seed`**: Popula o banco de dados
 
 ---
 
