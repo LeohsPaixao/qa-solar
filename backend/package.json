@@ -8,7 +8,8 @@
   "private": false,
   "scripts": {
     "api": "ts-node src/server.js",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "prisma:seed": "ts-node prisma/seeders/*.js"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
