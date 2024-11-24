@@ -25,6 +25,8 @@ jobs:
       - run: |
           cd backend
           yarn install
+          yarn prisma migrate dev
+          yarn prisma:seed
           nohup yarn api > backend.log 2>&1 &
 
       - name: Configurar e iniciar frontend
