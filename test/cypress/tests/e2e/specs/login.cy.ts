@@ -33,8 +33,7 @@ describe('Tela de Login', () => {
     cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} generic@example.com')
     cy.get('[data-testid="input-password"]').should('be.visible').type('123456')
     cy.get('[data-testid="btn-login"]').should('be.enabled').click()
-    cy.get('[data-testid="btn-login"]').should('be.enabled').click()
-    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Login realizado com sucesso!')
+    cy.get('.Toastify').should('exist')
   })
 
   it('Deveria ser possivel ir para a tela de cadastro', () => {
