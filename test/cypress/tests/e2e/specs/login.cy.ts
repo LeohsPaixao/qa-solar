@@ -11,4 +11,57 @@ describe('Tela de Login', () => {
     cy.get('[data-testid="input-password"]').should('be.visible')
     cy.get('[data-testid="btn-login"]').should('be.visible').and('be.disabled')
   })
+
+  it('Não deveria ser possivel fazer login com credenciais inválidas', () => {
+    cy.get('[data-testid="btn-login"]').should('be.disabled')
+    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} email@example.com')
+    cy.get('[data-testid="input-password"]').should('be.visible').type('{selectall} password@example.com')
+    cy.get('[data-testid="btn-login"]').should('be.enabled').click()
+    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Usuário não encontrado.')
+  })
+
+  it('Não deveria ser possivel fazer login com a senha inválidas', () => {
+    cy.get('[data-testid="btn-login"]').should('be.disabled')
+    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} leopaixao@gmail.com')
+    cy.get('[data-testid="input-password"]').should('be.visible').type('{selectall} password@example.com')
+    cy.get('[data-testid="btn-login"]').should('be.enabled').click()
+    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'A senha não confere.')
+  })
+
+  it('Deveria ser possivel fazer login com credenciais válidas', () => {
+    cy.get('[data-testid="btn-login"]').should('be.disabled')
+    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} leopaixao@gmail.com')
+    cy.get('[data-testid="input-password"]').should('be.visible').type('123456')
+    cy.get('[data-testid="btn-login"]').should('be.enabled').click()
+    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Login realizado com sucesso!')
+  })
+
+  it('Deveria ser possivel ir para a tela de cadastro', () => {
+    const baseUrl = Cypress.config('baseUrl');
+
+    cy.get('[data-testid="link-singup"]').should('be.visible').click()
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(
+        `${baseUrl}/signup`,
+      );
+      expect(loc.origin).to.eq(baseUrl);
+      expect(loc.pathname).to.eq('/signup');
+      expect(loc.protocol).to.eq('http:');
+    });
+  })
+
+  /* Tela em Desenvolvimento */
+  it.skip('Deveria ser possivel ir para a tela de esqueci a senha', () => {
+    const baseUrl = Cypress.config('baseUrl');
+
+    cy.get('[data-testid="link-singup"]').should('be.visible').click()
+    cy.location().should((loc) => {
+      expect(loc.href).to.eq(
+        `${baseUrl}/recover-password`,
+      );
+      expect(loc.origin).to.eq(baseUrl);
+      expect(loc.pathname).to.eq('/recover-password');
+      expect(loc.protocol).to.eq('http:');
+    });
+  })
 })
