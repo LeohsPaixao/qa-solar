@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      - feat/adiciona-ci-cd-no-projeto
   pull_request:
     branches:
       - main
-      - feat/adiciona-ci-cd-no-projeto
 
 jobs:
   robot-tests:

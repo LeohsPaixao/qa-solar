@@ -39,9 +39,6 @@ jobs:
           yarn install
 
       - name: Executar os testes
-        id: cypress
-        uses: cypress-io/github-action@v6
-        with:
-          config-file: ./test/cypress/cypress.config.ts
-          browser: chrome
-          spec: test/cypress/tests/e2e/specs/*.cy.ts
+        run: |
+          cd test/cypress
+          yarn cy:run
