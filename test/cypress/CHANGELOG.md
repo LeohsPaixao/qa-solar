@@ -1,5 +1,15 @@
 # cypress-ui-tests
 
+## 1.2.0
+
+### Minor Changes
+
+- 8bb98a4: test: finaliza os testes do login.cy.ts
+
+### Patch Changes
+
+- 8e12f26: feat: remove @see dos comentários de declaração dos comandos customizados
+
 ## 1.1.0
 
 ### Minor Changes
