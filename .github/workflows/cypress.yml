@@ -14,6 +14,21 @@ jobs:
   cypress-tests:
     name: Iniciar servidores Frontend e Backend
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: tests_base
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout do repositório
         uses: actions/checkout@v4
@@ -29,7 +44,7 @@ jobs:
           yarn prisma:seed
           nohup yarn api > backend.log 2>&1 &
         env:
-          DATABASE_URL: "postgresql://leopaixao:9612@localhost:5432/tests_base?schema=public"
+          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/tests_base?schema=public"
 
       - name: Configurar e iniciar frontend
         run: |
