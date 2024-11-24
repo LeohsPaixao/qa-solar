@@ -5,7 +5,6 @@ declare namespace Cypress {
     /**
      * Comando customizado do Cypress para visitar uma URL e aguardar a conclusão de uma requisição de rede.
      *
-     * @see https://wiki.solarmarket.com.br/qualidade/comandos/visitAndWait
      * Esta função utiliza `cy.waitForNetworkIdlePrepare` para preparar a espera pela inatividade da rede,
      * `cy.visit` para navegar para a URL especificada, e `cy.waitReq` para aguardar uma requisição de rede específica.
      *
@@ -20,7 +19,6 @@ declare namespace Cypress {
     /**
      * Um comando personalizado do Cypress para aguardar a duração de uma animação especificada.
      *
-     * @see https://wiki.solarmarket.com.br/qualidade/comandos/waitForAnimation
      *
      * @remarks
      * Este comando é útil para cenários de teste onde é necessário aguardar a conclusão de uma animação antes de prosseguir com ações adicionais.
@@ -38,7 +36,6 @@ declare namespace Cypress {
     /**
      * Comando customizado do Cypress para verificar se o DOM está completamente carregado e se um elemento específico está visível.
      *
-     * @see https://wiki.solarmarket.com.br/qualidade/comandos/checkDomLoaded
      * 
      * @remarks
      * Este comando é útil para garantir que o DOM esteja completamente carregado antes de interagir com os elementos.
