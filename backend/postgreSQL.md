@@ -97,9 +97,9 @@ JWT_SECRET=<sua-chave-secreta>
    yarn prisma migrate dev
    ```
 
-2. Inicie o servidor backend:
+2. Logo em seguid, execute os seeders:
    ```bash
-   yarn api
+   yarn prisma:seed
    ```
 
 Se tudo estiver configurado corretamente, o backend estará funcionando e conectado ao PostgreSQL.
