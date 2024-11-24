@@ -12,14 +12,6 @@ describe('Tela de Login', () => {
     cy.get('[data-testid="btn-login"]').should('be.visible').and('be.disabled')
   })
 
-  it('Deveria ser possivel fazer login com credenciais válidas', () => {
-    cy.get('[data-testid="btn-login"]').should('be.disabled')
-    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} generic@example.com', { delay: 50 })
-    cy.get('[data-testid="input-password"]').should('be.visible').type('123456', { delay: 50 })
-    cy.get('[data-testid="btn-login"]').should('be.enabled').click()
-    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Login realizado com sucesso!')
-  })
-
   it('Não deveria ser possivel fazer login com credenciais inválidas', () => {
     cy.get('[data-testid="btn-login"]').should('be.disabled')
     cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} email@example.com')
@@ -34,6 +26,14 @@ describe('Tela de Login', () => {
     cy.get('[data-testid="input-password"]').should('be.visible').type('{selectall} password@example.com')
     cy.get('[data-testid="btn-login"]').should('be.enabled').click()
     cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'A senha não confere.')
+  })
+
+  it('Deveria ser possivel fazer login com credenciais válidas', () => {
+    cy.get('[data-testid="btn-login"]').should('be.disabled')
+    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} generic@example.com')
+    cy.get('[data-testid="input-password"]').should('be.visible').type('123456')
+    cy.get('[data-testid="btn-login"]').should('be.enabled').click()
+    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Login realizado com sucesso!')
   })
 
   it('Deveria ser possivel ir para a tela de cadastro', () => {

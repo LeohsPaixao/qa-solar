@@ -63,6 +63,7 @@ jobs:
           yarn cy:run
 
       - name: Salvar artefatos do Cypress
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v3
         with:
           name: cypress-artifacts
