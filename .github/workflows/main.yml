@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - main-workflow
+  workflow_dispatch:
 
 jobs:
   cypress-tests:
@@ -45,8 +46,19 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
-      - name: Configurar serviços
-        uses: ./.github/actions/setup-services
+      - name: Iniciar backend
+        run: |
+          cd backend
+          yarn prisma migrate dev
+          yarn prisma:seed
+          nohup yarn api &
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
+      - name: Iniciar frontend
+        run: |
+          cd frontend
+          nohup yarn serve &
 
       - name: Executar testes Cypress
         run: |
@@ -98,8 +110,19 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
-      - name: Configurar serviços
-        uses: ./.github/actions/setup-services
+      - name: Iniciar backend
+        run: |
+          cd backend
+          yarn prisma migrate dev
+          yarn prisma:seed
+          nohup yarn api &
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
+      - name: Iniciar frontend
+        run: |
+          cd frontend
+          nohup yarn serve &
 
       - name: Instalar navegadores para Playwright
         run: |
@@ -163,8 +186,19 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
-      - name: Configurar serviços
-        uses: ./.github/actions/setup-services
+      - name: Iniciar backend
+        run: |
+          cd backend
+          yarn prisma migrate dev
+          yarn prisma:seed
+          nohup yarn api &
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
+      - name: Iniciar frontend
+        run: |
+          cd frontend
+          nohup yarn serve &
 
       - name: Configurar Robot Framework
         run: chmod +x .github/scripts/chrome.sh && .github/scripts/chrome.sh
