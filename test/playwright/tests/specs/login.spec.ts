@@ -54,8 +54,8 @@ test.describe('Tela de Login', () => {
     expect(url.protocol).toBe('http:');
   });
 
-  test.skip('Deveria ser possível ir para a tela de esqueci a senha', async ({ page, baseURL }) => {
-    await page.locator('[data-testid="link-singup"]').click();
+  test('Deveria ser possível ir para a tela de esqueci a senha', async ({ page, baseURL }) => {
+    await page.locator('[data-testid="link-recover-password"]').click();
     await expect(page).toHaveURL(`${baseURL}/recover-password`);
     const url = new URL(page.url());
     expect(url.origin).toBe(baseURL);

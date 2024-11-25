@@ -50,11 +50,10 @@ describe('Tela de Login', () => {
     });
   })
 
-  /* Tela em Desenvolvimento */
-  it.skip('Deveria ser possivel ir para a tela de esqueci a senha', () => {
+  it('Deveria ser possivel ir para a tela de esqueci a senha', () => {
     const baseUrl = Cypress.config('baseUrl');
 
-    cy.get('[data-testid="link-singup"]').should('be.visible').click()
+    cy.get('[data-testid="link-recover-password"]').should('be.visible').click()
     cy.location().should((loc) => {
       expect(loc.href).to.eq(
         `${baseUrl}/recover-password`,
