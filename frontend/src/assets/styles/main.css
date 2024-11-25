@@ -1,6 +1,9 @@
 body {
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
   font-family: 'Arial', sans-serif;
   display: block;
   background: #ffeed9;
-  margin: 0%;
+  margin: 0;
 }
