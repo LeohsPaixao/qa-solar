@@ -8,19 +8,20 @@
 
 <style scoped>
 .app-footer {
-  text-align: left;
+  text-align: center;
   padding: 0.1rem;
   background-color: #3e3e3e;
   color: white;
-  font-size: 0.7rem;
-  position: relative;
-  margin-top: 20px;
+  font-size: 0.8rem;
+  margin: 0;
+  box-sizing: border-box;
   width: 100%;
-  bottom: 0;
+  position: fixed;
 }
 
 p {
   font-family: 'Arial', sans-serif;
   color: white;
+  margin: 0;
 }
 </style>
