@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.2.2
+
+### Patch Changes
+
+- 8b3d4bc: test: tira o teste ignorado do login.cy.ts
+
 ## 1.2.1
 
 ### Patch Changes
