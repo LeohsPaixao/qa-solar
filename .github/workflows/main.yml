@@ -1,12 +1,11 @@
 name: Testes QA-Solar - CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
+      - main-workflow
+  workflow_dispatch:
 
 jobs:
   cypress-tests:
@@ -31,12 +30,20 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar node
+      - name: Configurar cache do Yarn
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Instalar as dependências do Monorepo
+      - name: Instalar dependências do Monorepo
         run: yarn
 
       - name: Iniciar backend
@@ -44,16 +51,16 @@ jobs:
           cd backend
           yarn prisma migrate dev
           yarn prisma:seed
-          nohup yarn api > backend.log 2>&1 &
+          nohup yarn api &
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/tests_base?schema=public"
-
-      - name: Configurar e iniciar frontend
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
+      - name: Iniciar frontend
         run: |
           cd frontend
-          nohup yarn serve > frontend.log 2>&1 &
+          nohup yarn serve &
 
-      - name: Executar os testes
+      - name: Executar testes Cypress
         run: |
           cd test/cypress
           yarn cy:run
@@ -63,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4.4.3
         with:
           name: cypress-artifacts
-          path: tests/e2e/misc/screenshots
+          path: test/cypress/screenshots/
 
   playwright-tests:
     name: Playwright Testes QA-Solar
@@ -87,12 +94,20 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar node
+      - name: Configurar cache do Yarn
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+            ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Instalar as dependências do Monorepo
+      - name: Instalar dependências do Monorepo
         run: yarn
 
       - name: Iniciar backend
@@ -100,27 +115,31 @@ jobs:
           cd backend
           yarn prisma migrate dev
           yarn prisma:seed
-          nohup yarn api > backend.log 2>&1 &
+          nohup yarn api &
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/tests_base?schema=public"
-
-      - name: Configurar e iniciar frontend
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
+      - name: Iniciar frontend
         run: |
           cd frontend
-          nohup yarn serve > frontend.log 2>&1 &
+          nohup yarn serve &
+
+      - name: Instalar navegadores para Playwright
+        run: |
+          cd test/playwright
+          yarn playwright install --with-deps chromium
 
       - name: Executar testes Playwright
         run: |
           cd test/playwright
-          yarn playwright install --with-deps chromium
           yarn play:run
 
-      - name: Upload de testes falhados
+      - name: Upload de relatório Playwright
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v4.4.3
-        if: ${{ !cancelled() }}
         with:
           name: playwright-report
-          path: playwright-report/
+          path: test/playwright/playwright-report/
           retention-days: 30
 
   robot-framework-tests:
@@ -145,18 +164,26 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar Python
-        uses: actions/setup-python@v4
+      - name: Configurar cache do Yarn
+        uses: actions/cache@v4
         with:
-          python-version: 3.11
-          check-latest: true
+          path: |
+            **/node_modules
+            ~/.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Configurar node
+      - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Instalar as dependências do Monorepo
+      - name: Configurar Python
+        uses: actions/setup-python@v5.3.0
+        with:
+          python-version: 3.11
+          check-latest: true
+
+      - name: Instalar dependências do Monorepo
         run: yarn
 
       - name: Iniciar backend
@@ -164,24 +191,24 @@ jobs:
           cd backend
           yarn prisma migrate dev
           yarn prisma:seed
-          nohup yarn api > backend.log 2>&1 &
+          nohup yarn api &
         env:
-          DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/tests_base?schema=public"
-
-      - name: Configurar e iniciar frontend
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  
+      - name: Iniciar frontend
         run: |
           cd frontend
-          nohup yarn serve > frontend.log 2>&1 &
+          nohup yarn serve &
 
-      - name: Instalar dependências do sistema para Robot Framework
+      - name: Configurar Robot Framework
         run: chmod +x .github/scripts/chrome.sh && .github/scripts/chrome.sh
 
-      - name: Cria ambiente virtual do Python
+      - name: Criar ambiente virtual Python
         run: |
           cd test/robot
-          python3.10 -m venv venv
+          python3.11 -m venv venv
 
-      - name: Instalar dependências
+      - name: Instalar dependências Robot Framework
         run: |
           cd test/robot
           source venv/bin/activate
@@ -192,3 +219,10 @@ jobs:
           cd test/robot
           source venv/bin/activate
           make test-all
+
+      - name: Salvar relatórios Robot Framework
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: robot-report
+          path: test/robot/results/reports/

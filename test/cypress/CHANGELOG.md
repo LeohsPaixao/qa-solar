@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.2.3
+
+### Patch Changes
+
+- chore: aprimora o workflow main.yml
+
 ## 1.2.2
 
 ### Patch Changes

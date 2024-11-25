@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.3.1
+
+### Patch Changes
+
+- chore: aprimora o workflow main.yml
+
 ## 2.3.0
 
 ### Minor Changes
