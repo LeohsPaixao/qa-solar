@@ -24,10 +24,5 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-  ],
-  webServer: {
-    command: 'yarn api',
-    url: 'https://localhost:3001',
-    reuseExistingServer: true,
-  }
+  ]
 });
