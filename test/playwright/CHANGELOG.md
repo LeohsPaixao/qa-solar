@@ -1,5 +1,11 @@
 # playwright-ui-tests
 
+## 1.1.1
+
+### Patch Changes
+
+- 224ec1d: test: finaliza os testes da tela de login
+
 ## 1.1.0
 
 ### Minor Changes

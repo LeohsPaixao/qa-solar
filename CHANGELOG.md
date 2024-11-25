@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.3.0
+
+### Minor Changes
+
+- 224ec1d: feat: configura o ci/cd no projeto principal
+
 ## 2.2.1
 
 ### Patch Changes

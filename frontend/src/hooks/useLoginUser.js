@@ -16,7 +16,7 @@ export const useLoginUser = () => {
       window.localStorage.setItem('user-token', response.token)
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.message || 'Erro desconhecido'
+      const errorMessage = error.response?.data?.message || error.message
       toast.error(errorMessage, { autoClose: 5000 })
     },
   })
