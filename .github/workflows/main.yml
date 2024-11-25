@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - main
-      - feat/aprimora-o-workflow
+      - main-workflow
 
 jobs:
   cypress-tests:
