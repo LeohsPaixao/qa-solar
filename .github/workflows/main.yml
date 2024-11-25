@@ -114,8 +114,7 @@ jobs:
       - name: Executar testes Playwright
         run: |
           cd test/playwright
-          yarn playwright install
-          yarn playwright install-deps
+          yarn playwright install --with-deps chromium
           yarn play:run
 
       - name: Upload de testes falhados
