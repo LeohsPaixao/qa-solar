@@ -5,6 +5,8 @@
   background-color: #ffeed9;
   font-family: 'Arial', sans-serif;
   padding: 1rem;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 .form-group {
@@ -51,7 +53,7 @@ label {
 }
 
 input {
-  width: 100%;
+  width: 95%;
   padding: 0.5rem;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -87,13 +89,12 @@ select:disabled {
 
 .btn-submit {
   display: block;
-  width: 200px;
   margin: 1rem auto;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: 200px;
   background-color: #33a833;
   color: white;
-  border: none;
-  border-radius: 4px;
+  border: 0;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
