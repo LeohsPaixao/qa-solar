@@ -36,30 +36,31 @@ jobs:
         with:
           python-version: 3.11
           check-latest: true
-
-      - name: Configurar e iniciar backend
+  
+      - name: Configurar node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - run: |
-          cd backend
-          yarn install
-          yarn prisma migrate dev
-          yarn prisma:seed
-          nohup yarn api > backend.log 2>&1 &
+            node-version: 22
+        
+      - name: Instalar as dependências do Monorepo
+        run: yarn    
+  
+      - name: Iniciar backend
+        run: |
+            cd backend
+            yarn prisma migrate dev
+            yarn prisma:seed
+            nohup yarn api > backend.log 2>&1 &
         env:
           DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/tests_base?schema=public"
-
+  
       - name: Configurar e iniciar frontend
         run: |
-          cd frontend
-          yarn install
-          nohup yarn serve > frontend.log 2>&1 &
+            cd frontend
+            nohup yarn serve > frontend.log 2>&1 &
 
-      - name: Instala as dependencias do Chrome
-        run: |
-              sudo apt-get update
-              sudo apt-get install -y wget unzip xvfb libxi6 libgconf-2-4
+      - name: Instalar dependências do sistema para Robot Framework
+        run: chmod +x .github/scripts/chrome.sh && .github/scripts/chrome.sh
         
       - name: Cria ambiente virtual do Python
         run: python3.10 -m venv venv

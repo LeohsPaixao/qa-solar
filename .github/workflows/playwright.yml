@@ -31,13 +31,17 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar e iniciar backend
+      - name: Configurar node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: |
+      
+      - name: Instalar as dependências do Monorepo
+        run: yarn    
+
+      - name: Iniciar backend
+        run: |
           cd backend
-          yarn install
           yarn prisma migrate dev
           yarn prisma:seed
           nohup yarn api > backend.log 2>&1 &
@@ -47,13 +51,7 @@ jobs:
       - name: Configurar e iniciar frontend
         run: |
           cd frontend
-          yarn install
           nohup yarn serve > frontend.log 2>&1 &
-
-      - name: Instalar dependências
-        run: |
-              cd test/playwright
-              yarn install
     
       - name: Executar testes Playwright
         run: |
