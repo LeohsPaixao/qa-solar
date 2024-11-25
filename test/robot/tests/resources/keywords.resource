@@ -5,7 +5,7 @@ Library    String
 
 *** Variables ***
 ${URL}    http://localhost:8181/
-${BROWSER}    chrome
+${BROWSER}    headlesschrome
 ${DELAY}    3
 
 *** Keywords ***
