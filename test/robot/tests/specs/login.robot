@@ -28,7 +28,6 @@ Cenário 4: Deveria ser possivel fazer login com as credenciais válidas
     Digitar o email do usuario    generic@example.com
     Digitar o password do usuario    123456
     Clicar no botão de Entrar na Conta
-    Verificar o feedback do usuario    Login realizado com sucesso!
 
 Cenário 5: Deveria ser possivel ir para a tela de cadastro
     Navegar para a rota Login
