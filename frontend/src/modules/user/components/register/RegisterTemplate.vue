@@ -1,22 +1,28 @@
 <template>
   <div class="register-container">
-    <form @submit.prevent="onSubmit">
+    <form data-testid="form-register" @submit.prevent="onSubmit">
       <img src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
       <h2>Bem-vindo!</h2>
       <p>Por favor, preencha os campos abaixo para se registrar:</p>
       <div class="form-group">
-        <label for="fullName">Nome Completo <span class="required">*</span></label>
+        <label data-testid="label-fullname" for="fullName"
+          >Nome Completo <span class="required">*</span></label
+        >
         <input
+          data-testid="input-fullname"
           type="text"
           id="fullName"
           v-model="formData.fullName"
           placeholder="Insira o Nome Completo"
         />
-        <p class="error" v-if="errors.fullName">{{ errors.fullName }}</p>
+        <p data-testid="input-error-fullname" class="error" v-if="errors.fullName">
+          {{ errors.fullName }}
+        </p>
       </div>
       <div class="form-group">
-        <label for="socialName">Nome Social</label>
+        <label data-testid="label-socialname" for="socialName">Nome Social</label>
         <input
+          data-testid="input-socialname"
           type="text"
           id="socialName"
           v-model="formData.socialName"
@@ -24,17 +30,31 @@
         />
       </div>
       <div class="form-group">
-        <label for="document">CPF/CNPJ <span class="required">*</span></label>
-        <select id="docType" v-model="formData.docType" @change="onDocTypeChange">
+        <label data-testid="label-document" for="document"
+          >CPF/CNPJ <span class="required">*</span></label
+        >
+        <select
+          data-testid="select-document-type"
+          id="docType"
+          v-model="formData.docType"
+          @change="onDocTypeChange"
+        >
           <option value="cpf">CPF</option>
           <option value="cnpj">CNPJ</option>
         </select>
-        <input type="text" id="document" v-model="formData.document" :placeholder="placeholder" />
+        <input
+          data-testid="input-document"
+          type="text"
+          id="document"
+          v-model="formData.document"
+          :placeholder="placeholder"
+        />
         <p class="error" v-if="errors.document">{{ errors.document }}</p>
       </div>
       <div class="form-group">
-        <label for="phone">Telefone</label>
+        <label data-testid="label-phone" for="phone">Telefone</label>
         <input
+          data-testid="input-phone"
           type="text"
           id="phone"
           v-model="formData.phone"
@@ -42,28 +62,41 @@
         />
       </div>
       <div class="form-group">
-        <label for="email">Email <span class="required">*</span></label>
+        <label data-testid="label-email" for="email">Email <span class="required">*</span></label>
         <input
+          data-testid="input-email"
           type="email"
           id="email"
           autocomplete="username"
           v-model="formData.email"
           placeholder="Insira o Email"
         />
-        <p class="error" v-if="errors.email">{{ errors.email }}</p>
+        <p data-testid="input-error-email" class="error" v-if="errors.email">{{ errors.email }}</p>
       </div>
       <div class="form-group">
-        <label for="password">Senha <span class="required">*</span></label>
+        <label data-testid="label-password" for="password"
+          >Senha <span class="required">*</span></label
+        >
         <input
+          data-testid="input-password"
           type="password"
           id="password"
           autocomplete="current-password"
           v-model="formData.password"
           placeholder="Insira a Senha"
         />
-        <p class="error" v-if="errors.password">{{ errors.password }}</p>
+        <p data-testid="input-error-password" class="error" v-if="errors.password">
+          {{ errors.password }}
+        </p>
       </div>
-      <button type="submit" class="btn-submit" :disabled="mutation.isLoading">Cadastrar</button>
+      <button
+        data-testid="btn-register"
+        type="submit"
+        class="btn btn-submit"
+        :disabled="mutation.isLoading"
+      >
+        Cadastrar
+      </button>
       <p v-if="mutation.isLoading" class="loading">Cadastrando...</p>
       <p v-if="mutation.isError" class="error">{{ mutation.error?.message }}</p>
     </form>
