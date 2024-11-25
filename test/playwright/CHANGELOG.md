@@ -1,5 +1,11 @@
 # playwright-ui-tests
 
+## 1.1.2
+
+### Patch Changes
+
+- 8b3d4bc: test: tira o teste ignorado do login.spec.ts
+
 ## 1.1.1
 
 ### Patch Changes
