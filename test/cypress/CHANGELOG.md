@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.2.1
+
+### Patch Changes
+
+- 224ec1d: test: corrige alguns testes de login
+
 ## 1.2.0
 
 ### Minor Changes

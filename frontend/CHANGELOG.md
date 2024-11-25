@@ -1,5 +1,11 @@
 # frontend
 
+## 1.2.0
+
+### Minor Changes
+
+- 224ec1d: feat: ajusta a conexao entre o frontend e backend
+
 ## 1.1.0
 
 ### Minor Changes

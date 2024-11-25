@@ -1,5 +1,12 @@
 # backend
 
+## 1.2.0
+
+### Minor Changes
+
+- 224ec1d: feat: ajusta a conexao entre o frontend e backend
+- 4f72bac: feat: cria seed genericUser.js para gerar usuario generico
+
 ## 1.1.0
 
 ### Minor Changes
