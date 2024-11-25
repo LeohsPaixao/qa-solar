@@ -1,5 +1,11 @@
 # backend
 
+## 1.2.1
+
+### Patch Changes
+
+- chore: aprimora o workflow main.yml
+
 ## 1.2.0
 
 ### Minor Changes

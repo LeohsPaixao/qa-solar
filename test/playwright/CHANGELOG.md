@@ -1,5 +1,11 @@
 # playwright-ui-tests
 
+## 1.1.3
+
+### Patch Changes
+
+- chore: aprimora o workflow main.yml
+
 ## 1.1.2
 
 ### Patch Changes
