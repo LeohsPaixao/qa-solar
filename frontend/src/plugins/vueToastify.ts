@@ -1,5 +1,5 @@
-import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
+import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const toastOptions = {
   theme: 'auto',
@@ -18,6 +18,6 @@ const toastOptions = {
     overflow: 'hidden',
     maxWidth: '300px',
   },
-} as ToastContainerOptions
+} as ToastContainerOptions;
 
-export { toastOptions, Vue3Toastify }
+export { toastOptions, Vue3Toastify };

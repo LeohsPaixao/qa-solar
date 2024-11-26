@@ -16,6 +16,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/js": "^7.4.47",
     "@tanstack/vue-query": "^5.60.6",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",

@@ -1,0 +1,58 @@
+.profile-page {
+  background-color: #f8f9fa;
+  border-radius: 2px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  width: 100%;
+  margin: auto;
+  padding: 1rem;
+}
+
+.profile-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  line-height: 2vh;
+  justify-items: start;
+}
+
+input#fullName,
+input#phone,
+input#socialName,
+input#cpfCnpj {
+  width: 200%;
+  max-width: 250%;
+}
+
+.save-button {
+  width: 8vh;
+  height: 2vh;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  color: white;
+  background-color: #33a833;
+  border-radius: 4px;
+}
+
+.save-button:hover {
+  background-color: #2c902c;
+}
+
+.save-button:active {
+  background-color: #267326;
+}
+
+@media (max-width: 2160px) and (max-height: 3840px) {
+  .save-button {
+    width: 8vh;
+    height: 2vh;
+  }
+}
+
+@media (max-width: 1920px) {
+  .save-button {
+    width: 12vh;
+    height: 4vh;
+  }
+}
