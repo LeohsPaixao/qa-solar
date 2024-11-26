@@ -1,13 +1,17 @@
-import LoginTemplate from '@/modules/auth/components/login/LoginTemplate.vue'
-import RegisterTemplate from '@/modules/user/components/register/RegisterTemplate.vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../components/Home.vue'
+import LoginTemplate from '@/modules/auth/components/login/LoginTemplate.vue';
+import ProfileTemplate from '@/modules/user/components/profile/ProfileTemplate.vue';
+import RegisterTemplate from '@/modules/user/components/register/RegisterTemplate.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../components/Home.vue';
+
+const isAuthenticated = () => {
+  return !!localStorage.getItem('user-token');
+};
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    redirect: '/login',
   },
   {
     path: '/login',
@@ -19,11 +23,30 @@ const routes = [
     name: 'SignUp',
     component: RegisterTemplate,
   },
-]
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfileTemplate,
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    meta: { requiresAuth: true },
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next('/login');
+  } else {
+    next();
+  }
+});
+
+export default router;
