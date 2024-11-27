@@ -7,7 +7,7 @@
     </nav>
     <div class="user-dropdown" @click="toggleDropdown">
       <svg-icon type="mdi" :path="mdiAccountCircle" class="user-avatar" />
-      <span>Leo Paixão</span>
+      <span>{{ user?.full_name || 'Usuário' }}</span>
       <ul v-if="dropdownOpen" class="dropdown-menu">
         <li @click="goToProfile">Perfil</li>
         <li @click="logout">Sair</li>
@@ -19,8 +19,9 @@
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccountCircle } from '@mdi/js';
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useFetchUser } from '../hooks/useFetchUser.js';
 
 export default {
   name: 'AppHeader',
@@ -30,6 +31,7 @@ export default {
   setup() {
     const dropdownOpen = ref(false);
     const router = useRouter();
+    const { data: user, isError } = useFetchUser();
 
     const toggleDropdown = () => {
       dropdownOpen.value = !dropdownOpen.value;
@@ -37,13 +39,6 @@ export default {
 
     const closeDropdown = () => {
       dropdownOpen.value = false;
-    };
-
-    const handleClickOutside = (event) => {
-      const dropdown = document.querySelector('.user-dropdown');
-      if (dropdown && !dropdown.contains(event.target)) {
-        closeDropdown();
-      }
     };
 
     const goToProfile = () => {
@@ -58,14 +53,6 @@ export default {
       router.push('/login');
     };
 
-    onMounted(() => {
-      document.addEventListener('click', handleClickOutside);
-    });
-
-    onBeforeUnmount(() => {
-      document.removeEventListener('click', handleClickOutside);
-    });
-
     return {
       dropdownOpen,
       toggleDropdown,
@@ -73,6 +60,8 @@ export default {
       goToProfile,
       logout,
       mdiAccountCircle,
+      user,
+      isError,
     };
   },
 };
@@ -127,16 +116,16 @@ export default {
   top: 100%;
   right: 0;
   background-color: white;
-  border: 1px solid #ddd; /* Borda simples */
-  border-radius: 6px; /* Bordas arredondadas */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombras suaves */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   list-style: none;
-  padding: 0.5rem; /* Espaço interno */
-  margin: 0.5rem 0; /* Distância do scroll */
+  padding: 0.5rem;
+  margin: 0.5rem 0;
   z-index: 1000;
   display: flex;
-  flex-direction: column; /* Alinhamento vertical */
-  gap: 0.1rem; /* Espaço entre itens */
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
 .dropdown-menu li {
@@ -144,7 +133,7 @@ export default {
   font-size: 0.9rem;
   cursor: pointer;
   color: #333;
-  border-radius: 4px; /* Arredondar opções */
+  border-radius: 4px;
 }
 
 .dropdown-menu li:hover {
