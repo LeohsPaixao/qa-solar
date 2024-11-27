@@ -1,5 +1,4 @@
-import { useMutation } from '@tanstack/vue-query';
-import 'vue3-toastify/dist/index.css';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import api from '../services/api';
 
 const registerUser = async (userData) => {
@@ -8,5 +7,12 @@ const registerUser = async (userData) => {
 };
 
 export const useRegisterUser = () => {
-  return useMutation({ mutationFn: registerUser });
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: registerUser,
+    onSuccess: () => {
+      queryClient.resetQueries(['user'], { exact: true });
+    },
+  });
 };
