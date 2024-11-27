@@ -7,4 +7,4 @@ module.exports.messages = {
     userRegistrationFailed: 'Erro ao cadastrar o usuário.',
     loginFailure: 'Não foi possivel fazer login com este usuário!',
   },
-}
+};

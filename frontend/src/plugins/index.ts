@@ -1,7 +1,8 @@
 import type { App } from 'vue';
 
+import { VueQueryPlugin } from '@tanstack/vue-query';
 import router from '../router';
-import { VueQueryPlugin, vueQueryOptions } from './vueQuery';
+import { queryClient } from './vueQuery';
 import { Vue3Toastify, toastOptions } from './vueToastify';
 
 /**
@@ -28,5 +29,5 @@ import { Vue3Toastify, toastOptions } from './vueToastify';
  * ```
  */
 export function registerPlugins(app: App) {
-  app.use(router).use(Vue3Toastify, toastOptions).use(VueQueryPlugin, vueQueryOptions);
+  app.use(router).use(Vue3Toastify, toastOptions).use(VueQueryPlugin, { queryClient });
 }
