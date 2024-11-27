@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 test.describe('Tela de Login', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
+    await page.goto('/');
   });
 
   test('Deveria ser possível visualizar os elementos da tela', async ({ page }) => {
@@ -46,7 +46,7 @@ test.describe('Tela de Login', () => {
   });
 
   test('Deveria ser possível ir para a tela de cadastro', async ({ page, baseURL }) => {
-    await page.locator('[data-testid="link-singup"]').click();
+    await page.locator('[data-testid="link-signup"]').click();
     await expect(page).toHaveURL(`${baseURL}/signup`);
     const url = new URL(page.url());
     expect(url.origin).toBe(baseURL);

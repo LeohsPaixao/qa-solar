@@ -6,7 +6,7 @@ export default defineConfig({
   chromeWebSecurity: false,
   modifyObstructiveCode: false,
   watchForFileChanges: false,
-  defaultCommandTimeout: 60 * 1000,
+  defaultCommandTimeout: 4000,
   pageLoadTimeout: 120 * 1000,
   numTestsKeptInMemory: 0,
   video: false,

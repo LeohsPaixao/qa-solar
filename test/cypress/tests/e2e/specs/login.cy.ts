@@ -1,7 +1,7 @@
 describe('Tela de Login', () => {
 
   beforeEach(() => {
-    cy.visitAndwait('/login')
+    cy.visitAndwait('/')
   })
 
   it('Deveria ser possivel visualizar os elementos da tela', () => {
@@ -39,7 +39,7 @@ describe('Tela de Login', () => {
   it('Deveria ser possivel ir para a tela de cadastro', () => {
     const baseUrl = Cypress.config('baseUrl');
 
-    cy.get('[data-testid="link-singup"]').should('be.visible').click()
+    cy.get('[data-testid="link-signup"]').should('be.visible').click()
     cy.location().should((loc) => {
       expect(loc.href).to.eq(
         `${baseUrl}/signup`,
