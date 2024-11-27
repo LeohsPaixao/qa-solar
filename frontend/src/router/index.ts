@@ -2,7 +2,7 @@ import LoginTemplate from '@/modules/auth/components/login/LoginTemplate.vue';
 import ProfileTemplate from '@/modules/user/components/profile/ProfileTemplate.vue';
 import RegisterTemplate from '@/modules/user/components/register/RegisterTemplate.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
+import Home from '../components/AppHome.vue';
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('user-token');
@@ -11,10 +11,6 @@ const isAuthenticated = () => {
 const routes = [
   {
     path: '/',
-    redirect: '/login',
-  },
-  {
-    path: '/login',
     name: 'Login',
     component: LoginTemplate,
   },
@@ -43,7 +39,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !isAuthenticated()) {
-    next('/login');
+    next('/');
   } else {
     next();
   }
