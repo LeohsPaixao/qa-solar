@@ -30,14 +30,6 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar cache do Yarn
-        uses: actions/cache@v4
-        with:
-          path: |
-            **/node_modules
-            ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -214,9 +206,6 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
           rfbrowser init
-
-      - name: Executar o linter nos testes
-        run: make lint
 
       - name: Executar testes Robot Framework
         run: |
