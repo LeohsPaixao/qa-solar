@@ -200,12 +200,12 @@ jobs:
           cd test/robot
           python3.11 -m venv venv
 
-      - name: Instalar dependências Robot Framework
+      - name: Instalar dependências do Robot Framework e Browser
         run: |
           cd test/robot
           source venv/bin/activate
           pip install -r requirements.txt
-          rfbrowser init
+          playwright install chromium
 
       - name: Executar testes Robot Framework
         run: |
