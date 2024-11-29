@@ -1,5 +1,12 @@
 # playwright-ui-tests
 
+## 1.1.4
+
+### Patch Changes
+
+- cda13b4: test: resolve os testes quebrados apos a atualização dos componentes
+- 0069498: test: ajusta os testes quebrados devido a atualizações
+
 ## 1.1.3
 
 ### Patch Changes

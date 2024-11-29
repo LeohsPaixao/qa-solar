@@ -1,5 +1,16 @@
 # qa-solar
 
+## 2.4.0
+
+### Minor Changes
+
+- 4d602ef: feat: cria novas telas e endpoints
+- 491db2b: feat: finaliza os comportamentos e ações da primeira parte do projeto
+
+### Patch Changes
+
+- 82c276b: chore: configura melhor o Prettier
+
 ## 2.3.1
 
 ### Patch Changes
