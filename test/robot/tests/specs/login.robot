@@ -1,40 +1,48 @@
 *** Settings ***
-Resource    ../resources/keywords.resource
-Test Setup    Abrir o navegador    ${BASE_URL}
-Test Teardown    Fechar o navegador
+Documentation       Suite de testes para validar funcionalidades de login.
+Resource            ../resources/keywords.resource
+
+Test Setup          Abrir O Navegador    ${BASE_URL}
+Test Teardown       Fechar O Navegador
+
 
 *** Test Cases ***
+Cenário 1: Deveria Ser Possivel Visualizar Os Elementos Da Tela
+    [Documentation]    Testa a exibição correta dos elementos na tela de login.
+    Navegar Para A Rota Login
+    Verificar Os Elementos Da Tela
 
-Cenário 1: Deveria ser possivel visualizar os elementos da tela
-    Navegar para a rota Login
-    Verificar os elementos da tela
+Cenário 2: Não Deveria Ser Possivel Fazer Login Com Credenciais Invalidas
+    [Documentation]    Testa login com e-mail e senha inválidos.
+    Navegar Para A Rota Login
+    Digitar O Email Do Usuario    email@example.com
+    Digitar O Password Do Usuario    password@example.com
+    Clicar No Botão De Entrar Na Conta
+    Verificar O Feedback Do Usuario    Usuário não encontrado.
 
-Cenário 2: Não deveria ser possivel fazer login com credenciais invalidas
-    Navegar para a rota Login
-    Digitar o email do usuario    email@example.com
-    Digitar o password do usuario    password@example.com
-    Clicar no botão de Entrar na Conta
-    Verificar o feedback do usuario    Usuário não encontrado.
+Cenário 3: Não Deveria Ser Possivel Fazer Login Com A Senha Inválida
+    [Documentation]    Testa login com uma senha incorreta.
+    Navegar Para A Rota Login
+    Digitar O Email Do Usuario    generic@example.com
+    Digitar O Password Do Usuario    password@example.com
+    Clicar No Botão De Entrar Na Conta
+    Verificar O Feedback Do Usuario    A senha não confere.
 
-Cenário 3: Não deveria ser possivel fazer login com a senha inválida
-    Navegar para a rota Login
-    Digitar o email do usuario    generic@example.com
-    Digitar o password do usuario    password@example.com
-    Clicar no botão de Entrar na Conta
-    Verificar o feedback do usuario    A senha não confere.
+Cenário 4: Deveria Ser Possivel Fazer Login Com As Credenciais Válidas
+    [Documentation]    Testa login com credenciais corretas.
+    Navegar Para A Rota Login
+    Digitar O Email Do Usuario    generic@example.com
+    Digitar O Password Do Usuario    123456
+    Clicar No Botão De Entrar Na Conta
 
-Cenário 4: Deveria ser possivel fazer login com as credenciais válidas
-    Navegar para a rota Login
-    Digitar o email do usuario    generic@example.com
-    Digitar o password do usuario    123456
-    Clicar no botão de Entrar na Conta
+Cenário 5: Deveria Ser Possivel Ir Para A Tela De Cadastro
+    [Documentation]    Testa a navegação para a página de cadastro.
+    Navegar Para A Rota Login
+    Clicar No Link    link-signup
+    Verificar A Navegação Da Url    signup
 
-Cenário 5: Deveria ser possivel ir para a tela de cadastro
-    Navegar para a rota Login
-    Clicar no link    link-signup
-    Verificar a navegação da url   /signup
-
-Cenário 6: Deveria ser possivel ir para a tela de esqueci a senha
-    Navegar para a rota Login
-    Clicar no link    link-recover-password
-    Verificar a navegação da url   /recover-password
+Cenário 6: Deveria Ser Possivel Ir Para A Tela De Esqueci A Senha
+    [Documentation]    Testa a navegação para a página de recuperação de senha.
+    Navegar Para A Rota Login
+    Clicar No Link    link-recover-password
+    Verificar A Navegação Da Url    recover-password

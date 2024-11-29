@@ -1,63 +1,59 @@
 *** Settings ***
-Library    SeleniumLibrary
+Library    Browser
 Library    CustomLibrary.py
 Library    String
 
 *** Variables ***
 ${BASE_URL}    http://localhost:8181/
-${BROWSER}     headlesschrome
-${DELAY}       2
 
 *** Keywords ***
-Abrir o navegador
+Abrir O Navegador
     [Arguments]    ${BASE_URL}
     Should Not Be Empty    ${BASE_URL}
-    Open Browser    ${BASE_URL}    ${BROWSER}
-    Maximize Browser Window
-    Location Should Be    ${BASE_URL}
+    New Page    ${BASE_URL}
+    Get Url    ==    ${BASE_URL}
 
-Fechar o navegador
+Fechar O Navegador
     Close Browser
 
-Navegar para a rota Login
+Navegar Para A Rota Login
     Go To    ${BASE_URL}
-    Location Should Be    ${BASE_URL}
+    Get Url    ==    ${BASE_URL}
 
-Verificar os elementos da tela
-    Element Should Be Visible    css:[data-testid="form-login"]
-    Element Should Be Visible    css:[data-testid="logo"]
-    Element Should Be Visible    css:[data-testid="input-email"]
-    Element Should Be Visible    css:[data-testid="input-password"]
-    Element Should Be Visible    css:[data-testid="btn-login"]
+Verificar Os Elementos Da Tela
+    Wait For Elements State    css=[data-testid="form-login"]    visible
+    Wait For Elements State    css=[data-testid="logo"]    visible
+    Wait For Elements State    css=[data-testid="input-email"]    visible
+    Wait For Elements State    css=[data-testid="input-password"]    visible
+    Wait For Elements State    css=[data-testid="btn-login"]    visible
 
-Digitar o email do usuario
+Digitar O Email Do Usuario
     [Arguments]    ${email}
-    Element Should Be Disabled    css:[data-testid="btn-login"]
-    Input Text    css:[data-testid="input-email"]    ${email}
+    Wait For Elements State    css=[data-testid="btn-login"]    disabled
+    Fill Text    css=[data-testid="input-email"]    ${email}
 
-Digitar o password do usuario
+Digitar O Password Do Usuario
     [Arguments]    ${password}
-    Input Password    css:[data-testid="input-password"]    ${password}
-    Element Should Be Enabled    css:[data-testid="btn-login"]
+    Fill Text    css=[data-testid="input-password"]    ${password}
+    Wait For Elements State    css=[data-testid="btn-login"]    enabled
 
-Clicar no botão de Entrar na Conta
-    Click Element    css:[data-testid="btn-login"]
+Clicar No Botão De Entrar Na Conta
+    Click    css=[data-testid="btn-login"]
 
-Verificar o feedback do usuario
+Verificar O Feedback Do Usuario
     [Arguments]    ${feedback}
-    Wait Until Element Is Visible    css:[data-testid="toast-content"]
-    Element Text Should Be    css:[data-testid="toast-content"]    ${feedback}
+    Wait For Elements State    css=[data-testid="toast-content"]    visible
+    Get Text    css=[data-testid="toast-content"]    ==    ${feedback}
 
-Clicar no link
+Clicar No Link
     [Arguments]    ${testId}
-    Click Element    css:[data-testid="${testId}"]
+    Click    css=[data-testid="${testId}"]
 
-Verificar a navegação da url
+Verificar A Navegação Da Url
     [Arguments]    ${expectedPath}
-    Wait Until Location Contains    ${expectedPath}
-    ${currentUrl}=    Get Location
+    Wait For Navigation    ${BASE_URL}${expectedPath}
+    ${currentUrl}=    Get Url
     Should Start With    ${currentUrl}    ${BASE_URL}
     ${urlComponents}=    Parse Url    ${currentUrl}
-    Should Be String    ${urlComponents.netloc}    ${BASE_URL}
-    Should Be Equal As Strings    ${urlComponents.path}    ${expectedPath}
+    Should Be Equal As Strings    ${urlComponents.path}    /${expectedPath}
     Should Be Equal As Strings    ${urlComponents.scheme}    http
