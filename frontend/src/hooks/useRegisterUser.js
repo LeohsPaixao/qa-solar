@@ -12,7 +12,8 @@ export const useRegisterUser = () => {
   return useMutation({
     mutationFn: registerUser,
     onSuccess: () => {
-      queryClient.resetQueries(['user'], { exact: true });
+      queryClient.resetQueries();
+      queryClient.invalidateQueries();
     },
   });
 };

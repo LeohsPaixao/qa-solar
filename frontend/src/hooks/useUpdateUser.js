@@ -13,7 +13,8 @@ export const useUpdateUser = () => {
     mutationFn: updateUser,
     onSuccess: (updatedUser) => {
       queryClient.setQueryData(['user'], updatedUser);
-      queryClient.resetQueries(['user'], { exact: true });
+      queryClient.resetQueries();
+      queryClient.invalidateQueries();
     },
   });
 };
