@@ -8,9 +8,9 @@
     <div class="user-dropdown" @click="toggleDropdown">
       <svg-icon type="mdi" :path="mdiAccountCircle" class="user-avatar" />
       <span>{{ user?.full_name || 'Usuário' }}</span>
-      <ul v-if="dropdownOpen" class="dropdown-menu">
-        <li @click="goToProfile">Perfil</li>
-        <li @click="logout">Sair</li>
+      <ul data-testid="dropdown-profile" v-if="dropdownOpen" class="dropdown-menu">
+        <li data-testid="dropdown-profile-update" @click="goToProfile">Perfil</li>
+        <li data-testid="dropdown-profile-logout" @click="logout">Sair</li>
       </ul>
     </div>
   </header>
@@ -19,9 +19,10 @@
 <script>
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccountCircle } from '@mdi/js';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useFetchUser } from '../hooks/useFetchUser.js';
+import { useLogout } from '../hooks/useLogoutUser.js';
 
 export default {
   name: 'AppHeader',
@@ -31,7 +32,10 @@ export default {
   setup() {
     const dropdownOpen = ref(false);
     const router = useRouter();
-    const { data: user, isError } = useFetchUser();
+
+    const { mutate: logout } = useLogout();
+    const userEmail = localStorage.getItem('user-email');
+    const { data: user, isError } = useFetchUser(userEmail);
 
     const toggleDropdown = () => {
       dropdownOpen.value = !dropdownOpen.value;
@@ -46,12 +50,20 @@ export default {
       router.push('/profile');
     };
 
-    const logout = () => {
-      closeDropdown();
-      localStorage.clear();
-      sessionStorage.clear();
-      router.push('/login');
+    const handleClickOutside = (event) => {
+      const dropdown = document.querySelector('.user-dropdown');
+      if (!dropdown.contains(event.target)) {
+        closeDropdown();
+      }
     };
+
+    onMounted(() => {
+      document.addEventListener('click', handleClickOutside);
+    });
+
+    onUnmounted(() => {
+      document.removeEventListener('click', handleClickOutside);
+    });
 
     return {
       dropdownOpen,
@@ -85,7 +97,7 @@ export default {
 }
 
 .app-header a {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   text-decoration: none;
   color: #333;
   font-weight: bold;
