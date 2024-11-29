@@ -1,21 +1,17 @@
 import { PrismaClient } from '@prisma/client';
-import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
 export async function getUser(req, res) {
-  const authHeader = req.headers.authorization;
+  const { email } = req.body;
 
-  if (!authHeader) {
-    return res.status(401).json({ message: 'Token não fornecido.' });
+  if (!email) {
+    return res.status(400).json({ message: 'Email não fornecido.' });
   }
 
-  const token = authHeader.split(' ')[1];
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
+      where: { email: email },
       select: {
         id: true,
         full_name: true,
@@ -32,6 +28,6 @@ export async function getUser(req, res) {
 
     res.status(200).json(user);
   } catch (error) {
-    return res.status(401).json({ message: 'Token inválido ou expirado.' });
+    return res.status(500).json({ message: 'Erro ao buscar usuário.' });
   }
 }
