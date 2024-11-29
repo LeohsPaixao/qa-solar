@@ -1,11 +1,11 @@
 <template>
   <div class="login-container">
     <div class="content">
-      <form data-testid="form" @submit.prevent="handleLogin">
+      <form data-testid="form-login" class="form-login" @submit.prevent="handleLogin">
         <img data-testid="logo" src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
         <h2>Bem-vindo de volta!</h2>
         <p>Por favor, entre com suas credenciais abaixo:</p>
-        <div class="form-group">
+        <div class="form-group-login">
           <label for="email">Insira seu E-mail</label>
           <input
             data-testid="input-email"
@@ -13,11 +13,11 @@
             id="email"
             autocomplete="username"
             v-model="email"
-            :class="['input-email', { 'input-error': errors.email }]"
+            :class="['input-email-login', { 'input-error': errors.email }]"
           />
           <span data-testid="message-error-email" v-if="errors.email" class="error-message">{{ errors.email }}</span>
         </div>
-        <div class="form-group">
+        <div class="form-group-login">
           <label for="password">Insira sua Senha</label>
           <input
             data-testid="input-password"
@@ -25,7 +25,7 @@
             id="password"
             autocomplete="current-password"
             v-model="password"
-            :class="['input-password', { 'input-error': errors.password }]"
+            :class="['input-password-login', { 'input-error': errors.password }]"
           />
           <span data-testid="message-error-password" v-if="errors.password" class="error-message">{{ errors.password }}</span>
         </div>
@@ -39,13 +39,17 @@
         </div>
         <p v-if="mutation.isError" class="error-message">{{ mutation.error?.message }}</p>
       </form>
+      <p class="message-user-login">
+        <strong>Atenção:</strong> Para acessar com as credenciais padrão, utilize o e-mail <em>generic@example.com</em> e a senha <em>123456</em>.
+        Essas informações foram geradas automaticamente pelo seeder para facilitar testes e demonstrações.
+      </p>
     </div>
   </div>
 </template>
 
 <script setup>
 import { validateEmail, validatePassword } from '@/utils/validateLogin';
-import { computed, nextTick, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -77,10 +81,15 @@ const handleLogin = () => {
       {
         onSuccess: async (response) => {
           window.localStorage.setItem('user-token', response.token);
-          await router.push('/home');
-          nextTick(() => {
-            toast.success(response.message, { autoClose: 3000 });
-          });
+          window.localStorage.setItem('user-email', email.value);
+
+          toast.success(response.message, { autoClose: 3000 });
+
+          setTimeout(() => {
+            router.push('/home').then(() => {
+              window.location.reload();
+            });
+          }, 3000);
         },
         onError: (error) => {
           const errorMessage = error.response?.data?.message || 'Ocorreu um erro inesperado. Tente novamente mais tarde.';
