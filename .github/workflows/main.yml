@@ -213,6 +213,10 @@ jobs:
           cd test/robot
           source venv/bin/activate
           pip install -r requirements.txt
+          rfbrowser init
+
+      - name: Executar o linter nos testes
+        run: make lint
 
       - name: Executar testes Robot Framework
         run: |
