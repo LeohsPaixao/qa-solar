@@ -1,6 +1,6 @@
 <template>
   <div class="register-container">
-    <form data-testid="form-register" @submit.prevent="onSubmit">
+    <form data-testid="form-register" class="form-register" @submit.prevent="onSubmit">
       <img src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
       <h2>Bem-vindo!</h2>
       <p>Por favor, preencha os campos abaixo para se registrar:</p>
@@ -56,6 +56,9 @@
       <button data-testid="btn-register" type="submit" class="btn btn-submit" :disabled="mutation.isLoading">Cadastrar</button>
       <p v-if="mutation.isLoading" class="loading">Cadastrando...</p>
       <p v-if="mutation.isError" class="error">{{ mutation.error?.message }}</p>
+      <div class="link-container">
+        <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login"> Voltar ao Login </router-link>
+      </div>
     </form>
   </div>
 </template>
@@ -101,7 +104,7 @@ export default {
       if (validateForm()) {
         mutation.mutate(formData, {
           onSuccess: async (data) => {
-            await router.push('/login');
+            await router.push('/');
             nextTick(() => {
               toast.success(data.message, { autoClose: 3000 });
             });
