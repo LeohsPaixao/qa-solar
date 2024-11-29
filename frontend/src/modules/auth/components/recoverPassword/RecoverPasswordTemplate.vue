@@ -17,11 +17,9 @@
           required
         />
       </div>
-      <div class="btn-container">
-        <button data-testid="btn-recover-password" class="btn btn-recover btn-recover-password" type="submit" :disabled="isLoading">
+      <button data-testid="btn-recover-password" class="btn btn-recover btn-recover-password" type="submit" :disabled="isLoading">
           {{ isLoading ? 'Enviando...' : 'Recuperar a senha' }}
         </button>
-      </div>
       <div class="link-container">
         <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login"> Voltar ao Login </router-link>
       </div>
