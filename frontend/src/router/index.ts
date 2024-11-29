@@ -1,4 +1,5 @@
 import LoginTemplate from '@/modules/auth/components/login/LoginTemplate.vue';
+import RecoverPasswordTemplate from '@/modules/auth/components/recoverPassword/RecoverPasswordTemplate.vue';
 import ProfileTemplate from '@/modules/user/components/profile/ProfileTemplate.vue';
 import RegisterTemplate from '@/modules/user/components/register/RegisterTemplate.vue';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -13,6 +14,11 @@ const routes = [
     path: '/',
     name: 'Login',
     component: LoginTemplate,
+  },
+  {
+    path: '/recover-password',
+    name: 'Recover Password',
+    component: RecoverPasswordTemplate,
   },
   {
     path: '/signup',
