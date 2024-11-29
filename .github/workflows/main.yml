@@ -30,14 +30,6 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      - name: Configurar cache do Yarn
-        uses: actions/cache@v4
-        with:
-          path: |
-            **/node_modules
-            ~/.cache/yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
@@ -54,7 +46,7 @@ jobs:
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  
+
       - name: Iniciar frontend
         run: |
           cd frontend
@@ -118,7 +110,7 @@ jobs:
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  
+
       - name: Iniciar frontend
         run: |
           cd frontend
@@ -194,25 +186,26 @@ jobs:
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-  
+
       - name: Iniciar frontend
         run: |
           cd frontend
           nohup yarn serve &
 
       - name: Configurar Robot Framework
-        run: chmod +x .github/scripts/chrome.sh && .github/scripts/chrome.sh
+        run: chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
 
       - name: Criar ambiente virtual Python
         run: |
           cd test/robot
           python3.11 -m venv venv
 
-      - name: Instalar dependências Robot Framework
+      - name: Instalar dependências do Robot Framework e Browser
         run: |
           cd test/robot
           source venv/bin/activate
           pip install -r requirements.txt
+          rfbrowser init chromium > /dev/null 2>&1
 
       - name: Executar testes Robot Framework
         run: |

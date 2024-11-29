@@ -1,5 +1,11 @@
 # backend
 
+## 1.3.1
+
+### Patch Changes
+
+- 3ca055a: chore: padroniza o estilo dos botoes e remove consoles
+
 ## 1.3.0
 
 ### Minor Changes

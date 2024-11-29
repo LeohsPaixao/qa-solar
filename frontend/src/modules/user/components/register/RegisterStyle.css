@@ -40,11 +40,3 @@
   padding: 0.5rem 1rem;
   width: 200px;
 }
-
-.btn-submit:hover {
-  background-color: #2c902c;
-}
-
-.btn-submit:active {
-  background-color: #267326;
-}
