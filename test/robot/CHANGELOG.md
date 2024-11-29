@@ -2,8 +2,12 @@
 
 ### Feat
 
-- adiciona novas configurações no commitizen
-- **feat:-instala-e-configura-o-commitizen-no-projeto-de-robot-framework**: feat: instala e configura o commitizen no projeto de robot framework
+- **v1.2.2**: adiciona arquivos de logs para execução dos testes em paralelo
+- **v1.2.2**: muda a biblioteca de testes e os metodos
+- **v1.2.2**: instala novos pacotes para aprimorar os testes
+- **v1.2.2**: adiciona novos comandos no makefile
+- padroniza os botoes de todas as telas
+- remove os consoles do endpoint
 - adiciona data-testid no componente profile (#45)
 - melhora as validacoes dos campos (#10)
 - adiciona o changeset (#9)
