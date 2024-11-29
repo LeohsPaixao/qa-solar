@@ -1,18 +1,24 @@
-import { useQuery } from '@tanstack/vue-query';
+import { useQuery, useQueryClient } from '@tanstack/vue-query';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
 
-const fetchUser = async () => {
-  const response = await api.get('/user');
+const fetchUser = async (email) => {
+  const response = await api.post('/user', { email });
   return response.data;
 };
 
-export const useFetchUser = () => {
+export const useFetchUser = (email) => {
+  const queryClient = useQueryClient();
+
   return useQuery({
-    queryKey: ['user'],
-    queryFn: fetchUser,
-    staleTime: false,
+    queryKey: ['user', email],
+    queryFn: () => fetchUser(email),
+    staleTime: 0,
+    onSucess: () => {
+      queryClient.resetQueries();
+      queryClient.invalidateQueries();
+    },
     onError: (error) => {
       const errorMessage = error.response?.data?.message || 'Erro ao buscar usuário';
       const errorStatus = error.response?.data?.status;

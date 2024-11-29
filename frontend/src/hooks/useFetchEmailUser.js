@@ -1,16 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import api from '../services/api';
 
-const loginUser = async (loginData) => {
-  const response = await api.post('/login', loginData);
+const fetchEmailUser = async (email) => {
+  const response = await api.get('/useremail', {
+    params: { email },
+  });
+
   return response.data;
 };
 
-export const useLoginUser = () => {
+export const useFetchEmailUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: loginUser,
+    mutationFn: fetchEmailUser,
     onSuccess: () => {
       queryClient.resetQueries();
       queryClient.invalidateQueries();

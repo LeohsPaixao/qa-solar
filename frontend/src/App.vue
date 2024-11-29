@@ -12,9 +12,13 @@ import { RouterView, useRouter } from 'vue-router';
 
 const { currentRoute } = useRouter();
 
-const canShowHeader = computed(() => currentRoute.value.path !== '/' && currentRoute.value.path !== '/signup');
+const canShowHeader = computed(
+  () => currentRoute.value.path !== '/' && currentRoute.value.path !== '/signup' && currentRoute.value.path !== '/recover-password',
+);
 
-const canShowFooter = computed(() => currentRoute.value.path !== '/' && currentRoute.value.path !== '/signup');
+const canShowFooter = computed(
+  () => currentRoute.value.path !== '/' && currentRoute.value.path !== '/signup' && currentRoute.value.path !== '/recover-password',
+);
 </script>
 
 <style src="./assets/styles/main.css"></style>
