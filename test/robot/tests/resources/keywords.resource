@@ -24,7 +24,7 @@ Navegar para a rota Login
     Location Should Be    ${BASE_URL}
 
 Verificar os elementos da tela
-    Element Should Be Visible    css:[data-testid="form"]
+    Element Should Be Visible    css:[data-testid="form-login"]
     Element Should Be Visible    css:[data-testid="logo"]
     Element Should Be Visible    css:[data-testid="input-email"]
     Element Should Be Visible    css:[data-testid="input-password"]

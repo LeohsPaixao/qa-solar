@@ -7,7 +7,7 @@ test.describe('Tela de Login', () => {
   });
 
   test('Deveria ser possível visualizar os elementos da tela', async ({ page }) => {
-    await expect(page.locator('[data-testid="form"]')).toBeVisible();
+    await expect(page.locator('[data-testid="form-login"]')).toBeVisible();
     await expect(page.locator('[data-testid="logo"]')).toBeVisible();
     await expect(page.locator('[data-testid="input-email"]')).toBeVisible();
     await expect(page.locator('[data-testid="input-password"]')).toBeVisible();
