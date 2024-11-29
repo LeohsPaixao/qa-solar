@@ -1,5 +1,17 @@
 # frontend
 
+## 1.3.0
+
+### Minor Changes
+
+- 491db2b: feat: melhora a experencia do usuario com hooks e feedbacks
+- 82c276b: feat: cria a nova tela do projeto
+- 4d602ef: feat: cria a tela de recuperar a senha
+
+### Patch Changes
+
+- cda13b4: feat: altera a rota de login
+
 ## 1.2.1
 
 ### Patch Changes
@@ -39,29 +51,29 @@
   // Antes:
   export const registerUser = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:3001/register', userData)
-      return response.data
+      const response = await axios.post('http://localhost:3001/register', userData);
+      return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message)
+      throw new Error(error.response?.data?.message);
     }
-  }
+  };
 
   // Depois:
   const registerUser = async (userData) => {
-    const response = await api.post('/register', userData)
-    return response.data
-  }
+    const response = await api.post('/register', userData);
+    return response.data;
+  };
 
   export const useRegisterUser = () => {
     return useMutation({
       mutationFn: registerUser,
       onSuccess: (data) => {
-        toast.success(data.message, { autoClose: 3000 })
+        toast.success(data.message, { autoClose: 3000 });
       },
       onError: (error) => {
-        const errorMessage = error.response?.data?.message || error.message
-        toast.error(errorMessage, { autoClose: 5000 })
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(errorMessage, { autoClose: 5000 });
       },
-    })
-  }
+    });
+  };
   ```

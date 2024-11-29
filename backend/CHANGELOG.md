@@ -1,5 +1,16 @@
 # backend
 
+## 1.3.0
+
+### Minor Changes
+
+- 4d602ef: feat: cria novos endpoints para busca de usuário e logout
+- 491db2b: feat: adiciona um novo endpoint para usuarios
+
+### Patch Changes
+
+- 82c276b: feat: organiza o código com o Prettier
+
 ## 1.2.1
 
 ### Patch Changes
@@ -40,29 +51,29 @@
   // Antes:
   export const registerUser = async (userData) => {
     try {
-      const response = await axios.post('http://localhost:3001/register', userData)
-      return response.data
+      const response = await axios.post('http://localhost:3001/register', userData);
+      return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message)
+      throw new Error(error.response?.data?.message);
     }
-  }
+  };
 
   // Depois:
   const registerUser = async (userData) => {
-    const response = await api.post('/register', userData)
-    return response.data
-  }
+    const response = await api.post('/register', userData);
+    return response.data;
+  };
 
   export const useRegisterUser = () => {
     return useMutation({
       mutationFn: registerUser,
       onSuccess: (data) => {
-        toast.success(data.message, { autoClose: 3000 })
+        toast.success(data.message, { autoClose: 3000 });
       },
       onError: (error) => {
-        const errorMessage = error.response?.data?.message || error.message
-        toast.error(errorMessage, { autoClose: 5000 })
+        const errorMessage = error.response?.data?.message || error.message;
+        toast.error(errorMessage, { autoClose: 5000 });
       },
-    })
-  }
+    });
+  };
   ```

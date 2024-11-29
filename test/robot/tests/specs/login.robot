@@ -31,7 +31,7 @@ Cenário 4: Deveria ser possivel fazer login com as credenciais válidas
 
 Cenário 5: Deveria ser possivel ir para a tela de cadastro
     Navegar para a rota Login
-    Clicar no link    link-singup
+    Clicar no link    link-signup
     Verificar a navegação da url   /signup
 
 Cenário 6: Deveria ser possivel ir para a tela de esqueci a senha

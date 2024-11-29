@@ -1,17 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import api from '../services/api';
 
-const loginUser = async (loginData) => {
-  const response = await api.post('/login', loginData);
+const updateUser = async (userData) => {
+  const response = await api.put('/user', userData);
   return response.data;
 };
 
-export const useLoginUser = () => {
+export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: loginUser,
-    onSuccess: () => {
+    mutationFn: updateUser,
+    onSuccess: (updatedUser) => {
+      queryClient.setQueryData(['user'], updatedUser);
       queryClient.resetQueries();
       queryClient.invalidateQueries();
     },

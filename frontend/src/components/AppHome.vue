@@ -4,11 +4,9 @@
       <img src="@/assets/images/logoqae2e.jpg" alt="Logo QA E2E" class="logo" />
       <div class="project-description">
         <p>
-          Este projeto é <strong>Open Source</strong> e visa servir para fins de
-          <strong>UI Tests</strong>, utilizando diversos frameworks de testes. Ele pode servir como
-          um "Hello World" para os frameworks de testes. Atualmente, foi pensado utilizar
-          <strong>Cypress</strong>, <strong>Playwright</strong> e <strong>Robot Framework</strong>,
-          mas futuramente esta lista pode aumentar.
+          Este projeto é <strong>Open Source</strong> e visa servir para fins de <strong>UI Tests</strong>, utilizando diversos frameworks de testes.
+          Ele pode servir como um "Hello World" para os frameworks de testes. Atualmente, foi pensado utilizar <strong>Cypress</strong>,
+          <strong>Playwright</strong> e <strong>Robot Framework</strong>, mas futuramente esta lista pode aumentar.
         </p>
       </div>
     </div>
@@ -16,7 +14,7 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup></script>
 
 <style scoped>
 .main-container {
@@ -25,7 +23,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  min-height: calc(100vh - 80px);
+  min-height: 80vh;
 }
 
 .logo-container {
@@ -42,7 +40,7 @@
 }
 
 .project-description p {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
 }
 </style>

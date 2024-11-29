@@ -1,8 +1,9 @@
-import type { App } from 'vue'
+import type { App } from 'vue';
 
-import router from '../router'
-import { VueQueryPlugin, vueQueryOptions } from './vueQuery'
-import { Vue3Toastify, toastOptions } from './vueToastify'
+import { VueQueryPlugin } from '@tanstack/vue-query';
+import router from '../router';
+import { queryClient } from './vueQuery';
+import { Vue3Toastify, toastOptions } from './vueToastify';
 
 /**
  * Registra plugins essenciais na aplicação Vue.
@@ -28,5 +29,5 @@ import { Vue3Toastify, toastOptions } from './vueToastify'
  * ```
  */
 export function registerPlugins(app: App) {
-  app.use(router).use(Vue3Toastify, toastOptions).use(VueQueryPlugin, vueQueryOptions)
+  app.use(router).use(Vue3Toastify, toastOptions).use(VueQueryPlugin, { queryClient });
 }

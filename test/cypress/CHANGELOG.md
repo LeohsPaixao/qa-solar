@@ -1,5 +1,12 @@
 # cypress-ui-tests
 
+## 1.2.4
+
+### Patch Changes
+
+- cda13b4: test: resolve os testes quebrados apos a atualização dos componentes
+- 0069498: test: ajusta os testes quebrados devido a atualizações
+
 ## 1.2.3
 
 ### Patch Changes
