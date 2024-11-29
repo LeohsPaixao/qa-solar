@@ -7,6 +7,7 @@ colorama==0.4.6
 commitizen==4.0.0
 decli==0.6.2
 exceptiongroup==1.2.2
+greenlet==3.1.1
 grpcio==1.68.0
 grpcio-tools==1.68.0
 h11==0.14.0
@@ -21,8 +22,10 @@ overrides==7.7.0
 packaging==24.2
 pathspec==0.12.1
 platformdirs==4.3.6
+playwright==1.49.0
 prompt-toolkit==3.0.36
 protobuf==5.28.3
+pyee==12.0.0
 Pygments==2.18.0
 PySocks==1.7.1
 python-dateutil==2.9.0.post0
