@@ -14,7 +14,7 @@ export async function updateUser(req, res) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { fullName, socialName, phone, document } = req.body;
+    const { fullName, socialName, phone } = req.body;
 
     await prisma.user.update({
       where: { id: decoded.userId },
@@ -22,7 +22,6 @@ export async function updateUser(req, res) {
         full_name: fullName,
         social_name: socialName || null,
         phone: phone || null,
-        document: document,
       },
     });
 
