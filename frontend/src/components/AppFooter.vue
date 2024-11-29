@@ -1,6 +1,6 @@
 <template>
   <footer class="app-footer">
-    <p>© 2024 QA Solar - Todos os direitos reservados</p>
+    <p class="message-footer">© 2024 QA Solar - Todos os direitos reservados</p>
     <a href="https://github.com/LeohsPaixao/qa-solar" target="_blank" rel="noopener noreferrer" class="github-link">
       <img src="@/assets/images/github-mark-white.svg" alt="GitHub" class="github-icon" />
     </a>
@@ -37,10 +37,8 @@
   left: 1.5rem;
 }
 
-p {
-  font-family: 'Arial', sans-serif;
-  font-size: 0.7rem;
-  color: #2b2b2bcc;
+.message-footer {
+  font-size: 0.8rem;
   margin: 0;
   right: 1.5rem;
 }
