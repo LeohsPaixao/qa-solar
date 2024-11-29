@@ -54,8 +54,8 @@
 import { onMounted, ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { useDeleteUsers } from '../../../../hooks/useDeleteUsers.js';
-import { useFetchUsers } from '../../../../hooks/useFetchUsers.js';
+import { useDeleteUser } from '../../../../hooks/useDeleteUser.js';
+import { useFetchUser } from '../../../../hooks/useFetchUser.js';
 
 // Estados locais
 const users = ref([]);
@@ -64,8 +64,8 @@ const selectAll = ref(false);
 const isLoading = ref(false);
 
 // Hooks para buscar e deletar usuários
-const { data: fetchedUsers, isLoading: isFetching, refetch } = useFetchUsers();
-const { mutate: deleteUsers, isLoading: isDeleting } = useDeleteUsers();
+const { data: fetchedUsers, isLoading: isFetching, refetch } = useFetchUser();
+const { mutate: deleteUsers, isLoading: isDeleting } = useDeleteUser();
 
 // Função para carregar usuários
 onMounted(() => {
