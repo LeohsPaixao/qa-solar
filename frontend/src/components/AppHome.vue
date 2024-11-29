@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  min-height: calc(100vh - 80px);
+  min-height: 80vh;
 }
 
 .logo-container {
@@ -40,7 +40,7 @@
 }
 
 .project-description p {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
 }
 </style>
