@@ -2,7 +2,8 @@
 
 ### Feat
 
-- **1.0.0**: instala e configura o commitizen no projeto de robot framework
+- adiciona novas configurações no commitizen
+- **feat:-instala-e-configura-o-commitizen-no-projeto-de-robot-framework**: feat: instala e configura o commitizen no projeto de robot framework
 - adiciona data-testid no componente profile (#45)
 - melhora as validacoes dos campos (#10)
 - adiciona o changeset (#9)
@@ -10,7 +11,7 @@
 - remove o console.log do script
 - adiciona a a logo com o fundo branco
 - adiciona a nova rota de cadastro
-- esconde o progresso do toast
+- esconde o progresso do toas
 - adiciona o changeset
 - altera o nome do aplicativo
 - adiciona o changeset
