@@ -1,5 +1,11 @@
 # frontend
 
+## 1.4.0
+
+### Minor Changes
+
+- e4c10b8: feat: adiciona a nova tela de tabela de usuários
+
 ## 1.3.1
 
 ### Patch Changes

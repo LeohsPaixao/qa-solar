@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import api from '../services/api';
 
 const updateUser = async (userData) => {
-  const response = await api.put('/user', userData);
+  const response = await api.put('/user/update', userData);
   return response.data;
 };
 

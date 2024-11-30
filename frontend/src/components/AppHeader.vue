@@ -3,6 +3,7 @@
     <nav>
       <ul>
         <li><router-link to="/home">Home</router-link></li>
+        <li><router-link to="/listusers">Table Users</router-link></li>
       </ul>
     </nav>
     <div class="user-dropdown" @click="toggleDropdown">

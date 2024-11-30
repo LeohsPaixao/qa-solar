@@ -17,9 +17,7 @@
           required
         />
       </div>
-      <button data-testid="btn-recover-password" class="btn btn-recover btn-recover-password" type="submit" :disabled="isLoading">
-          {{ isLoading ? 'Enviando...' : 'Recuperar a senha' }}
-        </button>
+      <button data-testid="btn-recover-password" class="btn btn-recover btn-recover-password" type="submit">Recuperar a senha</button>
       <div class="link-container">
         <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login"> Voltar ao Login </router-link>
       </div>
@@ -40,7 +38,7 @@ import { useFetchEmailUser } from '../../../../hooks/useFetchEmailUser.js';
 const email = ref('');
 const router = useRouter();
 
-const { mutate: checkEmail, isLoading } = useFetchEmailUser();
+const mutation = useFetchEmailUser();
 
 const handleRecoverPassword = () => {
   if (!email.value) {
@@ -48,19 +46,22 @@ const handleRecoverPassword = () => {
     return;
   }
 
-  checkEmail(email.value, {
-    onSuccess: (data) => {
-      toast.success(data.message || 'Um e-mail foi enviado!', { autoClose: 3000 });
-      setTimeout(() => {
-        router.push('/');
-      }, 3000);
+  mutation.mutate(
+    email.value,
+    {
+      onSuccess: (data) => {
+        toast.success(data.message || 'Um e-mail foi enviado!', { autoClose: 3000 });
+        setTimeout(() => {
+          router.push('/');
+        }, 3000);
+      },
+      onError: (error) => {
+        const errorMessage = error.response?.data?.message || 'Erro ao verificar e-mail';
+        toast.error(errorMessage, { autoClose: 5000 });
+        email.value = '';
+      },
     },
-    onError: (error) => {
-      const errorMessage = error.response?.data?.message || 'Erro ao verificar e-mail';
-      toast.error(errorMessage, { autoClose: 5000 });
-      email.value = '';
-    },
-  });
+  );
 };
 </script>
 
