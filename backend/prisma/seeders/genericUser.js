@@ -30,6 +30,8 @@ async function main() {
   });
   if (!user) {
     throw new Error('Usuário genérico não foi criado no banco de dados');
+  } else {
+    console.log(`Usuário gerado com o email: ${user.email}`);
   }
 }
 
