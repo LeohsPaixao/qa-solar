@@ -1,9 +1,10 @@
 import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
 import { formatDateTime } from '../utils/formatDate.js';
 
 const prisma = new PrismaClient();
 
-export async function getAllUsers(req, res) {
+export async function getAllUsers(req: Request, res: Response): Promise<void> {
   try {
     const users = await prisma.user.findMany({
       select: {
@@ -18,7 +19,8 @@ export async function getAllUsers(req, res) {
     });
 
     if (users.length === 0) {
-      return res.status(404).json({ message: 'Nenhum usuário encontrado.' });
+      res.status(404).json({ message: 'Nenhum usuário encontrado.' });
+      return
     }
 
     const formattedUsers = users.map((user) => ({
@@ -28,6 +30,6 @@ export async function getAllUsers(req, res) {
 
     res.status(200).json(formattedUsers);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro ao buscar usuários.' });
+    res.status(500).json({ message: 'Erro ao buscar usuários.' });
   }
 }

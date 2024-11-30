@@ -4,7 +4,7 @@
  * @param date - Objeto Date a ser formatado.
  * @returns String representando a data formatada.
  */
-export function formatDate(date) {
+export function formatDate(date: Date) {
   if (!(date instanceof Date)) return 'Data inválida';
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -18,7 +18,7 @@ export function formatDate(date) {
  * @param date - O objeto de data a ser formatado.
  * @returns Uma string representando a data e hora formatadas.
  */
-export function formatDateTime(date) {
+export function formatDateTime(date: Date) {
   if (!(date instanceof Date)) return 'Data inválida';
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0');

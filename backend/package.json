@@ -7,10 +7,11 @@
   "type": "module",
   "private": false,
   "scripts": {
-    "api": "ts-node src/server.js",
-    "format": "prettier --write src/",
-    "lint": "echo 'Ainda não tem um linter instalado no backend'",
-    "prisma:seed": "ts-node prisma/seeders/*.js"
+    "build": "rimraf disc && tsc",
+    "start": "node dist/server.js",
+    "dev": "yarn build && yarn start",
+    "format": "prettier --write src/*{.ts,.json}",
+    "lint": "echo 'Ainda não'"
   },
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
@@ -27,6 +28,14 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
   }

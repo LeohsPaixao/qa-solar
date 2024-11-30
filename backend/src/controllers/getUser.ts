@@ -1,8 +1,10 @@
 import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
 
 const prisma = new PrismaClient();
 
-export async function getUser(req, res) {
+
+export async function getUser(req: Request, res: Response): Promise<void> {
   const email = req.validatedEmail;
 
   try {
@@ -19,11 +21,12 @@ export async function getUser(req, res) {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Este email não esta cadastrado no banco de dados.' });
+      res.status(404).json({ message: 'Este email não esta cadastrado no banco de dados.' });
+      return
     }
 
     res.status(200).json(user);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro ao buscar usuário.' });
+    res.status(500).json({ message: 'Erro ao buscar usuário.' });
   }
 }
