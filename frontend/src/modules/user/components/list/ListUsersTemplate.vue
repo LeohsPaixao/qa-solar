@@ -1,101 +1,96 @@
 <template>
   <div class="list-users-container">
-    <table class="users-table">
-      <thead>
-        <tr>
-          <th>
-            <input
-              type="checkbox"
-              v-model="selectAll"
-              @change="toggleSelectAll"
-              :disabled="isLoading"
-              aria-label="Selecionar todos os usuários"
-            />
-          </th>
-          <th>ID</th>
-          <th>Nome Completo</th>
-          <th>E-mail</th>
-          <th>Telefone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in users" :key="user.id">
-          <td>
-            <input
-              type="checkbox"
-              v-model="selectedUsers"
-              :value="user.id"
-              :disabled="isLoading"
-              aria-label="Selecionar usuário"
-            />
-          </td>
-          <td>{{ user.id }}</td>
-          <td>{{ user.full_name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.phone }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <footer class="footer-actions">
-      <button
-        class="btn-delete"
-        :disabled="!selectedUsers.length || isLoading"
-        @click="handleDelete"
-        aria-label="Excluir usuários selecionados"
-      >
-        Excluir
-      </button>
-    </footer>
+    <div class="table-wrapper">
+      <table data-testid="table-users" class="users-table">
+        <thead>
+          <tr>
+            <th>
+              <input
+                data-testid="checkbox-select-all"
+                type="checkbox"
+                v-model="selectAll"
+                @change="toggleSelectAll"
+                :disabled="isLoading"
+                aria-label="Selecionar todos os usuários"
+              />
+            </th>
+            <th>ID</th>
+            <th>Nome Completo</th>
+            <th>E-mail</th>
+            <th>Documento</th>
+            <th>Telefone</th>
+            <th>Data de Criação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(user, index) in users" :key="user.id">
+            <td>
+              <input
+                :data-testid="`checkbox-select-${index}`"
+                type="checkbox"
+                v-model="selectedUsers"
+                :value="user.id"
+                :disabled="isLoading"
+                aria-label="Selecionar usuário"
+              />
+            </td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.full_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.document }}</td>
+            <td>{{ user.phone || '(00) 0 0000-0000' }}</td>
+            <td>{{ user.created_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <footer class="footer-actions">
+        <button
+          data-testid="btn-delete-user"
+          class="btn-delete"
+          :disabled="!selectedUsers.length || isDeleting || isLoggedInUserSelected"
+          @click="handleDelete"
+          aria-label="Excluir usuários selecionados"
+        >
+          {{ isDeleting ? 'Excluindo...' : 'Excluir' }}
+        </button>
+      </footer>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { useDeleteUser } from '../../../../hooks/useDeleteUser.js';
 import { useFetchUser } from '../../../../hooks/useFetchUser.js';
+import { useFetchUsers } from '../../../../hooks/useFetchUsers.js';
 
-// Estados locais
-const users = ref([]);
 const selectedUsers = ref([]);
 const selectAll = ref(false);
-const isLoading = ref(false);
 
-// Hooks para buscar e deletar usuários
-const { data: fetchedUsers, isLoading: isFetching, refetch } = useFetchUser();
-const { mutate: deleteUsers, isLoading: isDeleting } = useDeleteUser();
+const userEmail = localStorage.getItem('user-email');
 
-// Função para carregar usuários
-onMounted(() => {
-  refetch().then((response) => {
-    users.value = response.data;
-  });
-});
+const { data: users, isLoading } = useFetchUsers();
+const { data: loggedInUser } = useFetchUser(userEmail);
+const { mutate: deleteUser, isLoading: isDeleting } = useDeleteUser();
 
-// Sincronizar a seleção de "Selecionar Todos"
 const toggleSelectAll = () => {
   if (selectAll.value) {
-    selectedUsers.value = users.value.map((user) => user.id);
+    selectedUsers.value = users.value.filter((user) => user.id !== loggedInUser.value.id).map((user) => user.id);
   } else {
     selectedUsers.value = [];
   }
 };
 
-// Função para excluir usuários selecionados
-const handleDelete = () => {
-  if (!selectedUsers.value.length) {
-    toast.error('Nenhum usuário selecionado.', { autoClose: 3000 });
-    return;
-  }
+const isLoggedInUserSelected = computed(() => loggedInUser.value && selectedUsers.value.includes(loggedInUser.value.id));
 
-  deleteUsers(selectedUsers.value, {
-    onSuccess: () => {
-      toast.success('Usuários excluídos com sucesso!', { autoClose: 3000 });
+const handleDelete = () => {
+  deleteUser(selectedUsers.value, {
+    onSuccess: (data) => {
+      toast.success(data.message, { autoClose: 3000 });
       selectedUsers.value = [];
       selectAll.value = false;
-      refetch();
     },
     onError: () => {
       toast.error('Erro ao excluir usuários. Tente novamente.', { autoClose: 5000 });

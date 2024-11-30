@@ -3,22 +3,19 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
 
-// Função de busca com ou sem e-mail
 const fetchUser = async (email) => {
-  const response = email
-    ? await api.post('/user', { email })
-    : await api.get('/user'); // Novo endpoint para buscar com base no token
+  const response = await api.post('/user', { email });
   return response.data;
 };
 
-export const useFetchUser = (email = null) => {
+export const useFetchUser = (email) => {
   const queryClient = useQueryClient();
 
   return useQuery({
-    queryKey: email ? ['user', email] : ['user'],
+    queryKey: ['user', email],
     queryFn: () => fetchUser(email),
     staleTime: 0,
-    onSuccess: () => {
+    onSucess: () => {
       queryClient.resetQueries();
       queryClient.invalidateQueries();
     },
@@ -36,4 +33,3 @@ export const useFetchUser = (email = null) => {
     },
   });
 };
-

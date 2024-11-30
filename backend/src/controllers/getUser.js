@@ -3,11 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function getUser(req, res) {
-  const { email } = req.body;
-
-  if (!email) {
-    return res.status(400).json({ message: 'Email não fornecido.' });
-  }
+  const email = req.validatedEmail;
 
   try {
     const user = await prisma.user.findUnique({

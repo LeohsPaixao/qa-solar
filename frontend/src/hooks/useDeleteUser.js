@@ -3,9 +3,8 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
 
-// Função para excluir o usuário no backend
-const deleteUser = async (userId) => {
-  const response = await api.delete(`/user/delete/${userId}`);
+const deleteUser = async (userIds) => {
+  const response = await api.delete('/user/delete', { data: { ids: userIds } });
   return response.data;
 };
 
@@ -14,14 +13,11 @@ export const useDeleteUser = () => {
 
   return useMutation({
     mutationFn: deleteUser,
-    onSuccess: (response) => {
+    onSuccess: () => {
       queryClient.invalidateQueries(['user']);
-      toast.success(response.message || 'Usuário excluído com sucesso!', {
-        autoClose: 3000,
-      });
+      queryClient.resetQueries();
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.message || 'Erro ao excluir usuário.';
       const errorStatus = error.response?.status;
 
       if (errorStatus === 404) {

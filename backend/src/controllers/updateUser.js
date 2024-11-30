@@ -1,23 +1,14 @@
 import { PrismaClient } from '@prisma/client';
-import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
 export async function updateUser(req, res) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({ message: 'Token não fornecido.' });
-  }
-
-  const token = authHeader.split(' ')[1];
+  const userId = req.userId;
+  const { fullName, socialName, phone } = req.body;
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { fullName, socialName, phone } = req.body;
-
     await prisma.user.update({
-      where: { id: decoded.userId },
+      where: { id: userId },
       data: {
         full_name: fullName,
         social_name: socialName || null,
@@ -27,7 +18,6 @@ export async function updateUser(req, res) {
 
     res.status(200).json({ message: 'Usuário alterado com sucesso.' });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: 'Erro ao atualizar o perfil do usuário.' });
   }
 }
