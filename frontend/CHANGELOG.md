@@ -1,5 +1,13 @@
 # frontend
 
+## 1.4.1
+
+### Patch Changes
+
+- 8f35ad9: chore: ajustes finos no componente RecoverPasswordTemplate.vue
+- 9cda398: chore: correcao de codigo e configuracao
+- abe1ffc: feat: ajusta alguns componentes
+
 ## 1.4.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # qa-solar
 
+## 2.4.2
+
+### Patch Changes
+
+- 8f35ad9: chore: ajusta o workflow para o novo modelo do backend
+- 9cda398: chore: ajust a configuracao do commitlint com husky
+- abe1ffc: chore: instala pacotes para o projeto backend
+
 ## 2.4.1
 
 ### Patch Changes

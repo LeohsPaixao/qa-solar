@@ -1,5 +1,40 @@
 # backend
 
+## 2.0.0
+
+### Major Changes
+
+- abe1ffc: feat: migra o projeto de JavaScript para TypeScript
+
+  BREAKING CHANGE:
+
+  ### O que mudou:
+
+  - Todo o código do backend foi reescrito de JavaScript para TypeScript.
+  - Foram adicionados tipos para garantir maior segurança e previsibilidade no código.
+  - Algumas estruturas e middlewares foram refatorados para aderir às melhores práticas do TypeScript.
+
+  ### Por que a mudança foi feita:
+
+  - Para melhorar a qualidade do código e reduzir erros em tempo de execução.
+  - Para facilitar a manutenção do projeto e a escalabilidade futura.
+  - Para alinhar o projeto com padrões modernos de desenvolvimento.
+
+  ### Como atualizar seu código:
+
+  1. Certifique-se de ter o TypeScript instalado no seu ambiente de desenvolvimento.
+  2. Atualize os comandos de execução do projeto para usar `ts-node` ou compile os arquivos com `tsc`.
+  3. Verifique suas integrações externas para ajustar chamadas e tipos, se necessário.
+  4. Revise os exemplos no `README.md` (se aplicável) para garantir compatibilidade com o novo código.
+
+### Minor Changes
+
+- 8f35ad9: feat: finaliza a configuração do eslint no projeto backend
+
+### Patch Changes
+
+- 9cda398: chore: correcao de codigo e configuracao
+
 ## 1.4.0
 
 ### Minor Changes
