@@ -13,7 +13,6 @@ form {
   padding: 3rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
 }
 
 h2 {
@@ -94,14 +93,11 @@ button {
   text-align: center;
   justify-content: center;
   align-items: center;
-  transition:
-    background 0.3s ease,
-    transform 0.2s ease;
+  transition: all 0.3s;
 }
 
 button:hover {
   background-color: #388e3c;
-  transform: translateY(-2px);
 }
 
 button:disabled {
