@@ -43,6 +43,8 @@ test.describe('Tela de Login', () => {
     await page.locator('[data-testid="input-password"]').fill('123456');
     await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
     await page.locator('[data-testid="btn-login"]').click();
+    const toastContent = page.locator('[data-testid="toast-content"]')
+    await expect(toastContent).toHaveText('Login realizado com sucesso!');
   });
 
   test('Deveria ser possível ir para a tela de cadastro', async ({ page, baseURL }) => {
