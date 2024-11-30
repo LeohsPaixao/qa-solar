@@ -46,11 +46,15 @@ jobs:
           yarn ts-node prisma/seeders/generateUserFake.js 
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar backend
         run: |
-            cd backend
-            nohup yarn api &
+          cd backend
+          nohup yarn api &
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar frontend
         run: |
@@ -107,14 +111,23 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
-      - name: Iniciar backend
+      - name: Configurar backend
         run: |
           cd backend
           yarn prisma migrate dev
-          yarn prisma:seed
+          yarn ts-node prisma/seeders/genericUser.js
+          yarn ts-node prisma/seeders/generateUserFake.js 
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+      - name: Iniciar backend
+        run: |
+          cd backend
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar frontend
         run: |
@@ -183,14 +196,23 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
-      - name: Iniciar backend
+      - name: Configurar backend
         run: |
           cd backend
           yarn prisma migrate dev
-          yarn prisma:seed
+          yarn ts-node prisma/seeders/genericUser.js
+          yarn ts-node prisma/seeders/generateUserFake.js 
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+      - name: Iniciar backend
+        run: |
+          cd backend
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar frontend
         run: |
