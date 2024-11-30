@@ -11,20 +11,16 @@ export async function deleteUser(req: Request, res: Response): Promise<void> {
     return
   }
 
-  try {
-    const deletedUsers = await prisma.user.deleteMany({
-      where: {
-        id: { in: ids },
-      },
-    });
+  const deletedUsers = await prisma.user.deleteMany({
+    where: {
+      id: { in: ids },
+    },
+  });
 
-    if (deletedUsers.count === 0) {
-      res.status(404).json({ message: 'Nenhum usuário encontrado para excluir.' });
-      return
-    }
-
-    res.status(200).json({ message: `${deletedUsers.count} usuário(s) excluído(s) com sucesso!` });
-  } catch (error) {
-    res.status(500).json({ message: 'Erro ao excluir o usuário.' });
+  if (deletedUsers.count === 0) {
+    res.status(404).json({ message: 'Nenhum usuário encontrado para excluir.' });
+    return
   }
+
+  res.status(200).json({ message: `${deletedUsers.count} usuário(s) excluído(s) com sucesso!` });
 }

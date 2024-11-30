@@ -6,18 +6,14 @@ const prisma = new PrismaClient();
 export async function getEmailUser(req: Request, res: Response): Promise<void> {
   const email = req.validatedEmail;
 
-  try {
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
 
-    if (!user) {
-      res.status(404).json({ message: 'Este email não esta cadastrado no banco de dados.' });
-      return
-    }
-
-    res.status(200).json({ message: 'Um e-mail foi enviado com instruções para recuperar a senha.' });
-  } catch (error) {
-    res.status(500).json({ message: 'Erro interno no servidor.' });
+  if (!user) {
+    res.status(404).json({ message: 'Este email não esta cadastrado no banco de dados.' });
+    return
   }
+
+  res.status(200).json({ message: 'Um e-mail foi enviado com instruções para recuperar a senha.' });
 }
