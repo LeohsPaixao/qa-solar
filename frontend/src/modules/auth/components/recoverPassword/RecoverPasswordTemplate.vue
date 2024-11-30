@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -47,10 +47,10 @@ const handleRecoverPassword = () => {
   }
 
   mutation.mutate(email.value, {
-    onSuccess: async (data) => {
+    onSuccess: async (response) => {
       await router.push('/');
       nextTick(() => {
-        toast.success(data.message, { autoClose: 3000 });
+        toast.success(response.message, { autoClose: 3000 });
       });
     },
     onError: (error) => {
