@@ -27,9 +27,8 @@ async function main() {
 
 main()
   .catch((error) => {
-    console.error('Erro ao executar o seeder:', error.message);
+    throw new Error('Não foi possivel criar o usuário genérico', + error.message)
   })
   .finally(async () => {
-    console.log('Desconectando o Prisma...');
     await prisma.$disconnect();
   });
