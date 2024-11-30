@@ -47,6 +47,7 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
+          yarn global add rimraf
           rimraf disc && tsc
           nohup node dist/server.js &
         env:
@@ -117,6 +118,7 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
+          yarn global add rimraf
           rimraf disc && tsc
           nohup node dist/server.js &
         env:
@@ -199,6 +201,7 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
+          yarn global add rimraf
           rimraf disc && tsc
           nohup node dist/server.js &
         env:
