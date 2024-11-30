@@ -14,8 +14,10 @@
     "test/playwright"
   ],
   "scripts": {
+    "prepare": "husky",
     "changeset": "changeset",
     "version-packages": "changeset version",
+    "linter:all": "yarn workspace backend lint && yarn workspace frontend lint",
     "format:all": "yarn workspace backend format && yarn workspace frontend format"
   },
   "keywords": [
