@@ -46,22 +46,19 @@ const handleRecoverPassword = () => {
     return;
   }
 
-  mutation.mutate(
-    email.value,
-    {
-      onSuccess: (data) => {
-        toast.success(data.message || 'Um e-mail foi enviado!', { autoClose: 3000 });
-        setTimeout(() => {
-          router.push('/');
-        }, 3000);
-      },
-      onError: (error) => {
-        const errorMessage = error.response?.data?.message || 'Erro ao verificar e-mail';
-        toast.error(errorMessage, { autoClose: 5000 });
-        email.value = '';
-      },
+  mutation.mutate(email.value, {
+    onSuccess: (data) => {
+      toast.success(data.message || 'Um e-mail foi enviado!', { autoClose: 3000 });
+      setTimeout(() => {
+        router.push('/');
+      }, 3000);
     },
-  );
+    onError: (error) => {
+      const errorMessage = error.response?.data?.message || 'Erro ao verificar e-mail';
+      toast.error(errorMessage, { autoClose: 5000 });
+      email.value = '';
+    },
+  });
 };
 </script>
 

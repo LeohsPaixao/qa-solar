@@ -1,1 +1,1 @@
-yarn format:all
+yarn linter:all
