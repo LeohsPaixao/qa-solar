@@ -33,7 +33,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.1.0
 
       - name: Instalar dependências do Monorepo
         run: yarn
@@ -47,7 +47,8 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          nohup yarn dev &
+          rimraf disc && tsc
+          nohup node dist/server.js &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -102,7 +103,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.1.0
 
       - name: Instalar dependências do Monorepo
         run: yarn
@@ -116,7 +117,8 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          nohup yarn dev &
+          rimraf disc && tsc
+          nohup node dist/server.js &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -177,7 +179,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.1.0
 
       - name: Configurar Python
         uses: actions/setup-python@v5.3.0
@@ -197,7 +199,8 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          nohup yarn dev &
+          rimraf disc && tsc
+          nohup node dist/server.js &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
