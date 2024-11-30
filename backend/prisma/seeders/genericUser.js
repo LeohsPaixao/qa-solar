@@ -7,11 +7,13 @@ dotenv.config();
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log('Iniciando o seeder...');
+
   const plainPassword = '123456';
-
   const hashedPassword = await bcrypt.hash(plainPassword, 10);
+  console.log('Senha criptografada:', hashedPassword);
 
-  await prisma.user.upsert({
+  const upsertedUser = await prisma.user.upsert({
     where: { email: 'generic@example.com' },
     update: {},
     create: {
@@ -25,10 +27,14 @@ async function main() {
     },
   });
 
+  console.log('Usuário criado ou atualizado:', upsertedUser);
+
   const user = await prisma.user.findUnique({
     where: { email: 'generic@example.com' },
   });
+
   if (!user) {
+    console.error('Usuário genérico não foi criado no banco de dados.');
     throw new Error('Usuário genérico não foi criado no banco de dados');
   } else {
     console.log(`Usuário gerado com o email: ${user.email}`);
@@ -37,8 +43,9 @@ async function main() {
 
 main()
   .catch((error) => {
-    throw new Error('Não foi possivel criar o usuário genérico', + error.message)
+    console.error('Erro ao executar o seeder:', error.message);
   })
   .finally(async () => {
+    console.log('Desconectando o Prisma...');
     await prisma.$disconnect();
   });
