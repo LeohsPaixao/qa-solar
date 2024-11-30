@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import dotenv from 'dotenv';
-import app from './app.js';
+import app from './app.ts';
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ const startServer = async () => {
       console.log(chalk.blue(`🌍 URL: http://localhost:${PORT}`));
       console.log(chalk.yellow(`📅 Iniciado em: ${new Date().toLocaleString()}`));
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error(chalk.red.bold(`❌ Erro ao iniciar o servidor:`), error.message);
     process.exit(1);
   }

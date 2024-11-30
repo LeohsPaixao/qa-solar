@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -15,18 +16,21 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: logoutUser,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       queryClient.resetQueries();
       queryClient.invalidateQueries(['user']);
-      toast.success(data.message, { autoClose: 3000 });
-      setTimeout(() => {
-        localStorage.removeItem('user-email');
-        localStorage.removeItem('user-token');
-        router.push('/');
-      }, 3000);
+
+      localStorage.removeItem('user-email');
+      localStorage.removeItem('user-token');
+
+      await router.push('/');
+
+      nextTick(() => {
+        toast.success(data.message, { autoClose: 3000 });
+      });
     },
     onError: (error) => {
-      console.error('Erro ao fazer logout:', error.message);
+      toast.error(error.response?.data?.message);
     },
   });
 };

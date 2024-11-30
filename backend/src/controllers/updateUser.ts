@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client';
+import { Request, Response } from 'express';
 
 const prisma = new PrismaClient();
 
-export async function updateUser(req, res) {
+export async function updateUser(req: Request, res: Response) {
   const userId = req.userId;
   const { fullName, socialName, phone } = req.body;
 

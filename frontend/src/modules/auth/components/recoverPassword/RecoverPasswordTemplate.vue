@@ -47,11 +47,11 @@ const handleRecoverPassword = () => {
   }
 
   mutation.mutate(email.value, {
-    onSuccess: (data) => {
-      toast.success(data.message || 'Um e-mail foi enviado!', { autoClose: 3000 });
-      setTimeout(() => {
-        router.push('/');
-      }, 3000);
+    onSuccess: async (data) => {
+      await router.push('/');
+      nextTick(() => {
+        toast.success(data.message, { autoClose: 3000 });
+      });
     },
     onError: (error) => {
       const errorMessage = error.response?.data?.message || 'Erro ao verificar e-mail';

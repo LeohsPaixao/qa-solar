@@ -79,17 +79,17 @@ const handleLogin = () => {
     mutation.mutate(
       { email: email.value, password: password.value },
       {
-        onSuccess: async (response) => {
+        onSuccess: (response) => {
           window.localStorage.setItem('user-token', response.token);
           window.localStorage.setItem('user-email', email.value);
 
-          toast.success(response.message, { autoClose: 3000 });
+          toast.success(response.message, { autoClose: 1500 });
 
           setTimeout(() => {
             router.push('/home').then(() => {
               window.location.reload();
             });
-          }, 3000);
+          }, 1500);
         },
         onError: (error) => {
           const errorMessage = error.response?.data?.message || 'Ocorreu um erro inesperado. Tente novamente mais tarde.';

@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
-import router from './routes/routes.js';
+import router from './routes/routes.ts';
 
 const app = express();
 
