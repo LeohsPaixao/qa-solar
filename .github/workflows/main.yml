@@ -39,9 +39,7 @@ jobs:
         run: yarn
 
       - name: Configurar backend
-        run: |
-          cd backend
-          chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
+        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -110,9 +108,7 @@ jobs:
         run: yarn
 
       - name: Configurar backend
-        run: |
-          cd backend
-          chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
+        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -193,9 +189,7 @@ jobs:
         run: yarn
 
       - name: Configurar backend
-        run: |
-          cd backend
-          chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
+        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
