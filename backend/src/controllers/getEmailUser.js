@@ -11,7 +11,7 @@ export async function getEmailUser(req, res) {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Usuário não encontrado.' });
+      return res.status(404).json({ message: 'Este email não esta cadastrado no banco de dados.' });
     }
 
     res.status(200).json({ message: 'Um e-mail foi enviado com instruções para recuperar a senha.' });

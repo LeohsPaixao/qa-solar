@@ -19,7 +19,7 @@ export async function getUser(req, res) {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Usuário não encontrado.' });
+      return res.status(404).json({ message: 'Este email não esta cadastrado no banco de dados.' });
     }
 
     res.status(200).json(user);

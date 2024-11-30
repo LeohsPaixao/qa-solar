@@ -23,7 +23,7 @@ test.describe('Tela de Login', () => {
     await page.locator('[data-testid="btn-login"]').click();
     const toastContent = page.locator('[data-testid="toast-content"]');
     await expect(toastContent).toBeVisible();
-    await expect(toastContent).toHaveText('Usuário não encontrado.');
+    await expect(toastContent).toHaveText('Não foi possivel realizar login com este usuário.');
   });
 
   test('Não deveria ser possível fazer login com a senha inválida', async ({ page }) => {
