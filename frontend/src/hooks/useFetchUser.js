@@ -24,9 +24,9 @@ export const useFetchUser = (email) => {
       const errorStatus = error.response?.data?.status;
 
       if (errorStatus === '404') {
-        toast.error(errorMessage || 'Usuário não encontrado', { autoClose: 5000 });
+        toast.error(errorMessage, { autoClose: 5000 });
       } else if (errorStatus === '401') {
-        toast.error(errorMessage || 'Token inválido ou expirado', { autoClose: 5000 });
+        toast.error(errorMessage, { autoClose: 5000 });
       } else {
         toast.error('Erro desconhecido ao buscar usuário', { autoClose: 5000 });
       }

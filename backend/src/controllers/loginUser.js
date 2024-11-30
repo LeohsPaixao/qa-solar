@@ -13,7 +13,7 @@ export async function loginUser(req, res) {
     });
 
     if (!user) {
-      return res.status(400).json({ message: 'Usuário não encontrado.' });
+      return res.status(400).json({ message: 'Não foi possivel realizar login com este usuário.' });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);

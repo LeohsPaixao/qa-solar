@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.4.1
+
+### Patch Changes
+
+- e43fff5: feat: corrige os testes e o workflow
+
 ## 2.4.0
 
 ### Minor Changes

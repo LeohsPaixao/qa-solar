@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 
 async function main() {
   const plainPassword = '123456';
-
   const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
   await prisma.user.upsert({
@@ -28,8 +27,9 @@ async function main() {
 
 main()
   .catch((error) => {
-    throw new Error('Não foi possivel criar o usuário genérico', + error.message)
+    console.error('Erro ao executar o seeder:', error.message);
   })
   .finally(async () => {
+    console.log('Desconectando o Prisma...');
     await prisma.$disconnect();
   });
