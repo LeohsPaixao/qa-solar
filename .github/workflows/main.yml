@@ -62,7 +62,7 @@ jobs:
         uses: actions/upload-artifact@v4.4.3
         with:
           name: cypress-artifacts
-          path: test/cypress/screenshots/
+          path: test/cypress/tests/e2e/misc/screenshots/
 
   playwright-tests:
     name: Playwright Testes QA-Solar

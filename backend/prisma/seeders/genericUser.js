@@ -24,6 +24,13 @@ async function main() {
       password: hashedPassword,
     },
   });
+
+  const user = await prisma.user.findUnique({
+    where: { email: 'generic@example.com' },
+  });
+  if (!user) {
+    throw new Error('Usuário genérico não foi criado no banco de dados');
+  }
 }
 
 main()
