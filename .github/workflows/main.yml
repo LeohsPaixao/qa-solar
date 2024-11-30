@@ -47,7 +47,7 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          nohup yarn api &
+          nohup yarn dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -116,7 +116,7 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          nohup yarn api &
+          nohup yarn dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -197,7 +197,7 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          nohup yarn api &
+          nohup yarn dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
