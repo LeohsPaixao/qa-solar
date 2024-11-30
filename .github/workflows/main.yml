@@ -47,9 +47,8 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          yarn global add rimraf
-          rimraf disc && tsc
-          nohup node dist/server.js &
+          yarn build
+          nohup yarn start &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -118,9 +117,8 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          yarn global add rimraf
-          rimraf disc && tsc
-          nohup node dist/server.js &
+          yarn build
+          nohup yarn start &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -201,9 +199,8 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          yarn global add rimraf
-          rimraf disc && tsc
-          nohup node dist/server.js &
+          yarn build
+          nohup yarn start &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
