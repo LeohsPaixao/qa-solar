@@ -9,6 +9,7 @@
   "scripts": {
     "api": "ts-node src/server.js",
     "format": "prettier --write src/",
+    "lint": "echo 'Ainda não tem um linter instalado no backend'",
     "prisma:seed": "ts-node prisma/seeders/*.js"
   },
   "dependencies": {
