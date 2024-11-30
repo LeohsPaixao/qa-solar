@@ -1,5 +1,11 @@
 describe('Tela de Login', () => {
 
+
+  Cypress.on('fail', (error) => {
+    cy.log('Erro capturado:', error.message);
+    throw error;
+  });
+
   beforeEach(() => {
     cy.visitAndwait('/')
   })
@@ -14,15 +20,15 @@ describe('Tela de Login', () => {
 
   it('Não deveria ser possivel fazer login com a senha inválidas', () => {
     cy.get('[data-testid="btn-login"]').should('be.disabled')
-    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} generic@example.com')
-    cy.get('[data-testid="input-password"]').should('be.visible').type('{selectall} password@example.com')
+    cy.get('[data-testid="input-email"]').should('be.visible').type('generic@example.com')
+    cy.get('[data-testid="input-password"]').should('be.visible').type('password')
     cy.get('[data-testid="btn-login"]').should('be.enabled').click()
-    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'A senha não confere.')
+    cy.get('[data-testid="toast-content"]').should('have.text', 'A senha não confere.')
   })
 
   it('Deveria ser possivel fazer login com credenciais válidas', () => {
     cy.get('[data-testid="btn-login"]').should('be.disabled')
-    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} generic@example.com')
+    cy.get('[data-testid="input-email"]').should('be.visible').type('generic@example.com')
     cy.get('[data-testid="input-password"]').should('be.visible').type('123456')
     cy.get('[data-testid="btn-login"]').should('be.enabled').click()
     cy.get('.Toastify').should('exist')
@@ -30,8 +36,8 @@ describe('Tela de Login', () => {
 
   it('Não deveria ser possivel fazer login com credenciais inválidas', () => {
     cy.get('[data-testid="btn-login"]').should('be.disabled')
-    cy.get('[data-testid="input-email"]').should('be.visible').type('{selectall} email@example.com')
-    cy.get('[data-testid="input-password"]').should('be.visible').type('{selectall} password@example.com')
+    cy.get('[data-testid="input-email"]').should('be.visible').type('email@example.com')
+    cy.get('[data-testid="input-password"]').should('be.visible').type('password')
     cy.get('[data-testid="btn-login"]').should('be.enabled').click()
     cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Não foi possivel realizar login com este usuário.')
   })
