@@ -1,3 +1,6 @@
+# Folders
 node_modules
-# Keep environment variables out of version control
+dist
+
+# Environment Variables
 .env
