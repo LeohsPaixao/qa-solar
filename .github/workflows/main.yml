@@ -41,9 +41,7 @@ jobs:
       - name: Configurar backend
         run: |
           cd backend
-          yarn prisma migrate dev
-          yarn ts-node prisma/seeders/genericUser.js
-          yarn ts-node prisma/seeders/generateUserFake.js 
+          chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -114,9 +112,7 @@ jobs:
       - name: Configurar backend
         run: |
           cd backend
-          yarn prisma migrate dev
-          yarn ts-node prisma/seeders/genericUser.js
-          yarn ts-node prisma/seeders/generateUserFake.js 
+          chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -199,9 +195,7 @@ jobs:
       - name: Configurar backend
         run: |
           cd backend
-          yarn prisma migrate dev
-          yarn ts-node prisma/seeders/genericUser.js
-          yarn ts-node prisma/seeders/generateUserFake.js 
+          chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
