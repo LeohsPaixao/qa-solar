@@ -1,5 +1,11 @@
 # playwright-ui-tests
 
+## 1.1.5
+
+### Patch Changes
+
+- e43fff5: feat: corrige os testes e o workflow
+
 ## 1.1.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.2.5
+
+### Patch Changes
+
+- e43fff5: feat: corrige os testes e o workflow
+
 ## 1.2.4
 
 ### Patch Changes

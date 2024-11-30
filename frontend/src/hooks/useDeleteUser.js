@@ -18,10 +18,11 @@ export const useDeleteUser = () => {
       queryClient.resetQueries();
     },
     onError: (error) => {
-      const errorStatus = error.response?.status;
+      const errorMessage = error.response?.data?.message || 'Erro ao buscar usuário';
+      const errorStatus = error.response?.data?.status;
 
       if (errorStatus === 404) {
-        toast.error('Usuário não encontrado.', { autoClose: 5000 });
+        toast.error(errorMessage, { autoClose: 5000 });
       } else if (errorStatus === 401) {
         toast.error('Você não tem autorização para realizar esta ação.', { autoClose: 5000 });
       } else {

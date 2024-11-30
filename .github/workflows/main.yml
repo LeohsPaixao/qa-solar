@@ -38,14 +38,19 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
+      - name: Configurar backend
+        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
       - name: Iniciar backend
         run: |
           cd backend
-          yarn prisma migrate dev
-          yarn prisma:seed
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar frontend
         run: |
@@ -62,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v4.4.3
         with:
           name: cypress-artifacts
-          path: test/cypress/screenshots/
+          path: test/cypress/tests/e2e/misc/screenshots/
 
   playwright-tests:
     name: Playwright Testes QA-Solar
@@ -102,14 +107,19 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
+      - name: Configurar backend
+        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
       - name: Iniciar backend
         run: |
           cd backend
-          yarn prisma migrate dev
-          yarn prisma:seed
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar frontend
         run: |
@@ -178,14 +188,19 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn
 
+      - name: Configurar backend
+        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
       - name: Iniciar backend
         run: |
           cd backend
-          yarn prisma migrate dev
-          yarn prisma:seed
           nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar frontend
         run: |

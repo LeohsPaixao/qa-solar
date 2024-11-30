@@ -23,7 +23,7 @@ export function authenticate(req, res, next) {
       .findUnique({ where: { id: req.userId } })
       .then((user) => {
         if (!user) {
-          return res.status(404).json({ message: 'Usuário não encontrado.' });
+          return res.status(404).json({ message: `Usuário com o ID: ${req.userId} não encontrado.` });
         }
         next();
       })
