@@ -8,14 +8,15 @@ import { logoutUser } from '../controllers/logoutUser.js';
 import { registerUser } from '../controllers/registerUser.js';
 import { updateUser } from '../controllers/updateUser.js';
 import { authenticate } from '../middleware/auth.js';
+import { validateEmail } from '../middleware/validateEmail.js';
 
 const router = Router();
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.post('/user', getUser);
-router.post('/logout', logoutUser);
-router.get('/useremail', getEmailUser);
+router.post('/user', validateEmail, getUser);
+router.post('/useremail', validateEmail, getEmailUser);
+router.post('/logout', authenticate, logoutUser);
 router.get('/users', getAllUsers);
 router.put('/user/update', authenticate, updateUser);
 router.delete('/user/delete', authenticate, deleteUser);
