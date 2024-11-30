@@ -1,0 +1,12 @@
+{
+  "name": "robot-framework",
+  "version": "1.2.2",
+  "description": "Project Tests Robot-Framework",
+  "main": "index.js",
+  "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "lint": "make lint"
+  }
+}

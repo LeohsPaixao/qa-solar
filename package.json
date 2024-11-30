@@ -11,13 +11,14 @@
     "backend",
     "frontend",
     "test/cypress",
-    "test/playwright"
+    "test/playwright",
+    "test/robot"
   ],
   "scripts": {
     "prepare": "husky",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "linter:all": "yarn workspace backend lint && yarn workspace frontend lint",
+    "linter:all": "yarn workspace backend lint && yarn workspace frontend lint && yarn workspace robot-framework lint",
     "format:all": "yarn workspace backend format && yarn workspace frontend format"
   },
   "keywords": [
