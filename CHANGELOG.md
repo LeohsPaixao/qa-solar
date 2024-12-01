@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.4.2
+
+### Patch Changes
+
+- db38215: chore: finaliza a configuracao do commilint e husky
+
 ## 2.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # backend
 
+## 1.5.0
+
+### Minor Changes
+
+- db38215: feat: instala eslint no projeto de backend
+
 ## 1.4.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # frontend
 
+## 1.4.1
+
+### Patch Changes
+
+- db38215: chore: configura melhor o eslint do frontend
+
 ## 1.4.0
 
 ### Minor Changes

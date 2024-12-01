@@ -1,6 +1,6 @@
 {
   "name": "qa-solar",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Simple project VUE for UI Testing with Frameworks: Cypress, Robot and Playwright",
   "repository": "git@github.com:LeohsPaixao/qa-solar.git",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
