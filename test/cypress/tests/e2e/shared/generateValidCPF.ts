@@ -20,8 +20,8 @@ function formatCPF(cpf: string): string {
  * @retorna Uma string representando um CPF válido no formato "XXX.XXX.XXX-XX".
  *
  * @observações
- * Esta função utiliza uma combinação de geração aleatória de dígitos, cálculo de dígitos verificadores 
- * e formatação para criar um CPF válido. O CPF gerado não está associado a nenhuma pessoa real e 
+ * Esta função utiliza uma combinação de geração aleatória de dígitos, cálculo de dígitos verificadores
+ * e formatação para criar um CPF válido. O CPF gerado não está associado a nenhuma pessoa real e
  * deve ser usado apenas para fins de teste ou demonstração.
  *
  * O algoritmo utilizado nesta função segue as regras oficiais de geração de CPF:
