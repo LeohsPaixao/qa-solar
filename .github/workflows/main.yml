@@ -57,6 +57,9 @@ jobs:
           cd frontend
           nohup yarn serve &
 
+      - name: Aguardar um momento
+        run: sleep 10
+
       - name: Executar testes Cypress
         run: |
           cd test/cypress
