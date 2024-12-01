@@ -15,7 +15,7 @@ export const useLogout = () => {
 
   return useMutation({
     mutationFn: logoutUser,
-    onSuccess: async (data) => {
+    onSuccess: async (response) => {
       queryClient.resetQueries();
       queryClient.invalidateQueries(['user']);
 
@@ -24,8 +24,8 @@ export const useLogout = () => {
 
       await router.push('/');
 
-      nextTick(() => {
-        toast.success(data.message, { autoClose: 3000 });
+      await nextTick(() => {
+        toast.success(response.message, { autoClose: 3000 });
       });
     },
     onError: (error) => {
