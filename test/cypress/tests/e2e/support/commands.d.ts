@@ -54,5 +54,22 @@ declare namespace Cypress {
      * ```
      */
     checkDomLoaded(selectorToCheck?: string): Chainable<JQuery<HTMLElement>>;
+    /**
+     * Comando customizado do Cypress para realizar login na aplicação.
+     *
+     * @remarks
+     * Este comando de login é projetado para otimizar o tempo de execução dos testes, evitando que a autenticação seja repetida a cada cenário de teste.
+     * Ao utilizar o recurso `cy.session`, o Cypress mantém as informações de sessão em cache entre diferentes especificações de teste,
+     * garantindo que os testes possam ser executados de forma mais eficiente.
+     * Além disso, o token de autenticação retornado pela API é armazenado no `localStorage`,
+     * facilitando o acesso a endpoints autenticados durante o fluxo dos testes.
+     *
+     *
+     * @example
+     * ```typescript
+     * cy.login('useremail', 'userpassword');
+     * ```
+     */
+    login(email: string, password: string): Chainable<JQuery<HTMLElement>>
   }
 }
