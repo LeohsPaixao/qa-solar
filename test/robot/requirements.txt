@@ -4,7 +4,6 @@ certifi==2024.8.30
 charset-normalizer==3.4.0
 click==8.1.7
 colorama==0.4.6
-commitizen==4.0.0
 decli==0.6.2
 exceptiongroup==1.2.2
 greenlet==3.1.1
