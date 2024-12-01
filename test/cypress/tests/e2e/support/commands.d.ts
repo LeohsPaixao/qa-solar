@@ -15,7 +15,7 @@ declare namespace Cypress {
      * @example
      * cy.visitAndWait('https://exemplo.com');
      */
-    visitAndwait(url: string): Chainable<JQuery<HTMLElement>>
+    visitAndwait(url: string): Chainable<JQuery<HTMLElement>>;
     /**
      * Um comando personalizado do Cypress para aguardar a duração de uma animação especificada.
      *
@@ -32,11 +32,11 @@ declare namespace Cypress {
      * cy.waitForAnimation(1000); // Aguarda 1 segundo
      * ```
      */
-    waitForAnimation(time: number): Chainable<JQuery<HTMLElement>>
+    waitForAnimation(time: number): Chainable<JQuery<HTMLElement>>;
     /**
      * Comando customizado do Cypress para verificar se o DOM está completamente carregado e se um elemento específico está visível.
      *
-     * 
+     *
      * @remarks
      * Este comando é útil para garantir que o DOM esteja completamente carregado antes de interagir com os elementos.
      * Ele dispara um evento 'load' caso o DOM ainda não esteja completo, aguarda as requisições de rede,
@@ -53,6 +53,6 @@ declare namespace Cypress {
      * cy.checkDomLoaded('h1');
      * ```
      */
-    checkDomLoaded(selectorToCheck?: string): Chainable<JQuery<HTMLElement>>
+    checkDomLoaded(selectorToCheck?: string): Chainable<JQuery<HTMLElement>>;
   }
 }
