@@ -14,7 +14,7 @@ export default defineConfig({
   numTestsKeptInMemory: 0,
   video: false,
   e2e: {
-    baseUrl: 'http://localhost:8181',
+    baseUrl: process.env.BASE_URL,
     viewportHeight: 768,
     viewportWidth: 1366,
     specPattern: './tests/e2e/**/*.cy.{js,ts}',

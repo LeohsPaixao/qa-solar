@@ -63,6 +63,7 @@ jobs:
           yarn cy:run
         env:
           API_URL: ${{ secrets.API_URL }}
+          BASE_URL: ${{ secrets.BASE_URL }}
 
       - name: Salvar artefatos do Cypress
         if: ${{ failure() }}
