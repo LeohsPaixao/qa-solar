@@ -23,10 +23,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user, index) in users" :key="user.id">
+          <tr v-for="(user) in users" :key="user.id">
             <td>
               <input
-                :data-testid="`checkbox-select-${index}`"
+                data-testid="checkbox-select-users"
                 type="checkbox"
                 v-model="selectedUsers"
                 :value="user.id"
