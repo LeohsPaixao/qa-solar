@@ -5,8 +5,9 @@ const prisma = new PrismaClient();
 export async function deleteUser(req, res) {
   const { ids } = req.body;
 
-  if (Array.isArray(ids) === req.userId) {
-    return res.status(400).json({ message: 'Você não pode excluir o usuário logado.' });
+  if (ids.includes(req.userId)) {
+    res.status(400).json({ message: 'Você não pode excluir o usuário logado.' });
+    return
   }
 
   try {
