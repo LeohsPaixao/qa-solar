@@ -11,72 +11,68 @@ export interface FormData {
 }
 
 export interface FormErrors {
-  fullName: string;
-  document: string;
-  email: string;
-  password: string;
+  fullName?: string;
+  document?: string;
+  phone?: string;
+  email?: string;
+  password?: string;
 }
 
-export const validateFormData = (formData: FormData): { isValid: boolean; errors: FormErrors } => {
-  const errors: FormErrors = {
-    fullName: '',
-    document: '',
-    email: '',
-    password: '',
-  };
+type ValidatorFn = (value: string, formData: FormData) => string | undefined;
 
-  let isValid = true;
+const validators: Record<keyof FormErrors, ValidatorFn[]> = {
+  fullName: [
+    (value) => (!value ? 'O Nome Completo é obrigatório.' : undefined),
+    (value) => (!value.includes(' ') ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
+  ],
+  document: [
+    (value) => (!value ? 'O CPF/CNPJ é obrigatório.' : undefined),
+    (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
+    (value, formData) => {
+      if (formData.docType === 'cpf' && !validateCPF(value)) return 'CPF inválido.';
+      if (formData.docType === 'cnpj' && !validateCNPJ(value)) return 'CNPJ inválido.';
+      return undefined;
+    },
+  ],
+  phone: [
+    (value) => {
+      if (!value) return undefined;
 
-  // Limpar espaços em branco
-  formData.document = formData.document.trim();
-  formData.fullName = formData.fullName.trim();
-  formData.email = formData.email.trim();
+      const normalizedValue = value.replace(/\D/g, '');
+      if (!/^\d+$/.test(normalizedValue)) return 'O telefone deve conter apenas números.';
+      if (normalizedValue.length > 11) return 'O telefone deve ter no máximo 11 dígitos.';
+      if (normalizedValue.length < 10) return 'O telefone deve ter no mínimo 10 dígitos.';
 
-  // Validação do Nome Completo
-  if (!formData.fullName) {
-    errors.fullName = 'O Nome Completo é obrigatório.';
-    isValid = false;
-  } else if (!formData.fullName.includes(' ')) {
-    errors.fullName = 'O Nome Completo deve conter pelo menos Nome e Sobrenome.';
-    isValid = false;
-  }
-
-  // Validação do CPF/CNPJ
-  if (!formData.document) {
-    errors.document = 'O CPF/CNPJ é obrigatório.';
-    isValid = false;
-  } else if (formData.docType === 'cpf') {
-    if (!validateCPF(formData.document)) {
-      errors.document = 'CPF inválido.';
-      isValid = false;
-    }
-  } else if (formData.docType === 'cnpj') {
-    if (!validateCNPJ(formData.document)) {
-      errors.document = 'CNPJ inválido.';
-      isValid = false;
-    }
-  }
-
-  // Validação do Email
-  if (!formData.email) {
-    errors.email = 'O Email é obrigatório.';
-    isValid = false;
-  } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-    errors.email = 'Email inválido.';
-    isValid = false;
-  }
-
-  // Validação da Senha
-  if (!formData.password) {
-    errors.password = 'A Senha é obrigatória.';
-    isValid = false;
-  } else if (formData.password.length < 6) {
-    errors.password = 'A Senha deve ter no mínimo 6 caracteres.';
-    isValid = false;
-  } else if (formData.password.length > 20) {
-    errors.password = 'A Senha deve ter no máximo 20 caracteres.';
-    isValid = false;
-  }
-
-  return { isValid, errors };
+      return undefined;
+    },
+  ],
+  email: [
+    (value) => (!value ? 'O Email é obrigatório.' : undefined),
+    (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
+    (value) => (!/\S+@\S+\.\S+/.test(value) ? 'Email inválido.' : undefined),
+  ],
+  password: [
+    (value) => (!value ? 'A Senha é obrigatória.' : undefined),
+    (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
+    (value) => (value.length < 6 ? 'A Senha deve ter no mínimo 6 caracteres.' : undefined),
+    (value) => (value.length > 20 ? 'A Senha deve ter no máximo 20 caracteres.' : undefined),
+  ],
 };
+
+export function validateFormData(formData: FormData): { isValid: boolean; errors: FormErrors } {
+  const errors: FormErrors = {};
+
+  for (const [field, fieldValidators] of Object.entries(validators)) {
+    const fieldValue = formData[field as keyof FormData] || '';
+    for (const validate of fieldValidators) {
+      const error = validate(fieldValue as string, formData);
+      if (error) {
+        errors[field as keyof FormErrors] = error;
+        break;
+      }
+    }
+  }
+
+  const isValid = Object.keys(errors).length === 0;
+  return { isValid, errors };
+}

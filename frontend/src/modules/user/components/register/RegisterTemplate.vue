@@ -33,6 +33,7 @@
       <div class="form-group">
         <label data-testid="label-phone" for="phone">Telefone</label>
         <input data-testid="input-phone" type="text" id="phone" v-model="formData.phone" placeholder="Insira o Telefone (opcional)" />
+        <p data-testid="input-error-phone" class="error" v-if="errors.phone">{{ errors.phone }}</p>
       </div>
       <div class="form-group">
         <label data-testid="label-email" for="email">Email <span class="required">*</span></label>
@@ -86,6 +87,7 @@ export default {
     const errors = reactive({
       fullName: '',
       document: '',
+      phone: '',
       email: '',
       password: '',
     });
