@@ -1,15 +1,16 @@
 {
   "name": "backend",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "backend for QA Solar Project",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
   "type": "module",
   "private": false,
   "scripts": {
-    "api": "ts-node src/server.js",
+    "api": "node src/server.js",
     "format": "prettier --write src/",
-    "prisma:seed": "ts-node prisma/seeders/*.js"
+    "lint": "eslint 'src/'",
+    "prisma:seed": "node prisma/seeders/*.js"
   },
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
@@ -25,8 +26,8 @@
     "prisma": "^5.22.0"
   },
   "devDependencies": {
-    "@tsconfig/node22": "^22.0.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "@eslint/js": "^9.16.0",
+    "eslint": "^9.16.0",
+    "globals": "^15.12.0"
   }
 }

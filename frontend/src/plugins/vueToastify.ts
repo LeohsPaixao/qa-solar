@@ -2,7 +2,7 @@ import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 const toastOptions = {
-  theme: 'auto',
+  theme: 'light',
   type: 'default',
   position: 'top-right',
   closeButton: false,
