@@ -1,5 +1,13 @@
 # cypress-ui-tests
 
+## 1.3.0
+
+### Minor Changes
+
+- b1fdd03: test: adiciona testes na tela de cadastro de usuário com o projeto Cypress
+- c3483be: test: adiciona testes na tela de listagem de usuários com o projeto Cypress
+- b6f447d: test: adiciona testes na tela de recuperação de senha com o projeto Cypress
+
 ## 1.2.5
 
 ### Patch Changes
@@ -68,10 +76,7 @@
   // Antes:
   export const registerUser = async (userData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/register",
-        userData,
-      );
+      const response = await axios.post('http://localhost:3001/register', userData);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message);
@@ -80,7 +85,7 @@
 
   // Depois:
   const registerUser = async (userData) => {
-    const response = await api.post("/register", userData);
+    const response = await api.post('/register', userData);
     return response.data;
   };
 
