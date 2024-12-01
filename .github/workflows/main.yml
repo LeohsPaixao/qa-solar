@@ -61,6 +61,8 @@ jobs:
         run: |
           cd test/cypress
           yarn cy:run
+        env:
+          API_URL: ${{ secrets.API_URL }}
 
       - name: Salvar artefatos do Cypress
         if: ${{ failure() }}
