@@ -1,4 +1,7 @@
 import { defineConfig } from 'cypress';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default defineConfig({
   experimentalMemoryManagement: true,
@@ -46,6 +49,8 @@ export default defineConfig({
 
         return launchOptions;
       });
+
+      config.env.API_URL = process.env.API_URL
 
       return config;
     },
