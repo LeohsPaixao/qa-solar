@@ -7,7 +7,7 @@
   "type": "module",
   "private": false,
   "scripts": {
-    "serve": "vite",
+    "serve": "vite --host 127.0.0.1",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
