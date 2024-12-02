@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
-import { generateValidCPF } from '../../shared/commands/generateValidCPF';
+import { generateValidCPF } from '../shared/commands/generateValidCPF';
 
 test.describe('Tela de Cadastro de Usuários', () => {
 
