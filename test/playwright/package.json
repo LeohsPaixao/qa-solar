@@ -10,11 +10,12 @@
     "play:open": "playwright test --ui",
     "play:report": "playwright show-report"
   },
+  "dependencies": {
+    "@faker-js/faker": "^9.2.0",
+    "dotenv": "^16.4.5"
+  },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.9.1"
-  },
-  "dependencies": {
-    "dotenv": "^16.4.5"
   }
 }
