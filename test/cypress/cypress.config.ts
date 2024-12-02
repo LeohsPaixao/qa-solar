@@ -12,7 +12,7 @@ export default defineConfig({
   defaultCommandTimeout: 4000,
   pageLoadTimeout: 120 * 1000,
   numTestsKeptInMemory: 0,
-  video: true,
+  video: false,
   e2e: {
     baseUrl: process.env.BASE_URL,
     viewportHeight: 768,
@@ -20,7 +20,6 @@ export default defineConfig({
     specPattern: './tests/e2e/**/*.cy.{js,ts}',
     supportFile: './tests/e2e/support/e2e.ts',
     screenshotsFolder: './tests/e2e/misc/screenshots',
-    videosFolder: './tests/e2e/misc/screenshots',
     downloadsFolder: './tests/e2e/misc/downloads',
     fixturesFolder: './tests/e2e/fixtures',
     retries: {

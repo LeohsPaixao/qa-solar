@@ -47,7 +47,9 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          nohup yarn api &
+          yarn api &
+          chmod +x .github/scripts/wait_until.sh
+          .github/scripts/wait_until.sh   localhost:3001
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -55,10 +57,9 @@ jobs:
       - name: Iniciar frontend
         run: |
           cd frontend
-          nohup yarn serve &
-
-      - name: Aguardar um momento
-        run: sleep 10
+          yarn serve &
+          chmod +x .github/scripts/wait_until.sh
+          .github/scripts/wait_until.sh  127.0.0.1:8181
 
       - name: Executar testes Cypress
         run: |
