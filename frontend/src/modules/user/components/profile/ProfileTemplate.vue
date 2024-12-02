@@ -12,10 +12,9 @@
             type="text"
             placeholder="Digite seu nome completo"
             v-model="fullName"
-            required
-            :class="['input-fullname-profile', { 'input-error': !fullName && isSubmitted }]"
+            :class="['input-fullname-profile', { 'input-error': formErrors.fullName && isSubmitted }]"
           />
-          <span v-if="!fullName && isSubmitted" class="error-message">Este campo é obrigatório.</span>
+          <span data-testid="input-error-fulname-profile" v-if="formErrors.fullName && isSubmitted" class="error-message">{{ formErrors.fullName }}</span>
         </div>
         <div class="form-group">
           <label for="socialName">Nome Social</label>
@@ -30,7 +29,15 @@
         </div>
         <div class="form-group">
           <label for="phone">Telefone</label>
-          <input data-testid="input-phone-profile" id="phone" type="tel" placeholder="(00) 00000-0000" v-model="phone" class="input-phone-profile" />
+          <input
+            data-testid="input-phone-profile"
+            id="phone"
+            type="tel"
+            placeholder="(00) 00000-0000"
+            v-model="phone"
+            :class="['input-phone-profile', { 'input-error': formErrors.phone && isSubmitted }]"
+          />
+          <span data-testid="input-error-phone-profile" v-if="formErrors.phone && isSubmitted" class="error-message">{{ formErrors.phone }}</span>
         </div>
         <div class="form-group">
           <label for="cpfCnpj">CPF ou CNPJ</label>
@@ -62,6 +69,7 @@
 
 <script setup>
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
+import { validateProfile } from '@/utils/validateProfile';
 import { computed, ref, watchEffect } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -74,6 +82,7 @@ const phone = ref('');
 const cpfCnpj = ref('');
 const originalData = ref({});
 const isSubmitted = ref(false);
+const formErrors = ref({});
 
 const userEmail = localStorage.getItem('user-email');
 
@@ -105,21 +114,27 @@ const hasChanges = computed(() => {
 const handleSave = () => {
   isSubmitted.value = true;
 
-  const userData = {
+  const formData = {
     fullName: fullName.value,
-    socialName: socialName.value,
     phone: phone.value,
-    document: cpfCnpj.value,
   };
 
-  updateUser(userData, {
+  const { isValid, errors } = validateProfile(formData);
+  formErrors.value = errors;
+
+  if (!isValid) {
+    toast.error('Por favor, corrija os erros antes de salvar.');
+    return;
+  }
+
+  updateUser(formData, {
     onSuccess: (response) => {
-      toast.success(response.message || 'Dados salvos com sucesso!');
-      originalData.value = { ...userData.value };
+      toast.success(response.message);
+      originalData.value = { ...formData };
       isSubmitted.value = false;
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.message || 'Erro ao salvar os dados.';
+      const errorMessage = error.response?.data?.message;
       toast.error(errorMessage);
     },
   });

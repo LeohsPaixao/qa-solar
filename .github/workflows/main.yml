@@ -57,10 +57,16 @@ jobs:
           cd frontend
           nohup yarn serve &
 
+      - name: Aguardar um momento
+        run: sleep 10
+
       - name: Executar testes Cypress
         run: |
           cd test/cypress
           yarn cy:run
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          BASE_URL: ${{ secrets.BASE_URL }}
 
       - name: Salvar artefatos do Cypress
         if: ${{ failure() }}

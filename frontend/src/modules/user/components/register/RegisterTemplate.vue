@@ -28,11 +28,12 @@
           <option value="cnpj">CNPJ</option>
         </select>
         <input data-testid="input-document" type="text" id="document" v-model="formData.document" :placeholder="placeholder" />
-        <p class="error" v-if="errors.document">{{ errors.document }}</p>
+        <p data-testid="input-error-cpfcnpj" class="error" v-if="errors.document">{{ errors.document }}</p>
       </div>
       <div class="form-group">
         <label data-testid="label-phone" for="phone">Telefone</label>
         <input data-testid="input-phone" type="text" id="phone" v-model="formData.phone" placeholder="Insira o Telefone (opcional)" />
+        <p data-testid="input-error-phone" class="error" v-if="errors.phone">{{ errors.phone }}</p>
       </div>
       <div class="form-group">
         <label data-testid="label-email" for="email">Email <span class="required">*</span></label>
@@ -86,6 +87,7 @@ export default {
     const errors = reactive({
       fullName: '',
       document: '',
+      phone: '',
       email: '',
       password: '',
     });

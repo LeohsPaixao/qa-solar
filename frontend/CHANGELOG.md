@@ -1,5 +1,13 @@
 # frontend
 
+## 1.4.2
+
+### Patch Changes
+
+- b1fdd03: test: adiciona alguns data-testid nos componentes da tela de cadastro de usuário
+- c3483be: test: ajusta alguns data-testid no componente ListUsersTemplate.vue
+- b6f447d: chore: adiciona validações no campo de telefone
+
 ## 1.4.1
 
 ### Patch Changes

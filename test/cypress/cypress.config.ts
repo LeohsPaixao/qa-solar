@@ -1,4 +1,7 @@
 import { defineConfig } from 'cypress';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default defineConfig({
   experimentalMemoryManagement: true,
@@ -9,14 +12,15 @@ export default defineConfig({
   defaultCommandTimeout: 4000,
   pageLoadTimeout: 120 * 1000,
   numTestsKeptInMemory: 0,
-  video: false,
+  video: true,
   e2e: {
-    baseUrl: 'http://localhost:8181',
+    baseUrl: process.env.BASE_URL,
     viewportHeight: 768,
     viewportWidth: 1366,
     specPattern: './tests/e2e/**/*.cy.{js,ts}',
     supportFile: './tests/e2e/support/e2e.ts',
     screenshotsFolder: './tests/e2e/misc/screenshots',
+    videosFolder: './tests/e2e/misc/screenshots',
     downloadsFolder: './tests/e2e/misc/downloads',
     fixturesFolder: './tests/e2e/fixtures',
     retries: {
@@ -46,6 +50,8 @@ export default defineConfig({
 
         return launchOptions;
       });
+
+      config.env.API_URL = process.env.API_URL
 
       return config;
     },

@@ -1,13 +1,13 @@
 {
   "name": "frontend",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "frontend for QA Solar Project",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
   "type": "module",
   "private": false,
   "scripts": {
-    "serve": "vite",
+    "serve": "vite --host 127.0.0.1",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",

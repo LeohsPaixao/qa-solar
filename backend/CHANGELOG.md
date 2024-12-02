@@ -1,5 +1,11 @@
 # backend
 
+## 1.5.1
+
+### Patch Changes
+
+- c3483be: chore: ajusta uma validação no controlador deleteUsers.js
+
 ## 1.5.0
 
 ### Minor Changes

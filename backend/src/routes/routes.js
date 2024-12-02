@@ -16,7 +16,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/user', validateEmail, getUser);
 router.post('/useremail', validateEmail, getEmailUser);
-router.post('/logout', authenticate, logoutUser);
+router.post('/logout', logoutUser);
 router.get('/users', getAllUsers);
 router.put('/user/update', authenticate, updateUser);
 router.delete('/user/delete', authenticate, deleteUser);

@@ -15,7 +15,7 @@ declare namespace Cypress {
      * @example
      * cy.visitAndWait('https://exemplo.com');
      */
-    visitAndwait(url: string): Chainable<JQuery<HTMLElement>>
+    visitAndwait(url: string): Chainable<JQuery<HTMLElement>>;
     /**
      * Um comando personalizado do Cypress para aguardar a duração de uma animação especificada.
      *
@@ -32,11 +32,11 @@ declare namespace Cypress {
      * cy.waitForAnimation(1000); // Aguarda 1 segundo
      * ```
      */
-    waitForAnimation(time: number): Chainable<JQuery<HTMLElement>>
+    waitForAnimation(time: number): Chainable<JQuery<HTMLElement>>;
     /**
      * Comando customizado do Cypress para verificar se o DOM está completamente carregado e se um elemento específico está visível.
      *
-     * 
+     *
      * @remarks
      * Este comando é útil para garantir que o DOM esteja completamente carregado antes de interagir com os elementos.
      * Ele dispara um evento 'load' caso o DOM ainda não esteja completo, aguarda as requisições de rede,
@@ -53,6 +53,23 @@ declare namespace Cypress {
      * cy.checkDomLoaded('h1');
      * ```
      */
-    checkDomLoaded(selectorToCheck?: string): Chainable<JQuery<HTMLElement>>
+    checkDomLoaded(selectorToCheck?: string): Chainable<JQuery<HTMLElement>>;
+    /**
+     * Comando customizado do Cypress para realizar login na aplicação.
+     *
+     * @remarks
+     * Este comando de login é projetado para otimizar o tempo de execução dos testes, evitando que a autenticação seja repetida a cada cenário de teste.
+     * Ao utilizar o recurso `cy.session`, o Cypress mantém as informações de sessão em cache entre diferentes especificações de teste,
+     * garantindo que os testes possam ser executados de forma mais eficiente.
+     * Além disso, o token de autenticação retornado pela API é armazenado no `localStorage`,
+     * facilitando o acesso a endpoints autenticados durante o fluxo dos testes.
+     *
+     *
+     * @example
+     * ```typescript
+     * cy.login('useremail', 'userpassword');
+     * ```
+     */
+    login(email: string, password: string): Chainable<JQuery<HTMLElement>>
   }
 }
