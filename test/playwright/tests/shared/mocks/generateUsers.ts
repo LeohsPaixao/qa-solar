@@ -7,7 +7,7 @@ import { generateValidCPF } from '../commands/generateValidCPF';
  */
 async function mockGenerateUsers(): Promise<void> {
   const apiContext = await request.newContext({
-    baseURL: 'http://localhost:3001/register',
+    baseURL: `${process.env.PLAY_API_URL}/register`,
   });
 
   const response = await apiContext.post('/register', {

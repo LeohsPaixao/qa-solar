@@ -142,6 +142,9 @@ jobs:
         run: |
           cd test/playwright
           yarn play:run
+        env:
+          PLAY_API_URL: ${{ secrets.PLAY_API_URL }}
+          PLAY_BASE_URL: ${{ secrets.PLAY_BASE_URL }}
 
       - name: Upload de relatório Playwright
         if: ${{ failure() }}

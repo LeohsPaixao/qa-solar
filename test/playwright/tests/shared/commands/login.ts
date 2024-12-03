@@ -11,7 +11,7 @@ import { Page } from '@playwright/test';
  */
 export async function login(page: Page, email: string, password: string): Promise<void> {
 
-  const response = await page.request.fetch('http://localhost:3001/login', {
+  const response = await page.request.fetch(`${process.env.PLAY_API_URL}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
