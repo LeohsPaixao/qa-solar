@@ -22,7 +22,7 @@ export function fillUserForm() {
     { element: cy.get('[data-testid="input-socialname"]'), valor: faker.person.middleName() },
     { element: cy.get('[data-testid="input-document"]'), valor: cpf },
     { element: cy.get('[data-testid="input-phone"]'), valor: faker.phone.number({ style: 'national' }) },
-    { element: cy.get('[data-testid="input-email"]'), valor: faker.internet.email() },
+    { element: cy.get('[data-testid="input-email"]'), valor: faker.internet.email({ provider: 'example.qa.solar' }) },
     { element: cy.get('[data-testid="input-password"]'), valor: '123456' },
   ];
 

@@ -25,7 +25,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel criar o usuário com o Nome Completo errado', () => {
-    fillUserForm();
     cy.get('[data-testid="input-fullname"]').type('{selectall}Teste');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -33,7 +32,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel criar o usuário com o CPF inválido', () => {
-    fillUserForm();
     cy.get('[data-testid="input-document"]').type('{selectall}123.456.789-10');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -41,7 +39,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel criar o usuário com o CNPJ inválido', () => {
-    fillUserForm();
     cy.get('[data-testid="select-document-type"]').select('cnpj');
     cy.get('[data-testid="input-document"]').type('{selectall}12.456.789/1110-60');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
@@ -50,7 +47,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel colocar letras no campo de telefone', () => {
-    fillUserForm();
     cy.get('[data-testid="input-phone"]').type('{selectall}sdadfafsa');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -58,7 +54,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel colocar mais do que 11 dígitos no campo de telefone', () => {
-    fillUserForm();
     cy.get('[data-testid="input-phone"]').type('{selectall}154542165455454');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -66,7 +61,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel colocar menos do que 10 dígitos no campo de telefone', () => {
-    fillUserForm();
     cy.get('[data-testid="input-phone"]').type('{selectall}123');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -74,7 +68,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel criar o usuário com o email inválido', () => {
-    fillUserForm();
     cy.get('[data-testid="input-email"]').type('{selectall}email@email');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -82,7 +75,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel cadastrar o usuário com uma senha com menos de 6 caracteres', () => {
-    fillUserForm();
     cy.get('[data-testid="input-password"]').type('{selectall}12345');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -90,7 +82,6 @@ describe('Tela de Cadastro de Usuário', () => {
   });
 
   it('Não deveria ser possivel cadastrar o usuário com uma senha com mais de 20 caracteres', () => {
-    fillUserForm();
     cy.get('[data-testid="input-password"]').type('{selectall}1234567891012141516131');
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
     cy.get('[data-testid="toast-content"]').should('have.text', 'Por favor, corrija os erros no formulário.');
@@ -108,5 +99,4 @@ describe('Tela de Cadastro de Usuário', () => {
     cy.get('[data-testid="form-login"]').should('be.visible');
     cy.get('[data-testid="btn-login"]').should('be.visible');
   });
-
 });

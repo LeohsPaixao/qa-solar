@@ -1,5 +1,18 @@
 # playwright-ui-tests
 
+## 1.2.0
+
+### Minor Changes
+
+- c647a81: test: adiciona testes na tela de listagem de usuários com o projeto Playwright
+- 5c19a98: test: adiciona testes na tela de cadastro do usuário com o projeto Playwright
+- 5c19a98: test: adiciona testes na tela de recuperação de senha com o projeto Playwright
+- 8b293f3: test: adiciona testes na tela de perfil do usuário com o projeto Playwright
+
+### Patch Changes
+
+- ffccc3d: test: adiciona variaveis de ambiente para o projeto Playwright
+
 ## 1.1.5
 
 ### Patch Changes

@@ -47,9 +47,7 @@ jobs:
       - name: Iniciar backend
         run: |
           cd backend
-          yarn api &
-          chmod +x .github/scripts/wait_until.sh
-          .github/scripts/wait_until.sh   localhost:3001
+          nohup yarn api &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -57,9 +55,7 @@ jobs:
       - name: Iniciar frontend
         run: |
           cd frontend
-          yarn serve &
-          chmod +x .github/scripts/wait_until.sh
-          .github/scripts/wait_until.sh  127.0.0.1:8181
+          nohup yarn serve &
 
       - name: Executar testes Cypress
         run: |
@@ -142,6 +138,9 @@ jobs:
         run: |
           cd test/playwright
           yarn play:run
+        env:
+          PLAY_API_URL: ${{ secrets.PLAY_API_URL }}
+          PLAY_BASE_URL: ${{ secrets.PLAY_BASE_URL }}
 
       - name: Upload de relatório Playwright
         if: ${{ failure() }}
