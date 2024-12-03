@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.3.1
+
+### Patch Changes
+
+- 5c19a98: test: remove o uso da funcao fillUserForm nos testes
+
 ## 1.3.0
 
 ### Minor Changes
