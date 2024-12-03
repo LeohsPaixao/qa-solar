@@ -15,16 +15,18 @@ test.describe('Tela de Cadastro de Usuários', () => {
     await expect(page.locator('[data-testid="link-go-to-login"]')).toBeVisible();
   });
 
-  test('Deveria ser possivel visualizar o toast ao clicar no botão sem adicionar algum valor nos campos', async ({ page }) => {
+  test('Deveria ser possível visualizar o toast ao clicar no botão sem adicionar algum valor nos campos', async ({ page }) => {
     await page.locator('[data-testid="btn-register"]').click();
     await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Por favor, corrija os erros no formulário.');
 
     const inputName = ['fullname', 'cpfcnpj', 'email', 'password'];
     const inputError = ['O Nome Completo é obrigatório.', 'O CPF/CNPJ é obrigatório.', 'O Email é obrigatório.', 'A Senha é obrigatória.'];
 
-    inputName.forEach((name, index) => {
-      expect(page.locator(`[data-testid="input-error-${name}"]`)).toHaveText(inputError[index]);
-    })
+    for (let i = 0; i < inputName.length; i++) {
+      const name = inputName[i];
+      const error = inputError[i];
+      await expect(page.locator(`[data-testid="input-error-${name}"]`)).toHaveText(error);
+    }
   });
 
   test('Não deveria ser possivel criar o usuário com o Nome Completo errado', async ({ page }) => {
