@@ -6,6 +6,9 @@ class CustomDataLibrary:
     
     def generate_full_name(self):
         return self.faker.name()
+    
+    def generate_first_name(self):
+        return self.faker.first_name()
 
     def generate_email(self):
         return self.faker.email()

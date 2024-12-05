@@ -1,5 +1,6 @@
 *** Settings ***
 Library    Browser
+Library    RequestsLibrary
 Library    String
 Variables    ../data/variables.py
 
@@ -8,6 +9,13 @@ Preparar Teste
     [Arguments]    ${BASE_URL}    ${route}=
     Abrir O Navegador    ${BASE_URL}
     Navegar Para A Rota    ${route}
+
+Preparar Teste com API
+    [Arguments]    ${BASE_URL}    ${route}=
+    Abrir O Navegador    ${BASE_URL}
+    Login Via API
+    Navegar Para A Rota    ${route}
+    
 
 Abrir O Navegador
     [Arguments]    ${BASE_URL}
@@ -21,3 +29,14 @@ Navegar Para A Rota
 
 Fechar O Navegador
     Close Browser
+
+Login Via API
+    ${payload}=    Evaluate    {"email": "${EMAIL}", "password": "${PASSWORD}"}    json
+    ${response}=    POST    ${API_URL}/login    json=${payload}
+    Should Be Equal As Numbers    ${response.status_code}    200
+
+    ${responseJson}=    Evaluate    ${response.text}    json
+    ${token}=    Set Variable    ${responseJson["token"]}
+
+    LocalStorage Set Item    user-email    ${EMAIL}
+    LocalStorage Set Item    user-token    ${token}
