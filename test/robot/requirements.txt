@@ -6,6 +6,7 @@ click==8.1.7
 colorama==0.4.6
 decli==0.6.2
 exceptiongroup==1.2.2
+Faker==33.1.0
 greenlet==3.1.1
 grpcio==1.68.0
 grpcio-tools==1.68.0
