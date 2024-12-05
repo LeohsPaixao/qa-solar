@@ -1,6 +1,7 @@
 # Diretórios e arquivos
 TESTS_DIR = tests/specs
 OUTPUT_DIR = results/reports
+OUTPUT_DIR_BROWSER = results
 ARG_FILE = args.robotargs
 LOG_DIR = results/logs
 
@@ -21,7 +22,7 @@ clean-logs:
 
 test-all: clean
 	@echo "Executando todos os testes com Robot Framework..."
-	robot --outputdir $(OUTPUT_DIR) $(TESTS_DIR)
+	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $(OUTPUT_DIR) $(TESTS_DIR)
 
 test-scenario: clean
 	@echo "Executando testes com a tag específica..."
@@ -29,7 +30,7 @@ ifndef TAG
 	@echo "Erro: Especifique a tag com TAG=<tag>."
 	@exit 1
 endif
-	robot --outputdir $(OUTPUT_DIR) --include $(TAG) $(TESTS_DIR)
+	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $(OUTPUT_DIR) --include $(TAG) $(TESTS_DIR)
 
 test-file: clean
 	@echo "Executando arquivo específico..."
@@ -37,15 +38,15 @@ ifndef FILE_PATH
 	@echo "Erro: Especifique o caminho do arquivo com FILE_PATH=<path>."
 	@exit 1
 endif
-	robot --outputdir $(OUTPUT_DIR) $(FILE_PATH)
+	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $(OUTPUT_DIR) $(FILE_PATH)
 
 test-args: clean
 	@echo "Executando testes com Robot Framework usando arquivo de argumentos..."
-	robot --outputdir $(OUTPUT_DIR) -A $(ARG_FILE) $(TESTS_DIR)
+	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $(OUTPUT_DIR) -A $(ARG_FILE) $(TESTS_DIR)
 
 lint:
 	@echo "Verificando a qualidade do código com Robocop..."
-	robocop $(TESTS_DIR)
+	robocop -ft .robot,.resource $(TESTS_DIR)
 
 tidy:
 	@echo "Formatando os arquivos .robot com Robotidy..."
@@ -53,7 +54,7 @@ tidy:
 
 parallel: clean
 	@echo "Executando testes em paralelo com Pabot..."
-	pabot --processes $(PROCESSES) --outputdir $(OUTPUT_DIR) $(TESTS_DIR)
+	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots pabot --processes $(PROCESSES) --outputdir $(OUTPUT_DIR) $(TESTS_DIR)
 
 # Lista de comandos disponíveis
 help:
