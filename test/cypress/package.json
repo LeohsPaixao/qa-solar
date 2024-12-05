@@ -1,6 +1,6 @@
 {
   "name": "cypress-ui-tests",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "Project Tests Cypress",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",

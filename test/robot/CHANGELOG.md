@@ -1,5 +1,11 @@
 # robot-framework
 
+## 1.5.0
+
+### Minor Changes
+
+- 4750125: docs: adiciona documentação no projeto
+
 ## 1.4.0
 
 ### Minor Changes

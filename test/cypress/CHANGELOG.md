@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.4.0
+
+### Minor Changes
+
+- 4750125: docs: adiciona documentação no projeto
+
 ## 1.3.1
 
 ### Patch Changes
