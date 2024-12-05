@@ -39,7 +39,6 @@ rich-click==1.8.3
 robotframework==7.1.1
 robotframework-assertion-engine==3.0.3
 robotframework-browser==19.0.1
-robotframework-lint==1.1
 robotframework-pabot==2.18.0
 robotframework-pythonlibcore==4.4.1
 robotframework-requests==0.9.7
