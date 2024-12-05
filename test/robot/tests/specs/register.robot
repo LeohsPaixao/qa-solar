@@ -3,6 +3,7 @@ Documentation       Suite de testes para validar funcionalidades de cadastro de 
 
 Resource            ../resources/keywords.resource
 Resource            ../resources/registerKeywords.resource
+Resource            ../resources/recoverKeywords.resource
 
 Test Setup          Preparar Teste    ${BASE_URL}    signup
 Test Teardown       Fechar O Navegador
@@ -88,3 +89,7 @@ Cenário 12: Deveria Ser Possível Cadastrar Um Usuário
     Preencher Todos Os Campos
     Clicar No Botão Cadastrar
     Verificar A Mensagem De Sucesso No Toast
+
+Cenário 13: Deveria Ser Possível Voltar Para A Tela De Login Pelo Link
+    Clicar No Link De Voltar Tela de Login
+    Verificar Se Esta Na Tela De Login
