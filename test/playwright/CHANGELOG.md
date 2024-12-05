@@ -1,5 +1,11 @@
 # playwright-ui-tests
 
+## 1.3.0
+
+### Minor Changes
+
+- 4750125: docs: adiciona documentação no projeto
+
 ## 1.2.0
 
 ### Minor Changes
