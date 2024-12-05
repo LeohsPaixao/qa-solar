@@ -46,7 +46,7 @@ test-args: clean
 
 lint:
 	@echo "Verificando a qualidade do código com Robocop..."
-	robocop $(TESTS_DIR)
+	robocop -ft .robot,.resource $(TESTS_DIR)
 
 tidy:
 	@echo "Formatando os arquivos .robot com Robotidy..."
