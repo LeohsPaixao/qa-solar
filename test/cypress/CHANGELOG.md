@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.5.0
+
+### Minor Changes
+
+- 0be3ecb: feat: instala e configura o coverage do cypress no projeto
+
 ## 1.4.0
 
 ### Minor Changes
