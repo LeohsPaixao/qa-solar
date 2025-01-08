@@ -92,12 +92,16 @@ JWT_SECRET=<sua-chave-secreta>
 
 ## 🧪 Testar a Conexão com o Banco de Dados
 
-1. No diretório do backend, execute as migrações:
+1. No diretório do backend, gere o cliente Prisma:
+   ```bash
+   yarn prisma generate
+
+2. No diretório do backend, execute as migrações:
    ```bash
    yarn prisma migrate dev
    ```
 
-2. Logo em seguida, execute os seeders:
+3. Logo em seguida, execute os seeders:
    ```bash
    yarn prisma:seed
    ```
