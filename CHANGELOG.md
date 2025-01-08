@@ -1,5 +1,12 @@
 # qa-solar
 
+## 2.5.0
+
+### Minor Changes
+
+- 0842e53: feat: instala e configura o plugin de instrumentação de código
+- 0be3ecb: feat: instala e configura o coverage do cypress no projeto
+
 ## 2.4.2
 
 ### Patch Changes

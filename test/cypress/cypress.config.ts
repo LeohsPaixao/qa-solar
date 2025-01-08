@@ -1,3 +1,4 @@
+import codeCoverage from '@cypress/code-coverage/task';
 import { defineConfig } from 'cypress';
 import dotenv from 'dotenv';
 
@@ -32,6 +33,8 @@ export default defineConfig({
       runMode: true,
     },
     setupNodeEvents(on, config) {
+      codeCoverage(on, config);
+
       on('before:browser:launch', (browser, launchOptions) => {
         if (browser.name === 'chrome') {
           launchOptions.args.push('--incognito');
