@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "backend for QA Solar Project",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
@@ -23,7 +23,9 @@
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "prettier": "^3.3.3",
-    "prisma": "^5.22.0"
+    "prisma": "^5.22.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",

@@ -1,5 +1,5 @@
 export function validateEmail(req, res, next) {
-  const email = req.body.email;
+  const email = req.params.email;
 
   if (!email) {
     return res.status(400).json({ message: 'E-mail é obrigatório.' });

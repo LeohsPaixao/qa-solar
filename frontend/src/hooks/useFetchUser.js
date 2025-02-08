@@ -4,7 +4,7 @@ import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
 
 const fetchUser = async (email) => {
-  const response = await api.post('/user', { email });
+  const response = await api.get(`/user/${email}`);
   return response.data;
 };
 
@@ -15,7 +15,7 @@ export const useFetchUser = (email) => {
     queryKey: ['user', email],
     queryFn: () => fetchUser(email),
     staleTime: 0,
-    onSucess: () => {
+    onSuccess: () => {
       queryClient.resetQueries();
       queryClient.invalidateQueries();
     },
