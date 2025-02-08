@@ -1,48 +1,88 @@
-import { check, sleep } from "k6";
+import { check } from "k6";
 import http from "k6/http";
 import { generateHtmlReport } from "../utils/generatedReportHtml.js";
 
-const SERVER_URL = "http://localhost:3001";
-
-export let options = {
-  scenarios: {
-    login_scenario: {
+const scenarios = {
+  // Cenário 1: Login bem-sucedido (fluxo ideal)
+  login_success: {
+    executor: "per-vu-iterations",
+    vus: 1,
+    iterations: 100,
+    maxDuration: "2m",
+  },
+  // Cenário 2: Login com credenciais inválidas
+  login_invalid: {
+    executor: "per-vu-iterations",
+    vus: 1,
+    iterations: 50,
+    maxDuration: "1m",
+  },
+  // Cenário 3: Login sob carga concorrente (usuários simultâneos)
+  login_concurrent: {
       executor: "per-vu-iterations",
       vus: 100,
       iterations: 1,
       maxDuration: "2m",
     },
+  // Cenário 4: Aumento progressivo (ramp-up/down)
+  login_ramp: {
+    executor: "ramping-vus",
+    startVUs: 0,
+    stages: [
+      { duration: "30s", target: 20 },
+      { duration: "30s", target: 50 },
+      { duration: "30s", target: 0 },
+    ],
+    gracefulRampDown: "30s",
   },
+};
+
+const { SCENARIO } = __ENV;
+
+export const options = {
+  scenarios: SCENARIO ? { [SCENARIO]: scenarios[SCENARIO] } : scenarios,
+  discardResponseBodies: true,
   thresholds: {
-    "http_req_duration": ["p(99)<200"],
-    "http_req_duration": ["p(99)<500"],
-    "http_req_duration": ["p(99)>500"],
+    "iterations": ["rate>0.99"],
     "http_req_failed": ["rate<0.01"],
   },
 };
 
 function loginUser(email, password) {
   const payload = JSON.stringify({ email, password });
-  return http.post(`${SERVER_URL}/login`, payload, {
-    headers: { "Content-Type": "application/json" },
-  });
+  const params = { headers: { "Content-Type": "application/json" } };
+  return http.post(`${__ENV.SERVER_URL || "http://localhost:3001"}/login`, payload, params);
 }
 
 export default function () {
-  const email = "generic@example.com";
-  const password = "123456";
-  const res = loginUser(email, password);
+  if (__ENV.SCENARIO === 'login_success') {
+    const email = "generic@example.com";
+    const password = "123456";
+    let res = loginUser(email, password);
+    check(res, {
+      "login bem-sucedido (status 200)": (r) => r.status === 200,
+      "tempo de resposta entre 200ms e 500ms": (r) =>
+        r.timings.duration >= 200 && r.timings.duration <= 500,
+    });
+  }
 
-  check(res, {
-    "login bem-sucedido (status 200)": (r) => r.status === 200,
-    "login mal-sucedido (status 400)": (r) => r.status === 400,
-    "tempo de resposta abaixo de 200ms": (r) => r.timings.duration < 200,
-    "tempo de resposta entre 200ms e 500ms": (r) =>
-      r.timings.duration >= 200 && r.timings.duration <= 500,
-    "tempo de resposta acima de 500ms": (r) => r.timings.duration > 500,
-  });
+  if (__ENV.SCENARIO === 'login_invalid') {
+    const email = "inexistente@example.com";
+    const password = "senhaErrada";
+    let res = loginUser(email, password);
+    check(res, {
+      "login inválido (status 400 ou 402)": (r) => r.status === 400 || r.status === 402,
+    });
+  }
 
-  sleep(1);
+  if (__ENV.SCENARIO === 'login_concurrent' || __ENV.SCENARIO === 'login_ramp') {
+    const email = "generic@example.com";
+    const password = "123456";
+    let res = loginUser(email, password);
+    check(res, {
+      "status esperado": (r) => r.status === 200,
+    });
+  }
 }
 
 export function handleSummary(data) {
