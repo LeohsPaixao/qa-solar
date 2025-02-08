@@ -1,5 +1,11 @@
 # backend
 
+## 1.7.0
+
+### Minor Changes
+
+- cd65c96: feat: configura e cria os testes de API utilizando o jest
+
 ## 1.6.0
 
 ### Minor Changes
