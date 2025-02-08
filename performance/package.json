@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test:loadtest": "rimraf ./reports/* && k6 run --out json=reports/results.json k6/loadtest.js"
+    "test:loadtest": "rimraf ./reports/* && k6 run k6/loadtest.js --out json=reports/results.json"
   },
   "keywords": [
     "performance",
