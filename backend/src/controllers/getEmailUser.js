@@ -4,23 +4,19 @@ const prisma = new PrismaClient();
 
 /**
  * @swagger
- * /user/email:
+ * /user/email/{email}:
  *   post:
  *     summary: Envia um e-mail para o usuário com instruções para recuperar a senha
  *     description: Envia um e-mail para o usuário com instruções para recuperar a senha
  *     tags:
  *       - Usuários
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 description: Endereço de e-mail do usuário
- *                 example: "generic@example.com"
+ *     parameters:
+ *       - name: email
+ *         in: path
+ *         required: true
+ *         description: Email do usuário para enviar o e-mail de recuperação de senha.
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: E-mail enviado com sucesso

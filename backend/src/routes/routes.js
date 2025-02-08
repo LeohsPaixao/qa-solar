@@ -14,7 +14,7 @@ const router = Router();
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.post('/useremail', validateEmail, getEmailUser);
+router.post('/user/email/:email', validateEmail, getEmailUser);
 router.post('/logout', logoutUser);
 router.get('/user/:email', validateEmail, getUser);
 router.get('/users', getAllUsers);
