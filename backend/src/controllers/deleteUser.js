@@ -2,12 +2,61 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+/**
+ * @swagger
+ * /user/delete:
+ *   delete:
+ *     summary: Exclui um ou mais usuários
+ *     description: Exclui um ou mais usuários pelos IDs fornecidos.
+ *     tags: 
+ *       - Usuários
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               ids:
+ *                 type: array
+ *                 items:
+ *                   type: number
+ *                 description: IDs dos usuários a serem excluídos
+ *                 example: [550, 551]
+ *             required:
+ *               - ids
+ *     responses:
+ *       200:
+ *         description: Usuários excluídos com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de sucesso
+ *                   example: "2 usuário(s) excluído(s) com sucesso!"
+ *       400:
+ *         description: Erro ao excluir o usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de erro
+ *                   example: "Erro ao excluir o usuário."
+ */
 export async function deleteUser(req, res) {
   const { ids } = req.body;
 
   if (ids.includes(req.userId)) {
     res.status(400).json({ message: 'Você não pode excluir o usuário logado.' });
-    return
+    return;
   }
 
   try {

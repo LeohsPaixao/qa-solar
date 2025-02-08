@@ -12,8 +12,8 @@ const startServer = async () => {
     setupSwagger(app);
     app.listen(PORT, () => {
       console.log(chalk.green.bold(`\n🚀 Servidor iniciado com sucesso!`));
-      console.log(chalk.blue(`🌍 URL: http://localhost:${PORT}`));
-      console.log(chalk.blue(`🌍 URL do Swagger: http://localhost:${PORT}/api-docs`));
+      console.log(chalk.blue(`🌍 URL: ${process.env.SERVER_URL}`));
+      console.log(chalk.blue(`🌍 URL do Swagger: ${process.env.SERVER_URL}/api-docs`));
       console.log(chalk.yellow(`📅 Iniciado em: ${new Date().toLocaleString()}`));
     });
   } catch (error) {
