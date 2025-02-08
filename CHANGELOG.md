@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.5.2
+
+### Patch Changes
+
+- cd65c96: feat: instala pacotes do jest
+
 ## 2.5.1
 
 ### Patch Changes
