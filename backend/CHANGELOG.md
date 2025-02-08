@@ -1,5 +1,11 @@
 # backend
 
+## 1.7.1
+
+### Patch Changes
+
+- 40e92eb: feat: adiciona try catch no endpoint de login
+
 ## 1.7.0
 
 ### Minor Changes

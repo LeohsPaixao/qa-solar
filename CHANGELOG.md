@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.5.3
+
+### Patch Changes
+
+- 40e92eb: feat: adiciona o novo projeto no package.lock
+
 ## 2.5.2
 
 ### Patch Changes

@@ -1,0 +1,20 @@
+{
+  "name": "performance",
+  "version": "2.0.0",
+  "description": "performance tests for QA Solar Project",
+  "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test:loadtest": "rimraf ./reports/* && k6 run --out json=reports/results.json k6/loadtest.js"
+  },
+  "keywords": [
+    "performance",
+    "tests",
+    "k6",
+    "load test"
+  ],
+  "devDependencies": {
+    "rimraf": "^6.0.1"
+  }
+}
