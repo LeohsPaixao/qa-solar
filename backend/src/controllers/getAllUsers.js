@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
+import prisma from '../prismaClient.js';
 import { formatDateTime } from '../utils/formatDate.js';
-
-const prisma = new PrismaClient();
 
 /**
  * @swagger
