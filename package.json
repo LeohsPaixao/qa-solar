@@ -8,6 +8,7 @@
   "private": true,
   "workspaces": [
     ".",
+    "performance",
     "backend",
     "frontend",
     "test/cypress",
