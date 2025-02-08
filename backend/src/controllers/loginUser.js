@@ -1,11 +1,9 @@
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
+import prisma from '../prismaClient.js';
 
 dotenv.config();
-
-const prisma = new PrismaClient();
 
 /**
  * @swagger
@@ -44,11 +42,32 @@ const prisma = new PrismaClient();
  *             schema:
  *               type: object
  *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Login realizado com sucesso!"
  *                 token:
  *                   type: string
  *                   example: "Bearer <seu_token_jwt>"
- *       401:
- *         description: Credenciais inválidas.
+ *       400:
+ *         description: Não foi possível realizar login com este usuário.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Não foi possivel realizar login com este usuário."
+ *       402:
+ *         description: A senha não confere.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "A senha não confere."
  */
 export async function loginUser(req, res) {
   const { email, password } = req.body;
@@ -64,7 +83,7 @@ export async function loginUser(req, res) {
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return res.status(400).json({ message: 'A senha não confere.' });
+    return res.status(402).json({ message: 'A senha não confere.' });
   }
 
   const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, {

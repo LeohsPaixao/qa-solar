@@ -1,13 +1,13 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../prismaClient.js';
 
 /**
  * @swagger
  * /user/update:
  *   put:
  *     summary: Atualiza os dados do usuário autenticado
- *     description: Atualiza os dados do usuário com base nos dados fornecidos
+ *     description: >
+ *       Atualiza os dados do usuário com base nos dados fornecidos.
+ *       Em caso de problemas durante o processo de atualização, retorna um erro 500.
  *     tags:
  *       - Usuários
  *     security:
@@ -37,7 +37,7 @@ const prisma = new PrismaClient();
  *               - phone
  *     responses:
  *       200:
- *         description: Usuário atualizado com sucesso
+ *         description: Usuário atualizado com sucesso.
  *         content:
  *           application/json:
  *             schema:
@@ -46,9 +46,9 @@ const prisma = new PrismaClient();
  *                 message:
  *                   type: string
  *                   description: Mensagem de sucesso
- *                   example: "Usuário atualizado com sucesso!"
- *       400:
- *         description: Erro ao atualizar o usuário
+ *                   example: "Usuário alterado com sucesso."
+ *       500:
+ *         description: Erro interno ao atualizar o usuário.
  *         content:
  *           application/json:
  *             schema:
@@ -57,20 +57,25 @@ const prisma = new PrismaClient();
  *                 message:
  *                   type: string
  *                   description: Mensagem de erro
- *                   example: "Erro ao atualizar o usuário."
+ *                   example: "Erro interno ao atualizar usuário."
  */
 export async function updateUser(req, res) {
   const userId = req.userId;
   const { fullName, socialName, phone } = req.body;
 
-  await prisma.user.update({
-    where: { id: userId },
-    data: {
-      full_name: fullName,
-      social_name: socialName || null,
-      phone: phone || null,
-    },
-  });
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        full_name: fullName,
+        social_name: socialName || null,
+        phone: phone || null,
+      },
+    });
 
-  res.status(200).json({ message: 'Usuário alterado com sucesso.' });
+    res.status(200).json({ message: 'Usuário alterado com sucesso.' });
+  } catch (error) {
+    console.clear(error);
+    return res.status(500).json({ message: 'Erro interno ao atualizar usuário.' });
+  }
 }

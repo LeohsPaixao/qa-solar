@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../prismaClient.js';
 
 /**
  * @swagger
@@ -8,7 +6,7 @@ const prisma = new PrismaClient();
  *   delete:
  *     summary: Exclui um ou mais usuários
  *     description: Exclui um ou mais usuários pelos IDs fornecidos.
- *     tags: 
+ *     tags:
  *       - Usuários
  *     security:
  *       - bearerAuth: []
@@ -66,13 +64,13 @@ export async function deleteUser(req, res) {
       },
     });
 
-    if (deletedUsers.count === 0) {
+    if (deletedUsers.count === 0 || deletedUsers.count === undefined || deletedUsers.count === null) {
       return res.status(404).json({ message: 'Nenhum usuário encontrado para excluir.' });
     }
 
     return res.status(200).json({ message: `${deletedUsers.count} usuário(s) excluído(s) com sucesso!` });
   } catch (error) {
-    console.error(error);
+    console.clear(error);
     return res.status(500).json({ message: 'Erro ao excluir o usuário.' });
   }
 }
