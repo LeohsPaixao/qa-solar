@@ -1,5 +1,12 @@
 # backend
 
+## 1.6.0
+
+### Minor Changes
+
+- 0507cb1: feat: termina a documentação da API
+- b72726c: feat: configura o swagger no projeto do backend
+
 ## 1.5.1
 
 ### Patch Changes

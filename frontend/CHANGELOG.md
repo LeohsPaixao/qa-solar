@@ -1,5 +1,11 @@
 # frontend
 
+## 1.5.1
+
+### Patch Changes
+
+- b72726c: feat: altera o hook useFetchUser para enviar o email no parâmetro pela url
+
 ## 1.5.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.5.1
+
+### Patch Changes
+
+- b72726c: feat: instala os novos pacote e coloca no yarn.lock
+
 ## 2.5.0
 
 ### Minor Changes
