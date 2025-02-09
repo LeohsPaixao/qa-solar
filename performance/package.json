@@ -3,10 +3,12 @@
   "version": "2.1.0",
   "description": "performance tests for QA Solar Project",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
+  "type": "module",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test:loadtest": "rimraf ./reports/* && k6 run k6/loadtest.js --out json=reports/results.json"
+    "test:loadtest": "rimraf ./reports/* && k6 run k6/loadtest.js --out json=reports/results.json",
+    "view:report": "node --no-warnings --loader ts-node/esm utils/serveReport.ts"
   },
   "keywords": [
     "performance",
@@ -16,5 +18,12 @@
   ],
   "devDependencies": {
     "rimraf": "^6.0.1"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
+    "express": "^4.21.2",
+    "open": "^10.1.0",
+    "ts-node": "^10.9.2"
   }
 }

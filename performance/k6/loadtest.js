@@ -51,7 +51,7 @@ export const options = {
 function loginUser(email, password) {
   const payload = JSON.stringify({ email, password });
   const params = { headers: { "Content-Type": "application/json" } };
-  return http.post(`${__ENV.SERVER_URL || "http://localhost:3001"}/login`, payload, params);
+  return http.post("http://localhost:3001/login", payload, params);
 }
 
 export default function () {
@@ -61,8 +61,8 @@ export default function () {
     let res = loginUser(email, password);
     check(res, {
       "login bem-sucedido (status 200)": (r) => r.status === 200,
-      "tempo de resposta entre 200ms e 500ms": (r) =>
-        r.timings.duration >= 200 && r.timings.duration <= 500,
+      "tempo de resposta entre 50ms e 200ms": (r) =>
+        r.timings.duration >= 50 && r.timings.duration <= 200,
     });
   }
 
@@ -86,7 +86,8 @@ export default function () {
 }
 
 export function handleSummary(data) {
+  const scenario = __ENV.SCENARIO || "all";
   return {
-    "reports/performance-report.html": generateHtmlReport(data),
+    "reports/performance-report.html": generateHtmlReport(data, scenario),
   };
 }

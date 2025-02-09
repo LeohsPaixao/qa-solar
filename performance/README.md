@@ -92,15 +92,32 @@ Este projeto oferece diferentes cenários para o endpoint de login. A seguir, ve
 
 ## Relatórios
 
-Após a execução dos testes, os relatórios são gerados no diretório `reports`, com o arquivo `results.json` contendo os dados brutos e um relatório HTML no formato customizado para fácil visualização.
+Após a execução dos testes, os relatórios são gerados no diretório `reports`, com o arquivo `results.json` contendo os dados brutos.
+
+Basta executar o comando:
+```bash
+yarn view:report
+```
+
+Para visualizar o relatório, abra o arquivo `reports/performance-report.html` no seu navegador.
+
+Exemplo de relatório:
+
+![Relatório de Performance](./reports/performance-report.png)
 
 ---
 
 ## Tecnologias Utilizadas
 
 - **[k6](https://k6.io/):** Biblioteca para testes de carga.
-- **Node.js:** Gerenciamento de scripts e automação dos testes.
-- **Ferramentas de integração contínua (CI/CD):** Para execução e monitoramento automatizado dos testes.
+- **[Node.js](https://nodejs.org/en/):** Gerenciamento de scripts e automação dos testes.
+- **[ts-node](https://k6.io/docs/using-k6-with-typescript/):** Para executar o script TypeScript.
+- **[rimraf](https://github.com/isaacs/rimraf):** Para limpar o diretório de relatórios antes de cada execução.
+- **[open](https://github.com/sindresorhus/open):** Para abrir o relatório no navegador.
+- **[express](https://expressjs.com/):** Para servir o relatório.
+- **[path](https://nodejs.org/api/path.html):** Para construir o caminho do relatório.
+- **[fileURLToPath](https://nodejs.org/api/url.html#url_url_fileurltopath_url):** Para converter o URL do arquivo para um caminho de arquivo.
+- **[ts-node](https://k6.io/docs/using-k6-with-typescript/):** Para executar o script TypeScript.
 
 ---
 
