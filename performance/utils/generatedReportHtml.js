@@ -1,8 +1,4 @@
-export function generateHtmlReport(data) {
-  function formatMetric(value) {
-    return typeof value === "number" ? value.toFixed(2) : "N/A";
-  }
-
+export function generateHtmlReport(data, scenario) {
   function formatDurationInSeconds(value) {
     return typeof value === "number" ? (value / 1000).toFixed(2) : "N/A";
   }
@@ -34,6 +30,7 @@ export function generateHtmlReport(data) {
     </head>
     <body>
       <h1>Relatório de Teste de Performance K6</h1>
+      <h2>Cenário: ${scenario}</h2>
       
       <h2>Resumo Geral</h2>
       <table>

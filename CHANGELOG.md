@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.5.4
+
+### Patch Changes
+
+- e34a858: story: instala typescript no projeto de performance
+
 ## 2.5.3
 
 ### Patch Changes
