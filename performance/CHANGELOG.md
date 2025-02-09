@@ -1,5 +1,11 @@
 # performance
 
+## 2.2.0
+
+### Minor Changes
+
+- e34a858: story: coloca typescript no projeto de perfomance e cria um server do relatório
+
 ## 2.1.0
 
 ### Minor Changes
