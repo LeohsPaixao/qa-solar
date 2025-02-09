@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
-    "@commitlint/config-conventional": "^19.6.0"
+    "@commitlint/config-conventional": "^19.6.0",
+    "@types/node": "^22.13.1",
+    "typescript": "^5.7.3"
   }
 }
