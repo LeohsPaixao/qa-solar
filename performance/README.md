@@ -103,7 +103,7 @@ Para visualizar o relatório, abra o arquivo `reports/performance-report.html` n
 
 Exemplo de relatório:
 
-![Relatório de Performance](./reports/performance-report.png)
+![Relatório de Performance](./images/performance-report.png)
 
 ---
 
