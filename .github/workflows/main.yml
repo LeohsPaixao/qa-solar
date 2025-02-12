@@ -11,6 +11,10 @@ jobs:
   cypress-tests:
     name: Cypress Testes QA-Solar
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
     services:
       postgres:
         image: postgres:15
@@ -58,18 +62,17 @@ jobs:
           cd frontend
           nohup yarn serve &
 
-      - name: Cypress run
+      - name: Executar testes Cypress
         uses: cypress-io/github-action@v6
         with:
           working-directory: test/cypress
-          start: npx cypress run --record --browser chrome --config-file cypress.config.ts
-          record: true
-          parallel: false
+          start: npx cypress run --record --auto-cancel-after-failures 2 --browser chrome --config-file cypress.config.ts --parallel
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
           API_URL: ${{ secrets.API_URL }}
           BASE_URL: ${{ secrets.BASE_URL }}
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
 
   playwright-tests:
     name: Playwright Testes QA-Solar
