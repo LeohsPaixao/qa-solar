@@ -1,7 +1,7 @@
 # Cypress UI Tests
 
 ![Cypress Version](https://img.shields.io/badge/cypress-v14.0.2-green)
-[![QA-Solar](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/count/en7s34/main&style=for-the-badge&logo=cypress)](https://cloud.cypress.io/projects/en7s34/runs)
+[![QA-Solar](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/count/en7s34/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/en7s34/runs)
 
 ## 📝 Descrição
 
