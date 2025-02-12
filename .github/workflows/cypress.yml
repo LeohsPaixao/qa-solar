@@ -70,7 +70,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          start: yarn --cwd test/cypress cy:run
+          working-directory: test/cypress
+          start: yarn cy:run
+          config-file: cypress.config.ts
           record: true
           parallel: true
         env:
