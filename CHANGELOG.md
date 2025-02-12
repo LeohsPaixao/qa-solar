@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.5.5
+
+### Patch Changes
+
+- c41786d: feat: adiciona os pacotes typescript e types/node no projeto principal
+
 ## 2.5.4
 
 ### Patch Changes

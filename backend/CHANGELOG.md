@@ -1,5 +1,11 @@
 # backend
 
+## 1.7.2
+
+### Patch Changes
+
+- f6e9075: feat: resolve as dependencias de pacotes do projeto backend
+
 ## 1.7.1
 
 ### Patch Changes
