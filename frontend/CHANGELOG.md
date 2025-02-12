@@ -1,5 +1,11 @@
 # frontend
 
+## 1.5.2
+
+### Patch Changes
+
+- 5626cda: feat: adiciona novos pacotes e remove outros para resolver as dependências do projeto frontend
+
 ## 1.5.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "qa-solar",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "description": "Simple project VUE for UI Testing with Frameworks: Cypress, Robot and Playwright",
   "repository": "git@github.com:LeohsPaixao/qa-solar.git",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
-    "@commitlint/config-conventional": "^19.6.0"
+    "@commitlint/config-conventional": "^19.6.0",
+    "@types/node": "^22.13.1",
+    "typescript": "^5.7.3"
   }
 }
