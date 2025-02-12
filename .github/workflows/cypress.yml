@@ -72,7 +72,8 @@ jobs:
         with:
           working-directory: test/cypress
           start: yarn cy:run
-          config-file: cypress.config.ts
+          config-file: ./test/cypress/cypress.config.ts
+          browser: chrome
           record: true
           parallel: true
         env:
