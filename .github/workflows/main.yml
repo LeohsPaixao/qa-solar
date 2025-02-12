@@ -62,7 +62,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: test/cypress
-          start: npx cypress run --record --browser chrome --config-file cypress.config.ts
+          start: npx cypress run --record --config-file cypress.config.ts
           record: true
           parallel: false
         env:
