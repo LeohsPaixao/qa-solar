@@ -61,6 +61,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SERVER_URL: ${{ secrets.SERVER_URL }}
 
       - name: Iniciar frontend
         run: |
@@ -71,9 +72,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: test/cypress
-          start: yarn cy:run
-          config-file: ./test/cypress/cypress.config.ts
-          browser: chrome
+          start: npx cypress run --record --browser chrome --config-file cypress.config.ts
           record: true
           parallel: true
         env:
