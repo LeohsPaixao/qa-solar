@@ -58,11 +58,15 @@ jobs:
           cd frontend
           nohup yarn serve &
 
-      - name: Cypress run
+      - name: Executar testes Cypress
         uses: cypress-io/github-action@v6
         with:
           working-directory: test/cypress
-          start: npx cypress run --record --config-file cypress.config.ts
+          start: npx cypress run
+          browser: chrome
+          config-file: cypress.config.ts
+          wait-on: 'http://localhost:8181, http://localhost:3001'
+          auto-cancel-after-failures: 2
           record: true
           parallel: false
         env:
@@ -70,6 +74,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
           API_URL: ${{ secrets.API_URL }}
           BASE_URL: ${{ secrets.BASE_URL }}
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
 
   playwright-tests:
     name: Playwright Testes QA-Solar
