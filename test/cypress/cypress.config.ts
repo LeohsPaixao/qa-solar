@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export default defineConfig({
+  projectId: "en7s34",
   experimentalMemoryManagement: true,
   trashAssetsBeforeRuns: false,
   chromeWebSecurity: false,

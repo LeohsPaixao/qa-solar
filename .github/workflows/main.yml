@@ -33,7 +33,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.1.0
 
       - name: Instalar dependências do Monorepo
         run: yarn
@@ -51,26 +51,25 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SERVER_URL: ${{ secrets.SERVER_URL }}
 
       - name: Iniciar frontend
         run: |
           cd frontend
           nohup yarn serve &
 
-      - name: Executar testes Cypress
-        run: |
-          cd test/cypress
-          yarn cy:run
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: test/cypress
+          start: npx cypress run --record --browser chrome --config-file cypress.config.ts
+          record: true
+          parallel: false
         env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
           API_URL: ${{ secrets.API_URL }}
           BASE_URL: ${{ secrets.BASE_URL }}
-
-      - name: Salvar artefatos do Cypress
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v4.4.3
-        with:
-          name: cypress-artifacts
-          path: test/cypress/tests/e2e/misc/screenshots/
 
   playwright-tests:
     name: Playwright Testes QA-Solar
@@ -105,7 +104,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.1.0
 
       - name: Instalar dependências do Monorepo
         run: yarn
@@ -148,7 +147,7 @@ jobs:
         with:
           name: playwright-report
           path: test/playwright/playwright-report/
-          retention-days: 30
+          retention-days: 10
 
   robot-framework-tests:
     name: Robot Framework Testes QA-Solar
@@ -183,7 +182,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.1.0
 
       - name: Configurar Python
         uses: actions/setup-python@v5.3.0
@@ -240,3 +239,4 @@ jobs:
         with:
           name: robot-report
           path: test/robot/results/reports/
+          retention-days: 10
