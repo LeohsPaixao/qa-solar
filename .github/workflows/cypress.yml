@@ -71,7 +71,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           start: cd test/cypress && yarn cy:run
-          wait-on: 'http://localhost:3001 && http://localhost:8181'
           record: true
           parallel: true
         env:
