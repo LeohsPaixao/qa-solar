@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.6.0
+
+### Minor Changes
+
+- c7bd88d: feat: adiciona o cypress cloud no projeto
+
 ## 1.5.0
 
 ### Minor Changes
