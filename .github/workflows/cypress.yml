@@ -1,15 +1,8 @@
 name: Cypress Tests
 on:
-  push:
-    branches:
-      - main
-      - main-workflow
-      - test-cypress
   pull_request:
     branches:
-      - main
-      - main-workflow
-      - test-cypress
+      - '*cypress'
   workflow_dispatch:
 
 jobs:
@@ -70,7 +63,7 @@ jobs:
           working-directory: test/cypress
           start: npx cypress run --record --browser chrome --config-file cypress.config.ts
           record: true
-          parallel: true
+          parallel: false
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
