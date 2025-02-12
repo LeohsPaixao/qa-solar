@@ -1,8 +1,7 @@
 # Cypress UI Tests
 
-![Yarn Version](https://img.shields.io/badge/yarn-v1.22.22-blue)  
-![Node Version](https://img.shields.io/badge/node-v22.1.0-green)  
 ![Cypress Version](https://img.shields.io/badge/cypress-v13.16.0-orange)
+[![cypress Tests](https://dashboard.cypress.io/badge/en7s34)](https://dashboard.cypress.io/projects/en7s34/runs)
 
 ## 📝 Descrição
 
