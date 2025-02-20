@@ -1,5 +1,11 @@
 # frontend
 
+## 1.6.0
+
+### Minor Changes
+
+- 44a4ff9: feat: criação do arquivo Dockerfile para o serviço de frontend
+
 ## 1.5.2
 
 ### Patch Changes
