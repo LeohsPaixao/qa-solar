@@ -1,5 +1,11 @@
 # backend
 
+## 1.8.0
+
+### Minor Changes
+
+- 0f40abf: feat: criação do arquivo Dockerfile para o servico de backend
+
 ## 1.7.2
 
 ### Patch Changes

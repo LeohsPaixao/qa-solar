@@ -1,0 +1,68 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tests_base
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - qa-solar-internal
+
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./backend/ci/Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./backend/.env:/app/backend/.env
+      - /app/backend/node_modules
+    tty: true
+    stdin_open: true
+    command: ["yarn", "api"]
+    expose:
+      - 3001
+    ports:
+      - "3001:3001"
+    environment:
+      - HOST="0.0.0.0"
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/tests_base?schema=public
+      - JWT_SECRET=jwt_secret
+      - SERVER_URL=http://localhost:3001
+    depends_on:
+      - postgres
+    networks:
+      - qa-solar-internal
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./frontend/ci/Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/frontend/node_modules
+    tty: true
+    stdin_open: true
+    command: ["yarn", "serve", "--host", "0.0.0.0"]
+    expose:
+      - 8181
+    ports:
+      - "8181:8181"
+    networks:
+      - qa-solar-internal
+
+volumes:
+  postgres_data:
+
+networks:
+  qa-solar-internal:
+    driver: bridge
