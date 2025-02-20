@@ -2,14 +2,15 @@ FROM node:22.1.0-alpine
 
 WORKDIR /app
 
-RUN npm install -g yarn
+# Primeiro, copie os arquivos necessários para instalar dependências
+COPY package.json yarn.lock ./
+COPY frontend/package.json ./frontend/
 
-COPY . .
-
+# Instale as dependências
 RUN yarn install
 
-RUN ["yarn", "serve"]
+# Depois copie o resto dos arquivos
+COPY . .
 
-EXPOSE 8181
-
-CMD ["yarn", "serve"]
+# Configure o diretório de trabalho para a pasta frontend
+WORKDIR /app/frontend
