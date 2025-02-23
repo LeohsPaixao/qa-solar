@@ -1,5 +1,11 @@
 # qa-solar
 
+## 2.5.6
+
+### Patch Changes
+
+- 48e6afe: feat: corrige o problema de não aparece a mensagem no toast ao deslogar
+
 ## 2.5.5
 
 ### Patch Changes

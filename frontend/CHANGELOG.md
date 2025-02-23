@@ -1,5 +1,11 @@
 # frontend
 
+## 1.6.1
+
+### Patch Changes
+
+- 48e6afe: feat: corrige o problema de não aparece a mensagem no toast ao deslogar
+
 ## 1.6.0
 
 ### Minor Changes

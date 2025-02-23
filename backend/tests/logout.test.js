@@ -23,4 +23,10 @@ describe('Teste de API - logoutUser', () => {
     expect(response.statusCode).toBe(400);
     expect(response.body.message).toBe('Token não fornecido.');
   });
+
+  test('Deve retornar 500 para erro ao deslogar o usuário', async () => {
+    const response = await request(app).post('/logout').send({ token: 'forçar-erro' });
+    expect(response.statusCode).toBe(500);
+    expect(response.body.message).toBe('Erro ao deslogar o usuário.');
+  });
 });
