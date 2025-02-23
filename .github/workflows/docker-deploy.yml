@@ -21,10 +21,10 @@ jobs:
 
       - name: Construir e enviar a imagem do Backend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest ./backend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest ./backend/ci
           docker push ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest
 
       - name: Construir e enviar a imagem do Frontend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest ./frontend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest ./frontend/ci
           docker push ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest
