@@ -8,4 +8,4 @@ RUN yarn install
 
 WORKDIR /app/frontend
 
-COPY frontend/. .
+COPY ./frontend/. .

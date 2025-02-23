@@ -8,6 +8,6 @@ RUN yarn install
 
 WORKDIR /app/backend
 
-COPY backend/. .
+COPY ./backend/. .
 
 RUN yarn prisma generate
