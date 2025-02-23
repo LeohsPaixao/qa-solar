@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main-docker
+      - docker*
 
 jobs:
   build-and-push-backend:

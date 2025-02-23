@@ -2,8 +2,8 @@
 
 echo "🚀 Atualizando containers locais..."
 
-docker rmi qa-solar-backend:latest
-docker rmi qa-solar-frontend:latest
+docker rmi backend
+docker rmi frontend
 docker-compose build
 docker-compose up -d --force-recreate
 

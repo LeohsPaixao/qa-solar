@@ -18,7 +18,7 @@ services:
     container_name: backend
     build:
       context: .
-      dockerfile: ./backend/ci/Dockerfile
+      dockerfile: ./backend/Dockerfile
     volumes:
       - .:/app
       - /app/node_modules
@@ -45,7 +45,7 @@ services:
     container_name: frontend
     build:
       context: .
-      dockerfile: ./frontend/ci/Dockerfile
+      dockerfile: ./frontend/Dockerfile
     volumes:
       - .:/app
       - /app/node_modules
