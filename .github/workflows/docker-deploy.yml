@@ -1,0 +1,44 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main-docker
+      - docker*
+
+jobs:
+  build-and-push-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Construir e enviar a imagem do Backend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest -f backend/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest
+
+  build-and-push-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Construir e enviar a imagem do Frontend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest -f frontend/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest
