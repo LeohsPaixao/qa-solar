@@ -2,15 +2,12 @@ FROM node:22.1.0-alpine
 
 WORKDIR /app
 
-# Copiar apenas os arquivos necessários para instalar dependências
-COPY backend/package.json backend/yarn.lock ./backend/
+COPY package.json yarn.lock
 
-# Instalar dependências
-WORKDIR /app/backend
 RUN yarn install
 
-# Copiar o restante do código
-COPY backend/. ./backend/
+WORKDIR /app/backend
 
-# Gerar o Prisma Client
+COPY backend/. .
+
 RUN yarn prisma generate
