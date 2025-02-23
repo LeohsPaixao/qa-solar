@@ -1,7 +1,12 @@
 import request from 'supertest';
 import app from '../src/app.js';
+import prisma from '../src/prismaClient.js';
 
 describe('Teste de API - loginUser', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   test('Deve autenticar o usuário e retornar o token JWT', async () => {
     const credenciais = {
       email: 'generic@example.com',
@@ -43,5 +48,18 @@ describe('Teste de API - loginUser', () => {
 
     expect(response.statusCode).toBe(402);
     expect(response.body.message).toBe('A senha não confere.');
+  });
+
+  test('Deve retornar 500 para erro ao autenticar o usuário', async () => {
+    const credenciais = {
+      email: 'generic@example.com',
+      password: '123456'
+    };
+
+    jest.spyOn(prisma.user, 'findUnique').mockRejectedValue(new Error('Erro interno no servidor.'));
+
+    const response = await request(app).post('/login').send(credenciais);
+    expect(response.statusCode).toBe(500);
+    expect(response.body.message).toBe('Erro interno no servidor.');
   });
 });
