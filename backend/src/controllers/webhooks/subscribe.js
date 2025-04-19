@@ -46,7 +46,7 @@ export const subscribe = async (req, res) => {
   try {
     new URL(targetUrl);
   } catch (error) {
-    return res.status(401).json({ error: 'URL inválida' });
+    return res.status(401).json({ error: error.message });
   }
 
   try {
@@ -71,6 +71,6 @@ export const subscribe = async (req, res) => {
 
     return res.status(201).json({ success: true, subscription: newSubscription });
   } catch (error) {
-    return res.status(500).json({ error: 'Erro ao tentar criar inscrição.' });
+    return res.status(500).json({ error: error.message });
   }
 };
