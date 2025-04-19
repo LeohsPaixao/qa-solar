@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
 import app from '../src/app.js';
-import prisma from '../src/prismaClient.js';
+import prisma from '../src/services/prismaClient.js';
 import { generateValidCPF } from '../src/utils/generatedValidCPF.js';
 
 describe('Teste de API - registerUser', () => {
@@ -69,13 +69,16 @@ describe('Teste de API - registerUser', () => {
   test('Deve retornar 500 quando ocorrer um erro genérico na criação do usuário', async () => {
     jest.spyOn(prisma.user, 'create').mockRejectedValue(new Error('Erro ao tentar cadastrar o usuário.'));
 
+    const cpf = faker.number.int({ min: 10000000000, max: 99999999999 });
+    const email = faker.internet.email({ provider: 'qa.solar.com' });
+
     const novoUsuario = {
       fullName: 'Teste',
       socialName: 'Teste Social',
-      document: '12345678901',
+      document: cpf.toString(),
       docType: 'CPF',
       phone: '(11) 99999-9999',
-      email: 'teste500@example.com',
+      email,
       password: '123456'
     };
 

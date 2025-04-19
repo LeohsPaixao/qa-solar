@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import request from 'supertest';
 import app from '../src/app.js';
-import prisma from '../src/prismaClient.js';
+import prisma from '../src/services/prismaClient.js';
 
 describe('Teste de API - logoutUser', () => {
   afterEach(() => {

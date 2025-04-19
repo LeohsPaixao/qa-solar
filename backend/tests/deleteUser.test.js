@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import request from 'supertest';
 import app from '../src/app.js';
-import prisma from '../src/prismaClient.js';
+import prisma from '../src/services/prismaClient.js';
 import { generateValidCPF } from '../src/utils/generatedValidCPF.js';
 
 describe('Teste de API - deleteUser', () => {

@@ -20,3 +20,11 @@ model user {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model webhookSubscription {
+  id         Int      @id @default(autoincrement())
+  targetUrl  String
+  event      String
+  userId     Int?
+  createdAt  DateTime @default(now())
+}

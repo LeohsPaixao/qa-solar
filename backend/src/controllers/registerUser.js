@@ -1,5 +1,7 @@
+import axios from 'axios';
 import bcrypt from 'bcryptjs';
-import prisma from '../prismaClient.js';
+import prisma from '../services/prismaClient.js';
+import { findSubscriptionsByEvent } from '../services/subscriptionService.js';
 
 /**
  * @swagger
@@ -99,11 +101,28 @@ import prisma from '../prismaClient.js';
  */
 export const registerUser = async (req, res) => {
   const { fullName, socialName, document, docType, phone, email, password } = req.body;
+  let user;
 
   try {
+    const existingDocument = await prisma.user.findUnique({
+      where: { document },
+    });
+
+    if (existingDocument) {
+      return res.status(405).json({ message: 'CPF ou CNPJ já está em uso.' });
+    }
+
+    const existingEmail = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingEmail) {
+      return res.status(404).json({ message: 'E-mail já está em uso.' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await prisma.user.create({
+    user = await prisma.user.create({
       data: {
         full_name: fullName,
         social_name: socialName,
@@ -115,17 +134,24 @@ export const registerUser = async (req, res) => {
       },
     });
 
-    res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
-  } catch (error) {
-    if (error.code === 'P2002') {
-      if (error.meta?.target?.includes('email')) {
-        return res.status(404).json({ message: 'E-mail já está em uso.' });
-      }
-      if (error.meta?.target?.includes('document')) {
-        return res.status(405).json({ message: 'CPF ou CNPJ já está em uso.' });
+    const subscriptions = await findSubscriptionsByEvent('user.created');
+
+    for (const subscription of subscriptions) {
+      try {
+        await axios.post(subscription.targetUrl, {
+          id: user.id,
+          fullName: user.full_name,
+          email: user.email,
+          createdAt: user.created_at,
+          event: 'user.created',
+        });
+      } catch (error) {
+        throw new Error(`Erro ao enviar evento para ${subscription.targetUrl}: ${error.message}`);
       }
     }
 
-    res.status(500).json({ message: 'Erro ao tentar cadastrar o usuário.' });
+    return res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 };

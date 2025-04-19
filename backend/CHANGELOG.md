@@ -1,5 +1,11 @@
 # backend
 
+## 1.9.0
+
+### Minor Changes
+
+- d823d6f: feat: cria novas rotas para o App no Zapier
+
 ## 1.8.1
 
 ### Patch Changes
