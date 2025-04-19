@@ -137,17 +137,21 @@ export const registerUser = async (req, res) => {
     const subscriptions = await findSubscriptionsByEvent('user.created');
 
     for (const subscription of subscriptions) {
-      await axios.post(subscription.targetUrl, {
-        id: user.id,
-        fullName: user.full_name,
-        email: user.email,
-        createdAt: user.created_at,
-        event: 'user.created',
-      });
+      try {
+        await axios.post(subscription.targetUrl, {
+          id: user.id,
+          fullName: user.full_name,
+          email: user.email,
+          createdAt: user.created_at,
+          event: 'user.created',
+        });
+      } catch (error) {
+        throw new Error(`Erro ao enviar evento para ${subscription.targetUrl}: ${error.message}`);
+      }
     }
 
-    res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
+    return res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
   } catch (error) {
-    res.status(500).json({ error: error.message, message: 'Erro ao tentar cadastrar o usuário.' });
+    return res.status(500).json({ error: 'Erro ao tentar cadastrar o usuário.' });
   }
 };

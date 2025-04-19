@@ -29,6 +29,10 @@ import prisma from '../../services/prismaClient.js';
  *         description: Inscrição criada com sucesso
  *       400:
  *         description: Dados inválidos
+ *       401:
+ *         description: URL inválida
+ *       402:
+ *         description: Inscrição já existe
  *       500:
  *         description: Erro ao criar inscrição
  */
@@ -40,6 +44,12 @@ export const subscribe = async (req, res) => {
   }
 
   try {
+    new URL(targetUrl);
+  } catch (error) {
+    return res.status(401).json({ error: 'URL inválida' });
+  }
+
+  try {
     const existingSubscription = await prisma.webhookSubscription.findFirst({
       where: {
         targetUrl,
@@ -48,20 +58,19 @@ export const subscribe = async (req, res) => {
     });
 
     if (existingSubscription) {
-      return res.status(200).json({ success: false, message: 'Inscrição já existe' });
+      return res.status(402).json({ success: false, message: 'Inscrição já existe' });
     }
 
     const newSubscription = await prisma.webhookSubscription.create({
       data: {
         targetUrl,
         event,
-        userId: 1,
+        userId: req.user?.id || 1,
       },
     });
 
     return res.status(201).json({ success: true, subscription: newSubscription });
   } catch (error) {
-    console.error('Erro no subscribe:', error);
-    return res.status(500).json({ error: 'Erro ao criar inscrição' });
+    return res.status(500).json({ error: 'Erro ao tentar criar inscrição.' });
   }
 };

@@ -11,10 +11,6 @@ jobs:
   cypress-tests:
     name: Cypress Testes QA-Solar
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: [1, 2]
     services:
       postgres:
         image: postgres:15
@@ -66,7 +62,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: test/cypress
-          start: npx cypress run --record --auto-cancel-after-failures 2 --browser chrome --config-file cypress.config.ts --parallel
+          start: npx cypress run --record --browser chrome --config-file cypress.config.ts
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
