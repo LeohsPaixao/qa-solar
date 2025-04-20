@@ -19,4 +19,12 @@ describe('Teste de API - getAllUsers', () => {
     expect(response.statusCode).toBe(404);
     expect(response.body.message).toBe('Nenhum usuário encontrado.');
   });
+
+  test('Deve retornar 500 para erro ao obter todos os usuários', async () => {
+    jest.spyOn(prisma.user, 'findMany').mockRejectedValue(new Error('Erro ao obter todos os usuários.'));
+
+    const response = await request(app).get('/users');
+    expect(response.statusCode).toBe(500);
+    expect(response.body.message).toBe('Erro ao obter todos os usuários.');
+  });
 });

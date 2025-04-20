@@ -57,6 +57,7 @@ export async function registerUser(req, res) {
 
     return res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
   } catch (error) {
+    console.clear(error.message)
     return res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 }

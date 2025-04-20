@@ -182,6 +182,7 @@ const handleSubmit = async () => {
       },
     });
   } catch (err) {
+    console.clear(err.message)
     toast.error('Ocorreu um erro ao processar sua solicitação.', { autoClose: 5000 });
   }
 };
