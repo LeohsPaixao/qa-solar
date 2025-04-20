@@ -69,10 +69,8 @@ import { useFetchUsers } from '../../../../hooks/useFetchUsers.js';
 const selectedUsers = ref([]);
 const selectAll = ref(false);
 
-const userEmail = localStorage.getItem('user-email');
-
 const { data: users, isLoading } = useFetchUsers();
-const { data: loggedInUser } = useFetchUser(userEmail);
+const { data: loggedInUser } = useFetchUser();
 const { mutate: deleteUser, isLoading: isDeleting } = useDeleteUser();
 
 const toggleSelectAll = () => {

@@ -3,17 +3,17 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
 
-const fetchUser = async (email) => {
-  const response = await api.get(`/user/${email}`);
+const fetchUser = async () => {
+  const response = await api.get('/users/me');
   return response.data;
 };
 
-export const useFetchUser = (email) => {
+export const useFetchUser = () => {
   const queryClient = useQueryClient();
 
   return useQuery({
-    queryKey: ['user', email],
-    queryFn: () => fetchUser(email),
+    queryKey: ['user'],
+    queryFn: fetchUser,
     staleTime: 0,
     onSuccess: () => {
       queryClient.resetQueries();
