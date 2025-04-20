@@ -1,5 +1,12 @@
 # frontend
 
+## 1.6.2
+
+### Patch Changes
+
+- bf20799: feat: retafora a tela de registro de usuários
+- 5556806: feat: adiciona console.clear nos catchs
+
 ## 1.6.1
 
 ### Patch Changes
