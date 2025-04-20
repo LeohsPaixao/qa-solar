@@ -18,6 +18,7 @@ export async function getAllUsers(req, res) {
 
     return res.status(200).json(users);
   } catch (error) {
-    return res.status(500).json({ message: 'Erro interno no servidor.' });
+    console.clear(error.message)
+    return res.status(500).json({ message: 'Erro ao obter todos os usuários.' });
   }
 }

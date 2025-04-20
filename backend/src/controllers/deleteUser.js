@@ -21,6 +21,7 @@ export async function deleteUser(req, res) {
 
     return res.status(200).json({ message: `${deletedUsers.count} usuário(s) excluído(s) com sucesso!` });
   } catch (error) {
+    console.clear(error.message)
     return res.status(500).json({ message: 'Erro ao excluir o usuário.' });
   }
 }

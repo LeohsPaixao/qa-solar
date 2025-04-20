@@ -22,7 +22,7 @@ export const subscribe = async (req, res) => {
     });
 
     if (existingSubscription) {
-      return res.status(402).json({ success: false, message: 'Inscrição já existe' });
+      return res.status(402).json({ message: 'Inscrição já existe' });
     }
 
     const newSubscription = await prisma.webhookSubscription.create({
@@ -35,6 +35,7 @@ export const subscribe = async (req, res) => {
 
     return res.status(201).json({ success: true, subscription: newSubscription });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.error(error.message);
+    return res.status(500).json({ message: 'Erro ao criar inscrição' });
   }
 };
