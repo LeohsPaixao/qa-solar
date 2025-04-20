@@ -1,37 +1,5 @@
 import prisma from '../../services/prismaClient.js';
 
-/**
- * @swagger
- * /webhooks/unsubscribe:
- *   delete:
- *     summary: Remove uma inscrição de webhook
- *     description: Remove o registro de uma URL que recebia notificações de um evento específico
- *     tags:
- *       - Webhooks
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               targetUrl:
- *                 type: string
- *                 description: URL que recebia as notificações
- *               event:
- *                 type: string
- *                 description: Nome do evento da inscrição
- *             required:
- *               - targetUrl
- *               - event
- *     responses:
- *       200:
- *         description: Inscrição removida com sucesso
- *       404:
- *         description: Inscrição não encontrada
- *       500:
- *         description: Erro ao remover inscrição
- */
 export const unsubscribe = async (req, res) => {
   try {
     const { targetUrl, event } = req.body;
