@@ -14,7 +14,7 @@ describe('Teste de API - loginUser', () => {
     };
 
     const response = await request(app)
-      .post('/login')
+      .post('/auth/login')
       .send(credenciais);
 
     expect(response.statusCode).toBe(200);
@@ -29,7 +29,7 @@ describe('Teste de API - loginUser', () => {
     };
 
     const response = await request(app)
-      .post('/login')
+      .post('/auth/login')
       .send(credenciais);
 
     expect(response.statusCode).toBe(400);
@@ -43,7 +43,7 @@ describe('Teste de API - loginUser', () => {
     };
 
     const response = await request(app)
-      .post('/login')
+      .post('/auth/login')
       .send(credenciais);
 
     expect(response.statusCode).toBe(402);
@@ -58,7 +58,7 @@ describe('Teste de API - loginUser', () => {
 
     jest.spyOn(prisma.user, 'findUnique').mockRejectedValue(new Error('Erro interno no servidor.'));
 
-    const response = await request(app).post('/login').send(credenciais);
+    const response = await request(app).post('/auth/login').send(credenciais);
     expect(response.statusCode).toBe(500);
     expect(response.body.message).toBe('Erro interno no servidor.');
   });

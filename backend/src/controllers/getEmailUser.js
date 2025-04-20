@@ -14,7 +14,6 @@ export async function getEmailUser(req, res) {
 
     res.status(200).json({ message: 'Um e-mail foi enviado com instruções para recuperar a senha.' });
   } catch (error) {
-    console.error(error.message);
     return res.status(500).json({ message: 'Falha ao enviar e-mail para recuperação de senha.' });
   }
 }

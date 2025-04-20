@@ -11,7 +11,7 @@ describe('Teste de API - logoutUser', () => {
   test('Deve retornar 200 para deslogar o usuário', async () => {
     const token = jwt.sign({ userId: 1 }, process.env.JWT_SECRET);
 
-    const response = await request(app).post('/logout').send({ token });
+    const response = await request(app).post('/auth/logout').send({ token });
     expect(response.statusCode).toBe(200);
     expect(response.body.message).toBe('O usuário foi deslogado com sucesso!');
   });
@@ -19,13 +19,13 @@ describe('Teste de API - logoutUser', () => {
   test('Deve retornar 400 para token não fornecido', async () => {
     jest.spyOn(prisma.user, 'findUnique').mockResolvedValue(null);
 
-    const response = await request(app).post('/logout');
+    const response = await request(app).post('/auth/logout');
     expect(response.statusCode).toBe(400);
     expect(response.body.message).toBe('Token não fornecido.');
   });
 
   test('Deve retornar 500 para erro ao deslogar o usuário', async () => {
-    const response = await request(app).post('/logout').send({ token: 'forçar-erro' });
+    const response = await request(app).post('/auth/logout').send({ token: 'forçar-erro' });
     expect(response.statusCode).toBe(500);
     expect(response.body.message).toBe('Erro ao deslogar o usuário.');
   });

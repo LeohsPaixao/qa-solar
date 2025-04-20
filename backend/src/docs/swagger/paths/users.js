@@ -236,8 +236,16 @@
  *                 document:
  *                   type: string
  *                   description: CPF/CNPJ
- *       401:
- *         description: Não autorizado
+ *       404:
+ *         description: Usuário não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Erro ao tentar obter o usuário.
  *       500:
  *         description: Erro interno do servidor
  */
