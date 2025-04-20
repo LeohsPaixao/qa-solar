@@ -4,7 +4,7 @@ import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
 
 const deleteUser = async (userIds) => {
-  const response = await api.delete('/user/delete', { data: { ids: userIds } });
+  const response = await api.delete('/users/delete', { data: { ids: userIds } });
   return response.data;
 };
 

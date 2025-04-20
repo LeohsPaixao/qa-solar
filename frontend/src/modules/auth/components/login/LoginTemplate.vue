@@ -81,15 +81,8 @@ const handleLogin = () => {
       {
         onSuccess: (response) => {
           window.localStorage.setItem('user-token', response.token);
-          window.localStorage.setItem('user-email', email.value);
-
           toast.success(response.message, { autoClose: 1500 });
-
-          setTimeout(() => {
-            router.push('/home').then(() => {
-              window.location.reload();
-            });
-          }, 1500);
+          router.push('/home');
         },
         onError: (error) => {
           const errorMessage = error.response?.data?.message || 'Ocorreu um erro inesperado. Tente novamente mais tarde.';

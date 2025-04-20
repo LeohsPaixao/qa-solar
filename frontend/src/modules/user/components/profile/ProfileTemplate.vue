@@ -84,9 +84,7 @@ const originalData = ref({});
 const isSubmitted = ref(false);
 const formErrors = ref({});
 
-const userEmail = localStorage.getItem('user-email');
-
-const { data: user, isLoading: isLoadingFetch, isError } = useFetchUser(userEmail);
+const { data: user, isLoading: isLoadingFetch, isError } = useFetchUser();
 const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser();
 
 watchEffect(() => {

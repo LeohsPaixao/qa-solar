@@ -7,7 +7,7 @@ import api from '../services/api';
 
 export const logoutUser = async () => {
   const token = localStorage.getItem('user-token');
-  const response = await api.post('/logout', { token });
+  const response = await api.post('/auth/logout', { token });
 
   return response.data;
 };
@@ -22,7 +22,6 @@ export const useLogout = () => {
       queryClient.resetQueries();
       queryClient.invalidateQueries();
 
-      localStorage.removeItem('user-email');
       localStorage.removeItem('user-token');
 
       await router.push('/');
