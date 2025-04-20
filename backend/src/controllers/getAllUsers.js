@@ -12,9 +12,12 @@ export async function getAllUsers(req, res) {
       },
     });
 
+    if (users.length === 0) {
+      return res.status(404).json({ message: 'Nenhum usuário encontrado.' });
+    }
+
     return res.status(200).json(users);
   } catch (error) {
-    console.error(error.message);
     return res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 }

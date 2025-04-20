@@ -39,9 +39,10 @@ export async function registerUser(req, res) {
 
     const subscriptions = await findSubscriptionsByEvent('user.created');
 
-    for (const subscription of subscriptions) {
-      try {
-        await axios.post(subscription.targetUrl, {
+    if (process.env.ZAPIER_WEBHOOK_HABILITADO === 'true') {
+      for (const subscription of subscriptions) {
+        try {
+          await axios.post(subscription.targetUrl, {
           id: user.id,
           full_name: user.full_name,
           email: user.email,
@@ -49,13 +50,13 @@ export async function registerUser(req, res) {
           event: 'user.created',
         });
       } catch (error) {
-        throw new Error(`Erro ao enviar evento para ${subscription.targetUrl}: ${error.message}`);
+          throw new Error(`Erro ao enviar evento para ${subscription.targetUrl}: ${error.message}`);
+        }
       }
     }
 
     return res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
   } catch (error) {
-    console.error(error.message);
     return res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 }

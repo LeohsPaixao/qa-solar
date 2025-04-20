@@ -14,12 +14,11 @@ export async function getMeUser(req, res) {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'Usuário não encontrado.' });
+      return res.status(404).json({ message: `Usuário com o ID: ${req.userId} não encontrado.` });
     }
 
     return res.status(200).json(user);
   } catch (error) {
-    console.error(error.message);
     return res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 } 
