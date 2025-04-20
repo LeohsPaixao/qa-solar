@@ -33,7 +33,7 @@ describe('Teste de API - deleteUser', () => {
     };
 
     const userLogged = await request(app)
-      .post('/login')
+      .post('/auth/login')
       .send(credenciais);
 
     token = userLogged.body.token;
@@ -42,7 +42,7 @@ describe('Teste de API - deleteUser', () => {
 
   test('Deve excluir o usuário com sucesso', async () => {
     const response = await request(app)
-      .delete('/user/delete')
+      .delete('/users/delete')
       .set('Authorization', `Bearer ${token}`)
       .send({ ids: [createdUser.id] });
 
@@ -54,7 +54,7 @@ describe('Teste de API - deleteUser', () => {
     jest.spyOn(prisma.user, 'deleteMany').mockRejectedValue(new Error('Erro ao excluir o usuário.'));
 
     const response = await request(app)
-      .delete('/user/delete')
+      .delete('/users/delete')
       .set('Authorization', `Bearer ${token}`)
       .send({ ids: [createdUser.id] });
 
@@ -66,7 +66,7 @@ describe('Teste de API - deleteUser', () => {
     jest.spyOn(prisma.user, 'deleteMany').mockResolvedValue({ count: 0 });
 
     const response = await request(app)
-      .delete('/user/delete')
+      .delete('/users/delete')
       .set('Authorization', `Bearer ${token}`)
       .send({ ids: [createdUser.id] });
 
@@ -76,7 +76,7 @@ describe('Teste de API - deleteUser', () => {
 
   test('Deve retornar 400 para exclusão de usuário logado', async () => {
     const response = await request(app)
-      .delete('/user/delete')
+      .delete('/users/delete')
       .set('Authorization', `Bearer ${token}`)
       .send({ ids: [idUserLogged] });
 
