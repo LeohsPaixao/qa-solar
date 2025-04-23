@@ -18,7 +18,7 @@ export const unsubscribe = async (req, res) => {
 
     return res.status(200).json({ success: true, message: 'Inscrição removida com sucesso' });
   } catch (error) {
-    if (error.response && error.response.status === 500) {
+    if (error.response?.status === 500) {
       return res.status(500).json({ message: 'Erro ao remover inscrição' });
     }
   }
