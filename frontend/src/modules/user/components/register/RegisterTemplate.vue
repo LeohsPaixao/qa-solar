@@ -103,21 +103,14 @@
         </p>
       </div>
 
-      <button
-        data-testid="btn-register"
-        type="submit"
-        class="btn btn-submit"
-        :disabled="isLoading"
-      >
+      <button data-testid="btn-register" type="submit" class="btn btn-submit" :disabled="isLoading">
         {{ isLoading ? 'Cadastrando...' : 'Cadastrar' }}
       </button>
 
       <p v-if="error" class="error">{{ error }}</p>
 
       <div class="link-container">
-        <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login">
-          Voltar ao Login
-        </router-link>
+        <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login"> Voltar ao Login </router-link>
       </div>
     </form>
   </div>
@@ -152,9 +145,7 @@ const errors = reactive({
   password: '',
 });
 
-const placeholder = computed(() =>
-  formData.doc_type === 'cpf' ? 'Insira o CPF' : 'Insira o CNPJ'
-);
+const placeholder = computed(() => (formData.doc_type === 'cpf' ? 'Insira o CPF' : 'Insira o CNPJ'));
 
 const handleDocTypeChange = () => {
   formData.document = '';
@@ -182,7 +173,7 @@ const handleSubmit = async () => {
       },
     });
   } catch (err) {
-    console.clear(err.message)
+    console.clear(err.message);
     toast.error('Ocorreu um erro ao processar sua solicitação.', { autoClose: 5000 });
   }
 };

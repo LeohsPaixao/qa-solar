@@ -1,6 +1,6 @@
 import prisma from '../services/prismaClient.js';
 
-export async function sendEmail(req, res) {
+export async function validateEmailForPasswordRecovery(req, res) {
   const email = req.validatedEmail;
 
   try {

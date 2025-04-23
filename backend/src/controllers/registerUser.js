@@ -43,13 +43,13 @@ export async function registerUser(req, res) {
       for (const subscription of subscriptions) {
         try {
           await axios.post(subscription.targetUrl, {
-          id: user.id,
-          full_name: user.full_name,
-          email: user.email,
-          created_at: user.created_at,
-          event: 'user.created',
-        });
-      } catch (error) {
+            id: user.id,
+            full_name: user.full_name,
+            email: user.email,
+            created_at: user.created_at,
+            event: 'user.created',
+          });
+        } catch (error) {
           throw new Error(`Erro ao enviar evento para ${subscription.targetUrl}: ${error.message}`);
         }
       }

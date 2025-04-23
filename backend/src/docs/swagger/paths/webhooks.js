@@ -153,4 +153,4 @@
  *                   example: Inscrição não encontrada
  *       500:
  *         description: Erro ao remover inscrição
- */ 
+ */
