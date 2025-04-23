@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user) in users" :key="user.id">
+          <tr v-for="user in users" :key="user.id">
             <td>
               <input
                 data-testid="checkbox-select-users"

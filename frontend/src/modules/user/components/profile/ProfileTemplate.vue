@@ -14,7 +14,9 @@
             v-model="fullName"
             :class="['input-fullname-profile', { 'input-error': formErrors.fullName && isSubmitted }]"
           />
-          <span data-testid="input-error-fulname-profile" v-if="formErrors.fullName && isSubmitted" class="error-message">{{ formErrors.fullName }}</span>
+          <span data-testid="input-error-fulname-profile" v-if="formErrors.fullName && isSubmitted" class="error-message">{{
+            formErrors.fullName
+          }}</span>
         </div>
         <div class="form-group">
           <label for="socialName">Nome Social</label>
