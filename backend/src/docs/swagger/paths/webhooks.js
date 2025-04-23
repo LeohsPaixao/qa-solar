@@ -61,7 +61,7 @@
  *                 error:
  *                   type: string
  *                   example: Target URL e evento são obrigatórios
- *       401:
+ *       422:
  *         description: URL inválida
  *         content:
  *           application/json:
@@ -71,7 +71,7 @@
  *                 error:
  *                   type: string
  *                   example: URL inválida
- *       402:
+ *       409:
  *         description: Inscrição já existe
  *         content:
  *           application/json:
