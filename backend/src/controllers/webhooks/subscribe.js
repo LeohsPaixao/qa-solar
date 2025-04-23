@@ -35,7 +35,8 @@ export const subscribe = async (req, res) => {
 
     return res.status(201).json({ success: true, subscription: newSubscription });
   } catch (error) {
-    console.error(error.message);
-    return res.status(500).json({ message: 'Erro ao criar inscrição' });
+    if (error.response && error.response.status === 500) {
+      return res.status(500).json({ message: 'Erro ao criar inscrição' });
+    }
   }
 };

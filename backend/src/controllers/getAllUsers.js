@@ -18,7 +18,8 @@ export async function getAllUsers(req, res) {
 
     return res.status(200).json(users);
   } catch (error) {
-    console.clear(error.message)
-    return res.status(500).json({ message: 'Erro ao obter todos os usuários.' });
+    if (error.response && error.response.status === 500) {
+      return res.status(500).json({ message: 'Erro ao obter todos os usuários.' });
+    }
   }
 }
