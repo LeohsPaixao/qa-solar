@@ -11,7 +11,7 @@ import { Page } from '@playwright/test';
  */
 export async function login(page: Page, email: string, password: string): Promise<void> {
 
-  const response = await page.request.fetch(`${process.env.PLAY_API_URL}/login`, {
+  const response = await page.request.fetch(`${process.env.PLAY_API_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -24,8 +24,7 @@ export async function login(page: Page, email: string, password: string): Promis
 
   const { token } = JSON.parse(await response.text())
 
-  await page.evaluate(({ email, token }) => {
+  await page.evaluate(({ token }) => {
     localStorage.setItem('user-token', token);
-    localStorage.setItem('user-email', email);
-  }, { email, token });
+  }, { token });
 }
