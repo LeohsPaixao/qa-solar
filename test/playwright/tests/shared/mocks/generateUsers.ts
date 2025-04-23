@@ -7,15 +7,15 @@ import { generateValidCPF } from '../commands/generateValidCPF';
  */
 async function mockGenerateUsers(): Promise<void> {
   const apiContext = await request.newContext({
-    baseURL: `${process.env.PLAY_API_URL}/register`,
+    baseURL: `${process.env.PLAY_API_URL}/users/register`,
   });
 
-  const response = await apiContext.post('/register', {
+  const response = await apiContext.post('/users/register', {
     data: {
-      fullName: faker.person.fullName(),
-      socialName: faker.person.lastName(),
+      full_name: faker.person.fullName(),
+      social_name: faker.person.lastName(),
       document: generateValidCPF(),
-      docType: 'cpf',
+      doc_type: 'cpf',
       phone: faker.phone.number({ style: 'national' }),
       email: faker.internet.email({ provider: 'example.qa.solar' }),
       password: '123456',
