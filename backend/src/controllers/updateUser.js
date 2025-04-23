@@ -17,7 +17,7 @@ export async function updateUser(req, res) {
 
     res.status(200).json({ message: 'Usuário alterado com sucesso.' });
   } catch (error) {
-    if (error.response && error.response.status === 500) {
+    if (error.response?.status === 500) {
       return res.status(500).json({ message: 'Erro interno ao atualizar usuário.' });
     }
   }

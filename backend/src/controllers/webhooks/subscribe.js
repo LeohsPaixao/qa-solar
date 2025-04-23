@@ -1,16 +1,16 @@
 import prisma from '../../services/prismaClient.js';
 
 export const subscribe = async (req, res) => {
-  const { targetUrl, event } = req.body;
+  const { targetUrl, event, userId } = req.body;
+
+  const newUrl = new URL(targetUrl);
 
   if (!targetUrl || !event) {
     return res.status(400).json({ error: 'Target URL e evento são obrigatórios' });
   }
 
-  try {
-    new URL(targetUrl);
-  } catch (error) {
-    return res.status(401).json({ error: error.message });
+  if (!newUrl) {
+    return res.status(422).json({ error: 'URL inválida' });
   }
 
   try {
@@ -22,20 +22,20 @@ export const subscribe = async (req, res) => {
     });
 
     if (existingSubscription) {
-      return res.status(402).json({ message: 'Inscrição já existe' });
+      return res.status(409).json({ message: 'Inscrição já existe' });
     }
 
     const newSubscription = await prisma.webhookSubscription.create({
       data: {
         targetUrl,
         event,
-        userId: req.user?.id || 1,
+        userId,
       },
     });
 
     return res.status(201).json({ success: true, subscription: newSubscription });
   } catch (error) {
-    if (error.response && error.response.status === 500) {
+    if (error.response?.status === 500) {
       return res.status(500).json({ message: 'Erro ao criar inscrição' });
     }
   }
