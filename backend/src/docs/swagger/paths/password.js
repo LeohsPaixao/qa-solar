@@ -93,4 +93,4 @@
  *                   example: Token inválido ou expirado
  *       500:
  *         description: Erro interno do servidor
- */ 
+ */
