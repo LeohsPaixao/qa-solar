@@ -13,4 +13,4 @@ export async function getMeUser(req, res) {
   });
 
   return res.status(200).json(user);
-} 
+}

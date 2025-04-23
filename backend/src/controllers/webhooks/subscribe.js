@@ -3,14 +3,22 @@ import prisma from '../../services/prismaClient.js';
 export const subscribe = async (req, res) => {
   const { targetUrl, event, userId } = req.body;
 
-  const newUrl = new URL(targetUrl);
-
-  if (!targetUrl || !event) {
-    return res.status(400).json({ error: 'Target URL e evento são obrigatórios' });
+  if (!targetUrl || !event || !userId) {
+    const missingFields = [];
+    if (!targetUrl) missingFields.push('Target URL');
+    if (!event) missingFields.push('evento');
+    if (!userId) missingFields.push('User ID');
+    return res
+      .status(400)
+      .json({ error: `${missingFields.join(', ')} ${missingFields.length === 1 ? 'é' : 'são'} obrigatório${missingFields.length === 1 ? '' : 's'}` });
   }
 
-  if (!newUrl) {
-    return res.status(422).json({ error: 'URL inválida' });
+  try {
+    new URL(targetUrl);
+  } catch (error) {
+    if (error.response?.status === 422) {
+      return res.status(422).json({ error: 'URL inválida' });
+    }
   }
 
   try {
