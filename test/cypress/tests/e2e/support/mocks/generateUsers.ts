@@ -4,13 +4,13 @@ import { faker } from '@faker-js/faker';
 function mockGenerateUsers() {
   return cy.request({
     method: 'POST',
-    url: `${Cypress.env('API_URL')}register`,
+    url: `${Cypress.env('API_URL')}/users/register`,
     headers: {},
     body: {
-      "fullName": faker.person.fullName(),
-      "socialName": faker.person.lastName(),
+      "full_name": faker.person.fullName(),
+      "social_name": faker.person.lastName(),
       "document": generateValidCPF(),
-      "docType": "cpf",
+      "doc_type": "cpf",
       "phone": faker.phone.number({ style: 'national' }),
       "email": faker.internet.email({ provider: 'example.qa.solar' }),
       "password": "123456"

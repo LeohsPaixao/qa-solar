@@ -3,7 +3,7 @@
 Cypress.Commands.add('visitAndwait', (url: string) => {
   cy.waitForNetworkIdlePrepare({
     method: 'POST',
-    pattern: 'localhost:3001',
+    pattern: Cypress.env('API_URL'),
     alias: 'calls',
     log: false,
   });

@@ -32,11 +32,10 @@ Fechar O Navegador
 
 Login Via API
     ${payload}=    Evaluate    {"email": "${EMAIL}", "password": "${PASSWORD}"}    json
-    ${response}=    POST    ${API_URL}/login    json=${payload}
+    ${response}=    POST    ${API_URL}/auth/login    json=${payload}
     Should Be Equal As Numbers    ${response.status_code}    200
 
     ${responseJson}=    Evaluate    ${response.text}    json
     ${token}=    Set Variable    ${responseJson["token"]}
 
-    LocalStorage Set Item    user-email    ${EMAIL}
     LocalStorage Set Item    user-token    ${token}
