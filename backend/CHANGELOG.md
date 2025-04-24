@@ -1,5 +1,11 @@
 # backend
 
+## 1.11.0
+
+### Minor Changes
+
+- 9c7f60f: feat: cria uma branch somente para o zapier e remove conteúdo relacionado da main
+
 ## 1.10.0
 
 ### Minor Changes
