@@ -7,8 +7,6 @@ import { logoutUser } from '../controllers/logoutUser.js';
 import { registerUser } from '../controllers/registerUser.js';
 import { validateEmailForPasswordRecovery } from '../controllers/sendEmail.js';
 import { updateUser } from '../controllers/updateUser.js';
-import { subscribe } from '../controllers/webhooks/subscribe.js';
-import { unsubscribe } from '../controllers/webhooks/unsubscribe.js';
 import { authenticate } from '../middleware/auth.js';
 import { validateEmail } from '../middleware/validateEmail.js';
 
@@ -22,7 +20,5 @@ router.get('/users/me', authenticate, getMeUser);
 router.get('/users', getAllUsers);
 router.put('/users/update', authenticate, updateUser);
 router.delete('/users/delete', authenticate, deleteUser);
-router.post('/webhooks/subscribe', subscribe);
-router.delete('/webhooks/unsubscribe', unsubscribe);
 
 export default router;
