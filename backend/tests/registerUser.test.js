@@ -11,17 +11,17 @@ describe('Teste de API - registerUser', () => {
 
   test('Deve registrar um novo usuário', async () => {
     const novoUsuario = {
-      fullName: faker.person.fullName(),
-      socialName: faker.person.middleName(),
+      full_name: faker.person.fullName(),
+      social_name: faker.person.middleName(),
       document: generateValidCPF(),
-      docType: 'CPF',
+      doc_type: 'CPF',
       phone: faker.phone.number({ style: 'national' }),
       email: faker.internet.email({ provider: 'qa.solar.com' }),
       password: '123456'
     };
 
     const response = await request(app)
-      .post('/register')
+      .post('/users/register')
       .send(novoUsuario);
 
     expect(response.statusCode).toBe(201);
@@ -30,17 +30,17 @@ describe('Teste de API - registerUser', () => {
 
   test('Deve retornar 404 para e-mail em uso', async () => {
     const novoUsuario = {
-      fullName: faker.person.fullName(),
-      socialName: faker.person.middleName(),
+      full_name: faker.person.fullName(),
+      social_name: faker.person.middleName(),
       document: generateValidCPF(),
-      docType: 'CPF',
+      doc_type: 'CPF',
       phone: faker.phone.number({ style: 'national' }),
       email: 'generic@example.com',
       password: '123456'
     };
 
     const response = await request(app)
-      .post('/register')
+      .post('/users/register')
       .send(novoUsuario);
 
     expect(response.statusCode).toBe(404);
@@ -49,17 +49,17 @@ describe('Teste de API - registerUser', () => {
 
   test('Deve retornar 405 para CPF ou CNPJ em uso', async () => {
     const novoUsuario = {
-      fullName: faker.person.fullName(),
-      socialName: faker.person.middleName(),
+      full_name: faker.person.fullName(),
+      social_name: faker.person.middleName(),
       document: '591.013.230-08',
-      docType: 'CPF',
+      doc_type: 'CPF',
       phone: faker.phone.number({ style: 'national' }),
       email: faker.internet.email({ provider: 'qa.solar.com' }),
       password: '123456'
     };
 
     const response = await request(app)
-      .post('/register')
+      .post('/users/register')
       .send(novoUsuario);
 
     expect(response.statusCode).toBe(405);
@@ -67,26 +67,26 @@ describe('Teste de API - registerUser', () => {
   });
 
   test('Deve retornar 500 quando ocorrer um erro genérico na criação do usuário', async () => {
-    jest.spyOn(prisma.user, 'create').mockRejectedValue(new Error('Erro ao tentar cadastrar o usuário.'));
+    jest.spyOn(prisma.user, 'create').mockRejectedValue(new Error('Erro interno no servidor.'));
 
     const cpf = faker.number.int({ min: 10000000000, max: 99999999999 });
     const email = faker.internet.email({ provider: 'qa.solar.com' });
 
     const novoUsuario = {
-      fullName: 'Teste',
-      socialName: 'Teste Social',
+      full_name: 'Teste',
+      social_name: 'Teste Social',
       document: cpf.toString(),
-      docType: 'CPF',
+      doc_type: 'CPF',
       phone: '(11) 99999-9999',
       email,
       password: '123456'
     };
 
     const response = await request(app)
-      .post('/register')
+      .post('/users/register')
       .send(novoUsuario);
 
     expect(response.status).toBe(500);
-    expect(response.body.message).toBe('Erro ao tentar cadastrar o usuário.');
+    expect(response.body.message).toBe('Erro interno no servidor.');
   });
 });

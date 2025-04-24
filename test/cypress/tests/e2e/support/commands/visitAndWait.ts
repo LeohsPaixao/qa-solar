@@ -3,7 +3,7 @@
 Cypress.Commands.add('visitAndwait', (url: string) => {
   cy.waitForNetworkIdlePrepare({
     method: 'POST',
-    pattern: 'localhost:3001',
+    pattern: 'http://localhost:3001',
     alias: 'calls',
     log: false,
   });

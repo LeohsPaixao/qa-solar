@@ -35,8 +35,7 @@ export default {
     const router = useRouter();
 
     const { mutate: logout } = useLogout();
-    const userEmail = localStorage.getItem('user-email');
-    const { data: user, isError } = useFetchUser(userEmail);
+    const { data: user, isError } = useFetchUser();
 
     const toggleDropdown = () => {
       dropdownOpen.value = !dropdownOpen.value;

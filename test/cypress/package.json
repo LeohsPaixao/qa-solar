@@ -8,6 +8,7 @@
   "scripts": {
     "cy:clean": "rimraf .nyc_output && rimraf coverage",
     "cy:run": "yarn cy:clean && npx cypress run --record --browser chrome --config-file cypress.config.ts",
+    "cy:run:dev": "yarn cy:clean && npx cypress run --browser chrome --config-file cypress.config.ts",
     "cy:open": "npx cypress open --config-file cypress.config.ts",
     "cy:coverage": "c8 report --temp-directory=.nyc_output --reporter=html --reporter=text-summary",
     "format": "prettier --write tests/"

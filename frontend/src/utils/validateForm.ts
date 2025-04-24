@@ -1,17 +1,17 @@
 import { validateCNPJ, validateCPF } from './validateCpfCnpj';
 
 export interface FormData {
-  fullName: string;
-  socialName?: string;
+  full_name: string;
+  social_name?: string;
   document: string;
-  docType: 'cpf' | 'cnpj';
+  doc_type: 'cpf' | 'cnpj';
   phone?: string;
   email: string;
   password: string;
 }
 
 export interface FormErrors {
-  fullName?: string;
+  full_name?: string;
   document?: string;
   phone?: string;
   email?: string;
@@ -21,7 +21,7 @@ export interface FormErrors {
 type ValidatorFn = (value: string, formData: FormData) => string | undefined;
 
 const validators: Record<keyof FormErrors, ValidatorFn[]> = {
-  fullName: [
+  full_name: [
     (value) => (!value ? 'O Nome Completo é obrigatório.' : undefined),
     (value) => (!value.includes(' ') ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
   ],
@@ -29,8 +29,8 @@ const validators: Record<keyof FormErrors, ValidatorFn[]> = {
     (value) => (!value ? 'O CPF/CNPJ é obrigatório.' : undefined),
     (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
     (value, formData) => {
-      if (formData.docType === 'cpf' && !validateCPF(value)) return 'CPF inválido.';
-      if (formData.docType === 'cnpj' && !validateCNPJ(value)) return 'CNPJ inválido.';
+      if (formData.doc_type === 'cpf' && !validateCPF(value)) return 'CPF inválido.';
+      if (formData.doc_type === 'cnpj' && !validateCNPJ(value)) return 'CNPJ inválido.';
       return undefined;
     },
   ],

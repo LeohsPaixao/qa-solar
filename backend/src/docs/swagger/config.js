@@ -20,17 +20,6 @@ const options = {
         description: 'Servidor de Desenvolvimento',
       },
     ],
-    tags: [
-      {
-        name: 'Autenticação',
-        description:
-          "Endpoints para login e autenticação. Utilize o /login para gerar o token JWT e insira-o com o prefixo 'Bearer' no header Authorization.",
-      },
-      {
-        name: 'Usuários',
-        description: 'Endpoints para gerenciamento dos usuários.',
-      },
-    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -62,7 +51,7 @@ const options = {
       },
     },
   },
-  apis: ['./src/controllers/*.js'],
+  apis: ['./src/docs/swagger/paths/*.js'],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

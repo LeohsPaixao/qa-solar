@@ -1,5 +1,15 @@
 # backend
 
+## 1.10.0
+
+### Minor Changes
+
+- bf20799: feat: corrige e adiciona novos testes unitários no backend
+
+### Patch Changes
+
+- 5556806: feat: adiciona console.clear nos catchs
+
 ## 1.9.0
 
 ### Minor Changes

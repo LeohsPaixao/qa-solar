@@ -43,7 +43,7 @@ describe('Teste de API - updateUser', () => {
     };
 
     const response = await request(app)
-      .put('/user/update')
+      .put('/users/update')
       .set('Authorization', `Bearer ${token}`)
       .send(novoDado);
 
@@ -58,7 +58,7 @@ describe('Teste de API - updateUser', () => {
     };
 
     const response = await request(app)
-      .put('/user/update')
+      .put('/users/update')
       .set('Authorization', `Bearer ${token}`)
       .send(novoDado);
 
@@ -73,7 +73,7 @@ describe('Teste de API - updateUser', () => {
     };
 
     const response = await request(app)
-      .put('/user/update')
+      .put('/users/update')
       .set('Authorization', `Bearer ${token}`)
       .send(novoDado);
 
@@ -90,7 +90,7 @@ describe('Teste de API - updateUser', () => {
     };
 
     const response = await request(app)
-      .put('/user/update')
+      .put('/users/update')
       .set('Authorization', `Bearer ${token}`)
       .send(novoDado);
 

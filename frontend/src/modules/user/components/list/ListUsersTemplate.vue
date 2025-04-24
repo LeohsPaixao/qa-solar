@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(user) in users" :key="user.id">
+          <tr v-for="user in users" :key="user.id">
             <td>
               <input
                 data-testid="checkbox-select-users"
@@ -69,10 +69,8 @@ import { useFetchUsers } from '../../../../hooks/useFetchUsers.js';
 const selectedUsers = ref([]);
 const selectAll = ref(false);
 
-const userEmail = localStorage.getItem('user-email');
-
 const { data: users, isLoading } = useFetchUsers();
-const { data: loggedInUser } = useFetchUser(userEmail);
+const { data: loggedInUser } = useFetchUser();
 const { mutate: deleteUser, isLoading: isDeleting } = useDeleteUser();
 
 const toggleSelectAll = () => {

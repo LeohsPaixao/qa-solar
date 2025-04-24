@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import dotenv from 'dotenv';
 import app from './app.js';
-import { setupSwagger } from './swagger.js';
+import { setupSwagger } from './docs/swagger/config.js';
 
 dotenv.config();
 

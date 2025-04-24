@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import api from '../services/api';
 
 const loginUser = async (loginData) => {
-  const response = await api.post('/login', loginData);
+  const response = await api.post('/auth/login', loginData);
   return response.data;
 };
 
