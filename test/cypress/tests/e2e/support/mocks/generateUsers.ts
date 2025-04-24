@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 function mockGenerateUsers() {
   return cy.request({
     method: 'POST',
-    url: `${Cypress.env('API_URL')}/users/register`,
+    url: 'http://localhost:3001/users/register',
     headers: {},
     body: {
       "full_name": faker.person.fullName(),
