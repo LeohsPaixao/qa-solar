@@ -7,7 +7,6 @@ export const unsubscribe = async (req, res) => {
     console.log('Recebendo requisição de unsubscribe:', { subscriptionId });
 
     if (!subscriptionId) {
-      console.log('SubscriptionId não fornecido');
       return res.status(400).json({
         error: 'subscriptionId é obrigatório',
         details: { subscriptionId }
