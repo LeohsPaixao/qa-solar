@@ -1,5 +1,16 @@
 # backend
 
+## 1.11.0
+
+### Minor Changes
+
+- 1763a5a: feat: cria o novo endpoint do Perform List e trata possiveis erros em outros endpoints
+- 2ad3b81: feat: melhora a validação de todos os controladores da api e executa o pretter no backend e frontend
+
+### Patch Changes
+
+- b8ed88b: feat: coloque uma condicional no catch dos endpoints para os erros
+
 ## 1.10.0
 
 ### Minor Changes
