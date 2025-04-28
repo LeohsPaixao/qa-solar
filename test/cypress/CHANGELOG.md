@@ -1,5 +1,11 @@
 # cypress-ui-tests
 
+## 1.6.1
+
+### Patch Changes
+
+- 7525df9: feat: corrige os testes do frontend nos frameworks
+
 ## 1.6.0
 
 ### Minor Changes

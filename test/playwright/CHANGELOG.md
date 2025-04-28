@@ -1,5 +1,11 @@
 # playwright-ui-tests
 
+## 1.3.1
+
+### Patch Changes
+
+- 7525df9: feat: corrige os testes do frontend nos frameworks
+
 ## 1.3.0
 
 ### Minor Changes

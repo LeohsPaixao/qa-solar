@@ -1,5 +1,11 @@
 # frontend
 
+## 1.7.0
+
+### Minor Changes
+
+- 2ad3b81: feat: melhora a validação de todos os controladores da api e executa o pretter no backend e frontend
+
 ## 1.6.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # robot-framework
 
+## 1.5.1
+
+### Patch Changes
+
+- 7525df9: feat: corrige os testes do frontend nos frameworks
+
 ## 1.5.0
 
 ### Minor Changes
