@@ -1,6 +1,5 @@
 import prisma from '../../services/prismaClient.js';
 
-// Lista de eventos disponíveis para webhooks
 const AVAILABLE_EVENTS = {
   'user.created': {
     name: 'Usuário Criado',
@@ -12,7 +11,6 @@ const AVAILABLE_EVENTS = {
       created_at: '2024-04-28T12:00:00Z',
       event: 'user.created'
     },
-    // Função para buscar dados reais do banco
     fetchRealData: async (limit = 5) => {
       return await prisma.user.findMany({
         take: limit,
@@ -37,7 +35,6 @@ export const listEvents = async (req, res) => {
       events: AVAILABLE_EVENTS
     });
   } catch (error) {
-    console.error('Erro ao listar eventos:', error);
     return res.status(500).json({
       success: false,
       message: 'Erro ao listar eventos',
@@ -49,7 +46,7 @@ export const listEvents = async (req, res) => {
 export const testTrigger = async (req, res) => {
   try {
     const { event } = req.params;
-    const { limit = 5 } = req.query; // Número de registros a retornar, padrão é 5
+    const { limit = 5 } = req.query;
 
     if (!AVAILABLE_EVENTS[event]) {
       return res.status(404).json({
@@ -58,11 +55,9 @@ export const testTrigger = async (req, res) => {
       });
     }
 
-    // Se o evento tiver uma função fetchRealData, usa ela
     if (AVAILABLE_EVENTS[event].fetchRealData) {
       const realData = await AVAILABLE_EVENTS[event].fetchRealData(parseInt(limit));
 
-      // Adiciona o evento ao retorno
       const dataWithEvent = realData.map(item => ({
         ...item,
         event: event
@@ -79,7 +74,6 @@ export const testTrigger = async (req, res) => {
       });
     }
 
-    // Se não tiver fetchRealData, retorna os dados de exemplo
     return res.status(200).json({
       success: true,
       data: AVAILABLE_EVENTS[event].sampleData,
@@ -90,7 +84,6 @@ export const testTrigger = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('Erro ao testar trigger:', error);
     return res.status(500).json({
       success: false,
       message: 'Erro ao testar trigger',

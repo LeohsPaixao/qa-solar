@@ -1,9 +1,7 @@
 import prisma from '../../services/prismaClient.js';
 
 export const subscribe = async (req, res) => {
-  const { targetUrl, event, userId, zapStatus } = req.body;
-
-  console.log('Recebendo requisição de subscribe:', { targetUrl, event, userId, zapStatus });
+  const { targetUrl, event, userId } = req.body;
 
   if (!targetUrl || !event || !userId) {
     const missingFields = [];
@@ -12,20 +10,20 @@ export const subscribe = async (req, res) => {
     if (!userId) missingFields.push('User ID');
     return res
       .status(400)
-      .json({ error: `${missingFields.join(', ')} ${missingFields.length === 1 ? 'é' : 'são'} obrigatório${missingFields.length === 1 ? '' : 's'}` });
-  }
-
-  if (zapStatus && zapStatus !== 'published') {
-    return res.status(400).json({
-      error: 'Apenas Zaps publicados podem se inscrever em webhooks',
-      zapStatus
-    });
+      .json({
+        success: false,
+        error: `${missingFields.join(', ')} ${missingFields.length === 1 ? 'é' : 'são'} obrigatório${missingFields.length === 1 ? '' : 's'}`
+      });
   }
 
   try {
     new URL(targetUrl);
   } catch (error) {
-    return res.status(422).json({ message: 'URL inválida', error: error.message });
+    return res.status(422).json({
+      success: false,
+      message: 'URL inválida',
+      error: error.message
+    });
   }
 
   try {
@@ -39,6 +37,7 @@ export const subscribe = async (req, res) => {
 
     if (existingSubscription) {
       return res.status(409).json({
+        success: false,
         message: 'Inscrição já existe',
         subscriptionId: existingSubscription.id
       });
@@ -59,6 +58,7 @@ export const subscribe = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
+      success: false,
       message: 'Erro ao criar inscrição',
       error: error.message
     });
