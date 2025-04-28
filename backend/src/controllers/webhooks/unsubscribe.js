@@ -4,10 +4,9 @@ export const unsubscribe = async (req, res) => {
   try {
     const { subscriptionId } = req.body;
 
-    console.log('Recebendo requisição de unsubscribe:', { subscriptionId });
-
     if (!subscriptionId) {
       return res.status(400).json({
+        success: false,
         error: 'subscriptionId é obrigatório',
         details: { subscriptionId }
       });
@@ -36,6 +35,7 @@ export const unsubscribe = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
+      success: false,
       message: 'Erro ao remover inscrição',
       error: error.message
     });
