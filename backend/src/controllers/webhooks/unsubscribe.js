@@ -2,24 +2,43 @@ import prisma from '../../services/prismaClient.js';
 
 export const unsubscribe = async (req, res) => {
   try {
-    const { targetUrl, event } = req.body;
+    const { subscriptionId } = req.body;
 
-    if (!targetUrl || !event) {
-      return res.status(400).json({ error: 'targetUrl e event são obrigatórios' });
+    console.log('Recebendo requisição de unsubscribe:', { subscriptionId });
+
+    if (!subscriptionId) {
+      console.log('SubscriptionId não fornecido');
+      return res.status(400).json({
+        error: 'subscriptionId é obrigatório',
+        details: { subscriptionId }
+      });
     }
 
-    const deleted = await prisma.webhookSubscription.deleteMany({
-      where: { targetUrl, event },
+    const subscription = await prisma.webhookSubscription.findUnique({
+      where: { id: subscriptionId }
     });
 
-    if (deleted.count === 0) {
-      return res.status(404).json({ success: false, message: 'Inscrição não encontrada' });
+    if (!subscription) {
+      return res.status(404).json({
+        success: false,
+        message: 'Inscrição não encontrada',
+        details: { subscriptionId }
+      });
     }
 
-    return res.status(200).json({ success: true, message: 'Inscrição removida com sucesso' });
+    await prisma.webhookSubscription.delete({
+      where: { id: subscriptionId }
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Inscrição removida com sucesso',
+      subscriptionId
+    });
   } catch (error) {
-    if (error.response?.status === 500) {
-      return res.status(500).json({ message: 'Erro ao remover inscrição' });
-    }
+    return res.status(500).json({
+      message: 'Erro ao remover inscrição',
+      error: error.message
+    });
   }
 };
