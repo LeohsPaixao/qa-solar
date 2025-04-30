@@ -1,29 +1,26 @@
 {
-  "name": "performance",
-  "version": "2.2.0",
-  "description": "performance tests for QA Solar Project",
-  "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
+  "name": "qa-solar-performance",
+  "version": "1.1.0",
+  "description": "Testes de performance para o QA Solar",
+  "main": "index.js",
   "type": "module",
-  "license": "MIT",
-  "private": true,
   "scripts": {
-    "test:loadtest": "rimraf ./reports/* && k6 run k6/loadtest.js --out json=reports/results.json",
-    "view:report": "node --no-warnings --loader ts-node/esm utils/serveReport.ts"
+    "test": "rimraf ./reports/* && k6 run k6/src/index.js",
+    "k6:report": "node generate-report.cjs"
   },
   "keywords": [
-    "performance",
-    "tests",
     "k6",
-    "load test"
+    "performance",
+    "load-testing"
   ],
-  "devDependencies": {
-    "rimraf": "^6.0.1"
-  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@types/express": "^5.0.0",
-    "@types/node": "^22.13.1",
-    "express": "^4.21.2",
-    "open": "^10.1.0",
-    "ts-node": "^10.9.2"
+    "k6": "^0.0.0",
+    "k6-html-reporter": "^1.0.5",
+    "rimraf": "^5.0.5"
+  },
+  "devDependencies": {
+    "k6-html-reporter": "^1.0.5"
   }
 }
