@@ -45,7 +45,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar backend e frontend
-        run: nohup yarn dev &
+        run: nohup npx turbo run dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -58,10 +58,9 @@ jobs:
           start: npx cypress run --record --browser chrome --config-file cypress.config.ts
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
+          CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
-          API_URL: ${{ secrets.API_URL }}
-          BASE_URL: ${{ secrets.BASE_URL }}
-          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
 
   playwright-tests:
     name: Playwright Testes QA-Solar
@@ -108,7 +107,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar backend e frontend
-        run: nohup yarn dev &
+        run: nohup npx turbo run dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -184,7 +183,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar backend e frontend
-        run: nohup yarn dev &
+        run: nohup npx turbo run dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -192,7 +191,8 @@ jobs:
 
       - name: Configurar Robot Framework
         run: |
-          chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
+          chmod +x .github/scripts/setup-dependencies.sh
+          bash .github/scripts/setup-dependencies.sh
           rfbrowser init chromium > /dev/null 2>&1
 
       - name: Instalar dependências do Robot Framework
