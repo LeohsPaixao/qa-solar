@@ -48,7 +48,9 @@ jobs:
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
-        run: nohup npx turbo run dev &
+        run: |
+          npx turbo run dev &
+          sleep 10
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
@@ -114,7 +116,9 @@ jobs:
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
-        run: nohup npx turbo run dev &
+        run: |
+          npx turbo run dev &
+          sleep 10
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
@@ -194,7 +198,9 @@ jobs:
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
-        run: nohup npx turbo run dev &
+        run: |
+          npx turbo run dev &
+          sleep 10
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
