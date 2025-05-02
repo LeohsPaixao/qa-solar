@@ -63,6 +63,12 @@ jobs:
           done
           echo "Backend não subiu a tempo." && exit 1
 
+      - name: Testar endpoint de login do backend
+        run: |
+          curl -v --fail -X POST http://localhost:3001/auth/login \
+            -H "Content-Type: application/json" \
+            -d '{"email":"generic@example.com","password":"123456"}'
+
       - name: Esperar frontend subir
         run: |
           for i in {1..30}; do
