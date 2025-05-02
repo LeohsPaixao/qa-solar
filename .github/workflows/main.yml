@@ -44,14 +44,14 @@ jobs:
       - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
         run: npx turbo run dev &
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
           PORT: 3001
 
       - name: Esperar backend subir
@@ -127,14 +127,14 @@ jobs:
       - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
         run: npx turbo run dev &
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
           PORT: 3001
 
       - name: Esperar backend subir
@@ -163,8 +163,8 @@ jobs:
           cd apps/playwright
           yarn play:run
         env:
-          PLAY_API_URL: ${{ secrets.PLAY_API_URL }}
-          PLAY_BASE_URL: ${{ secrets.PLAY_BASE_URL }}
+          PLAY_API_URL: http://localhost:3001
+          PLAY_BASE_URL: http://localhost:8181
 
       - name: Upload de relatório Playwright
         if: ${{ failure() }}
@@ -224,14 +224,14 @@ jobs:
       - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
         run: npx turbo run dev &
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
           PORT: 3001
 
       - name: Esperar backend subir
