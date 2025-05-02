@@ -48,29 +48,12 @@ jobs:
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
-        run: npx turbo run dev &
+        run: nohup npx turbo run dev &
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           PORT: 3001
           API_URL: http://localhost:3001
-      - name: Esperar backend subir
-        run: |
-          for i in {1..30}; do
-            nc -z localhost 3001 && echo "Backend está pronto!" && exit 0
-            echo "Aguardando backend subir..."
-            sleep 5
-          done
-          echo "Backend não subiu a tempo." && exit 1
-
-      - name: Esperar frontend subir
-        run: |
-          for i in {1..30}; do
-            nc -z localhost 8181 && echo "Frontend está pronto!" && exit 0
-            echo "Aguardando frontend subir..."
-            sleep 5
-          done
-          echo "Frontend não subiu a tempo." && exit 1
 
       - name: Executar testes Cypress
         uses: cypress-io/github-action@v6
@@ -131,29 +114,12 @@ jobs:
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
-        run: npx turbo run dev &
+        run: nohup npx turbo run dev &
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           PORT: 3001
           API_URL: http://localhost:3001
-      - name: Esperar backend subir
-        run: |
-          for i in {1..30}; do
-            nc -z localhost 3001 && echo "Backend está pronto!" && exit 0
-            echo "Aguardando backend subir..."
-            sleep 5
-          done
-          echo "Backend não subiu a tempo." && exit 1
-
-      - name: Esperar frontend subir
-        run: |
-          for i in {1..30}; do
-            nc -z localhost 8181 && echo "Frontend está pronto!" && exit 0
-            echo "Aguardando frontend subir..."
-            sleep 5
-          done
-          echo "Frontend não subiu a tempo." && exit 1
 
       - name: Instalar navegadores para Playwright
         run: yarn playwright install --with-deps chromium
@@ -228,30 +194,12 @@ jobs:
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend e frontend
-        run: npx turbo run dev &
+        run: nohup npx turbo run dev &
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           PORT: 3001
           API_URL: http://localhost:3001
-
-      - name: Esperar backend subir
-        run: |
-          for i in {1..30}; do
-            nc -z localhost 3001 && echo "Backend está pronto!" && exit 0
-            echo "Aguardando backend subir..."
-            sleep 5
-          done
-          echo "Backend não subiu a tempo." && exit 1
-
-      - name: Esperar frontend subir
-        run: |
-          for i in {1..30}; do
-            nc -z localhost 8181 && echo "Frontend está pronto!" && exit 0
-            echo "Aguardando frontend subir..."
-            sleep 5
-          done
-          echo "Frontend não subiu a tempo." && exit 1
 
       - name: Configurar Robot Framework
         run: chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
