@@ -8,7 +8,7 @@ generator client {
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
-model user {
+model User {
   id         Int      @id @default(autoincrement())
   full_name  String
   social_name String?
@@ -19,6 +19,8 @@ model user {
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+
+  @@map("user")
 }
 
 model webhookSubscription {
@@ -27,4 +29,6 @@ model webhookSubscription {
   event      String
   userId     Int?
   createdAt  DateTime @default(now())
+
+  @@map("webhooksubscription")
 }
