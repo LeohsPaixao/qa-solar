@@ -5,15 +5,15 @@ import { setupSwagger } from './docs/swagger/config.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3001;
-
+const PORT = process.env.PORT;
+const API_URL = process.env.API_URL;
 const startServer = async () => {
   try {
     setupSwagger(app);
     app.listen(PORT, () => {
       console.log(chalk.green.bold(`\n🚀 Servidor iniciado com sucesso!`));
-      console.log(chalk.blue(`🌍 URL: http://localhost:${PORT}`));
-      console.log(chalk.blue(`🌍 URL do Swagger: http://localhost:${PORT}/api-docs`));
+      console.log(chalk.blue(`🌍 URL: ${API_URL}`));
+      console.log(chalk.blue(`🌍 URL do Swagger: ${API_URL}/api-docs`));
       console.log(chalk.yellow(`📅 Iniciado em: ${new Date().toLocaleString()}`));
     });
   } catch (error) {

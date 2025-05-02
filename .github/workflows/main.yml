@@ -53,7 +53,7 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           PORT: 3001
-
+          API_URL: http://localhost:3001
       - name: Esperar backend subir
         run: |
           for i in {1..30}; do
@@ -76,7 +76,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: apps/cypress
-          start: npx cypress run --record --browser chrome --config-file cypress.config.ts
+          start: npx cypress run --record --config-file cypress.config.ts
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
@@ -136,7 +136,7 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           PORT: 3001
-
+          API_URL: http://localhost:3001
       - name: Esperar backend subir
         run: |
           for i in {1..30}; do
@@ -233,6 +233,7 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           PORT: 3001
+          API_URL: http://localhost:3001
 
       - name: Esperar backend subir
         run: |
