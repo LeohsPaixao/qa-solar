@@ -11,6 +11,9 @@ jobs:
   cypress-tests:
     name: Cypress Testes QA-Solar
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
     services:
       postgres:
         image: postgres:15
@@ -49,6 +52,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          PORT: 3001
 
       - name: Executar testes Cypress
         uses: cypress-io/github-action@v6
@@ -64,6 +68,9 @@ jobs:
   playwright-tests:
     name: Playwright Testes QA-Solar
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
     services:
       postgres:
         image: postgres:15
@@ -110,7 +117,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
+          PORT: 3001
       - name: Instalar navegadores para Playwright
         run: yarn playwright install --with-deps chromium
 
@@ -133,6 +140,9 @@ jobs:
   robot-framework-tests:
     name: Robot Framework Testes QA-Solar
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
     services:
       postgres:
         image: postgres:15
@@ -181,11 +191,13 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
       - name: Iniciar backend e frontend
-        run: nohup npx turbo run dev &
+        run: |
+          nohup npx turbo run dev &
+          sleep 5
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
+          PORT: 3001
       - name: Configurar Robot Framework
         run: chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
 
@@ -195,8 +207,12 @@ jobs:
           python3.11 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-          sleep 5
-          rfbrowser init chromium > /dev/null 2>&1
+
+      - name: Inicializar navegador do Robot Framework
+        run: |
+          cd apps/robot
+          source venv/bin/activate
+          rfbrowser init chromium
 
       - name: Executar testes Robot Framework
         run: |
