@@ -16,7 +16,7 @@ export default defineConfig({
   numTestsKeptInMemory: 0,
   video: false,
   e2e: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:8181',
+    baseUrl: process.env.CYPRESS_BASE_URL || 'http://localhost:8181',
     viewportHeight: 768,
     viewportWidth: 1366,
     specPattern: './tests/e2e/**/*.cy.{js,ts}',
@@ -54,7 +54,7 @@ export default defineConfig({
         return launchOptions;
       });
 
-      config.env.API_URL = process.env.API_URL || 'http://localhost:3001';
+      config.env.CYPRESS_API_URL = process.env.CYPRESS_API_URL || 'http://localhost:3001';
 
       return config;
     },
