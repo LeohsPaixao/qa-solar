@@ -41,6 +41,10 @@ jobs:
       - name: Instalar dependências do Monorepo
         run: yarn install
 
+      - name: Testar conexão com o banco
+        run: |
+          PGPASSWORD=postgres psql -h localhost -U postgres -d tests_base -c '\dt'
+
       - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
