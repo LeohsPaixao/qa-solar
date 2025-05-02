@@ -16,7 +16,7 @@ const options = {
     },
     servers: [
       {
-        url: process.env.SERVER_URL,
+        url: 'http://localhost:3001',
         description: 'Servidor de Desenvolvimento',
       },
     ],
