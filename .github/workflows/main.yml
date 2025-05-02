@@ -36,32 +36,25 @@ jobs:
           node-version: 22.1.0
 
       - name: Instalar dependências do Monorepo
-        run: yarn
+        run: yarn install
 
-      - name: Configurar backend
+      - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
-      - name: Iniciar backend
-        run: |
-          cd backend
-          nohup yarn api &
+      - name: Iniciar backend e frontend
+        run: nohup yarn dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           SERVER_URL: ${{ secrets.SERVER_URL }}
 
-      - name: Iniciar frontend
-        run: |
-          cd frontend
-          nohup yarn serve &
-
       - name: Executar testes Cypress
         uses: cypress-io/github-action@v6
         with:
-          working-directory: test/cypress
+          working-directory: apps/cypress
           start: npx cypress run --record --browser chrome --config-file cypress.config.ts
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
@@ -106,35 +99,27 @@ jobs:
           node-version: 22.1.0
 
       - name: Instalar dependências do Monorepo
-        run: yarn
+        run: yarn install
 
-      - name: Configurar backend
+      - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
-      - name: Iniciar backend
-        run: |
-          cd backend
-          nohup yarn api &
+      - name: Iniciar backend e frontend
+        run: nohup yarn dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
-      - name: Iniciar frontend
-        run: |
-          cd frontend
-          nohup yarn serve &
+          SERVER_URL: ${{ secrets.SERVER_URL }}
 
       - name: Instalar navegadores para Playwright
-        run: |
-          cd test/playwright
-          yarn playwright install --with-deps chromium
+        run: yarn playwright install --with-deps chromium
 
       - name: Executar testes Playwright
         run: |
-          cd test/playwright
+          cd apps/playwright
           yarn play:run
         env:
           PLAY_API_URL: ${{ secrets.PLAY_API_URL }}
@@ -145,7 +130,7 @@ jobs:
         uses: actions/upload-artifact@v4.4.3
         with:
           name: playwright-report
-          path: test/playwright/playwright-report/
+          path: apps/playwright/playwright-report/
           retention-days: 10
 
   robot-framework-tests:
@@ -190,45 +175,37 @@ jobs:
           check-latest: true
 
       - name: Instalar dependências do Monorepo
-        run: yarn
+        run: yarn install
 
-      - name: Configurar backend
+      - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
 
-      - name: Iniciar backend
-        run: |
-          cd backend
-          nohup yarn api &
+      - name: Iniciar backend e frontend
+        run: nohup yarn dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
-      - name: Iniciar frontend
-        run: |
-          cd frontend
-          nohup yarn serve &
+          SERVER_URL: ${{ secrets.SERVER_URL }}
 
       - name: Configurar Robot Framework
-        run: chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
-
-      - name: Criar ambiente virtual Python
         run: |
-          cd test/robot
+          chmod +x .github/scripts/setup-dependencies.sh
+          .github/scripts/setup-dependencies.sh
+          rfbrowser init chromium > /dev/null 2>&1
+
+      - name: Instalar dependências do Robot Framework
+        run: |
+          cd apps/robot
           python3.11 -m venv venv
-
-      - name: Instalar dependências do Robot Framework e Browser
-        run: |
-          cd test/robot
           source venv/bin/activate
           pip install -r requirements.txt
-          rfbrowser init chromium > /dev/null 2>&1
 
       - name: Executar testes Robot Framework
         run: |
-          cd test/robot
+          cd apps/robot
           source venv/bin/activate
           make test-all
 
@@ -237,7 +214,7 @@ jobs:
         uses: actions/upload-artifact@v4.4.3
         with:
           name: robot-report
-          path: test/robot/results/reports/
+          path: apps/robot/results/reports/
           retention-days: 10
 
   docker-deploy:
