@@ -6,21 +6,19 @@
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "workspaces": [
-    ".",
-    "performance",
-    "backend",
-    "frontend",
-    "test/cypress",
-    "test/playwright",
-    "test/robot"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "prepare": "husky",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "linter:all": "yarn workspace backend lint && yarn workspace frontend lint",
-    "format:all": "yarn workspace backend format && yarn workspace frontend format"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint"
   },
   "keywords": [
     "testing",
@@ -39,6 +37,7 @@
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@types/node": "^22.13.1",
+    "turbo": "^2.5.2",
     "typescript": "^5.7.3"
   }
 }
