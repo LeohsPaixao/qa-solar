@@ -192,8 +192,7 @@ jobs:
 
       - name: Configurar Robot Framework
         run: |
-          chmod +x .github/scripts/setup-dependencies.sh
-          .github/scripts/setup-dependencies.sh
+          chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
           rfbrowser init chromium > /dev/null 2>&1
 
       - name: Instalar dependências do Robot Framework

@@ -7,8 +7,10 @@
   "private": false,
   "scripts": {
     "test": "playwright test",
-    "open": "playwright test --ui",
-    "report": "playwright show-report"
+    "play:install": "playwright install",
+    "play:run": "playwright test",
+    "play:open": "playwright test --ui",
+    "play:report": "playwright show-report"
   },
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
