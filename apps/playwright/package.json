@@ -6,9 +6,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "play:run": "playwright test",
-    "play:open": "playwright test --ui",
-    "play:report": "playwright show-report"
+    "test": "playwright test",
+    "open": "playwright test --ui",
+    "report": "playwright show-report"
   },
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
