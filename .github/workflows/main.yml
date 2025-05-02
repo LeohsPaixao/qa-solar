@@ -49,7 +49,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          SERVER_URL: ${{ secrets.SERVER_URL }}
+          PORT: ${{ secrets.PORT }}
 
       - name: Executar testes Cypress
         uses: cypress-io/github-action@v6
@@ -112,7 +112,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          SERVER_URL: ${{ secrets.SERVER_URL }}
+          PORT: ${{ secrets.PORT }}
 
       - name: Instalar navegadores para Playwright
         run: yarn playwright install --with-deps chromium
@@ -188,7 +188,7 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          SERVER_URL: ${{ secrets.SERVER_URL }}
+          PORT: ${{ secrets.PORT }}
 
       - name: Configurar Robot Framework
         run: |
