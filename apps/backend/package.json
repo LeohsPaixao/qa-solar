@@ -7,8 +7,8 @@
   "type": "module",
   "private": false,
   "scripts": {
-    "api": "node src/server.js",
-    "test": "jest --coverage",
+    "dev": "node src/server.js",
+    "test:unit": "jest --coverage",
     "format": "prettier --write src/",
     "lint": "eslint 'src/'",
     "prisma:seed": "node prisma/seeders/*.js"
