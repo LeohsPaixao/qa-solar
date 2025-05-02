@@ -52,3 +52,6 @@ env.bak/
 venv.bak/
 
 results
+
+# Turbo
+.turbo
