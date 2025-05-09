@@ -1,5 +1,11 @@
 # qa-solar-performance
 
+## 1.2.0
+
+### Minor Changes
+
+- c321f41: feat: altera a linguagem principal do projeto de javascript para typescript
+
 ## 1.1.0
 
 ### Minor Changes
