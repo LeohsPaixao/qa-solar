@@ -5,12 +5,12 @@ import { setupSwagger } from './docs/swagger/config.js';
 
 dotenv.config();
 
-const PORT = process.env.PORT;
 const API_URL = process.env.API_URL;
+
 const startServer = async () => {
   try {
     setupSwagger(app);
-    app.listen(PORT, () => {
+    app.listen(3001, () => {
       console.log(chalk.green.bold(`\n🚀 Servidor iniciado com sucesso!`));
       console.log(chalk.blue(`🌍 URL: ${API_URL}`));
       console.log(chalk.blue(`🌍 URL do Swagger: ${API_URL}/api-docs`));

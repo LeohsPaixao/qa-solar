@@ -47,15 +47,21 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
 
-      - name: Iniciar backend e frontend
+      - name: Iniciar backend
         run: |
-          npx turbo run dev &
-          sleep 10
+          cd apps/backend
+          yarn dev &
+          sleep 5
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
-          PORT: 3001
           API_URL: http://localhost:3001
+
+      - name: Iniciar frontend
+        run: |
+          cd apps/frontend
+          yarn dev &
+          sleep 5
 
       - name: Executar testes Cypress
         uses: cypress-io/github-action@v6
@@ -115,15 +121,21 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
 
-      - name: Iniciar backend e frontend
+      - name: Iniciar backend
         run: |
-          npx turbo run dev &
-          sleep 10
+          cd apps/backend
+          yarn dev &
+          sleep 5
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
-          PORT: 3001
           API_URL: http://localhost:3001
+
+      - name: Iniciar frontend
+        run: |
+          cd apps/frontend
+          yarn dev &
+          sleep 5
 
       - name: Instalar navegadores para Playwright
         run: yarn playwright install --with-deps chromium
@@ -197,15 +209,21 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
 
-      - name: Iniciar backend e frontend
+      - name: Iniciar backend
         run: |
-          npx turbo run dev &
-          sleep 10
+          cd apps/backend
+          yarn dev &
+          sleep 5
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
-          PORT: 3001
           API_URL: http://localhost:3001
+
+      - name: Iniciar frontend
+        run: |
+          cd apps/frontend
+          yarn dev &
+          sleep 5
 
       - name: Configurar Robot Framework
         run: chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
