@@ -1,0 +1,7 @@
+reports/
+node_modules/
+.env
+*.log
+
+# Turbo
+.turbo

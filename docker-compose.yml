@@ -18,15 +18,13 @@ services:
     container_name: backend
     build:
       context: .
-      dockerfile: ./backend/Dockerfile
+      dockerfile: ./apps/backend/Dockerfile
     volumes:
-      - .:/app
-      - /app/node_modules
-      - ./backend/.env:/app/backend/.env
-      - /app/backend/node_modules
+      - ./apps/backend/:/app/apps/backend
+      - ./apps/backend/.env:/app/apps/backend/.env
     tty: true
     stdin_open: true
-    command: ["yarn", "api"]
+    command: ["yarn", "dev"]
     expose:
       - 3001
     ports:
@@ -45,14 +43,12 @@ services:
     container_name: frontend
     build:
       context: .
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: ./apps/frontend/Dockerfile
     volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/frontend/node_modules
+      - ./apps/frontend/:/app/apps/frontend
     tty: true
     stdin_open: true
-    command: ["yarn", "serve", "--host", "0.0.0.0"]
+    command: ["yarn", "dev", "--host", "0.0.0.0"]
     expose:
       - 8181
     ports:
@@ -65,4 +61,3 @@ volumes:
 
 networks:
   qa-solar-internal:
-    driver: bridge
