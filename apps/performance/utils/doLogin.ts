@@ -22,7 +22,15 @@ export default function doLogin(): LoginResult {
 
   const res = http.post(url, payload, params);
 
-  const token = JSON.parse(res.body).token;
+  if (res.status !== 200) {
+    throw new Error(`Failed to login: ${res.status}`);
+  }
 
-  return { token };
+  const body = JSON.parse(res.body);
+
+  if (!body.token) {
+    throw new Error('Token not found');
+  }
+
+  return { token: body.token };
 }

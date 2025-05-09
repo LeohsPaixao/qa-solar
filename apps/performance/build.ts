@@ -4,7 +4,7 @@ const glob = require('glob');
 const entryPoints = [
   'index.ts',
   ...glob.sync('config/**/*.ts'),
-  ...glob.sync('test/**/*.ts'),
+  ...glob.sync('tests/**/*.ts'),
   ...glob.sync('utils/**/*.ts')
 ];
 
@@ -17,4 +17,6 @@ esbuild.build({
   platform: 'browser',
   loader: { '.ts': 'ts' },
   external: ['k6', 'k6/*']
-}).catch(() => process.exit(1));
+}).catch((error: any) => {
+  throw new Error(error);
+});
