@@ -12,6 +12,7 @@
     "packages/*"
   ],
   "scripts": {
+    "docker:build": "docker compose up --build",
     "prepare": "husky",
     "changeset": "changeset",
     "version-packages": "changeset version",

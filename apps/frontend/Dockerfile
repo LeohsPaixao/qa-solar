@@ -2,10 +2,23 @@ FROM node:22.1.0-alpine
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+# Copiar arquivos de configuração do monorepo
+COPY package.json yarn.lock turbo.json ./
+COPY apps/frontend/package.json ./apps/frontend/
+COPY packages/ ./packages/
 
-COPY frontend ./frontend
-
+# Instalar dependências
 RUN yarn install
 
-WORKDIR /app/frontend
+# Copiar código fonte
+COPY apps/frontend ./apps/frontend
+
+# Construir a aplicação
+WORKDIR /app/apps/frontend
+RUN yarn build
+
+# Expor porta
+EXPOSE 8181
+
+# Comando para iniciar a aplicação
+CMD ["yarn", "dev"]
