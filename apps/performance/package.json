@@ -6,8 +6,8 @@
   "author": "QA Solar",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && ts-node build.ts",
-    "test:performance": "yarn build && k6 run --out web-dashboard dist/index.js",
+    "build:performance": "rimraf dist && ts-node build.ts",
+    "test:performance": "yarn build:performance && k6 run --out web-dashboard dist/index.js",
     "k6:report": "ts-node generate-report.ts",
     "format": "prettier --write ."
   },

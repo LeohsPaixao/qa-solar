@@ -4,7 +4,7 @@ import login from './tests/login.test';
 const { SCENARIO } = __ENV;
 
 export const options = {
-  scenarios: SCENARIO ? { [SCENARIO]: scenarios[SCENARIO as keyof typeof scenarios] } : scenarios,
+  scenarios: SCENARIO && SCENARIO in scenarios ? { [SCENARIO]: scenarios[SCENARIO as keyof typeof scenarios] } : scenarios,
   discardResponseBodies: true,
   thresholds: {
     http_req_duration: ['p(90) < 400', 'p(95) < 800', 'p(99.9) < 2000'],
@@ -26,9 +26,6 @@ export default function main() {
       login();
     },
     spike: () => {
-      login();
-    },
-    ramp: () => {
       login();
     }
   };
