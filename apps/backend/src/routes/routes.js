@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { deleteUser } from '../controllers/deleteUser.js';
 import { getAllUsers } from '../controllers/getAllUsers.js';
+import { getMeApiKey } from '../controllers/getMeApiKey.js';
 import { getMeUser } from '../controllers/getMeUser.js';
 import { loginUser } from '../controllers/loginUser.js';
 import { logoutUser } from '../controllers/logoutUser.js';
@@ -10,6 +11,7 @@ import { updateUser } from '../controllers/updateUser.js';
 import { listEvents, testTrigger } from '../controllers/webhooks/performList.js';
 import { subscribe } from '../controllers/webhooks/subscribe.js';
 import { unsubscribe } from '../controllers/webhooks/unsubscribe.js';
+import { apiKeyAuth } from '../middleware/apiKeyAuth.js';
 import { authenticate } from '../middleware/auth.js';
 import { validateEmail } from '../middleware/validateEmail.js';
 
@@ -21,6 +23,7 @@ router.post('/auth/logout', logoutUser);
 router.post('/users/:email', validateEmail, validateEmailForPasswordRecovery);
 router.get('/users/me', authenticate, getMeUser);
 router.get('/users', getAllUsers);
+router.get('/api/me', apiKeyAuth, getMeApiKey);
 router.put('/users/update', authenticate, updateUser);
 router.delete('/users/delete', authenticate, deleteUser);
 router.post('/webhooks/subscribe', subscribe);
