@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import { generateApiKey } from '../../src/utils/generateApiKey.js';
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const prisma = new PrismaClient();
 async function main() {
   const plainPassword = '123456';
   const hashedPassword = await bcrypt.hash(plainPassword, 10);
+  const apiKey = generateApiKey();
 
   await prisma.user.upsert({
     where: { email: 'generic@example.com' },
@@ -21,13 +23,14 @@ async function main() {
       phone: '00000000000',
       email: 'generic@example.com',
       password: hashedPassword,
+      api_key: apiKey,
     },
   });
 }
 
 main()
   .catch((error) => {
-    throw new Error('Não foi possivel criar o usuário genérico', + error.message)
+    throw new Error(`Não foi possivel criar o usuário genérico: ${error.message}`);
   })
   .finally(async () => {
     await prisma.$disconnect();
