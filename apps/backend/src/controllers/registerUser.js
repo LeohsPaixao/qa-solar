@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import prisma from '../services/prismaClient.js';
+import { generateApiKey } from '../utils/generateApiKey.js';
 
 export async function registerUser(req, res) {
   try {
@@ -22,6 +23,7 @@ export async function registerUser(req, res) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const apiKey = generateApiKey();
 
     await prisma.user.create({
       data: {
@@ -32,10 +34,13 @@ export async function registerUser(req, res) {
         phone,
         email,
         password: hashedPassword,
+        api_key: apiKey,
       },
     });
 
-    return res.status(201).json({ message: 'Usuário cadastrado com sucesso!' });
+    return res.status(201).json({
+      message: 'Usuário cadastrado com sucesso!',
+    });
   } catch (error) {
     if (error.response?.status === 500) {
       return res.status(500).json({ message: 'Erro interno no servidor.' });
