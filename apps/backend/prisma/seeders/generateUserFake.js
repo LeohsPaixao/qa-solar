@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import { generateApiKey } from '../../src/utils/generateApiKey.js';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ async function main() {
     phone: faker.phone.number({ style: 'national' }),
     email: faker.internet.email({ provider: 'example.qa.solar' }),
     password: hashedPassword,
+    api_key: generateApiKey(),
   }));
 
   for (const user of users) {
@@ -26,12 +28,11 @@ async function main() {
       data: user,
     });
   }
-
 }
 
 main()
   .catch((error) => {
-    throw new Error('Não foi possível criar os usuários: ' + error.message);
+    throw new Error(`Não foi possível criar os usuários: ${error.message}`);
   })
   .finally(async () => {
     await prisma.$disconnect();
