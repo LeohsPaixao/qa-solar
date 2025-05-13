@@ -3,7 +3,7 @@
 set -e
 
 echo "Navegando para o diretório backend..."
-cd backend || { echo "Falha ao acessar o diretório backend"; exit 1; }
+cd apps/backend || { echo "Falha ao acessar o diretório backend"; exit 1; }
 
 echo "Executando migrações do Prisma..."
 yarn prisma migrate dev
