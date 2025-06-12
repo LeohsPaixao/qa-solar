@@ -23,4 +23,3 @@ RUN yarn build
 
 # Expose port
 EXPOSE 8181
-
