@@ -40,22 +40,24 @@ services:
     networks:
       - qa-solar-internal
 
-#frontend:
-#    container_name: frontend
-#    build:
-#      context: .
-#      dockerfile: ./apps/frontend/Dockerfile
-#    volumes:
-#      - ./apps/frontend/:/app/apps/frontend
-#    tty: true
-#    stdin_open: true
-#    command: ["yarn", "dev", "--host", "0.0.0.0"]
-#    expose:
-#      - 8181
-#    ports:
-#      - "8181:8181"
-#    networks:
-#      - qa-solar-internal
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./apps/frontend/Dockerfile
+    volumes:
+      - ./apps/frontend/:/app/apps/frontend
+      - ./node_modules:/app/node_modules
+      - ./apps/frontend/node_modules:/app/apps/frontend/node_modules
+    tty: true
+    stdin_open: true
+    command: ["yarn", "dev", "--host", "0.0.0.0"]
+    expose:
+      - 8181
+    ports:
+      - "8181:8181"
+    networks:
+      - qa-solar-internal
 
 volumes:
   postgres_data:
