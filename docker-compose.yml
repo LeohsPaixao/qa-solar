@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: tests_base
-    restart: always
+    restart: unless-stopped
     ports:
       - "5432:5432"
     volumes:
@@ -21,7 +21,8 @@ services:
       dockerfile: ./apps/backend/Dockerfile
     volumes:
       - ./apps/backend/:/app/apps/backend
-      - ./apps/backend/.env:/app/apps/backend/.env
+      - ./node_modules:/app/node_modules
+      - ./apps/backend/node_modules:/app/apps/backend/node_modules
     tty: true
     stdin_open: true
     command: ["yarn", "dev"]
@@ -30,31 +31,31 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - HOST="0.0.0.0"
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/tests_base?schema=public
-      - JWT_SECRET=jwt_secret
-      - SERVER_URL=http://localhost:3001
+      - HOST=${HOST:-0.0.0.0}
+      - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - API_URL=${API_URL}
     depends_on:
       - postgres
     networks:
       - qa-solar-internal
 
-  frontend:
-    container_name: frontend
-    build:
-      context: .
-      dockerfile: ./apps/frontend/Dockerfile
-    volumes:
-      - ./apps/frontend/:/app/apps/frontend
-    tty: true
-    stdin_open: true
-    command: ["yarn", "dev", "--host", "0.0.0.0"]
-    expose:
-      - 8181
-    ports:
-      - "8181:8181"
-    networks:
-      - qa-solar-internal
+#frontend:
+#    container_name: frontend
+#    build:
+#      context: .
+#      dockerfile: ./apps/frontend/Dockerfile
+#    volumes:
+#      - ./apps/frontend/:/app/apps/frontend
+#    tty: true
+#    stdin_open: true
+#    command: ["yarn", "dev", "--host", "0.0.0.0"]
+#    expose:
+#      - 8181
+#    ports:
+#      - "8181:8181"
+#    networks:
+#      - qa-solar-internal
 
 volumes:
   postgres_data:
