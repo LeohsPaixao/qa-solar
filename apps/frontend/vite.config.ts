@@ -8,9 +8,10 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 export default defineConfig({
   plugins: [
     vue({
-      script: {
+      include: ['**/*.vue'],
+      exclude: ['node_modules', 'dist', 'test/**/*'],
+      features: {
         propsDestructure: true,
-        defineModel: true,
       }
     }),
     istanbul({

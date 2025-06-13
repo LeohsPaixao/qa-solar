@@ -164,8 +164,8 @@ const handleSubmit = async () => {
         await router.push('/');
       },
     });
-  } catch (err) {
-    console.clear(err.message);
+  } catch (error) {
+    throw new Error(error.message);
   }
 };
 </script>
