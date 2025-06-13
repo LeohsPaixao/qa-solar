@@ -29,19 +29,31 @@ const validators: Record<keyof FormErrors, ValidatorFn[]> = {
     (value) => (!value ? 'O CPF/CNPJ é obrigatório.' : undefined),
     (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
     (value, formData) => {
-      if (formData.doc_type === 'cpf' && !validateCPF(value)) return 'CPF inválido.';
-      if (formData.doc_type === 'cnpj' && !validateCNPJ(value)) return 'CNPJ inválido.';
+      if (formData.doc_type === 'cpf' && !validateCPF(value)) {
+        return 'CPF inválido.';
+      }
+      if (formData.doc_type === 'cnpj' && !validateCNPJ(value)) {
+        return 'CNPJ inválido.';
+      }
       return undefined;
     },
   ],
   phone: [
     (value) => {
-      if (!value) return undefined;
+      if (!value) {
+        return undefined;
+      }
 
       const normalizedValue = value.replace(/\D/g, '');
-      if (!/^\d+$/.test(normalizedValue)) return 'O telefone deve conter apenas números.';
-      if (normalizedValue.length > 11) return 'O telefone deve ter no máximo 11 dígitos.';
-      if (normalizedValue.length < 10) return 'O telefone deve ter no mínimo 10 dígitos.';
+      if (!/^\d+$/.test(normalizedValue)) {
+        return 'O telefone deve conter apenas números.';
+      }
+      if (normalizedValue.length > 11) {
+        return 'O telefone deve ter no máximo 11 dígitos.';
+      }
+      if (normalizedValue.length < 10) {
+        return 'O telefone deve ter no mínimo 10 dígitos.';
+      }
 
       return undefined;
     },
