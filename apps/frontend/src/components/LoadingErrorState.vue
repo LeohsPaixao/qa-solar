@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoading" class="loading-container">
     <p>Carregando...</p>
-    <div class="spinner"></div>
+    <div class="spinner" />
   </div>
   <div v-else-if="isError" class="error-container">
     <p>Erro ao carregar os dados do usuário.</p>

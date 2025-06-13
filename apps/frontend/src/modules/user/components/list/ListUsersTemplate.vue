@@ -62,9 +62,9 @@
 import { computed, ref } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { useDeleteUser } from '../../../../hooks/useDeleteUser.js';
-import { useFetchUser } from '../../../../hooks/useFetchUser.js';
-import { useFetchUsers } from '../../../../hooks/useFetchUsers.js';
+import { useDeleteUser } from '../../../../composables/useDeleteUser.js';
+import { useFetchUser } from '../../../../composables/useFetchUser.js';
+import { useFetchUsers } from '../../../../composables/useFetchUsers.js';
 
 const selectedUsers = ref([]);
 const selectAll = ref(false);

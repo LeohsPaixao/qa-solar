@@ -29,33 +29,25 @@
 </template>
 
 <script setup>
-import { nextTick, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import { useFetchEmailUser } from '../../../../hooks/useFetchEmailUser.js';
+import { useForgotPassword } from '../../../../composables/useForgotPassword.js';
 
 const email = ref('');
 const router = useRouter();
 
-const mutation = useFetchEmailUser();
+const mutation = useForgotPassword();
 
 const handleRecoverPassword = () => {
   if (!email.value) {
-    toast.error('Por favor, insira um e-mail válido.', { autoClose: 3000 });
     return;
   }
 
   mutation.mutate(email.value, {
-    onSuccess: async (response) => {
+    onSuccess: async () => {
       await router.push('/');
-      nextTick(() => {
-        toast.success(response.message, { autoClose: 3000 });
-      });
     },
-    onError: (error) => {
-      const errorMessage = error.response?.data?.message;
-      toast.error(errorMessage, { autoClose: 5000 });
+    onError: () => {
       email.value = '';
     },
   });

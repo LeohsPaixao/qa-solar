@@ -13,20 +13,34 @@ type ValidatorFn = (value: string, formData: FormData) => string | undefined;
 const validators: Record<keyof FormErrors, ValidatorFn[]> = {
   fullName: [
     (value) => {
-      if (!value.trim()) return 'O Nome Completo é obrigatório.';
-      if (value.trim().split(/\s+/).length < 2) return 'O Nome Completo deve conter pelo menos Nome e Sobrenome.';
-      if (value !== value.trim()) return 'O Nome Completo não deve começar ou terminar com espaços.';
+      if (!value.trim()) {
+        return 'O Nome Completo é obrigatório.';
+      }
+      if (value.trim().split(/\s+/).length < 2) {
+        return 'O Nome Completo deve conter pelo menos Nome e Sobrenome.';
+      }
+      if (value !== value.trim()) {
+        return 'O Nome Completo não deve começar ou terminar com espaços.';
+      }
       return undefined;
     },
   ],
   phone: [
     (value) => {
-      if (!value) return undefined;
+      if (!value) {
+        return undefined;
+      }
 
       const normalizedValue = value.replace(/\D/g, '');
-      if (!/^\d+$/.test(normalizedValue)) return 'O telefone deve conter apenas números.';
-      if (normalizedValue.length > 11) return 'O telefone deve ter no máximo 11 dígitos.';
-      if (normalizedValue.length < 10) return 'O telefone deve ter no mínimo 10 dígitos.';
+      if (!/^\d+$/.test(normalizedValue)) {
+        return 'O telefone deve conter apenas números.';
+      }
+      if (normalizedValue.length > 11) {
+        return 'O telefone deve ter no máximo 11 dígitos.';
+      }
+      if (normalizedValue.length < 10) {
+        return 'O telefone deve ter no mínimo 10 dígitos.';
+      }
 
       return undefined;
     },

@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('user-token');
-
 const api = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
   headers: {
-    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
   },
 });
 
@@ -18,6 +16,17 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  },
+);
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('user-token');
+      window.location.href = '/';
+    }
     return Promise.reject(error);
   },
 );
