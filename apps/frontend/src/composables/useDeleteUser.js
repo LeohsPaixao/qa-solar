@@ -13,18 +13,18 @@ export const useDeleteUser = () => {
 
   return useMutation({
     mutationFn: deleteUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['user']);
-      queryClient.resetQueries();
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['users']);
+      toast.success(data.message || 'Usuário(s) excluído(s) com sucesso!', { autoClose: 3000 });
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.message || 'Erro ao buscar usuário';
-      const errorStatus = error.response?.data?.status;
+      const errorMessage = error.response?.data?.message || 'Erro ao excluir usuário(s)';
+      const errorStatus = error.response?.status;
 
-      if (errorStatus === 404) {
-        toast.error(errorMessage, { autoClose: 5000 });
-      } else if (errorStatus === 401) {
-        toast.error('Você não tem autorização para realizar esta ação.', { autoClose: 5000 });
+      if (errorStatus === 401) {
+        toast.error('Sessão expirada. Por favor, faça login novamente.', { autoClose: 5000 });
+      } else if (errorStatus === 403) {
+        toast.error('Você não tem permissão para excluir usuários.', { autoClose: 5000 });
       } else {
         toast.error(errorMessage, { autoClose: 5000 });
       }
