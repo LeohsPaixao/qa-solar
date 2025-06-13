@@ -73,10 +73,9 @@
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
 import { validateProfile } from '@/utils/validateProfile';
 import { computed, ref, watchEffect } from 'vue';
-import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { useFetchUser } from '../../../../hooks/useFetchUser.js';
-import { useUpdateUser } from '../../../../hooks/useUpdateUser.js';
+import { useFetchUser } from '../../../../composables/useFetchUser.js';
+import { useUpdateUser } from '../../../../composables/useUpdateUser.js';
 
 const fullName = ref('');
 const socialName = ref('');
@@ -123,19 +122,13 @@ const handleSave = () => {
   formErrors.value = errors;
 
   if (!isValid) {
-    toast.error('Por favor, corrija os erros antes de salvar.');
     return;
   }
 
   updateUser(formData, {
-    onSuccess: (response) => {
-      toast.success(response.message);
+    onSuccess: () => {
       originalData.value = { ...formData };
       isSubmitted.value = false;
-    },
-    onError: (error) => {
-      const errorMessage = error.response?.data?.message;
-      toast.error(errorMessage);
     },
   });
 };

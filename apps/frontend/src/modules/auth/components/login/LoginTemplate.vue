@@ -51,9 +51,7 @@
 import { validateEmail, validatePassword } from '@/utils/validateLogin';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import { useLoginUser } from '../../../../hooks/useLoginUser.js';
+import { useLoginUser } from '../../../../composables/useLoginUser.js';
 
 const email = ref('');
 const password = ref('');
@@ -81,19 +79,10 @@ const handleLogin = () => {
       {
         onSuccess: (response) => {
           window.localStorage.setItem('user-token', response.token);
-          toast.success(response.message, { autoClose: 1500 });
           router.push('/home');
-        },
-        onError: (error) => {
-          const errorMessage = error.response?.data?.message || 'Ocorreu um erro inesperado. Tente novamente mais tarde.';
-          toast.error(errorMessage, { autoClose: 5000 });
         },
       },
     );
-  } else {
-    toast.error('Por favor, corrija os erros no formulário.', {
-      autoClose: 5000,
-    });
   }
 };
 </script>

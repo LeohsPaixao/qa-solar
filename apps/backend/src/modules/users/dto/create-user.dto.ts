@@ -2,8 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export enum DocType {
-  CPF = 'CPF',
-  CNPJ = 'CNPJ',
+  CPF = 'cpf',
+  CNPJ = 'cnpj',
 }
 
 export class CreateUserDto {
@@ -29,7 +29,6 @@ export class CreateUserDto {
 
   @ApiProperty({ description: 'Telefone do usuário' })
   @IsString()
-  @IsNotEmpty()
   phone: string;
 
   @ApiProperty({ description: 'Email do usuário' })

@@ -120,9 +120,7 @@
 import { validateFormData } from '@/utils/validateForm';
 import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import { useRegisterUser } from '../../../../hooks/useRegisterUser';
+import { useRegisterUser } from '../../../../composables/useRegisterUser';
 
 const router = useRouter();
 const { mutate, isLoading, error } = useRegisterUser();
@@ -157,24 +155,17 @@ const handleSubmit = async () => {
   Object.assign(errors, result.errors);
 
   if (!result.isValid) {
-    toast.error('Por favor, corrija os erros no formulário.', { autoClose: 3000 });
     return;
   }
 
   try {
     await mutate(formData, {
-      onSuccess: async (data) => {
+      onSuccess: async () => {
         await router.push('/');
-        toast.success(data.message, { autoClose: 3000 });
-      },
-      onError: (error) => {
-        const errorMessage = error.response?.data?.message || error.message;
-        toast.error(errorMessage, { autoClose: 5000 });
       },
     });
   } catch (err) {
     console.clear(err.message);
-    toast.error('Ocorreu um erro ao processar sua solicitação.', { autoClose: 5000 });
   }
 };
 </script>

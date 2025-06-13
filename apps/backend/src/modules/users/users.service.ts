@@ -10,7 +10,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const { email, document, password, ...rest } = createUserDto;
+      const { full_name, social_name, doc_type, phone, email, document, password } = createUserDto;
 
       const existingDocument = await this.prisma.user.findUnique({
         where: { document },
@@ -32,7 +32,10 @@ export class UsersService {
 
       const user = await this.prisma.user.create({
         data: {
-          ...rest,
+          full_name,
+          social_name,
+          doc_type,
+          phone,
           email,
           document,
           password: hashedPassword,

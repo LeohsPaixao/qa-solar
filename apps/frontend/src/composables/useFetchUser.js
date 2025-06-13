@@ -14,21 +14,21 @@ export const useFetchUser = () => {
   return useQuery({
     queryKey: ['user'],
     queryFn: fetchUser,
-    staleTime: 0,
-    onSuccess: () => {
-      queryClient.resetQueries();
-      queryClient.invalidateQueries();
+    staleTime: 1000 * 60 * 5, // 5 minutos
+    retry: 1,
+    onSuccess: (data) => {
+      queryClient.setQueryData(['user'], data);
     },
     onError: (error) => {
       const errorMessage = error.response?.data?.message || 'Erro ao buscar usuário';
-      const errorStatus = error.response?.data?.status;
+      const errorStatus = error.response?.status;
 
-      if (errorStatus === '404') {
-        toast.error(errorMessage, { autoClose: 5000 });
-      } else if (errorStatus === '401') {
-        toast.error(errorMessage, { autoClose: 5000 });
+      if (errorStatus === 401) {
+        toast.error('Sessão expirada. Por favor, faça login novamente.', { autoClose: 5000 });
+      } else if (errorStatus === 404) {
+        toast.error('Usuário não encontrado.', { autoClose: 5000 });
       } else {
-        toast.error('Erro desconhecido ao buscar usuário', { autoClose: 5000 });
+        toast.error(errorMessage, { autoClose: 5000 });
       }
     },
   });

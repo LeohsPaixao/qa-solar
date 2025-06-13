@@ -22,8 +22,8 @@ import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccountCircle } from '@mdi/js';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useFetchUser } from '../hooks/useFetchUser.js';
-import { useLogout } from '../hooks/useLogoutUser.js';
+import { useFetchUser } from '../composables/useFetchUser.js';
+import { useLogout } from '../composables/useLogoutUser.js';
 
 export default {
   name: 'AppHeader',
