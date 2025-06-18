@@ -14,7 +14,6 @@ export class CreateUserDto {
 
   @ApiProperty({ description: 'Nome social do usuário' })
   @IsString()
-  @IsNotEmpty()
   social_name: string;
 
   @ApiProperty({ description: 'CPF ou CNPJ do usuário' })

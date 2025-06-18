@@ -12,9 +12,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Realizar login' })
   @ApiResponse({ status: 200, description: 'Login realizado com sucesso' })
-  @ApiResponse({ status: 401, description: 'Credenciais inválidas' })
+  @ApiResponse({ status: 401, description: 'A senha não confere.' })
+  @ApiResponse({ status: 404, description: 'Usuário não encontrado.' })
+  @ApiResponse({ status: 500, description: 'Erro ao realizar login' })
   async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto.email, loginDto.password);
+    return await this.authService.login(loginDto.email, loginDto.password);
   }
 
   @Post('logout')
@@ -22,6 +24,6 @@ export class AuthController {
   @ApiOperation({ summary: 'Realizar logout' })
   @ApiResponse({ status: 200, description: 'Logout realizado com sucesso' })
   async logout() {
-    return this.authService.logout();
+    return await this.authService.logout();
   }
 }

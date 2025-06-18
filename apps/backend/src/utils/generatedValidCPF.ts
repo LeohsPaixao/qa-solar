@@ -1,8 +1,8 @@
-function generateRandomDigits(length) {
+function generateRandomDigits(length: number) {
   return Array.from({ length }, () => Math.floor(Math.random() * 10)).join('');
 }
 
-function calculateVerifierDigit(base) {
+function calculateVerifierDigit(base: string) {
   const baseDigits = base.split('').map(Number);
   const length = baseDigits.length;
   const sum = baseDigits.reduce((acc, digit, index) => acc + digit * (length + 1 - index), 0);
@@ -10,7 +10,7 @@ function calculateVerifierDigit(base) {
   return remainder < 2 ? 0 : 11 - remainder;
 }
 
-function formatCPF(cpf) {
+function formatCPF(cpf: string) {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 }
 
