@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,137 +9,128 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    try {
-      const { full_name, social_name, doc_type, phone, email, document, password } = createUserDto;
+    const { full_name, social_name, doc_type, phone, email, document, password } = createUserDto;
 
-      const existingDocument = await this.prisma.user.findUnique({
-        where: { document },
-      });
+    const existingDocument = await this.prisma.user.findUnique({
+      where: { document },
+    });
 
-      if (existingDocument) {
-        throw new ConflictException('CPF ou CNPJ já está em uso.');
-      }
-
-      const existingEmail = await this.prisma.user.findUnique({
-        where: { email },
-      });
-
-      if (existingEmail) {
-        throw new ConflictException('E-mail já está em uso.');
-      }
-
-      const hashedPassword = await bcrypt.hash(password, 10);
-
-      const user = await this.prisma.user.create({
-        data: {
-          full_name,
-          social_name,
-          doc_type,
-          phone,
-          email,
-          document,
-          password: hashedPassword,
-        },
-      });
-
-      const result = Object.fromEntries(Object.entries(user).filter(([key]) => key !== 'password'));
-      return result;
-    } catch (error: any) {
-      if (error instanceof ConflictException) {
-        throw error.message;
-      }
-      throw new InternalServerErrorException('Erro ao criar usuário.');
+    if (existingDocument) {
+      throw new ConflictException('CPF ou CNPJ já está em uso.');
     }
+
+    const existingEmail = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingEmail) {
+      throw new ConflictException('E-mail já está em uso.');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await this.prisma.user.create({
+      data: {
+        full_name,
+        social_name,
+        doc_type,
+        phone,
+        email,
+        document,
+        password: hashedPassword,
+      },
+    });
+
+    const result = Object.fromEntries(Object.entries(user).filter(([key]) => key !== 'password'));
+    return result;
   }
 
   async findAll() {
-    try {
-      const users = await this.prisma.user.findMany({
-        select: {
-          id: true,
-          full_name: true,
-          email: true,
-          created_at: true,
-          updated_at: true,
-        },
-      });
-      return users;
-    } catch (error: any) {
-      if (error instanceof Error) {
-        throw error.message;
-      }
-      throw new Error('Erro ao buscar usuários.');
+    const users = await this.prisma.user.findMany({
+      select: {
+        id: true,
+        full_name: true,
+        email: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
+
+    if (!users || users.length === 0) {
+      throw new NotFoundException('Nenhum usuário encontrado.');
     }
+
+    return users;
   }
 
   async findOne(id: number) {
-    try {
-      const user = await this.prisma.user.findUnique({
-        where: { id },
-        select: {
-          id: true,
-          full_name: true,
-          social_name: true,
-          email: true,
-          phone: true,
-          created_at: true,
-          updated_at: true,
-        },
-      });
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        full_name: true,
+        social_name: true,
+        email: true,
+        phone: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
 
-      if (!user) {
-        throw new Error('Usuário não encontrado');
-      }
-
-      return user;
-    } catch (error) {
-      throw error;
+    if (!user) {
+      throw new NotFoundException(`Usuário com o ID: ${id} não encontrado.`);
     }
+
+    return user;
   }
 
   async findByEmail(email: string) {
-    try {
-      const user = await this.prisma.user.findUnique({
-        where: { email },
-      });
-      return user;
-    } catch (error) {
-      throw error;
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado.');
     }
+
+    return user;
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    try {
-      if (!id) {
-        throw new Error('ID do usuário é obrigatório');
-      }
+    const { full_name, social_name, phone_number } = updateUserDto;
 
-      const { full_name, social_name, phone_number } = updateUserDto;
+    const user = await this.prisma.user.update({
+      where: { id },
+      data: {
+        full_name,
+        social_name: social_name || null,
+        phone: phone_number || null,
+        updated_at: new Date(),
+      },
+    });
 
-      const user = await this.prisma.user.update({
-        where: { id },
-        data: {
-          full_name,
-          social_name: social_name || null,
-          phone: phone_number || null,
-          updated_at: new Date(),
-        },
-      });
-
-      return user;
-    } catch (error: any) {
-      if (error instanceof Error) {
-        throw error.message;
-      }
-      throw new Error('Erro ao atualizar usuário');
+    if (!user) {
+      throw new NotFoundException('Usuário não encontrado para atualizar.');
     }
+
+    return user;
   }
 
-  async deleteUsers(ids: number[]) {
-    return this.prisma.user.deleteMany({
+  async deleteUsers(ids: number[], req?: any) {
+    if (req && ids.includes(req.user.id)) {
+      throw new HttpException('Você não pode excluir o usuário logado.', HttpStatus.BAD_REQUEST);
+    }
+
+    const result = await this.prisma.user.deleteMany({
       where: {
         id: { in: ids },
       },
     });
+
+    if (result.count === 0) {
+      throw new NotFoundException('Nenhum usuário encontrado para excluir.');
+    }
+
+    return result;
   }
 }
