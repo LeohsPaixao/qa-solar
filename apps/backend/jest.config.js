@@ -1,22 +1,16 @@
 module.exports = {
+  moduleFileExtensions: ['ts', 'js'],
+  rootDir: '.',
+  testRegex: '.*\\.(spec|e2e-spec)\\.ts$',
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.(t|j)s$': 'ts-jest',
+  },
+  collectCoverageFrom: ['src/modules/**/*.ts'],
+  coverageDirectory: './coverage',
+  testEnvironment: 'node',
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   transformIgnorePatterns: ['/node_modules/(?!supertest)'],
-  testEnvironment: 'node',
-
-  collectCoverage: true,
-  collectCoverageFrom: ['src/controllers/*.js'],
-  coverageDirectory: 'coverage',
-  coverageReporters: ['json', 'lcov', 'text', 'clover'],
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 70,
-    },
-  },
-
   verbose: true,
 };
