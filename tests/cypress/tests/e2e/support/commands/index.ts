@@ -1,5 +1,5 @@
 import './checkDomLoaded';
 import './login';
 import './visitAndWait';
-import './waitForAnimation.ts';
+import './waitForAnimation';
 
