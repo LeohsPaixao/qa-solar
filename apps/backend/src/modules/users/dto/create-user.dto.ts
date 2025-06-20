@@ -1,10 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsEnum, IsNotEmpty, IsString, MinLength } from 'class-validator';
-
-export enum DocType {
-  CPF = 'cpf',
-  CNPJ = 'cnpj',
-}
+import { DocType } from '../common/enums/doc-type';
 
 export class CreateUserDto {
   @ApiProperty({ description: 'Nome completo do usuário' })
