@@ -1,56 +1,95 @@
 .profile-page {
-  background-color: #f4f6f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
-  width: 100%;
-  margin: auto;
-  padding: 0.5rem;
-  max-width: 960px;
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 1.5rem;
-}
-
-.profile-container {
-  display: block;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  padding: 2rem;
+  overflow-y: hidden;
 }
 
 .form-profile {
   display: flex;
   flex-direction: column;
-  max-width: 93%;
+  align-items: left;
+  justify-content: left;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.10);
+  min-width: 380px;
+  max-width: 420px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
+.title {
+  font-size: 2.2rem;
+  color: #222;
+  font-weight: 700;
+  text-align: center;
+  position: static;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 0.2rem;
 }
 
 .input-fullname-profile,
 .input-socialname-profile,
 .input-phone-profile,
 .input-cpfcnpj-profile {
-  display: flex;
-  align-items: center;
-  max-width: 70%;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fafbfc;
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
 }
 
-@media (max-width: 3840px) and (max-height: 2160px) {
-  .btn-save-profile {
-    width: 8vh;
-    height: 2vh;
+.input-fullname-profile:focus,
+.input-socialname-profile:focus,
+.input-phone-profile:focus,
+.input-cpfcnpj-profile:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px #007bff22;
+}
+
+.input-fullname-profile:disabled,
+.input-socialname-profile:disabled,
+.input-phone-profile:disabled,
+.input-cpfcnpj-profile:disabled {
+  background: #f0f0f0;
+  color: #aaa;
+}
+
+.input-error {
+  border-color: #e74c3c !important;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.92rem;
+  margin-top: 0.2rem;
+}
+
+.button-container-profile {
+  margin-top: 1.2rem;
+  width: 99%;
+}
+
+.btn-save-profile {
+  padding: 0.7rem 2.2rem;
+}
+
+@media (max-width: 600px) {
+  .form-profile {
+    min-width: 90vw;
+    max-width: 98vw;
+    padding: 1.2rem 0.5rem 1rem 0.5rem;
   }
-}
 
-@media (max-width: 1920px) {
-  .btn-save-profile {
-    width: 12vh;
-    height: 4vh;
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
   }
 }

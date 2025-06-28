@@ -1,9 +1,9 @@
 <template>
   <LoadingErrorState :isLoading="isLoadingFetch" :isError="isError" />
-  <div v-if="!isLoadingFetch && !isError" data-testid="profile-page" class="profile-page">
-    <h1 data-testid="profile-title" class="title">Perfil</h1>
-    <div data-testid="profile-container-form" class="profile-container">
-      <form data-testid="form-profile" class="form-profile">
+  <div v-if="!isLoadingFetch && !isError" data-testid="profile-page" class="profile-page main-content">
+    <form data-testid="form-profile" class="form-profile">
+      <h1 data-testid="profile-title" class="title">Perfil</h1>
+      <div data-testid="profile-container-form" class="profile-container">
         <div class="form-group">
           <label for="fullName">Nome Completo</label>
           <input
@@ -64,74 +64,80 @@
             {{ isUpdating ? 'Salvando...' : 'Salvar' }}
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
+import type { Props, UpdateUserData, User } from '@/types/user.types';
 import { validateProfile } from '@/utils/validateProfile';
 import { computed, ref, watchEffect } from 'vue';
-import 'vue3-toastify/dist/index.css';
-import { useFetchUser } from '../../../../composables/useFetchUser.js';
-import { useUpdateUser } from '../../../../composables/useUpdateUser.js';
+import { useFetchUser } from '../../../../composables/useFetchUser';
+import { useUpdateUser } from '../../../../composables/useUpdateUser';
 
-const fullName = ref('');
-const socialName = ref('');
-const phone = ref('');
-const cpfCnpj = ref('');
-const originalData = ref({});
-const isSubmitted = ref(false);
-const formErrors = ref({});
+const fullName = ref<string>('');
+const socialName = ref<string>('');
+const phone = ref<string>('');
+const cpfCnpj = ref<string>('');
+const originalData = ref<User>({} as User);
+const isSubmitted = ref<boolean>(false);
+const formErrors = ref<{ fullName?: string; phone?: string }>({});
 
-const { data: user, isLoading: isLoadingFetch, isError } = useFetchUser();
-const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser();
+const props = defineProps<Props>();
+
+const { data: fetchedUser, isLoading: isLoadingFetch, isError } = useFetchUser();
+const mutation = useUpdateUser();
+const updateUser = mutation.mutate;
+const isUpdating = mutation.isPending;
 
 watchEffect(() => {
+  const user = computed<User | undefined>(() => {
+    if (props.user) {
+      return Array.isArray(props.user) ? props.user[0] : props.user;
+    }
+    return fetchedUser.value;
+  });
+
   if (user.value) {
     fullName.value = user.value.full_name || '';
     socialName.value = user.value.social_name || '';
     phone.value = user.value.phone || '';
     cpfCnpj.value = user.value.document || '';
-
     originalData.value = {
-      fullName: user.value.full_name || '',
-      socialName: user.value.social_name || '',
-      phone: user.value.phone || '',
-      document: user.value.document || '',
+      ...user.value,
     };
   }
 });
 
 const hasChanges = computed(() => {
   return (
-    fullName.value !== originalData.value.fullName || socialName.value !== originalData.value.socialName || phone.value !== originalData.value.phone
+    fullName.value !== (originalData.value.full_name || '') ||
+    socialName.value !== (originalData.value.social_name || '') ||
+    phone.value !== (originalData.value.phone || '')
   );
 });
 
-const handleSave = () => {
+function handleSave() {
   isSubmitted.value = true;
-
-  const formData = {
-    fullName: fullName.value,
+  const formData: UpdateUserData = {
+    full_name: fullName.value,
+    social_name: socialName.value,
     phone: phone.value,
   };
-
-  const { isValid, errors } = validateProfile(formData);
+  const { isValid, errors } = validateProfile({ fullName: fullName.value, phone: phone.value });
   formErrors.value = errors;
-
   if (!isValid) {
     return;
   }
-
   updateUser(formData, {
     onSuccess: () => {
-      originalData.value = { ...formData };
+      originalData.value = { ...originalData.value, ...formData };
       isSubmitted.value = false;
     },
   });
-};
+}
 </script>
 
 <style src="./ProfileStyle.css"></style>
