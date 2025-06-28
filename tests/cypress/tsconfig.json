@@ -1,16 +1,28 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "lib": [
-      "es6",
+      "ES2021",
       "dom"
     ],
-    "strict": true,
-    "strictNullChecks": true,
-    "skipLibCheck": true,
     "types": [
       "cypress",
       "node"
@@ -19,10 +31,14 @@
       "@/*": [
         "./tests/e2e/*"
       ],
+      "@frontend/*": [
+        "../../apps/frontend/src/*"
+      ]
     }
   },
   "include": [
     "tests",
+    "../../apps/frontend/src/**/*.vue"
   ],
   "exclude": [
     "node_modules",
