@@ -24,9 +24,10 @@ export function fillUserForm() {
     { element: cy.get('[data-testid="input-phone"]'), valor: faker.phone.number({ style: 'national' }) },
     { element: cy.get('[data-testid="input-email"]'), valor: faker.internet.email({ provider: 'example.qa.solar' }) },
     { element: cy.get('[data-testid="input-password"]'), valor: '123456' },
+    { element: cy.get('[data-testid="input-password-confirmation"]'), valor: '123456' },
   ];
 
   for (const field of formFields) {
-    field.element.type(field.valor);
+    field.element.type(field.valor, { delay: 0 });
   }
 }

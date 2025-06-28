@@ -1,6 +1,9 @@
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
+
 describe('Tela de Login', () => {
   beforeEach(() => {
     cy.visitAndwait('/');
+    waitUntilDocumentLoaded();
   });
 
   it('Deveria ser possivel visualizar os elementos da tela', () => {
@@ -16,7 +19,7 @@ describe('Tela de Login', () => {
     cy.get('[data-testid="input-email"]').should('be.visible').type('email@example.com');
     cy.get('[data-testid="input-password"]').should('be.visible').type('password');
     cy.get('[data-testid="btn-login"]').should('be.enabled').click();
-    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Não foi possivel realizar login com este usuário.');
+    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Usuário não encontrado.');
   });
 
   it('Não deveria ser possivel fazer login com a senha inválida', () => {

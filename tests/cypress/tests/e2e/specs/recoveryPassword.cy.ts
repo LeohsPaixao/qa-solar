@@ -1,6 +1,9 @@
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
+
 describe('Tela de Recuperação de Senha', () => {
   beforeEach(() => {
     cy.visitAndwait('/recover-password');
+    waitUntilDocumentLoaded();
   });
 
   it('Deveria ser possivel visulizar os elementos da tela de Recuperação de Senha', () => {
@@ -18,7 +21,7 @@ describe('Tela de Recuperação de Senha', () => {
   it('Deveria ser possivel aparecer um toast de feedback caso coloque um email inválido', () => {
     cy.get('[data-testid="input-email-recover-password"]').type('email@example.com');
     cy.get('[data-testid="btn-recover-password"]').should('be.enabled').click();
-    cy.get('[data-testid="toast-content"]').should('have.text', 'Este email não esta cadastrado no banco de dados.');
+    cy.get('[data-testid="toast-content"]').should('have.text', 'Usuário não encontrado.');
   });
 
   it('Deveria ser possivel enviar o email de recuperação de senha', () => {

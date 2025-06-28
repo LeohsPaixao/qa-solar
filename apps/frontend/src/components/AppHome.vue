@@ -14,7 +14,10 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup lang="ts">
+// Componente principal da aplicação que exibe a página inicial
+// com logo, descrição do projeto e renderiza o RouterView
+</script>
 
 <style scoped>
 .main-container {
@@ -22,13 +25,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
   min-height: 80vh;
 }
 
 .logo-container {
   text-align: center;
   margin-bottom: 2rem;
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 1rem;
 }
 
 .project-description {
@@ -42,5 +50,10 @@
 .project-description p {
   font-family: 'Roboto', sans-serif;
   margin: 0;
+}
+
+.project-description strong {
+  color: #333;
+  font-weight: 600;
 }
 </style>
