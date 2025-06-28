@@ -51,6 +51,8 @@ export class UsersService {
         id: true,
         full_name: true,
         email: true,
+        document: true,
+        phone: true,
         created_at: true,
         updated_at: true,
       },
@@ -60,7 +62,7 @@ export class UsersService {
       throw new NotFoundException('Nenhum usuário encontrado.');
     }
 
-    return users;
+    return { users };
   }
 
   async findOne(id: number) {
