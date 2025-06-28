@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 function mockGenerateUsers() {
   return cy.request({
     method: 'POST',
-    url: 'http://localhost:3001/users/register',
+    url: 'http://localhost:3001/users',
     headers: {},
     body: {
       "full_name": faker.person.fullName(),
@@ -15,7 +15,7 @@ function mockGenerateUsers() {
       "email": faker.internet.email({ provider: 'example.qa.solar' }),
       "password": "123456"
     },
-  })
+  });
 }
 
 /**
@@ -29,5 +29,5 @@ function mockGenerateUsers() {
  * A função não retorna nenhum valor.
  */
 export function generateUsers() {
-  Cypress._.times(10, () => mockGenerateUsers())
+  Cypress._.times(10, () => mockGenerateUsers());
 }
