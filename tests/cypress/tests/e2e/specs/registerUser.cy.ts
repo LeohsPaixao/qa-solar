@@ -1,8 +1,10 @@
 import { fillUserForm } from '@/shared/fillUserForm';
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
 
 describe('Tela de Cadastro de Usuário', () => {
   beforeEach(() => {
     cy.visitAndwait('/signup');
+    waitUntilDocumentLoaded();
   });
 
   it('Deveria ser possivel visualizar os elementos da tela de cadastro', () => {

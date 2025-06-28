@@ -1,4 +1,4 @@
-import { waitUntilDocumentLoaded } from '@/support/mocks/waotUntil';
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
 
 describe('Tela de Home', () => {
   beforeEach(() => {

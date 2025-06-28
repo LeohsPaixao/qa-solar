@@ -1,6 +1,9 @@
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
+
 describe('Tela de Login', () => {
   beforeEach(() => {
     cy.visitAndwait('/');
+    waitUntilDocumentLoaded();
   });
 
   it('Deveria ser possivel visualizar os elementos da tela', () => {

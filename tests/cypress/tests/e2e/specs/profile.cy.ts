@@ -1,9 +1,11 @@
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
 import { faker } from '@faker-js/faker';
 
 describe('Tela de Perfil', () => {
   beforeEach(() => {
     cy.login('generic@example.com', '123456');
     cy.visitAndwait('/profile');
+    waitUntilDocumentLoaded();
   });
 
   it('Deveria ser possivel visualizar os elementos da tela de Perfil', () => {

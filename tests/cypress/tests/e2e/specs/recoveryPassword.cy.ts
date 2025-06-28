@@ -1,6 +1,9 @@
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
+
 describe('Tela de Recuperação de Senha', () => {
   beforeEach(() => {
     cy.visitAndwait('/recover-password');
+    waitUntilDocumentLoaded();
   });
 
   it('Deveria ser possivel visulizar os elementos da tela de Recuperação de Senha', () => {

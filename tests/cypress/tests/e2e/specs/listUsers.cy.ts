@@ -1,4 +1,5 @@
 import { generateUsers } from '@/support/mocks/generateUsers';
+import { waitUntilDocumentLoaded } from '@/support/mocks/waitUntil';
 
 describe('Tela de listagem de Usuários', () => {
 
@@ -7,6 +8,7 @@ describe('Tela de listagem de Usuários', () => {
   beforeEach(() => {
     cy.login('generic@example.com', '123456');
     cy.visitAndwait('/listusers');
+    waitUntilDocumentLoaded();
   });
 
   it('Deveria ser possivel visualizar os elementos da tela de listagem de Usuários', () => {
