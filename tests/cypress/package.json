@@ -19,7 +19,7 @@
     "cypress": "14.0.3",
     "cypress-network-idle": "1.15.0",
     "dotenv": "16.4.5",
-    "prettier": "3.5.3"
+    "prettier": "3.3.3"
   },
   "devDependencies": {
     "@babel/core": "7.26.8",
@@ -29,7 +29,7 @@
     "babel-loader": "8.3",
     "esbuild": "0.25.5",
     "eslint": "9.20.0",
-    "eslint-config-prettier": "10.1.0",
+    "eslint-config-prettier": "10.1.5",
     "eslint-plugin-cypress": "4.1.0",
     "eslint-plugin-import": "2.31.0",
     "rimraf": "6.0.1",

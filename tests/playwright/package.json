@@ -13,11 +13,11 @@
     "play:report": "playwright show-report"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.2.0",
-    "dotenv": "^16.4.5"
+    "@faker-js/faker": "9.8.0",
+    "dotenv": "16.4.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.0",
-    "@types/node": "^22.9.1"
+    "@playwright/test": "1.49.0",
+    "@types/node": "22.16.0"
   }
 }
