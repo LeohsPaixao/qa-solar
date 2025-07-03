@@ -2,8 +2,9 @@ import { expect, test } from '@playwright/test';
 import { login } from '../shared/commands/login';
 import { generateUsers } from '../shared/mocks/generateUsers';
 
-test.describe('Tela de listagem de Usuários', () => {
-
+test.describe('Tela de listagem de Usuários', {
+  annotation: { type: 'Test', description: 'Teste de listagem de usuários' },
+}, () => {
   test.beforeAll(async () => {
     await generateUsers();
   });
