@@ -107,4 +107,15 @@ export interface FormErrors {
   password_confirmation?: string;
 }
 
+export interface FormDataProfile {
+  full_name: string;
+  phone?: string;
+}
+
+export interface FormErrorsProfile {
+  full_name?: string;
+  phone?: string;
+}
+
 export type ValidatorFn = (value: string, formData: FormData) => string | undefined;
+export type ValidatorFnProfile = (value: string, formData: FormDataProfile) => string | undefined;

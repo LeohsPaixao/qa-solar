@@ -5,7 +5,7 @@
       <h2 data-testid="title-register">Bem-vindo!</h2>
       <p data-testid="description-register">Por favor, preencha os campos abaixo para se registrar:</p>
 
-      <div class="form-group">
+      <div data-testid="form-group-fullname" class="form-group">
         <label data-testid="label-fullname" for="full_name">Nome Completo <span class="required">*</span></label>
         <input
           data-testid="input-fullname"
@@ -21,7 +21,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-socialname" class="form-group">
         <label data-testid="label-socialname" for="social_name">Nome Social</label>
         <input
           data-testid="input-socialname"
@@ -32,7 +32,7 @@
         />
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-document" class="form-group">
         <label data-testid="label-document" for="document">CPF/CNPJ <span class="required">*</span></label>
         <select
           data-testid="select-document-type"
@@ -58,7 +58,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-phone" class="form-group">
         <label data-testid="label-phone" for="phone">Telefone</label>
         <input
           data-testid="input-phone"
@@ -74,7 +74,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-email" class="form-group">
         <label data-testid="label-email" for="email">Email <span class="required">*</span></label>
         <input
           data-testid="input-email"
@@ -91,7 +91,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-password" class="form-group">
         <label data-testid="label-password" for="password">Senha <span class="required">*</span></label>
         <input
           data-testid="input-password"
@@ -108,7 +108,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-password-confirmation" class="form-group">
         <label data-testid="label-password-confirmation" for="password_confirmation">Confirmar Senha <span class="required">*</span></label>
         <input
           data-testid="input-password-confirmation"

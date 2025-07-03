@@ -3,9 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: none;
   padding: 2rem;
-  overflow-y: hidden;
 }
 
 .form-profile {
@@ -63,22 +61,22 @@
 }
 
 .input-error {
-  border-color: #e74c3c !important;
+  border-color: #e74c3c;
 }
 
 .error-message {
   color: #e74c3c;
-  font-size: 0.92rem;
-  margin-top: 0.2rem;
 }
 
 .button-container-profile {
-  margin-top: 1.2rem;
-  width: 99%;
+  margin-top: 20px;
+  text-align: center;
 }
 
 .btn-save-profile {
-  padding: 0.7rem 2.2rem;
+  margin: 0.2rem auto;
+  padding: 0.5rem 1rem;
+  width: 200px;
 }
 
 @media (max-width: 600px) {

@@ -1,29 +1,9 @@
-export interface FormData {
-  fullName: string;
-  phone?: string;
-}
+import type { FormDataProfile, FormErrorsProfile, ValidatorFnProfile } from '@/types/user.types';
 
-export interface FormErrors {
-  fullName?: string;
-  phone?: string;
-}
-
-type ValidatorFn = (value: string, formData: FormData) => string | undefined;
-
-const validators: Record<keyof FormErrors, ValidatorFn[]> = {
-  fullName: [
-    (value) => {
-      if (!value.trim()) {
-        return 'O Nome Completo é obrigatório.';
-      }
-      if (value.trim().split(/\s+/).length < 2) {
-        return 'O Nome Completo deve conter pelo menos Nome e Sobrenome.';
-      }
-      if (value !== value.trim()) {
-        return 'O Nome Completo não deve começar ou terminar com espaços.';
-      }
-      return undefined;
-    },
+const validators: Record<keyof FormErrorsProfile, ValidatorFnProfile[]> = {
+  full_name: [
+    (value) => (!value ? 'O Nome Completo é obrigatório.' : undefined),
+    (value) => (!/^[\w.]+(\s+[\w.]+)+$/.test(value) ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
   ],
   phone: [
     (value) => {
@@ -31,8 +11,8 @@ const validators: Record<keyof FormErrors, ValidatorFn[]> = {
         return undefined;
       }
 
-      const normalizedValue = value.replace(/\D/g, '');
-      if (!/^\d+$/.test(normalizedValue)) {
+      const normalizedValue = value.replace(/[^0-9a-zA-Z]/g, '');
+      if (/[a-zA-Z]/.test(normalizedValue)) {
         return 'O telefone deve conter apenas números.';
       }
       if (normalizedValue.length > 11) {
@@ -47,15 +27,15 @@ const validators: Record<keyof FormErrors, ValidatorFn[]> = {
   ],
 };
 
-export function validateProfile(formData: FormData): { isValid: boolean; errors: FormErrors } {
-  const errors: FormErrors = {};
+export function validateProfile(formData: FormDataProfile): { isValid: boolean; errors: FormErrorsProfile } {
+  const errors: FormErrorsProfile = {};
 
   for (const [field, fieldValidators] of Object.entries(validators)) {
-    const fieldValue = formData[field as keyof FormData] || '';
+    const fieldValue = formData[field as keyof FormDataProfile] || '';
     for (const validate of fieldValidators) {
       const error = validate(fieldValue as string, formData);
       if (error) {
-        errors[field as keyof FormErrors] = error;
+        errors[field as keyof FormErrorsProfile] = error;
         break;
       }
     }

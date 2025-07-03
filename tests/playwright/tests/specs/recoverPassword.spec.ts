@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('Tela de Recuperação de Senha', () => {
+test.describe('Tela de Recuperação de Senha', {
+  annotation: { type: 'Test', description: 'Teste de recuperação de senha' },
+}, () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto('/recover-password');
@@ -23,7 +25,7 @@ test.describe('Tela de Recuperação de Senha', () => {
     await page.locator('[data-testid="input-email-recover-password"]').fill('email@example.com');
     await expect(page.locator('[data-testid="btn-recover-password"]')).toBeEnabled();
     await page.locator('[data-testid="btn-recover-password"]').click();
-    await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Este email não esta cadastrado no banco de dados.');
+    await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Usuário não encontrado.');
   });
 
   test('Deveria ser possível enviar o email de recuperação de senha', async ({ page }) => {

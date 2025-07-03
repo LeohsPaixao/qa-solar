@@ -45,7 +45,7 @@ tests/cypress/tests/e2e/misc/
 tests/cypress/tests/component/misc/
 
 # Playwright
-tests/playwright/test-results/
+tests/playwright/tests/misc/
 tests/playwright/playwright-report/
 tests/playwright/blob-report/
 tests/playwright/.cache/
