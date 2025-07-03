@@ -110,8 +110,7 @@ describe('Componente de perfil de usuário', () => {
     });
 
     // Limpar campo obrigatório e tentar salvar
-    cy.get('[data-testid="input-fullname-profile"]').clear();
-    cy.get('[data-testid="btn-save-profile"]').click();
+    cy.get('[data-testid="input-fullname-profile"]').clear().blur();
 
     // Verificar se a mensagem de erro aparece
     cy.get('[data-testid="input-error-fulname-profile"]').should('be.visible');
@@ -129,7 +128,6 @@ describe('Componente de perfil de usuário', () => {
 
     // Inserir telefone inválido
     cy.get('[data-testid="input-phone-profile"]').clear().type('123');
-    cy.get('[data-testid="btn-save-profile"]').click();
 
     // Verificar se a mensagem de erro aparece
     cy.get('[data-testid="input-error-phone-profile"]').should('be.visible');

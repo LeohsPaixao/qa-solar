@@ -3,7 +3,7 @@ import type { FormDataProfile, FormErrorsProfile, ValidatorFnProfile } from '@/t
 const validators: Record<keyof FormErrorsProfile, ValidatorFnProfile[]> = {
   full_name: [
     (value) => (!value ? 'O Nome Completo é obrigatório.' : undefined),
-    (value) => (!/^[\w.]+(\s+[\w.]+)+$/.test(value) ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
+    (value) => (!/^[a-zA-ZÀ-ÿ.]+(\s+[a-zA-ZÀ-ÿ.]+)+$/.test(value) ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
   ],
   phone: [
     (value) => {
