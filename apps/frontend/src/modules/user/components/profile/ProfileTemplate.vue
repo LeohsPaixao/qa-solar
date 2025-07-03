@@ -15,9 +15,7 @@
             @blur="validateField('full_name')"
             :class="['input-fullname-profile', { 'input-error': formErrors.full_name }]"
           />
-          <span data-testid="input-error-fulname-profile" v-if="formErrors.full_name" class="error-message">{{
-            formErrors.full_name
-          }}</span>
+          <span data-testid="input-error-fulname-profile" v-if="formErrors.full_name" class="error-message">{{ formErrors.full_name }}</span>
         </div>
         <div class="form-group">
           <label for="socialName">Nome Social</label>
