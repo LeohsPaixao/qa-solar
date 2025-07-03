@@ -25,6 +25,7 @@ export async function fillUserForm(page: Page) {
     { element: page.locator('[data-testid="input-phone"]'), valor: faker.phone.number({ style: 'national' }) },
     { element: page.locator('[data-testid="input-email"]'), valor: faker.internet.email({ provider: 'example.qa.solar' }) },
     { element: page.locator('[data-testid="input-password"]'), valor: '123456' },
+    { element: page.locator('[data-testid="input-confirm-password"]'), valor: '123456' },
   ];
 
   for (const field of formFields) {
