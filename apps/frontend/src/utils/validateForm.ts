@@ -4,7 +4,7 @@ import { validateCNPJ, validateCPF } from './validateCpfCnpj';
 const validators: Record<keyof FormErrors, ValidatorFn[]> = {
   full_name: [
     (value) => (!value ? 'O Nome Completo é obrigatório.' : undefined),
-    (value) => (!/^\w+(\s+\w+)+$/.test(value) ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
+    (value) => (!/^[\w.]+(\s+[\w.]+)+$/.test(value) ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
   ],
   document: [
     (value) => (!value ? 'O CPF/CNPJ é obrigatório.' : undefined),
