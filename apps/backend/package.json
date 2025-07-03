@@ -9,7 +9,7 @@
     "build": "nest build",
     "dev": "rimraf dist && nest start",
     "dev:debug": "rimraf dist && nest start --debug --watch",
-    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "lint": "eslint --fix",
     "test": "jest",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:watch": "jest --watch",

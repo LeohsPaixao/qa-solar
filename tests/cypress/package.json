@@ -11,7 +11,7 @@
     "cy:coverage": "c8 report --temp-directory=.nyc_output --reporter=html --reporter=text-summary",
     "cy:e2e:run": "yarn cy:clean && npx cypress run --browser chrome --config-file cypress.config.ts",
     "cy:component:run": "yarn cy:clean && npx cypress run --component --browser chrome --config-file cypress.config.ts",
-    "lint": "eslint \"tests/**/*.ts\" --fix"
+    "lint": "eslint --fix"
   },
   "dependencies": {
     "@faker-js/faker": "9.8.0",

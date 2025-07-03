@@ -11,7 +11,7 @@
     "build": "rimraf dist && vite build",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint \"src/**/*.{js,ts,vue}\" --fix",
+    "lint": "eslint --fix",
     "format": "prettier --write src/"
   },
   "dependencies": {
