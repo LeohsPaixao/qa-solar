@@ -1,33 +1,13 @@
+import type { FormData, FormErrors, ValidatorFn } from '../types/user.types';
 import { validateCNPJ, validateCPF } from './validateCpfCnpj';
-
-export interface FormData {
-  full_name: string;
-  social_name?: string;
-  document: string;
-  doc_type: 'cpf' | 'cnpj';
-  phone?: string;
-  email: string;
-  password: string;
-}
-
-export interface FormErrors {
-  full_name?: string;
-  document?: string;
-  phone?: string;
-  email?: string;
-  password?: string;
-}
-
-type ValidatorFn = (value: string, formData: FormData) => string | undefined;
 
 const validators: Record<keyof FormErrors, ValidatorFn[]> = {
   full_name: [
     (value) => (!value ? 'O Nome Completo é obrigatório.' : undefined),
-    (value) => (!value.includes(' ') ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
+    (value) => (!/^[a-zA-ZÀ-ÿ.]+(\s+[a-zA-ZÀ-ÿ.]+)+$/.test(value) ? 'O Nome Completo deve conter pelo menos Nome e Sobrenome.' : undefined),
   ],
   document: [
     (value) => (!value ? 'O CPF/CNPJ é obrigatório.' : undefined),
-    (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
     (value, formData) => {
       if (formData.doc_type === 'cpf' && !validateCPF(value)) {
         return 'CPF inválido.';
@@ -44,8 +24,8 @@ const validators: Record<keyof FormErrors, ValidatorFn[]> = {
         return undefined;
       }
 
-      const normalizedValue = value.replace(/\D/g, '');
-      if (!/^\d+$/.test(normalizedValue)) {
+      const normalizedValue = value.replace(/[^0-9a-zA-Z]/g, '');
+      if (/[a-zA-Z]/.test(normalizedValue)) {
         return 'O telefone deve conter apenas números.';
       }
       if (normalizedValue.length > 11) {
@@ -58,16 +38,16 @@ const validators: Record<keyof FormErrors, ValidatorFn[]> = {
       return undefined;
     },
   ],
-  email: [
-    (value) => (!value ? 'O Email é obrigatório.' : undefined),
-    (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
-    (value) => (!/\S+@\S+\.\S+/.test(value) ? 'Email inválido.' : undefined),
-  ],
+  email: [(value) => (!value ? 'O Email é obrigatório.' : undefined), (value) => (!/\S+@\S+\.\S+/.test(value) ? 'Email inválido.' : undefined)],
   password: [
     (value) => (!value ? 'A Senha é obrigatória.' : undefined),
     (value) => (value.startsWith(' ') ? 'O valor não pode começar com espaço.' : undefined),
     (value) => (value.length < 6 ? 'A Senha deve ter no mínimo 6 caracteres.' : undefined),
     (value) => (value.length > 20 ? 'A Senha deve ter no máximo 20 caracteres.' : undefined),
+  ],
+  password_confirmation: [
+    (value) => (!value ? 'A confirmação de senha é obrigatória.' : undefined),
+    (value, formData) => (value !== formData.password ? 'As senhas não coincidem.' : undefined),
   ],
 };
 

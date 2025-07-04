@@ -1,17 +1,18 @@
 <template>
-  <div class="register-container">
-    <form data-testid="form-register" class="form-register" @submit.prevent="handleSubmit">
-      <img src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
-      <h2>Bem-vindo!</h2>
-      <p>Por favor, preencha os campos abaixo para se registrar:</p>
+  <div class="register-container main-content">
+    <form data-testid="register-form" class="register-form" @submit.prevent="handleSubmit">
+      <img data-testid="logo-register" src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
+      <h2 data-testid="title-register">Bem-vindo!</h2>
+      <p data-testid="description-register">Por favor, preencha os campos abaixo para se registrar:</p>
 
-      <div class="form-group">
+      <div data-testid="form-group-fullname" class="form-group">
         <label data-testid="label-fullname" for="full_name">Nome Completo <span class="required">*</span></label>
         <input
           data-testid="input-fullname"
           type="text"
           id="full_name"
           v-model="formData.full_name"
+          @blur="validateField('full_name')"
           placeholder="Insira o Nome Completo"
           :class="{ 'error-input': errors.full_name }"
         />
@@ -20,7 +21,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-socialname" class="form-group">
         <label data-testid="label-socialname" for="social_name">Nome Social</label>
         <input
           data-testid="input-socialname"
@@ -31,7 +32,7 @@
         />
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-document" class="form-group">
         <label data-testid="label-document" for="document">CPF/CNPJ <span class="required">*</span></label>
         <select
           data-testid="select-document-type"
@@ -48,6 +49,7 @@
           type="text"
           id="document"
           v-model="formData.document"
+          @blur="validateField('document')"
           :placeholder="placeholder"
           :class="{ 'error-input': errors.document }"
         />
@@ -56,13 +58,14 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-phone" class="form-group">
         <label data-testid="label-phone" for="phone">Telefone</label>
         <input
           data-testid="input-phone"
           type="text"
           id="phone"
           v-model="formData.phone"
+          @blur="validateField('phone')"
           placeholder="Insira o Telefone (opcional)"
           :class="{ 'error-input': errors.phone }"
         />
@@ -71,7 +74,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-email" class="form-group">
         <label data-testid="label-email" for="email">Email <span class="required">*</span></label>
         <input
           data-testid="input-email"
@@ -79,6 +82,7 @@
           id="email"
           autocomplete="username"
           v-model="formData.email"
+          @blur="validateField('email')"
           placeholder="Insira o Email"
           :class="{ 'error-input': errors.email }"
         />
@@ -87,7 +91,7 @@
         </p>
       </div>
 
-      <div class="form-group">
+      <div data-testid="form-group-password" class="form-group">
         <label data-testid="label-password" for="password">Senha <span class="required">*</span></label>
         <input
           data-testid="input-password"
@@ -95,6 +99,7 @@
           id="password"
           autocomplete="current-password"
           v-model="formData.password"
+          @blur="validateField('password')"
           placeholder="Insira a Senha"
           :class="{ 'error-input': errors.password }"
         />
@@ -103,8 +108,25 @@
         </p>
       </div>
 
-      <button data-testid="btn-register" type="submit" class="btn btn-submit" :disabled="isLoading">
-        {{ isLoading ? 'Cadastrando...' : 'Cadastrar' }}
+      <div data-testid="form-group-password-confirmation" class="form-group">
+        <label data-testid="label-password-confirmation" for="password_confirmation">Confirmar Senha <span class="required">*</span></label>
+        <input
+          data-testid="input-password-confirmation"
+          type="password"
+          id="password_confirmation"
+          autocomplete="new-password"
+          v-model="formData.password_confirmation"
+          @blur="validateField('password_confirmation')"
+          placeholder="Confirme a Senha"
+          :class="{ 'error-input': errors.password_confirmation }"
+        />
+        <p data-testid="input-error-password-confirmation" class="error" v-if="errors.password_confirmation">
+          {{ errors.password_confirmation }}
+        </p>
+      </div>
+
+      <button data-testid="btn-register" type="submit" class="btn btn-submit" :disabled="isPending || !isFormValid">
+        {{ isPending ? 'Cadastrando...' : 'Cadastrar' }}
       </button>
 
       <p v-if="error" class="error">{{ error }}</p>
@@ -116,16 +138,16 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { FormData, FormErrors } from '@/types/user.types';
 import { validateFormData } from '@/utils/validateForm';
-import { computed, reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, reactive, watch } from 'vue';
 import { useRegisterUser } from '../../../../composables/useRegisterUser';
 
-const router = useRouter();
-const { mutate, isLoading, error } = useRegisterUser();
+// Composables
+const { mutate, isPending, error } = useRegisterUser();
 
-const formData = reactive({
+const formData = reactive<FormData>({
   full_name: '',
   social_name: '',
   document: '',
@@ -133,24 +155,108 @@ const formData = reactive({
   phone: '',
   email: '',
   password: '',
+  password_confirmation: '',
 });
 
-const errors = reactive({
+const errors = reactive<FormErrors>({
   full_name: '',
   document: '',
   phone: '',
   email: '',
   password: '',
+  password_confirmation: '',
 });
 
-const placeholder = computed(() => (formData.doc_type === 'cpf' ? 'Insira o CPF' : 'Insira o CNPJ'));
+const isFormValid = computed(() => {
+  const result = validateFormData(formData);
+  return result.isValid;
+});
 
-const handleDocTypeChange = () => {
+const placeholder = computed<string>(() => (formData.doc_type === 'cpf' ? 'Insira o CPF' : 'Insira o CNPJ'));
+
+watch(
+  () => formData.full_name,
+  (newValue) => {
+    if (newValue) {
+      const result = validateFormData({ ...formData, full_name: newValue });
+      errors.full_name = result.errors.full_name || '';
+    } else {
+      errors.full_name = '';
+    }
+  },
+);
+
+watch(
+  () => formData.document,
+  (newValue) => {
+    if (newValue) {
+      const result = validateFormData({ ...formData, document: newValue });
+      errors.document = result.errors.document || '';
+    } else {
+      errors.document = '';
+    }
+  },
+);
+
+watch(
+  () => formData.phone,
+  (newValue) => {
+    if (newValue) {
+      const result = validateFormData({ ...formData, phone: newValue });
+      errors.phone = result.errors.phone || '';
+    } else {
+      errors.phone = '';
+    }
+  },
+);
+
+watch(
+  () => formData.email,
+  (newValue) => {
+    if (newValue) {
+      const result = validateFormData({ ...formData, email: newValue });
+      errors.email = result.errors.email || '';
+    } else {
+      errors.email = '';
+    }
+  },
+);
+
+watch(
+  () => formData.password,
+  (newValue) => {
+    if (newValue) {
+      const result = validateFormData({ ...formData, password: newValue });
+      errors.password = result.errors.password || '';
+      if (formData.password_confirmation) {
+        const confirmResult = validateFormData({ ...formData, password: newValue, password_confirmation: formData.password_confirmation });
+        errors.password_confirmation = confirmResult.errors.password_confirmation || '';
+      }
+    } else {
+      errors.password = '';
+    }
+  },
+);
+
+watch(
+  () => formData.password_confirmation,
+  (newValue) => {
+    if (newValue) {
+      const result = validateFormData({ ...formData, password_confirmation: newValue });
+      errors.password_confirmation = result.errors.password_confirmation || '';
+    } else {
+      errors.password_confirmation = '';
+    }
+  },
+);
+
+// Methods
+const handleDocTypeChange = (): void => {
   formData.document = '';
   errors.document = '';
 };
 
-const handleSubmit = async () => {
+const handleSubmit = async (): Promise<void> => {
   const result = validateFormData(formData);
   Object.assign(errors, result.errors);
 
@@ -158,15 +264,21 @@ const handleSubmit = async () => {
     return;
   }
 
-  try {
-    await mutate(formData, {
-      onSuccess: async () => {
-        await router.push('/');
-      },
-    });
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  mutate({
+    full_name: formData.full_name.trim(),
+    social_name: formData.social_name?.trim() || '',
+    document: formData.document.trim(),
+    doc_type: formData.doc_type,
+    phone: formData.phone?.trim() || '',
+    email: formData.email.trim(),
+    password: formData.password.trim(),
+    password_confirmation: formData.password_confirmation.trim(),
+  });
+};
+
+const validateField = (field: keyof FormErrors): void => {
+  const result = validateFormData(formData);
+  errors[field] = result.errors[field] || '';
 };
 </script>
 

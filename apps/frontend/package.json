@@ -11,7 +11,7 @@
     "build": "rimraf dist && vite build",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint \"src/**/*.{js,ts,vue}\" --fix",
+    "lint": "eslint --fix",
     "format": "prettier --write src/"
   },
   "dependencies": {
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "22.0.0",
-    "@types/node": "22.1.0",
+    "@types/node": "22.16.0",
     "@typescript-eslint/eslint-plugin": "8.34.0",
     "@typescript-eslint/parser": "8.34.0",
     "@vitejs/plugin-vue": "5.1.4",

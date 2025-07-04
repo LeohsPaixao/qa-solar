@@ -1,7 +1,11 @@
 <template>
-  <AppHeader v-if="canShowHeader" />
-  <router-view />
-  <AppFooter v-if="canShowFooter" />
+  <div id="app" class="app-container">
+    <AppHeader v-if="canShowHeader" />
+    <main class="main-content">
+      <router-view />
+    </main>
+    <AppFooter v-if="canShowFooter" />
+  </div>
 </template>
 
 <script setup>

@@ -39,3 +39,73 @@ node_modules/
 
 # Vite timestamp
 vite.config.ts.*
+
+# Cypress
+tests/cypress/tests/e2e/misc/
+tests/cypress/tests/component/misc/
+
+# Playwright
+tests/playwright/tests/misc/
+tests/playwright/playwright-report/
+tests/playwright/blob-report/
+tests/playwright/.cache/
+
+# Robot
+tests/robot/results/
+tests/robot/tests/**/__pycache__/
+tests/robot/.venv
+tests/robot/venv/
+tests/robot/.pabotsuitenames
+
+# Performance tests
+tests/performance/reports/
+tests/performance/.cache/
+
+# Build artifacts
+dist/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Coverage reports
+*.clover.xml
+coverage-final.json
+
+# IDE and editor files
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Test results and reports
+*.jtl
+*.csv
+*.xml
+*.html
+*.json
+!package.json
+!tsconfig.json
+!eslint.config.*
+!prettierrc.json
+!turbo.json
+!commitlint.config.*
+!.changeset/config.json
+!cypress.config.*
+!playwright.config.*
+!jest.config.*
+!vite.config.*

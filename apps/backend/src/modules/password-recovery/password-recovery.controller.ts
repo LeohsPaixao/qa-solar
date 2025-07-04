@@ -12,8 +12,8 @@ export class PasswordRecoveryController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Solicitar recuperação de senha' })
   @ApiResponse({ status: 200, description: 'Um e-mail foi enviado com instruções para recuperar a senha.' })
-  @ApiResponse({ status: 404, description: 'Este email não esta cadastrado no banco de dados.' })
-  @ApiResponse({ status: 500, description: 'Erro ao enviar e-mail para recuperação de senha.' })
+  @ApiResponse({ status: 404, description: 'Usuário não encontrado.' })
+  @ApiResponse({ status: 500, description: 'Internal server error.' })
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     return this.passwordRecoveryService.forgotPassword(forgotPasswordDto.email);
   }
