@@ -46,6 +46,8 @@ describe('UserController', () => {
         id: 1,
         full_name: 'John Doe',
         email: 'john@example.com',
+        document: '1234567890',
+        phone: '1234567890',
         created_at: new Date('2024-01-01'),
         updated_at: new Date('2024-01-01'),
       },
@@ -53,20 +55,26 @@ describe('UserController', () => {
         id: 2,
         full_name: 'Jane Smith',
         email: 'jane@example.com',
+        document: '1234567890',
+        phone: '1234567890',
         created_at: new Date('2024-01-02'),
         updated_at: new Date('2024-01-02'),
       },
     ];
 
+    const expectedResult = { users: mockUsers };
+
     mockPrismaService.user.findMany.mockResolvedValue(mockUsers);
 
     const result = await controller.findAll();
-    expect(result).toEqual(mockUsers);
+    expect(result).toEqual(expectedResult);
     expect(mockPrismaService.user.findMany).toHaveBeenCalledWith({
       select: {
         id: true,
         full_name: true,
         email: true,
+        document: true,
+        phone: true,
         created_at: true,
         updated_at: true,
       },

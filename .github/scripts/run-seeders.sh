@@ -9,10 +9,10 @@ echo "Executando migrações do Prisma..."
 yarn prisma migrate dev
 
 echo "Executando seeder: genericUser..."
-yarn node prisma/seeders/genericUser.js
+yarn ts-node prisma/seeders/genericUser.ts
 
 echo "Executando seeder: generateUserFake..."
-yarn node prisma/seeders/generateUserFake.js
+yarn ts-node prisma/seeders/generateUserFake.ts
 
 # Caso adicione mais seeders, inclua os comandos aqui
 echo "Seeders executados com sucesso!"
