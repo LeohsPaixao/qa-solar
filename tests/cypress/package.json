@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "test": "yarn cy:component:run && yarn cy:e2e:run",
     "cy:open": "yarn cy:clean && npx cypress open --config-file cypress.config.ts",
     "cy:clean": "rimraf .nyc_output && rimraf coverage",
     "cy:coverage": "c8 report --temp-directory=.nyc_output --reporter=html --reporter=text-summary",

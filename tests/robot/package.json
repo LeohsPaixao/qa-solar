@@ -4,5 +4,8 @@
   "description": "Project Tests Robot Framework",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "test": "make test-all"
+  }
 }
