@@ -26,3 +26,5 @@ jobs:
   docker-deploy:
     needs: [cypress-tests, playwright-tests, robot-framework-tests]
     uses: ./.github/workflows/docker-deploy.yml
+    secrets:
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
