@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation   Keywords para o cadastro de usuários
+
 Library         Browser
 Library         String
 Library         ../library/CustomLibrary.py
@@ -9,7 +11,7 @@ Variables       ../data/variables.py
 
 *** Keywords ***
 Verificar Os Elementos Da Tela De Cadastro
-    Wait For Elements State    css=[data-testid="form-register"]    visible
+    Wait For Elements State    css=[data-testid="register-form"]    visible
     Wait For Elements State    css=.form-group:first-of-type    visible
     Wait For Elements State    css=[data-testid="btn-register"]    visible
     Wait For Elements State    css=[data-testid="link-go-to-login"]    visible
@@ -59,6 +61,20 @@ Preencher Todos Os Campos
     Fill Text    css=[data-testid="input-phone"]    ${phone}
     Fill Text    css=[data-testid="input-email"]    ${email}
     Fill Text    css=[data-testid="input-password"]    123456
+    Fill Text    css=[data-testid="input-password-confirmation"]    123456
+
+Apagar O Valor Dos Campos
+    Clear Text    css=[data-testid="input-fullname"]
+    Clear Text    css=[data-testid="input-socialname"]
+    Clear Text    css=[data-testid="input-document"]
+    Clear Text    css=[data-testid="input-phone"]
+    Clear Text    css=[data-testid="input-email"]
+    Clear Text    css=[data-testid="input-password"]
+    Clear Text    css=[data-testid="input-password-confirmation"]
+
+Simular Evento De Blur
+    [Arguments]    ${locator}
+    Press Keys    css=[data-testid="input-${locator}"]    Tab
 
 Selecionar O Tipo De Documento
     Select Options By    css=[data-testid="select-document-type"]    value    cnpj

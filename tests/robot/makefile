@@ -34,6 +34,7 @@ endif
 
 test-file: clean
 	@echo "Executando arquivo específico..."
+	@echo "Exemplo: make test-file FILE_PATH=tests/specs/login.robot"
 ifndef FILE_PATH
 	@echo "Erro: Especifique o caminho do arquivo com FILE_PATH=<path>."
 	@exit 1

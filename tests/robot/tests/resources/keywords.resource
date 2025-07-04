@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation   Keywords para preparar e executar testes.
+
 Library    Browser
 Library    RequestsLibrary
 Library    String
@@ -10,7 +12,7 @@ Preparar Teste
     Abrir O Navegador    ${BASE_URL}
     Navegar Para A Rota    ${route}
 
-Preparar Teste com API
+Preparar Teste Com API
     [Arguments]    ${BASE_URL}    ${route}=
     Abrir O Navegador    ${BASE_URL}
     Login Via API

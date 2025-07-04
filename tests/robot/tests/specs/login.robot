@@ -18,7 +18,7 @@ Cenário 2: Não Deveria Ser Possivel Fazer Login Com Credenciais Invalidas
     Digitar O Email Do Usuario    email@example.com
     Digitar O Password Do Usuario    password@example.com
     Clicar No Botão De Entrar Na Conta
-    Verificar O Feedback Do Usuario    Não foi possivel realizar login com este usuário.
+    Verificar O Feedback Do Usuario    Usuário não encontrado.
 
 Cenário 3: Não Deveria Ser Possivel Fazer Login Com A Senha Inválida
     [Documentation]    Testa login com uma senha incorreta.
