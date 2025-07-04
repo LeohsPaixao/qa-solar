@@ -3,6 +3,7 @@ on:
 
 jobs:
   docker-deploy:
+    name: Deploy Docker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do repositório

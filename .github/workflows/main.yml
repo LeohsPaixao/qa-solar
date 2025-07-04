@@ -9,25 +9,20 @@ on:
 
 jobs:
   backend-tests:
-    name: Backend Testes QA-Solar
     uses: ./.github/workflows/backend.yml
 
   cypress-tests:
-    name: Cypress Testes QA-Solar
     needs: [backend-tests]
     uses: ./.github/workflows/cypress.yml
 
   playwright-tests:
-    name: Playwright Testes QA-Solar
     needs: [backend-tests]
     uses: ./.github/workflows/playwright.yml
 
   robot-framework-tests:
-    name: Robot Framework Testes QA-Solar
     needs: [backend-tests]
     uses: ./.github/workflows/robot.yml
 
   docker-deploy:
-    name: Deploy Docker
     needs: [cypress-tests, playwright-tests, robot-framework-tests]
     uses: ./.github/workflows/docker-deploy.yml
