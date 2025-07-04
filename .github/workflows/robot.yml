@@ -45,7 +45,7 @@ jobs:
         run: |
           cd apps/backend
           yarn dev &
-          sleep 5
+          sleep 15
         env:
           DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret

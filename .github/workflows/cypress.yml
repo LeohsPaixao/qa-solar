@@ -63,8 +63,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: tests/cypress
-          command: npx cypress run --config-file cypress.config.ts
-          component: true
+          command: npx cypress run --component --config-file cypress.config.ts
 
       - name: Executar testes E2E Cypress
         uses: cypress-io/github-action@v6
