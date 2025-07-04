@@ -19,3 +19,9 @@ sudo apt install -y \
     libfreetype6 \
     fonts-liberation \
     libflite1
+
+# Instala dependências do Robot Framework
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r tests/robot/requirements.txt
+rfbrowser init chromium

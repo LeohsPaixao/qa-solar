@@ -29,25 +29,35 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22.1.0
+          cache: 'yarn'
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5.3.0
+        with:
+          python-version: 3.10.2
+          check-latest: true
+          cache: 'pip'
+
       - name: Instalar dependências do Monorepo
         run: yarn install --frozen-lockfile
-
-      - name: Instalar dependências do Robot Framework
-        run: pip install -r tests/robot/requirements.txt
 
       - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
-          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tests_base?schema=public
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend
         run: |
           cd apps/backend
           yarn dev &
-          sleep 15
+          sleep 5
         env:
-          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tests_base?schema=public
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           API_URL: http://localhost:3001
 
@@ -57,9 +67,13 @@ jobs:
           yarn dev &
           sleep 5
 
+      - name: Configurar Robot Framework
+        run: chmod +x .github/scripts/setup-dependencies.sh && .github/scripts/setup-dependencies.sh
+
       - name: Executar testes Robot Framework
         run: |
           cd tests/robot
+          source venv/bin/activate
           make test-all
 
       - name: Salvar relatórios Robot Framework
