@@ -52,9 +52,10 @@ tests/playwright/.cache/
 
 # Robot
 tests/robot/results/
-tests/robot/__pycache__/
+tests/robot/tests/**/__pycache__/
 tests/robot/.venv
 tests/robot/venv/
+tests/robot/.pabotsuitenames
 
 # Performance tests
 tests/performance/reports/
