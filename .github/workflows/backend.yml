@@ -39,3 +39,6 @@ jobs:
       - name: Executar testes do Backend
         working-directory: apps/backend
         run: yarn test
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
