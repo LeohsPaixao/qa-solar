@@ -26,6 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.1.0
+          cache: 'yarn'
 
       - name: Instalar dependências do Monorepo
         run: yarn install --frozen-lockfile

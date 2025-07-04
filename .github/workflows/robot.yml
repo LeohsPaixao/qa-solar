@@ -5,7 +5,9 @@ jobs:
   robot-framework-tests:
     name: Robot Framework Testes QA-Solar
     runs-on: ubuntu-latest
-    timeout-minutes: 1
+    container:
+      image: marketsquare/robotframework-browser:latest
+    timeout-minutes: 10
     env:
       TURBO_TELEMETRY_DISABLED: 1
     services:
@@ -36,7 +38,7 @@ jobs:
       - name: Executar seeders
         run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
 
       - name: Iniciar backend
@@ -45,7 +47,7 @@ jobs:
           yarn dev &
           sleep 5
         env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
           API_URL: http://localhost:3001
 
@@ -55,9 +57,6 @@ jobs:
           yarn dev &
           sleep 5
 
-      - name: Instalar Robot Framework Browser
-        uses: marketsquare/robotframework-browser@v1.1.0
-      
       - name: Executar testes Robot Framework
         run: |
           cd tests/robot
