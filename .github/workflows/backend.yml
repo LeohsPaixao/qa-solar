@@ -1,3 +1,6 @@
+on:
+  workflow_call:
+
 jobs:
   backend-tests:
     name: Backend Testes QA-Solar

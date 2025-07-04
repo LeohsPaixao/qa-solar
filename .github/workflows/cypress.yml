@@ -1,3 +1,6 @@
+on:
+  workflow_call:
+
 jobs:
   cypress-tests:
     name: Cypress Testes QA-Solar

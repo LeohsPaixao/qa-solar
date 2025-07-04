@@ -1,3 +1,6 @@
+on:
+  workflow_call:
+
 jobs:
   playwright-tests:
     name: Playwright Testes QA-Solar
