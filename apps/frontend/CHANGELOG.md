@@ -1,5 +1,16 @@
 # frontend
 
+## 2.0.0
+
+### Major Changes
+
+- 4d39146: feat: refatora o projeto de frontend
+
+### Minor Changes
+
+- 5a4530f: feat: atualiza o ESLint e Typescript do projeto frontend
+- a276a9e: feat: modifica os composables para enviar e receber dados dos novos endpoints do backend
+
 ## 1.6.2
 
 ### Patch Changes

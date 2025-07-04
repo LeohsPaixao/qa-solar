@@ -1,5 +1,15 @@
 # robot-framework
 
+## 2.0.0
+
+### Major Changes
+
+- 4d39146: feat: refatore todo o projeto de testes do Robot Framework
+
+### Minor Changes
+
+- 4d39146: feat: altera os projetos de testes para a pasta tests
+
 ## 1.5.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # playwright-ui-tests
 
+## 2.0.0
+
+### Major Changes
+
+- 4d39146: feat: refatora o projeto de testes Playwright
+
+### Minor Changes
+
+- 4d39146: feat: altera os projetos de testes para a pasta tests
+
 ## 1.3.0
 
 ### Minor Changes

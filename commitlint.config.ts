@@ -17,6 +17,7 @@ const Configuration = {
         "feat",
         "test",
         "story",
+        "epic",
       ]
     ]
   },

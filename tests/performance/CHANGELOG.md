@@ -1,5 +1,11 @@
 # qa-solar-performance
 
+## 1.3.0
+
+### Minor Changes
+
+- 4d39146: feat: altera os projetos de testes para a pasta tests
+
 ## 1.2.0
 
 ### Minor Changes

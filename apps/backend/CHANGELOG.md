@@ -1,5 +1,21 @@
 # backend
 
+## 2.0.0
+
+### Major Changes
+
+- 1dff647: feat: migra o projeto de javascript com express para typescript com nestJs
+
+### Minor Changes
+
+- 4d39146: chore: refaz os testes e2e do projeto backend e melhora os componentes
+- 4d39146: feat: adiciona testes unitários nos controllers do modúlos do backend
+
+### Patch Changes
+
+- 50f3805: feat: remove pacotes e pasta do projeto backend que não será mais utilizado nesta nova versão
+- 4d39146: feat: resolve alguns problemas do JWT do backend e melhore o retorno do serviço findAll
+
 ## 1.11.0
 
 ### Minor Changes
