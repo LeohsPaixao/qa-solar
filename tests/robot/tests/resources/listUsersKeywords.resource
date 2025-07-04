@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation   Keywords para listagem de usuários.
+
 Library         Browser
 Library         RequestsLibrary
 Library         String
@@ -17,7 +19,7 @@ Verificar Mensagem Toast
     ${toast}=    Get Text    [data-testid="toast-content"]
     Should Be Equal    ${toast}    ${expected_message}
 
-Verificar Se o Checkbox Foi Selecionado
+Verificar Se O Checkbox Foi Selecionado
     ${checkbox_state}=    Get Element States    [data-testid="checkbox-select-all"]
     List Should Contain Value    ${checkbox_state}    checked
 
