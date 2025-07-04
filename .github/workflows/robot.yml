@@ -5,8 +5,6 @@ jobs:
   robot-framework-tests:
     name: Robot Framework Testes QA-Solar
     runs-on: ubuntu-latest
-    container:
-      image: marketsquare/robotframework-browser:latest
     timeout-minutes: 10
     env:
       TURBO_TELEMETRY_DISABLED: 1
