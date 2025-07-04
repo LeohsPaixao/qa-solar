@@ -8,10 +8,11 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 export default defineConfig({
   plugins: [
     vue({
-      script: {
+      include: ['**/*.vue'],
+      exclude: ['node_modules', 'dist', 'test/**/*'],
+      features: {
         propsDestructure: true,
-        defineModel: true,
-      }
+      },
     }),
     istanbul({
       include: 'src/**/*',
@@ -26,10 +27,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
     port: 8181,
   },
-})
+});

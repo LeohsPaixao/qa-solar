@@ -1,24 +1,23 @@
-FROM node:22.1.0-alpine
+FROM node:22.1.0-alpine AS base
 
+FROM base AS builder
 WORKDIR /app
+RUN yarn global add turbo
+COPY . .
+RUN turbo prune backend --docker
 
-# Copiar arquivos de configuração do monorepo
-COPY package.json yarn.lock turbo.json ./
-COPY apps/backend/package.json ./apps/backend/
-COPY packages/ ./packages/
+FROM base AS installer
+WORKDIR /app
+COPY --from=builder /app/out/full/ .
+RUN yarn install --frozen-lockfile
 
-# Instalar dependências
-RUN yarn install
+FROM base AS runner
+WORKDIR /app
+COPY --from=installer /app/ .
 
-# Copiar código fonte
-COPY apps/backend ./apps/backend
-
-# Gerar Prisma Client
+# Generate Prisma Client
 WORKDIR /app/apps/backend
 RUN yarn prisma generate
 
-# Expor porta
+# Expose port
 EXPOSE 3001
-
-# Comando para iniciar a aplicação
-CMD ["yarn", "dev"]

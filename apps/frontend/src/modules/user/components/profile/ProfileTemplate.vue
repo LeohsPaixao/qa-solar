@@ -1,9 +1,9 @@
 <template>
   <LoadingErrorState :isLoading="isLoadingFetch" :isError="isError" />
-  <div v-if="!isLoadingFetch && !isError" data-testid="profile-page" class="profile-page">
-    <h1 data-testid="profile-title" class="title">Perfil</h1>
-    <div data-testid="profile-container-form" class="profile-container">
-      <form data-testid="form-profile" class="form-profile">
+  <div v-if="!isLoadingFetch && !isError" data-testid="profile-page" class="profile-page main-content">
+    <form data-testid="form-profile" class="form-profile">
+      <h1 data-testid="profile-title" class="title">Perfil</h1>
+      <div data-testid="profile-container-form" class="profile-container">
         <div class="form-group">
           <label for="fullName">Nome Completo</label>
           <input
@@ -11,12 +11,11 @@
             id="fullName"
             type="text"
             placeholder="Digite seu nome completo"
-            v-model="fullName"
-            :class="['input-fullname-profile', { 'input-error': formErrors.fullName && isSubmitted }]"
+            v-model="formData.full_name"
+            @blur="validateField('full_name')"
+            :class="['input-fullname-profile', { 'input-error': formErrors.full_name }]"
           />
-          <span data-testid="input-error-fulname-profile" v-if="formErrors.fullName && isSubmitted" class="error-message">{{
-            formErrors.fullName
-          }}</span>
+          <span data-testid="input-error-fulname-profile" v-if="formErrors.full_name" class="error-message">{{ formErrors.full_name }}</span>
         </div>
         <div class="form-group">
           <label for="socialName">Nome Social</label>
@@ -36,10 +35,11 @@
             id="phone"
             type="tel"
             placeholder="(00) 00000-0000"
-            v-model="phone"
-            :class="['input-phone-profile', { 'input-error': formErrors.phone && isSubmitted }]"
+            v-model="formData.phone"
+            @blur="validateField('phone')"
+            :class="['input-phone-profile', { 'input-error': formErrors.phone }]"
           />
-          <span data-testid="input-error-phone-profile" v-if="formErrors.phone && isSubmitted" class="error-message">{{ formErrors.phone }}</span>
+          <span data-testid="input-error-phone-profile" v-if="formErrors.phone" class="error-message">{{ formErrors.phone }}</span>
         </div>
         <div class="form-group">
           <label for="cpfCnpj">CPF ou CNPJ</label>
@@ -58,87 +58,126 @@
             data-testid="btn-save-profile"
             type="button"
             class="btn btn-save-profile save-button"
-            :disabled="!hasChanges || isUpdating"
+            :disabled="!hasChanges || isUpdating || !isFormValid"
             @click="handleSave"
           >
             {{ isUpdating ? 'Salvando...' : 'Salvar' }}
           </button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
+import type { FormDataProfile, FormErrorsProfile, Props, UpdateUserData, User } from '@/types/user.types';
 import { validateProfile } from '@/utils/validateProfile';
-import { computed, ref, watchEffect } from 'vue';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import { useFetchUser } from '../../../../hooks/useFetchUser.js';
-import { useUpdateUser } from '../../../../hooks/useUpdateUser.js';
+import { computed, reactive, ref, watch, watchEffect } from 'vue';
+import { useFetchUser } from '../../../../composables/useFetchUser';
+import { useUpdateUser } from '../../../../composables/useUpdateUser';
 
-const fullName = ref('');
-const socialName = ref('');
-const phone = ref('');
-const cpfCnpj = ref('');
-const originalData = ref({});
-const isSubmitted = ref(false);
-const formErrors = ref({});
+const formData = reactive<FormDataProfile>({
+  full_name: '',
+  phone: '',
+});
 
-const { data: user, isLoading: isLoadingFetch, isError } = useFetchUser();
-const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser();
+const socialName = ref<string>('');
+const cpfCnpj = ref<string>('');
+const originalData = ref<User>({} as User);
+const formErrors = reactive<FormErrorsProfile>({
+  full_name: '',
+  phone: '',
+});
+
+const props = defineProps<Props>();
+
+const { data: fetchedUser, isLoading: isLoadingFetch, isError } = useFetchUser();
+const mutation = useUpdateUser();
+const updateUser = mutation.mutate;
+const isUpdating = mutation.isPending;
 
 watchEffect(() => {
-  if (user.value) {
-    fullName.value = user.value.full_name || '';
-    socialName.value = user.value.social_name || '';
-    phone.value = user.value.phone || '';
-    cpfCnpj.value = user.value.document || '';
+  const user = computed<User | undefined>(() => {
+    if (props.user) {
+      return Array.isArray(props.user) ? props.user[0] : props.user;
+    }
+    return fetchedUser.value;
+  });
 
+  if (user.value) {
+    formData.full_name = user.value.full_name || '';
+    formData.phone = user.value.phone || '';
+    socialName.value = user.value.social_name || '';
+    cpfCnpj.value = user.value.document || '';
     originalData.value = {
-      fullName: user.value.full_name || '',
-      socialName: user.value.social_name || '',
-      phone: user.value.phone || '',
-      document: user.value.document || '',
+      ...user.value,
     };
   }
 });
 
+const isFormValid = computed(() => {
+  const result = validateProfile(formData);
+  return result.isValid;
+});
+
 const hasChanges = computed(() => {
   return (
-    fullName.value !== originalData.value.fullName || socialName.value !== originalData.value.socialName || phone.value !== originalData.value.phone
+    formData.full_name !== (originalData.value.full_name || '') ||
+    socialName.value !== (originalData.value.social_name || '') ||
+    formData.phone !== (originalData.value.phone || '')
   );
 });
 
-const handleSave = () => {
-  isSubmitted.value = true;
+watch(
+  () => formData.full_name,
+  (newValue) => {
+    if (newValue) {
+      const result = validateProfile({ ...formData, full_name: newValue });
+      formErrors.full_name = result.errors.full_name || '';
+    } else {
+      formErrors.full_name = '';
+    }
+  },
+);
 
-  const formData = {
-    fullName: fullName.value,
-    phone: phone.value,
+watch(
+  () => formData.phone,
+  (newValue) => {
+    if (newValue) {
+      const result = validateProfile({ ...formData, phone: newValue });
+      formErrors.phone = result.errors.phone || '';
+    } else {
+      formErrors.phone = '';
+    }
+  },
+);
+
+function validateField(field: keyof FormErrorsProfile): void {
+  const result = validateProfile(formData);
+  formErrors[field] = result.errors[field] || '';
+}
+
+function handleSave() {
+  const updateData: UpdateUserData = {
+    full_name: formData.full_name,
+    social_name: socialName.value,
+    phone: formData.phone,
   };
 
   const { isValid, errors } = validateProfile(formData);
-  formErrors.value = errors;
+  Object.assign(formErrors, errors);
 
   if (!isValid) {
-    toast.error('Por favor, corrija os erros antes de salvar.');
     return;
   }
 
-  updateUser(formData, {
-    onSuccess: (response) => {
-      toast.success(response.message);
-      originalData.value = { ...formData };
-      isSubmitted.value = false;
-    },
-    onError: (error) => {
-      const errorMessage = error.response?.data?.message;
-      toast.error(errorMessage);
+  updateUser(updateData, {
+    onSuccess: () => {
+      originalData.value = { ...originalData.value, ...updateData };
     },
   });
-};
+}
 </script>
 
 <style src="./ProfileStyle.css"></style>

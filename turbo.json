@@ -20,8 +20,10 @@
       "outputs": []
     },
     "lint": {
-      "cache": false,
-      "outputs": []
+      "cache": true,
+      "dependsOn": [
+        "^lint"
+      ]
     }
   }
 }

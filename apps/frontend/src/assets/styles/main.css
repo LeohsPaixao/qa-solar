@@ -93,7 +93,7 @@ button {
   text-align: center;
   justify-content: center;
   align-items: center;
-  transition: all 0.3s;
+  transition: background 0.2s, color 0.2s;
 }
 
 button:hover {
@@ -107,4 +107,23 @@ button:disabled {
 
 button:active {
   background-color: #267326;
+}
+
+html,
+body,
+#app {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  min-height: 0;
 }

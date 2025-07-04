@@ -1,5 +1,5 @@
 <template>
-  <div class="list-users-container">
+  <div class="list-users-container main-content">
     <div class="table-wrapper">
       <table data-testid="table-users" class="users-table">
         <thead>
@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id">
+          <tr v-for="user in usersList" :key="user.id">
             <td>
               <input
                 data-testid="checkbox-select-users"
@@ -37,9 +37,9 @@
             <td>{{ user.id }}</td>
             <td>{{ user.full_name }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.document }}</td>
-            <td>{{ user.phone || '(00) 0 0000-0000' }}</td>
-            <td>{{ user.created_at }}</td>
+            <td>{{ user.document || '-' }}</td>
+            <td>{{ user.phone || '-' }}</td>
+            <td>{{ formatDate(user.created_at) }}</td>
           </tr>
         </tbody>
       </table>
@@ -58,42 +58,48 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { User, UserList } from '@/types/user.types';
 import { computed, ref } from 'vue';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import { useDeleteUser } from '../../../../hooks/useDeleteUser.js';
-import { useFetchUser } from '../../../../hooks/useFetchUser.js';
-import { useFetchUsers } from '../../../../hooks/useFetchUsers.js';
+import { useDeleteUser } from '../../../../composables/useDeleteUser';
+import { useFetchUser } from '../../../../composables/useFetchUser';
+import { useFetchUsers } from '../../../../composables/useFetchUsers';
+import { formatDate } from '../../../../utils/formDate';
 
-const selectedUsers = ref([]);
-const selectAll = ref(false);
+const props = defineProps<UserList>();
 
-const { data: users, isLoading } = useFetchUsers();
+const selectedUsers = ref<number[]>([]);
+const selectAll = ref<boolean>(false);
+
+// Composables
+const { data: usersData, isLoading } = useFetchUsers();
 const { data: loggedInUser } = useFetchUser();
-const { mutate: deleteUser, isLoading: isDeleting } = useDeleteUser();
+const { mutate: deleteUser, isPending: isDeleting } = useDeleteUser();
 
-const toggleSelectAll = () => {
-  if (selectAll.value) {
-    selectedUsers.value = users.value.filter((user) => user.id !== loggedInUser.value.id).map((user) => user.id);
+// Props
+const usersList = computed<User[]>(() => {
+  if (props.users) {
+    return Array.isArray(props.users) ? props.users : [props.users];
+  }
+  return usersData.value?.users || [];
+});
+
+const isLoggedInUserSelected = computed<boolean>(() => {
+  return loggedInUser.value ? selectedUsers.value.includes(loggedInUser.value.id) : false;
+});
+
+const toggleSelectAll = (): void => {
+  if (selectAll.value && loggedInUser.value) {
+    selectedUsers.value = usersList.value.filter((user: User) => user.id !== loggedInUser.value!.id).map((user: User) => user.id);
   } else {
     selectedUsers.value = [];
   }
 };
 
-const isLoggedInUserSelected = computed(() => loggedInUser.value && selectedUsers.value.includes(loggedInUser.value.id));
-
-const handleDelete = () => {
-  deleteUser(selectedUsers.value, {
-    onSuccess: (data) => {
-      toast.success(data.message, { autoClose: 3000 });
-      selectedUsers.value = [];
-      selectAll.value = false;
-    },
-    onError: () => {
-      toast.error('Erro ao excluir usuários. Tente novamente.', { autoClose: 5000 });
-    },
-  });
+const handleDelete = (): void => {
+  if (selectedUsers.value.length > 0) {
+    deleteUser(selectedUsers.value);
+  }
 };
 </script>
 
