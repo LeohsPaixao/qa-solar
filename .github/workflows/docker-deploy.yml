@@ -1,18 +1,20 @@
-name: Build and Push Docker Images
-
-on:
-  push:
-    branches:
-      - main-docker
-      - docker*
-
 jobs:
-  build-and-push-backend:
+  docker-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout do código
+      - name: Checkout do repositório
         uses: actions/checkout@v4
+
+      - name: Configurar cache do Docker
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Configurar Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Login no Docker Hub
         uses: docker/login-action@v3
@@ -21,24 +23,26 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Construir e enviar a imagem do Backend
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest -f backend/Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest
-
-  build-and-push-frontend:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
-
-      - name: Login no Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/build-push-action@v5
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          context: .
+          file: apps/backend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/qa-solar-backend:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
       - name: Construir e enviar a imagem do Frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/frontend/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+
+      - name: Mover cache
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest -f frontend/Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/qa-solar-frontend:latest
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
