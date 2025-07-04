@@ -1,0 +1,32 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  max-width: 100%;
+}
+
+.form-group {
+  max-width: 100%;
+  margin-top: 0.1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  text-align: left;
+}
+
+.required {
+  color: red;
+}
+
+.btn-submit {
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  width: 200px;
+}

@@ -1,44 +1,57 @@
 {
   "name": "qa-solar",
-  "version": "2.5.5",
+  "version": "0.0.1",
   "description": "Simple project VUE for UI Testing with Frameworks: Cypress, Robot and Playwright",
   "repository": "git@github.com:LeohsPaixao/qa-solar.git",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
   "private": true,
+  "packageManager": "yarn@1.22.22",
   "workspaces": [
-    ".",
-    "performance",
-    "backend",
-    "frontend",
-    "test/cypress",
-    "test/playwright",
-    "test/robot"
+    "apps/*",
+    "tests/*",
+    "packages/*"
   ],
   "scripts": {
-    "prepare": "husky",
+    "docker:build": "docker compose up --build",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "linter:all": "yarn workspace backend lint && yarn workspace frontend lint",
-    "format:all": "yarn workspace backend format && yarn workspace frontend format"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "yarn lint"
   },
   "keywords": [
     "testing",
     "vue",
-    "ui testing"
+    "cypress",
+    "robot",
+    "playwright",
+    "jest",
+    "nestjs",
+    "ui testing",
+    "e2e testing",
+    "unit testing",
+    "performance testing"
   ],
   "bugs": {
     "url": "https://github.com/LeohsPaixao/qa-solar/issues"
   },
   "homepage": "https://github.com/LeohsPaixao/qa-solar#readme",
   "dependencies": {
-    "@changesets/cli": "^2.27.10",
-    "husky": "^9.1.7"
+    "@changesets/cli": "2.27.10",
+    "husky": "9.1.7"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.6.0",
-    "@commitlint/config-conventional": "^19.6.0",
-    "@types/node": "^22.13.1",
-    "typescript": "^5.7.3"
+    "@commitlint/cli": "19.6.0",
+    "@commitlint/config-conventional": "19.6.0",
+    "@types/node": "22.16.0",
+    "lint-staged": "16.1.2",
+    "turbo": "2.5.2",
+    "typescript": "5.8.3"
   }
 }

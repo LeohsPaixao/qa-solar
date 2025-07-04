@@ -1,0 +1,45 @@
+on:
+  workflow_call:
+
+jobs:
+  backend-tests:
+    name: Backend Testes QA-Solar
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
+    services:
+      postgres:
+        image: postgres:15
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: tests_base
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22.1.0
+          cache: 'yarn'
+
+      - name: Instalar dependências do Monorepo
+        run: yarn install --frozen-lockfile
+
+      - name: Executar seeders
+        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
+
+      - name: Executar testes do Backend
+        working-directory: apps/backend
+        run: yarn test
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
+          JWT_SECRET: jwt_secret
