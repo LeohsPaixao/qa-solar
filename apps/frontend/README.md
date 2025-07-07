@@ -1,49 +1,69 @@
 # Frontend - QA Solar
 
-Este é o projeto frontend do monorepo **QA Solar**, construído com **Vue 3**, **Vue Router** e outras ferramentas modernas para o desenvolvimento de aplicações web. O objetivo deste projeto é implementar interfaces de usuário e validar fluxos com foco em qualidade e boas práticas.
+Este é o projeto frontend do monorepo **QA Solar**, construído com **Vue 3**, **TypeScript** e **Vite**. Ele fornece uma interface moderna e responsiva para interagir com a API do backend, implementando interfaces de usuário e validando fluxos com foco em qualidade e boas práticas.
+
+---
+
+## 📋 Índice
+
+- [🛠 Tecnologias Utilizadas](#-tecnologias-utilizadas)
+- [🚀 Como Executar o Projeto](#-como-executar-o-projeto)
+- [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+- [🔧 Scripts Disponíveis](#-scripts-disponíveis)
+- [🧪 Testes](#-testes)
+- [📚 Configuração e Plugins](#-configuração-e-plugins)
 
 ---
 
 ## 🛠 Tecnologias Utilizadas
 
-- **Vue 3**: Framework principal para construção da interface.  
-- **Vue Router**: Gerenciamento de rotas.  
-- **Vee-Validate**: Validação de formulários.  
-- **Axios**: Comunicação com a API do Backend.  
-- **Vue3-Toastify**: Notificações toast.  
-- **Vite**: Ferramenta de build e desenvolvimento rápida.  
-- **TypeScript**: Tipagem estática para maior robustez no código.
+### **Framework e Runtime**
+- **Vue 3**: Framework progressivo para construção de interfaces de usuário
+- **TypeScript**: Linguagem de programação tipada
+- **Vite**: Ferramenta de build e desenvolvimento rápida
+
+### **Roteamento e Navegação**
+- **Vue Router**: Gerenciamento de rotas e navegação SPA
+
+### **Gerenciamento de Estado e Dados**
+- **TanStack Vue Query**: Gerenciamento de estado do servidor e cache
+- **Axios**: Cliente HTTP para comunicação com APIs
+
+### **Validação e Formulários**
+- **Vee-Validate**: Validação de formulários com Vue 3
+- **class-validator**: Validação de dados
+
+### **Interface e UX**
+- **Vue3-Toastify**: Sistema de notificações toast
+- **Material Design Icons**: Biblioteca de ícones
+- **Vue Icon**: Componente de ícones
+
+### **Desenvolvimento e Qualidade**
+- **ESLint**: Linting de código
+- **Prettier**: Formatação de código
+- **Vue DevTools**: Ferramentas de desenvolvimento
 
 ---
 
-## 🚀 Como Rodar o Projeto
+## 🚀 Como Executar o Projeto
 
-1. **Pré-requisitos**:
-   - [![Node.js Version](https://img.shields.io/badge/Node.js-%3E=22.1.0-brightgreen.svg)](https://nodejs.org/)
-   - [![Yarn Version](https://img.shields.io/badge/Yarn-1.22.22-blue.svg)](https://classic.yarnpkg.com/en/docs/install/)
+### **1. Configuração do Ambiente**
+- Copie o arquivo `.env.example` para `.env` e configure a URL da API:
+  ```plaintext
+  VITE_API_URL=http://localhost:3001
+  ```
 
-2. **Instalação**:  
-   Clone o repositório e navegue até o diretório `frontend`:
-   ```bash
-   git clone https://github.com/LeohsPaixao/vue-tests.git
-   cd vue-tests/frontend
-   yarn install
-   ```
+### **2. Iniciar o Servidor de Desenvolvimento**
+```bash
+# Desenvolvimento
+yarn workspace frontend dev
 
-3. **Rodar o servidor de desenvolvimento**:
-   ```bash
-   yarn serve
-   ```
+# Build para produção
+yarn workspace frontend build
 
-4. **Build para produção**:
-   ```bash
-   yarn build
-   ```
-
-5. **Pré-visualização do build**:
-   ```bash
-   yarn preview
-   ```
+# Pré-visualização do build
+yarn workspace frontend preview
+```
 
 ---
 
@@ -52,56 +72,78 @@ Este é o projeto frontend do monorepo **QA Solar**, construído com **Vue 3**, 
 ```plaintext
 frontend/
 ├── src/
-│   ├── assets/        # Recursos estáticos (imagens, fontes, etc.)
-│   ├── components/    # Componentes Vue reutilizáveis
-│   ├── modules/       # Páginas principais da aplicação
-|   ├── plugins/       # Plugins
-│   ├── router/        # Configuração de rotas com Vue Router
-|   ├── utils/         # Configuração de de utilitários
-│   ├── App.vue        # Componente raiz
-│   └── main.ts        # Ponto de entrada do projeto
-├── public/            # Arquivos públicos (ex.: index.html)
-├── package.json       # Configuração do projeto e dependências
-└── vite.config.ts     # Configuração do Vite
+│   ├── assets/              # Recursos estáticos (imagens, fontes, etc.)
+│   ├── components/          # Componentes Vue reutilizáveis
+│   │   ├── AppHeader.vue    # Cabeçalho da aplicação
+│   │   ├── AppFooter.vue    # Rodapé da aplicação
+│   │   ├── AppHome.vue      # Página inicial
+│   │   └── LoadingErrorState.vue # Estados de carregamento e erro
+│   ├── composables/         # Composables Vue 3 (lógica reutilizável)
+│   ├── modules/             # Módulos da aplicação
+│   │   ├── auth/           # Módulo de autenticação
+│   │   └── user/           # Módulo de usuários
+│   ├── plugins/            # Plugins da aplicação
+│   │   ├── index.ts        # Registro de plugins
+│   │   ├── vueQuery.ts     # Configuração do TanStack Query
+│   │   └── vueToastify.ts  # Configuração das notificações
+│   ├── router/             # Configuração de rotas com Vue Router
+│   ├── services/           # Serviços e comunicação com API
+│   │   └── api.ts         # Cliente Axios e configurações
+│   ├── types/              # Definições de tipos TypeScript
+│   ├── utils/              # Utilitários e helpers
+│   ├── App.vue             # Componente raiz da aplicação
+│   └── main.ts             # Ponto de entrada do projeto
+├── public/                 # Arquivos públicos (ex.: index.html)
+├── .env.example            # Exemplo de variáveis de ambiente
+├── package.json            # Configuração do projeto e dependências
+├── vite.config.ts          # Configuração do Vite
+└── tsconfig.json           # Configuração do TypeScript
 ```
 
 ---
 
 ## 🔧 Scripts Disponíveis
 
-- **`yarn serve`**: Inicia o servidor de desenvolvimento.  
-- **`yarn build`**: Gera o build para produção.  
-- **`yarn preview`**: Exibe o build gerado em modo de visualização.  
-- **`yarn lint`**: Executa o ESLint para verificar e corrigir problemas de linting.  
-- **`yarn format`**: Formata o código com Prettier.  
-- **`yarn type-check`**: Verifica erros de tipo usando `vue-tsc`.  
+### **Desenvolvimento**
+- **`yarn dev`**: Inicia o servidor de desenvolvimento na porta 8181
+- **`yarn build`**: Gera o build para produção
+- **`yarn preview`**: Exibe o build gerado em modo de visualização
+
+### **Qualidade de Código**
+- **`yarn lint`**: Executa o ESLint para verificar e corrigir problemas
+- **`yarn format`**: Formata o código com Prettier
+- **`yarn type-check`**: Verifica erros de tipo usando `vue-tsc`
 
 ---
 
-## 🛡 Configuração de Lint e Formatação
+## 🧪 Testes
 
-- **ESLint**: Configurado para seguir boas práticas com regras específicas para Vue e TypeScript.  
-- **Prettier**: Para manter a consistência na formatação do código.  
-- Ambos podem ser executados com os scripts `lint` e `format`.
+### **Cobertura de Código**
+O projeto está configurado com:
+- **Istanbul**: Plugin para cobertura de código
+- **C8**: Gerador de relatórios de cobertura
 
----
-
-## 🌱 Instalação de Dependências Adicionais
-
-Caso precise instalar novas dependências, utilize o Yarn:
-```bash
-yarn add <package>           # Para dependências de produção
-yarn add -D <package>        # Para dependências de desenvolvimento
-```
+### **Configuração de Testes**
+- **Vite Plugin Istanbul**: Configurado para cobertura de arquivos `.js`, `.ts` e `.vue`
+- **Source Maps**: Habilitados para melhor debugging
+- **Vue DevTools**: Plugin habilitado para desenvolvimento
 
 ---
 
-## 🤝 Contribuição
+## 📚 Configuração e Plugins
 
-Contribuições são bem-vindas! Certifique-se de seguir as boas práticas de commit e de manter o código alinhado com o padrão definido.
+### **Plugins Registrados**
+- **Vue Router**: Gerenciamento de rotas
+- **Vue3-Toastify**: Sistema de notificações
+- **TanStack Vue Query**: Gerenciamento de estado do servidor
 
----
+### **Configurações do Vite**
+- **Porta**: 8181 (configurada no servidor de desenvolvimento)
+- **Alias**: `@` aponta para `./src`
+- **Source Maps**: Habilitados para produção
+- **Vue DevTools**: Plugin habilitado
 
-## 📜 Licença
-
-Este projeto está licenciado sob a [MIT License](../LICENSE).
+### **Configurações do TypeScript**
+- **Configuração Node 22**: Otimizada para Node.js 22
+- **Vue TSConfig**: Configuração específica para Vue 3
+- **Strict Mode**: Habilitado para maior segurança

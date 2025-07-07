@@ -3,19 +3,23 @@
 ![Cypress Version](https://img.shields.io/badge/cypress-v14.0.3-green)
 [![QA-Solar](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/count/en7s34/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/en7s34/runs)
 
-## 📝 Descrição
-
 Projeto de testes automatizados utilizando Cypress para validação de interface de usuário (UI). Este projeto faz parte de um Monorepo e é focado em garantir a qualidade do frontend, incluindo tanto testes end-to-end (E2E) quanto testes de componentes.
 
-## ✅ Pré-requisitos
+## 📋 Índice
 
-- **Node.js** v22.1.0
-- **Yarn** v1.22.22
-- Variáveis de ambiente configuradas no arquivo `.env`
+- [Cypress UI Tests](#cypress-ui-tests)
+  - [📋 Índice](#-índice)
+  - [🔧 Como executar](#-como-executar)
+  - [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+  - [🧪 Tipos de Testes](#-tipos-de-testes)
+    - [Testes End-to-End (E2E)](#testes-end-to-end-e2e)
+    - [Testes de Componentes](#testes-de-componentes)
+  - [📝 Exemplos de Testes](#-exemplos-de-testes)
+    - [Exemplo de Teste E2E - Formulário de Registro](#exemplo-de-teste-e2e---formulário-de-registro)
+    - [Exemplo de Teste de Componente - Formulário](#exemplo-de-teste-de-componente---formulário)
+  - [📊 Relatórios e Cobertura](#-relatórios-e-cobertura)
 
-## ⚙️ Configuração
-
-### 🔧 Como executar
+## 🔧 Como executar
 
 - Abrir o Cypress:
    - **Modo interativo**:

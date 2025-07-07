@@ -26,7 +26,7 @@ O objetivo deste projeto é servir como uma base para aprender, experimentar e e
 O monorepo está dividido em três áreas principais:
 
 - **Frontend**: Implementação utilizando **Vue 3** e **Composition API**.
-- **Backend**: Construído com **Node.js** e **Express**, conectado a um banco de dados **PostgreSQL**.
+- **Backend**: Construído com **TypeScript** e **NestJS**, conectado a um banco de dados **PostgreSQL**.
 - **Testes**: Foco em automação de testes E2E e outros tipos, com frameworks robustos e atuais.
 
 ---
@@ -53,4 +53,14 @@ Desenvolvido por **Leonardo Paixão**.
 
 ---
 
-Contribuições, sugestões ou dúvidas são sempre bem-vindas! 
+## 📚 Documentação
+
+- Projetos de Desenvolvimento:
+  - [Backend](./apps/backend/README.md)
+  - [Frontend](./apps/frontend/README.md)
+
+- Projetos de Testes:
+  - [Cypress](./tests/cypress/README.md)
+  - [Playwright](./tests/playwright/README.md)
+  - [Robot Framework](./tests/robot/README.md)
+  - [Performance](./tests/performance/README.md)

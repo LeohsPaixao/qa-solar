@@ -1,8 +1,21 @@
 # QA Solar - Testes de Performance
 
-Este projeto contém os testes de performance para o QA Solar utilizando o K6.
+![K6 Version](https://img.shields.io/badge/k6-v0.49.0-blue)
 
-## Estrutura do Projeto
+Projeto de testes de performance utilizando o K6. Este projeto faz parte do monorepo QA Solar e foca em cenários complexos de testes, abrangendo tanto UI quanto API.
+
+## 📋 Índice
+
+- [QA Solar - Testes de Performance](#qa-solar---testes-de-performance)
+  - [📋 Índice](#-índice)
+  - [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+  - [🔧 Instalação](#-instalação)
+  - [🚀 Executando os Testes](#-executando-os-testes)
+  - [📝 Cenários de Teste](#-cenários-de-teste)
+  - [📝 Adicionando Novos Testes](#-adicionando-novos-testes)
+  - [📊 Relatórios](#-relatórios)
+
+## 📂 Estrutura do Projeto
 
 ```
 performance/
@@ -21,7 +34,7 @@ performance/
 └── README.md
 ```
 
-## Instalação
+## 🔧 Instalação
 
 1. Instale o K6 seguindo as instruções em [https://k6.io/docs/get-started/installation/](https://k6.io/docs/get-started/installation/)
 2. Instale as dependências do projeto:
@@ -29,7 +42,7 @@ performance/
    yarn install
    ```
 
-## Executando os Testes
+## 🚀 Executando os Testes
 
 O projeto possui scripts pré-configurados para executar diferentes cenários de teste:
 
@@ -46,7 +59,7 @@ O projeto possui scripts pré-configurados para executar diferentes cenários de
   yarn run test -- --env SCENARIO=login_ramp       # Teste de login com aumento progressivo
   ```
 
-## Cenários de Teste
+## 📝 Cenários de Teste
 
 1. **Login Bem-sucedido (login_success)**
    - 1 usuário virtual
@@ -68,7 +81,7 @@ O projeto possui scripts pré-configurados para executar diferentes cenários de
    - Aumento para 50 usuários em 30s
    - Redução gradual para 0 usuários em 30s
 
-## Adicionando Novos Testes
+## 📝 Adicionando Novos Testes
 
 Para adicionar novos testes:
 
@@ -77,6 +90,6 @@ Para adicionar novos testes:
 3. Adicione os cenários correspondentes em `k6/src/config/scenarios.js`
 4. Atualize o `k6/src/index.js` para incluir os novos testes
 
-## Relatórios
+## 📊 Relatórios
 
 Os relatórios são gerados automaticamente após a execução dos testes usando o plugin k6-html-reporter. 
