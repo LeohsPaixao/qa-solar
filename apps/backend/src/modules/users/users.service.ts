@@ -1,47 +1,39 @@
-import { ConflictException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
-import * as bcrypt from 'bcryptjs';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+interface AuthenticatedRequest {
+  user: {
+    id: number;
+    email: string;
+    full_name: string;
+    social_name?: string;
+    phone?: string;
+    created_at: Date;
+    updated_at: Date;
+  };
+}
+
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
-    const { full_name, social_name, doc_type, phone, email, document, password } = createUserDto;
+    const { password, ...userData } = createUserDto;
 
-    const existingDocument = await this.prisma.user.findUnique({
-      where: { document },
-    });
-
-    if (existingDocument) {
-      throw new ConflictException('CPF ou CNPJ já está em uso.');
-    }
-
-    const existingEmail = await this.prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (existingEmail) {
-      throw new ConflictException('E-mail já está em uso.');
-    }
-
+    const bcrypt = require('bcryptjs');
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await this.prisma.user.create({
       data: {
-        full_name,
-        social_name,
-        doc_type,
-        phone,
-        email,
-        document,
+        ...userData,
         password: hashedPassword,
       },
     });
 
     const result = Object.fromEntries(Object.entries(user).filter(([key]) => key !== 'password'));
+
     return result;
   }
 
@@ -49,10 +41,12 @@ export class UsersService {
     const users = await this.prisma.user.findMany({
       select: {
         id: true,
-        full_name: true,
         email: true,
-        document: true,
+        full_name: true,
+        social_name: true,
         phone: true,
+        document: true,
+        doc_type: true,
         created_at: true,
         updated_at: true,
       },
@@ -62,7 +56,7 @@ export class UsersService {
       throw new NotFoundException('Nenhum usuário encontrado.');
     }
 
-    return { users };
+    return users;
   }
 
   async findOne(id: number) {
@@ -70,25 +64,15 @@ export class UsersService {
       where: { id },
       select: {
         id: true,
+        email: true,
         full_name: true,
         social_name: true,
-        email: true,
         phone: true,
+        document: true,
+        doc_type: true,
         created_at: true,
         updated_at: true,
       },
-    });
-
-    if (!user) {
-      throw new NotFoundException(`Usuário com o ID: ${id} não encontrado.`);
-    }
-
-    return user;
-  }
-
-  async findByEmail(email: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { email },
     });
 
     if (!user) {
@@ -98,34 +82,50 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    const { full_name, social_name, phone_number } = updateUserDto;
+  async findByEmail(email: string) {
+    return await this.prisma.user.findUnique({
+      where: { email },
+    });
+  }
 
-    const user = await this.prisma.user.update({
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const userExists = await this.prisma.user.findUnique({
       where: { id },
-      data: {
-        full_name,
-        social_name: social_name || null,
-        phone: phone_number || null,
-        updated_at: new Date(),
-      },
     });
 
-    if (!user) {
+    if (!userExists) {
       throw new NotFoundException('Usuário não encontrado para atualizar.');
     }
 
-    return user;
+    const updatedUser = await this.prisma.user.update({
+      where: { id },
+      data: updateUserDto,
+      select: {
+        id: true,
+        email: true,
+        full_name: true,
+        social_name: true,
+        phone: true,
+        document: true,
+        doc_type: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
+
+    return updatedUser;
   }
 
-  async deleteUsers(ids: number[], req?: any) {
+  async deleteUsers(ids: number[], req?: AuthenticatedRequest) {
     if (req && ids.includes(req.user.id)) {
-      throw new HttpException('Você não pode excluir o usuário logado.', HttpStatus.BAD_REQUEST);
+      throw new BadRequestException('Você não pode excluir o usuário logado.');
     }
 
     const result = await this.prisma.user.deleteMany({
       where: {
-        id: { in: ids },
+        id: {
+          in: ids,
+        },
       },
     });
 

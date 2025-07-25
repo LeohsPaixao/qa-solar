@@ -1,11 +1,23 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Patch, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { DeleteUserDto } from '../users/dto/delete-user.dto';
-import { UpdateUserDto } from '../users/dto/update-user.dto';
-import { UserDto } from '../users/dto/user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { DeleteUserDto } from './dto/delete-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
+
+interface AuthenticatedRequest {
+  user: {
+    id: number;
+    email: string;
+    full_name: string;
+    social_name?: string;
+    phone?: string;
+    created_at: Date;
+    updated_at: Date;
+  };
+}
 
 @ApiTags('users')
 @Controller('users')
@@ -15,13 +27,14 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Criar um novo usuário' })
-  @ApiResponse({ status: 201, description: 'Usuário criado com sucesso.' })
-  @ApiResponse({ status: 409, description: 'CPF/CNPJ ou email já está em uso.' })
+  @ApiResponse({ status: 201, description: 'Usuário criado com sucesso', type: UserDto })
+  @ApiResponse({ status: 400, description: 'Dados inválidos' })
+  @ApiResponse({ status: 409, description: 'E-mail já cadastrado' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
   async create(@Body() createUserDto: CreateUserDto) {
     const user = await this.usersService.create(createUserDto);
     return {
-      message: 'Usuário cadastrado com sucesso!',
+      message: 'Usuário criado com sucesso.',
       user,
     };
   }
@@ -31,8 +44,7 @@ export class UsersController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Listar todos os usuários' })
-  @ApiResponse({ status: 200, description: 'Lista de usuários retornada com sucesso.' })
-  @ApiResponse({ status: 404, description: 'Nenhum usuário encontrado.' })
+  @ApiResponse({ status: 200, description: 'Lista de usuários', type: [UserDto] })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
   async findAll() {
     return await this.usersService.findAll();
@@ -46,7 +58,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Usuário encontrado', type: UserDto })
   @ApiResponse({ status: 404, description: 'Usuário não encontrado' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
-  async getMe(@Request() req: any) {
+  async getMe(@Request() req: AuthenticatedRequest) {
     return await this.usersService.findOne(req.user.id);
   }
 
@@ -58,7 +70,7 @@ export class UsersController {
   @ApiResponse({ status: 200, description: 'Usuário alterado com sucesso', type: UserDto })
   @ApiResponse({ status: 404, description: 'Usuário não encontrado para atualizar' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
-  async update(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
+  async update(@Request() req: AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto) {
     const user = await this.usersService.update(req.user.id, updateUserDto);
     return {
       message: 'Usuário alterado com sucesso.',
@@ -75,7 +87,7 @@ export class UsersController {
   @ApiResponse({ status: 400, description: 'Você não pode excluir o usuário logado.' })
   @ApiResponse({ status: 404, description: 'Nenhum usuário encontrado para excluir' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
-  async delete(@Body() deleteUserDto: DeleteUserDto, @Request() req: any) {
+  async delete(@Body() deleteUserDto: DeleteUserDto, @Request() req: AuthenticatedRequest) {
     const deletedUsers = await this.usersService.deleteUsers(deleteUserDto.ids, req);
     return {
       message: `${deletedUsers.count} usuário(s) excluído(s) com sucesso!`,

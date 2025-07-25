@@ -1,5 +1,5 @@
 // Tipos para respostas da API
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   data: T;
   message?: string;
   status: number;
@@ -27,8 +27,8 @@ export interface QueryConfig {
 }
 
 // Tipos para configuração de mutations
-export interface MutationConfig {
-  onSuccess?: (data: any) => void;
-  onError?: (error: any) => void;
-  onSettled?: (data: any, error: any) => void;
+export interface MutationConfig<TData = unknown, TError = unknown> {
+  onSuccess?: (data: TData) => void;
+  onError?: (error: TError) => void;
+  onSettled?: (data: TData | undefined, error: TError | null) => void;
 }

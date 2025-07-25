@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
+import type { ApiErrorResponse } from '../types/error.types';
 import type { LogoutRequest, LogoutResponse } from '../types/user.types';
 
 const logoutUser = async (): Promise<LogoutResponse> => {
@@ -35,7 +36,7 @@ export const useLogout = () => {
 
   watch(
     () => mutation.error.value,
-    (error: any) => {
+    (error: ApiErrorResponse | null) => {
       if (error) {
         const errorMessage = error.response?.data?.message || 'Erro ao realizar logout';
         localStorage.removeItem('user-token');

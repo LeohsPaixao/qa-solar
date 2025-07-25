@@ -1,8 +1,8 @@
-import { useQuery, useQueryClient } from '@tanstack/vue-query';
+import { useQuery } from '@tanstack/vue-query';
 import { watch } from 'vue';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { useRouter } from 'vue-router';
 import api from '../services/api';
+import type { ApiErrorResponse } from '../types/error.types';
 import type { User } from '../types/user.types';
 
 const fetchUser = async (): Promise<User> => {
@@ -11,37 +11,25 @@ const fetchUser = async (): Promise<User> => {
 };
 
 export const useFetchUser = () => {
-  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const query = useQuery({
     queryKey: ['user'],
     queryFn: fetchUser,
-    staleTime: 1000 * 60 * 5,
-    retry: 1,
+    staleTime: 1000 * 60 * 5, // 5 minutos
+    retry: 2,
   });
 
   watch(
-    () => query.data.value,
-    (data: User | undefined) => {
-      if (data) {
-        queryClient.setQueryData(['user'], data);
-      }
-    },
-  );
-
-  watch(
     () => query.error.value,
-    (error: any) => {
+    (error: ApiErrorResponse | null) => {
       if (error) {
-        const errorMessage = error.response?.data?.message || 'Erro ao buscar usuário';
         const errorStatus = error.response?.status;
 
         if (errorStatus === 401) {
-          toast.error('Sessão expirada. Por favor, faça login novamente.', { autoClose: 5000 });
+          localStorage.removeItem('user-token');
         } else if (errorStatus === 404) {
-          toast.error('Usuário não encontrado.', { autoClose: 5000 });
-        } else {
-          toast.error(errorMessage, { autoClose: 5000 });
+          router.push('/');
         }
       }
     },

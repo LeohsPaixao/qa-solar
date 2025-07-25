@@ -1,9 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { useMutation } from '@tanstack/vue-query';
 import { watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
+import type { ApiErrorResponse } from '../types/error.types';
 import type { RegisterData, RegisterResponse } from '../types/user.types';
 
 const registerUser = async (userData: RegisterData): Promise<RegisterResponse> => {
@@ -12,8 +13,8 @@ const registerUser = async (userData: RegisterData): Promise<RegisterResponse> =
 };
 
 export const useRegisterUser = () => {
-  const queryClient = useQueryClient();
   const router = useRouter();
+
   const mutation = useMutation({
     mutationFn: registerUser,
   });
@@ -22,19 +23,17 @@ export const useRegisterUser = () => {
     () => mutation.data.value,
     async (data: RegisterResponse | undefined) => {
       if (data) {
-        queryClient.resetQueries();
-        queryClient.invalidateQueries();
+        toast.success(data.message, { autoClose: 3000 });
         await router.push('/');
-        toast.success(data.message || 'Usuário registrado com sucesso!', { autoClose: 3000 });
       }
     },
   );
 
   watch(
     () => mutation.error.value,
-    (error: any) => {
+    (error: ApiErrorResponse | null) => {
       if (error) {
-        const errorMessage = error.response?.data?.message || 'Erro ao registrar usuário';
+        const errorMessage = error.response?.data?.message || 'Erro ao cadastrar usuário';
         toast.error(errorMessage, { autoClose: 5000 });
       }
     },

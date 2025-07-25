@@ -3,20 +3,21 @@ import { watch } from 'vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import api from '../services/api';
+import type { ApiErrorResponse } from '../types/error.types';
 import type { DeleteUserRequest, DeleteUserResponse } from '../types/user.types';
 
-const deleteUser = async (userIds: number[]): Promise<DeleteUserResponse> => {
+const deleteUsers = async (ids: number[]): Promise<DeleteUserResponse> => {
   const response = await api.delete<DeleteUserResponse>('/users/delete', {
-    data: { ids: userIds } as DeleteUserRequest,
+    data: { ids } as DeleteUserRequest,
   });
   return response.data;
 };
 
-export const useDeleteUser = () => {
+export const useDeleteUsers = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: deleteUser,
+    mutationFn: deleteUsers,
   });
 
   watch(
@@ -31,9 +32,9 @@ export const useDeleteUser = () => {
 
   watch(
     () => mutation.error.value,
-    (error: any) => {
+    (error: ApiErrorResponse | null) => {
       if (error) {
-        const errorMessage = error.response?.data?.message || 'Erro ao excluir usuário(s)';
+        const errorMessage = error.response?.data?.message || 'Erro ao excluir usuários';
         toast.error(errorMessage, { autoClose: 5000 });
       }
     },

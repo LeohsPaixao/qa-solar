@@ -1,7 +1,7 @@
 // Tipos para configuração de requisições
 export interface RequestConfig {
   headers?: Record<string, string>;
-  params?: Record<string, any>;
+  params?: Record<string, unknown>;
   timeout?: number;
 }
 
@@ -13,7 +13,7 @@ export interface ApiErrorResponse {
 }
 
 // Tipos para configuração de interceptadores
-export interface InterceptorConfig {
-  onFulfilled?: (value: any) => any | Promise<any>;
-  onRejected?: (error: any) => any | Promise<any>;
+export interface InterceptorConfig<T = unknown> {
+  onFulfilled?: (value: T) => T | Promise<T>;
+  onRejected?: (error: unknown) => unknown | Promise<unknown>;
 }
