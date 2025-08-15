@@ -34,15 +34,7 @@ export const useFetchUser = () => {
     (error: any) => {
       if (error) {
         const errorMessage = error.response?.data?.message || 'Erro ao buscar usuário';
-        const errorStatus = error.response?.status;
-
-        if (errorStatus === 401) {
-          toast.error('Sessão expirada. Por favor, faça login novamente.', { autoClose: 5000 });
-        } else if (errorStatus === 404) {
-          toast.error('Usuário não encontrado.', { autoClose: 5000 });
-        } else {
-          toast.error(errorMessage, { autoClose: 5000 });
-        }
+        toast.error(errorMessage, { autoClose: 5000 });
       }
     },
   );

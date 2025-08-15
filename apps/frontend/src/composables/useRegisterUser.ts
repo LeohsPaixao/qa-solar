@@ -25,7 +25,7 @@ export const useRegisterUser = () => {
         queryClient.resetQueries();
         queryClient.invalidateQueries();
         await router.push('/');
-        toast.success(data.message || 'Usuário registrado com sucesso!', { autoClose: 3000 });
+        toast.success(data.message || 'Usuário criado com sucesso!', { autoClose: 3000 });
       }
     },
   );

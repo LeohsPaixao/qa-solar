@@ -24,7 +24,7 @@ export const useDeleteUser = () => {
     (data: DeleteUserResponse | undefined) => {
       if (data) {
         queryClient.invalidateQueries({ queryKey: ['users'] });
-        toast.success(data.message, { autoClose: 3000 });
+        toast.success(data.message || 'Usuário(s) excluído(s) com sucesso!', { autoClose: 3000 });
       }
     },
   );

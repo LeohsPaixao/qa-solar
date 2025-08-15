@@ -62,7 +62,7 @@ describe('Users', () => {
       const response = await request(app.getHttpServer()).post('/users').send(novoUsuario);
 
       expect(response.statusCode).toBe(201);
-      expect(response.body.message).toBe('Usuário cadastrado com sucesso!');
+      expect(response.body.message).toBe('Usuário criado com sucesso!');
     });
 
     test('Deve retornar 409 para e-mail em uso', async () => {

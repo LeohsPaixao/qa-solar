@@ -130,7 +130,7 @@ describe('UserController', () => {
     const result = await controller.create(createUserDto);
 
     expect(result).toEqual({
-      message: 'Usuário cadastrado com sucesso!',
+      message: 'Usuário criado com sucesso!',
       user: mockUserWithoutPassword,
     });
 

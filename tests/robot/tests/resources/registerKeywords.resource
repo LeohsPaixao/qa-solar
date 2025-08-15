@@ -40,7 +40,7 @@ Verificar A Mensagens De Erro Nos Campos
 Verificar A Mensagem De Sucesso No Toast
     Wait For Elements State    css=[data-testid="toast-content"]    visible
     ${toastText}=    Get Text    css=[data-testid="toast-content"]
-    Should Be Equal    ${toastText}    Usuário cadastrado com sucesso!
+    Should Be Equal    ${toastText}    Usuário criado com sucesso!
 
 Clicar No Botão Cadastrar
     Click    css=[data-testid="btn-register"]

@@ -55,6 +55,6 @@ describe('Tela de Perfil', () => {
     cy.get('[data-testid="input-phone-profile"]').type(`{selectall} ${faker.phone.number({ style: 'national' })}`);
     cy.get('[data-testid="input-socialname-profile"]').type(`{selectall} ${faker.person.firstName()}`);
     cy.get('[data-testid="btn-save-profile"]').should('be.enabled').click();
-    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Perfil atualizado com sucesso!');
+    cy.get('[data-testid="toast-content"]').should('be.visible').and('have.text', 'Usuário alterado com sucesso!');
   });
 });

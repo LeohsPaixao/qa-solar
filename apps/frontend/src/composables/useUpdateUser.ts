@@ -23,7 +23,7 @@ export const useUpdateUser = () => {
       if (data) {
         queryClient.setQueryData(['user'], data.user);
         queryClient.invalidateQueries({ queryKey: ['user'] });
-        toast.success('Perfil atualizado com sucesso!', { autoClose: 3000 });
+        toast.success(data.message || 'Usuário alterado com sucesso!', { autoClose: 3000 });
       }
     },
   );

@@ -60,4 +60,4 @@ Cenário 7: Deveria Ser Possível Salvar Alteração
     Preencher Os Campos Do Formulário    phone-profile    ${phone}
     Preencher Os Campos Do Formulário    socialname-profile    ${socialName}
     Clicar No Botão Salvar    [data-testid="btn-save-profile"]
-    Verificar A Mensagem Do Toast Ao Tentar Atualizar    Perfil atualizado com sucesso!
+    Verificar A Mensagem Do Toast Ao Tentar Atualizar    Usuário alterado com sucesso!

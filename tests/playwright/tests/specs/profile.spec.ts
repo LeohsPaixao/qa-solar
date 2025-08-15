@@ -60,6 +60,6 @@ test.describe('Tela de Perfil', {
     await page.locator('[data-testid="input-socialname-profile"]').fill(socialName);
     await page.locator('[data-testid="btn-save-profile"]').click();
     await expect(page.locator('[data-testid="toast-content"]')).toBeVisible();
-    await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Perfil atualizado com sucesso!');
+    await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Usuário alterado com sucesso!');
   });
 });
