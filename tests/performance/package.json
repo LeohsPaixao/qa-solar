@@ -4,6 +4,7 @@
   "description": "Testes de performance para o QA Solar",
   "main": "dist/index.js",
   "author": "QA Solar",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "build:performance": "rimraf dist && ts-node build.ts",
