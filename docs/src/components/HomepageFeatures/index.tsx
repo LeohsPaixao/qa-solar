@@ -1,7 +1,4 @@
-import Heading from '@theme/Heading';
-import clsx from 'clsx';
 import type { ComponentProps, ComponentType, ReactNode } from 'react';
-import styles from './styles.module.css';
 
 type FeatureItem = {
   title: string;
@@ -11,32 +8,77 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Backend - NestJS',
+    Svg: () => (
+      <div style={{ 
+        width: '200px', 
+        height: '200px', 
+        background: 'linear-gradient(135deg, #FF570A, #ff6b2b)',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '48px',
+        fontWeight: 'bold'
+      }}>
+        🚀
+      </div>
+    ),
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        API robusta construída com <strong>NestJS</strong> e <strong>TypeScript</strong>, 
+        conectada a um banco de dados <strong>PostgreSQL</strong> utilizando <strong>Prisma</strong> como ORM.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Frontend - Vue 3',
+    Svg: () => (
+      <div style={{ 
+        width: '200px', 
+        height: '200px', 
+        background: 'linear-gradient(135deg, #42b883, #35495e)',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '48px',
+        fontWeight: 'bold'
+      }}>
+        ⚡
+      </div>
+    ),
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Interface moderna construída com <strong>Vue 3</strong> e <strong>Composition API</strong>, 
+        utilizando <strong>Vite</strong> para desenvolvimento rápido e eficiente.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Testes Automatizados',
+    Svg: () => (
+      <div style={{ 
+        width: '200px', 
+        height: '200px', 
+        background: 'linear-gradient(135deg, #00d4aa, #00b894)',
+        borderRadius: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white',
+        fontSize: '48px',
+        fontWeight: 'bold'
+      }}>
+        🧪
+      </div>
+    ),
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Suíte completa de testes com <strong>Cypress</strong>, <strong> Playwright</strong>, 
+        <strong> Robot Framework</strong> e <strong>K6</strong> para performance.
       </>
     ),
   },
@@ -44,13 +86,37 @@ const FeatureList: FeatureItem[] = [
 
 function Feature({ title, Svg, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" aria-label={title} />
+    <div style={{
+      flex: '1',
+      minWidth: '300px',
+      maxWidth: '400px',
+      textAlign: 'center',
+      padding: '2rem 1rem',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
+      <div style={{ marginBottom: '1rem' }}>
+        <Svg role="img" aria-label={title} />
       </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
+      <div style={{ width: '100%' }}>
+        <h3 style={{ 
+          marginTop: '0', 
+          marginBottom: '0.5rem',
+          textAlign: 'center',
+          fontSize: '1.5rem',
+          fontWeight: 'bold'
+        }}>
+          {title}
+        </h3>
+        <p style={{ 
+          textAlign: 'center',
+          maxWidth: '300px',
+          margin: '0 auto',
+          lineHeight: '1.5'
+        }}>
+          {description}
+        </p>
       </div>
     </div>
   );
@@ -58,9 +124,24 @@ function Feature({ title, Svg, description }: FeatureItem) {
 
 export default function HomepageFeatures(): ReactNode {
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
+    <section style={{
+      display: 'flex',
+      alignItems: 'center',
+      padding: '4rem 0',
+      width: '100%'
+    }}>
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 1rem'
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          gap: '2rem',
+          flexWrap: 'wrap'
+        }}>
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
           ))}

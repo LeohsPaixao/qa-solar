@@ -2,46 +2,31 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Home
 
-Let's discover **Docusaurus in less than 5 minutes**.
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/4c269162-e3a0-4199-a65b-b2f51bb74a57" alt="logoqae2e" width="200"/>
+</div>
 
-## Getting Started
 
-Get started by **creating a new site**.
+## 🚀 Sobre o Projeto
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+O **QA Solar** é um projeto monorepo desenvolvido para fins de estudo e aprimoramento de conhecimentos em programação, tanto no backend quanto no frontend. O foco principal do projeto está no desenvolvimento e na prática de testes, explorando frameworks amplamente conhecidos, como **Cypress**, **Playwright** e **Robot Framework**, para criar testes de interface de usuário (UI Tests), componentes e, possivelmente, APIs.
 
-### What you'll need
+## 🎯 Propósito
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+O objetivo deste projeto é servir como uma base para aprender, experimentar e evoluir nas práticas de desenvolvimento de software com ênfase em qualidade e confiabilidade. Aqui, desenvolvedores podem explorar diferentes tecnologias, melhorar suas habilidades e adotar boas práticas de programação e testes.
 
-## Generate a new site
+## 🛠 Estrutura do Monorepo
 
-Generate a new Docusaurus site using the **classic template**.
+O monorepo está dividido em três áreas principais:
 
-The classic template will automatically be added to your project after you run the command:
+- **Frontend**: Implementação utilizando **Vue 3** e **Composition API**
+- **Backend**: Construído com **TypeScript** e **NestJS**, conectado a um banco de dados **PostgreSQL**
+- **Testes**: Foco em automação de testes E2E e outros tipos, com frameworks robustos e atuais
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+## 🔖 Padrão de Commits e Atualizações
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+Este projeto utiliza **commitlint** para validar mensagens de commit, assegurando que estejam no padrão correto, o que ajuda a manter a consistência e clareza no histórico do repositório.
 
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+Além disso, utiliza **Changesets** para gerenciar mudanças e manter um **ChangeLog** atualizado, garantindo que o progresso do projeto seja transparente e rastreável.
