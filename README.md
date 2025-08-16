@@ -15,52 +15,6 @@ Este é um projeto monorepo desenvolvido para fins de estudo e aprimoramento de 
 
 ---
 
-## 🚀 Propósito
-
-O objetivo deste projeto é servir como uma base para aprender, experimentar e evoluir nas práticas de desenvolvimento de software com ênfase em qualidade e confiabilidade. Aqui, desenvolvedores podem explorar diferentes tecnologias, melhorar suas habilidades e adotar boas práticas de programação e testes.
-
----
-
-## 🛠 Estrutura do Monorepo
-
-O monorepo está dividido em três áreas principais:
-
-- **Frontend**: Implementação utilizando **Vue 3** e **Composition API**.
-- **Backend**: Construído com **TypeScript** e **NestJS**, conectado a um banco de dados **PostgreSQL**.
-- **Testes**: Foco em automação de testes E2E e outros tipos, com frameworks robustos e atuais.
-
----
-
-## 🔖 Padrão de Commits e Atualizações
-
-Este projeto utiliza **commitlint** para validar mensagens de commit, assegurando que estejam no padrão correto, o que ajuda a manter a consistência e clareza no histórico do repositório.
-
-Além disso, utiliza **Changesets** para gerenciar mudanças e manter um **ChangeLog** atualizado, garantindo que o progresso do projeto seja transparente e rastreável.
-
----
-
-## 📜 Licença
-
-Este projeto está licenciado sob a [MIT License](./LICENSE).
-
----
-
-## ✍️ Autor
-
-Desenvolvido por **Leonardo Paixão**.
-
-[GitHub Profile](https://github.com/LeohsPaixao)
-
----
-
 ## 📚 Documentação
 
-- Projetos de Desenvolvimento:
-  - [Backend](./apps/backend/README.md)
-  - [Frontend](./apps/frontend/README.md)
-
-- Projetos de Testes:
-  - [Cypress](./tests/cypress/README.md)
-  - [Playwright](./tests/playwright/README.md)
-  - [Robot Framework](./tests/robot/README.md)
-  - [Performance](./tests/performance/README.md)
+  > Acesse a documentação [aqui](https://leohspaixao.github.io/qa-solar/)
