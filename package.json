@@ -10,7 +10,8 @@
   "workspaces": [
     "apps/*",
     "tests/*",
-    "packages/*"
+    "packages/*",
+    "docs"
   ],
   "scripts": {
     "docker:build": "docker compose up --build",
@@ -53,5 +54,8 @@
     "lint-staged": "16.1.2",
     "turbo": "2.5.2",
     "typescript": "5.8.3"
+  },
+  "engines": {
+    "node": "22.1.0"
   }
 }

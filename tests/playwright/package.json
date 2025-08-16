@@ -4,7 +4,7 @@
   "description": "Project Tests Playwright",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
     "test": "playwright test",
     "play:install": "playwright install",
