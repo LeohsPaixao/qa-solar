@@ -6,8 +6,8 @@ on:
       - main
     paths:
       - 'docs/**'
-      - 'docusaurus.config.ts'
-      - 'sidebars.ts'
+      - 'docs/docusaurus.config.ts'
+      - 'docs/sidebars.ts'
 
 permissions:
   contents: write
