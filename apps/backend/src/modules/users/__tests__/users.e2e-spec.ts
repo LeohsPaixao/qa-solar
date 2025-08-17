@@ -144,7 +144,7 @@ describe('Users', () => {
       const response = await request(app.getHttpServer()).patch('/users/me').set('Authorization', `Bearer ${token}`).send(novoDado);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body.message).toBe('Usuário alterado com sucesso.');
+      expect(response.body.message).toBe('Usuário alterado com sucesso!');
     });
 
     test('Deve atualizar os dados do usuário sem socialName', async () => {
@@ -156,7 +156,7 @@ describe('Users', () => {
       const response = await request(app.getHttpServer()).patch('/users/me').set('Authorization', `Bearer ${token}`).send(novoDado);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body.message).toBe('Usuário alterado com sucesso.');
+      expect(response.body.message).toBe('Usuário alterado com sucesso!');
     });
 
     test('Deve atualizar os dados do usuário sem phone', async () => {
@@ -168,7 +168,7 @@ describe('Users', () => {
       const response = await request(app.getHttpServer()).patch('/users/me').set('Authorization', `Bearer ${token}`).send(novoDado);
 
       expect(response.statusCode).toBe(200);
-      expect(response.body.message).toBe('Usuário alterado com sucesso.');
+      expect(response.body.message).toBe('Usuário alterado com sucesso!');
     });
 
     test('Deve retornar 404 para usuário não encontrado', async () => {
