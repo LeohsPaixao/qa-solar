@@ -109,3 +109,8 @@ temp/
 !playwright.config.*
 !jest.config.*
 !vite.config.*
+
+# Docusaurus
+/docs/build
+/docs/.docusaurus
+/docs/.cache-loader

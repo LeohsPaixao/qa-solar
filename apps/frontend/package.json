@@ -1,11 +1,11 @@
 {
   "name": "frontend",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "frontend for QA Solar Project",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
   "type": "module",
-  "private": false,
+  "private": true,
   "scripts": {
     "dev": "rimraf dist && vite --host 127.0.0.1",
     "build": "rimraf dist && vite build",

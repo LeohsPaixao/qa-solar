@@ -1,4 +1,8 @@
-# Robot Framework Tests
+---
+sidebar_position: 6
+---
+
+# Robot Framework
 
 ![Python Version](https://img.shields.io/badge/python-v3.10.2-blue)
 ![Robot Framework Version](https://img.shields.io/badge/robot--framework-v7.1.1-green)
@@ -7,16 +11,13 @@ Projeto de testes automatizados utilizando Robot Framework com suporte a paralel
 
 ## 📋 Índice
 
-- [Robot Framework Tests](#robot-framework-tests)
-  - [📋 Índice](#-índice)
-  - [🔧 Instalação](#-instalação)
-  - [🚀 Como executar os testes](#-como-executar-os-testes)
-  - [📂 Estrutura do Projeto](#-estrutura-do-projeto)
-  - [🛠️ Automação com Makefile](#️-automação-com-makefile)
-  - [🏗️ Exemplo de Teste](#️-exemplo-de-teste)
-  - [📊 Relatórios](#-relatórios)
-  - [📚 Recursos Úteis](#-recursos-úteis)
-
+- [🔧 Instalação](#-instalação)
+- [🚀 Como executar os testes](#-como-executar-os-testes)
+- [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+- [🛠️ Automação com Makefile](#️-automação-com-makefile)
+- [🏗️ Exemplo de Teste](#️-exemplo-de-teste)
+- [📊 Relatórios](#-relatórios)
+- [📚 Recursos Úteis](#-recursos-úteis)
 
 ## 🔧 Instalação
 

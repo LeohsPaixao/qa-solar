@@ -1,10 +1,10 @@
 {
   "name": "backend",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "backend for QA Solar Project",
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
     "build": "nest build",
     "dev": "rimraf dist && nest start",

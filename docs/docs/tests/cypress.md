@@ -1,4 +1,8 @@
-# Cypress UI Tests
+---
+sidebar_position: 4
+---
+
+# Cypress
 
 ![Cypress Version](https://img.shields.io/badge/cypress-v14.0.3-green)
 [![QA-Solar](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/count/en7s34/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/en7s34/runs)
@@ -7,17 +11,11 @@ Projeto de testes automatizados utilizando Cypress para validação de interface
 
 ## 📋 Índice
 
-- [Cypress UI Tests](#cypress-ui-tests)
-  - [📋 Índice](#-índice)
-  - [🔧 Como executar](#-como-executar)
-  - [📂 Estrutura do Projeto](#-estrutura-do-projeto)
-  - [🧪 Tipos de Testes](#-tipos-de-testes)
-    - [Testes End-to-End (E2E)](#testes-end-to-end-e2e)
-    - [Testes de Componentes](#testes-de-componentes)
-  - [📝 Exemplos de Testes](#-exemplos-de-testes)
-    - [Exemplo de Teste E2E - Formulário de Registro](#exemplo-de-teste-e2e---formulário-de-registro)
-    - [Exemplo de Teste de Componente - Formulário](#exemplo-de-teste-de-componente---formulário)
-  - [📊 Relatórios e Cobertura](#-relatórios-e-cobertura)
+- [🔧 Como executar](#-como-executar)
+- [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+- [🧪 Tipos de Testes](#-tipos-de-testes)
+- [📝 Exemplos de Testes](#-exemplos-de-testes)
+- [📊 Relatórios e Cobertura](#-relatórios-e-cobertura)
 
 ## 🔧 Como executar
 

@@ -1,4 +1,8 @@
-# Playwright UI Tests
+---
+sidebar_position: 5
+---
+
+# Playwright
 
 ![Playwright Version](https://img.shields.io/badge/playwright-v1.49.0-orange)
 
@@ -6,13 +10,10 @@ Projeto de testes automatizados utilizando Playwright para validação de interf
 
 ## 📋 Índice
 
-- [Playwright UI Tests](#playwright-ui-tests)
-  - [📋 Índice](#-índice)
-  - [🔧 Como executar](#-como-executar)
-  - [📂 Estrutura do Projeto](#-estrutura-do-projeto)
-  - [Exemplos de Testes](#exemplos-de-testes)
-    - [Exemplo de Teste E2E - Formulário de Registro](#exemplo-de-teste-e2e---formulário-de-registro)
-  - [📊 Relatórios e Cobertura](#-relatórios-e-cobertura)
+- [🔧 Como executar](#-como-executar)
+- [📂 Estrutura do Projeto](#-estrutura-do-projeto)
+- [Exemplos de Testes](#exemplos-de-testes)
+- [📊 Relatórios e Cobertura](#-relatórios-e-cobertura)
 
 ## 🔧 Como executar
 

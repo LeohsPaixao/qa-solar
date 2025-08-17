@@ -250,7 +250,7 @@ describe('UserController', () => {
     const result = await controller.update(req, updateUserDto);
 
     expect(result).toEqual({
-      message: 'Usuário alterado com sucesso.',
+      message: 'Usuário alterado com sucesso!',
       user: mockUser,
     });
 
