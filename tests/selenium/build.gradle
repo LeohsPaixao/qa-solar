@@ -1,0 +1,111 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'com.qa.solar'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven {
+       url = "https://plugins.gradle.org/m2/"
+    }
+}
+
+ext {
+    seleniumVersion = '4.35.0'
+    webdriverManagerVersion = '5.7.0'
+    junitVersion = '5.10.2'    
+    assertjVersion = '3.25.3'
+    slf4jVersion = '2.0.11'
+    logbackVersion = '1.4.14'
+    commonsLang3Version = '3.14.0'
+}
+
+dependencies {
+    // Selenium WebDriver
+    testImplementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    testImplementation "org.seleniumhq.selenium:selenium-support:${seleniumVersion}"
+    
+    // WebDriver Manager
+    testImplementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
+    
+    // JUnit 5
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:${junitVersion}"  // remova se não for necessário
+    
+    // AssertJ para assertions mais expressivas
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    
+    // Logging
+    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testRuntimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
+    
+    // Utilitários básicos
+    testImplementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+}
+
+test {
+    useJUnitPlatform()
+    
+    // Configurações de execução
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    forkEvery = 0
+    
+    // Configurações de sistema
+    systemProperty 'browser', System.getProperty('browser', 'chrome')
+    systemProperty 'headless', System.getProperty('headless', 'false')
+    systemProperty 'baseUrl', System.getProperty('baseUrl', 'http://localhost:3000')
+    systemProperty 'implicitWait', System.getProperty('implicitWait', '10')
+    systemProperty 'explicitWait', System.getProperty('explicitWait', '10')
+    
+    // Configurações de relatório
+    reports {
+        html.required = true
+        junitXml.required = true
+    }
+    
+    // Configurações de output
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'full'
+        showStandardStreams = true
+    }
+}
+
+// Configuração do JaCoCo para cobertura de código
+jacocoTestReport {
+    reports {
+        html.required = true
+    }
+}
+
+
+
+// Tasks personalizadas (herdam config de tasks.withType(Test))
+tasks.register('runChromeTests', Test) {
+    systemProperty 'browser', 'chrome'
+}
+
+tasks.register('runHeadlessTests', Test) {
+    systemProperty 'headless', 'true'
+}
+
+// Configurações de compilação
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-parameters']
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-parameters']
+}
+
+// Configurações de limpeza
+clean {
+    delete 'build'
+}
