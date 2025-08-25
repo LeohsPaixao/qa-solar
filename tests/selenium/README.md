@@ -89,10 +89,6 @@ src/
 # Configurar timeouts
 ./gradlew test -DimplicitWait=15 -DexplicitWait=20
 
-# Configurar ambiente
-./gradlew test -Denvironment=staging
-```
-
 ## 📊 Relatórios
 
 ### Relatórios HTML (Gradle)
@@ -124,23 +120,20 @@ build/reports/jacoco/test/html/index.html
 |-------------|--------|-----------|
 | `browser` | `chrome` | Browser a ser usado (chrome) |
 | `headless` | `false` | Executar em modo headless |
-| `baseUrl` | `http://localhost:3000` | URL base da aplicação |
-| `implicitWait` | `10` | Timeout implícito em segundos |
-| `explicitWait` | `10` | Timeout explícito em segundos |
-
-### Configurações de Ambiente
+| Propriedade   | Padrão                          | Descrição                                       |
+|---------------|---------------------------------|-------------------------------------------------|
+| `browser`     | `chrome`                        | Browser a ser usado (chrome)                    |
+| `headless`    | `false`                         | Executar em modo headless                       |
+| `baseUrl`     | `http://localhost:3000`        | URL base da aplicação                           |
+| `implicitWait`| `10`                            | Timeout implícito em segundos                   |
+| `explicitWait`| `10`                            | Timeout explícito em segundos                   |
 
 Edite o arquivo `src/test/resources/application.properties` para configurar:
 
-- URLs de diferentes ambientes
+- URLs de diferentes ambientes     |
 - Credenciais de teste
 - Configurações de timeout
-- Configurações de screenshot e vídeo
-
-## 🏗️ Arquitetura
-
-### Page Object Model (POM)
-
+- Configurações de screenshot
 O projeto segue o padrão Page Object Model:
 
 ```java

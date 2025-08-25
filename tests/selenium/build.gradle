@@ -25,27 +25,27 @@ ext {
 
 dependencies {
     // Selenium WebDriver
-    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
-    implementation "org.seleniumhq.selenium:selenium-support:${seleniumVersion}"
+    testImplementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    testImplementation "org.seleniumhq.selenium:selenium-support:${seleniumVersion}"
     
     // WebDriver Manager
-    implementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
+    testImplementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
     
     // JUnit 5
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
-    testImplementation "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
-    testImplementation "org.junit.platform:junit-platform-launcher:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:${junitVersion}"  // remova se não for necessário
     
     // AssertJ para assertions mais expressivas
     testImplementation "org.assertj:assertj-core:${assertjVersion}"
     
     // Logging
-    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-    implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    testRuntimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
     
     // Utilitários básicos
-    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    testImplementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
 }
 
 test {
@@ -53,7 +53,7 @@ test {
     
     // Configurações de execução
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
-    forkEvery = 1
+    forkEvery = 0
     
     // Configurações de sistema
     systemProperty 'browser', System.getProperty('browser', 'chrome')
@@ -85,16 +85,12 @@ jacocoTestReport {
 
 
 
-// Tasks personalizadas
-task runChromeTests(type: Test) {
+// Tasks personalizadas (herdam config de tasks.withType(Test))
+tasks.register('runChromeTests', Test) {
     systemProperty 'browser', 'chrome'
 }
 
-task runFirefoxTests(type: Test) {
-    systemProperty 'browser', 'firefox'
-}
-
-task runHeadlessTests(type: Test) {
+tasks.register('runHeadlessTests', Test) {
     systemProperty 'headless', 'true'
 }
 

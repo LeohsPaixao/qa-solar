@@ -32,7 +32,8 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
         
         // Configurar timeout implícito
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
+        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
     }
     
     @AfterEach
@@ -47,17 +48,15 @@ public abstract class BaseTest {
         ChromeOptions options = new ChromeOptions();
         
         // Configurações para execução em CI/CD (headless)
-        if (Boolean.parseBoolean(System.getProperty("headless", "false"))) {
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        if (headless) {
             options.addArguments("--headless");
+            options.addArguments("--window-size=1920,1080");
         }
         
         // Configurações para melhor performance e compatibilidade
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
-        options.addArguments("--disable-web-security");
-        options.addArguments("--disable-features=VizDisplayCompositor");
-        options.addArguments("--remote-allow-origins=*");
         
         driver = new ChromeDriver(options);
     }

@@ -114,3 +114,7 @@ temp/
 /docs/build
 /docs/.docusaurus
 /docs/.cache-loader
+
+# Selenium
+tests/selenium/build/
+tests/selenium/.gradle/
