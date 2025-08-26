@@ -16,7 +16,8 @@ repositories {
 ext {
     seleniumVersion = '4.35.0'
     webdriverManagerVersion = '5.7.0'
-    junitVersion = '5.10.2'    
+    junitVersion = '5.10.2'
+    junitPlatformLauncherVersion = '1.10.2'
     assertjVersion = '3.25.3'
     slf4jVersion = '2.0.11'
     logbackVersion = '1.4.14'
@@ -31,11 +32,11 @@ dependencies {
     // WebDriver Manager
     testImplementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
     
-    // JUnit 5
+    // JUnit 5 - Declarando explicitamente as dependências de runtime
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testRuntimeOnly "org.junit.platform:junit-platform-launcher:${junitVersion}"  // remova se não for necessário
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:${junitPlatformLauncherVersion}"
     
     // AssertJ para assertions mais expressivas
     testImplementation "org.assertj:assertj-core:${assertjVersion}"
@@ -48,9 +49,16 @@ dependencies {
     testImplementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
 }
 
+// Configuração do test suite para Gradle 9.0
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+    }
+}
+
 test {
-    useJUnitPlatform()
-    
     // Configurações de execução
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
     forkEvery = 0
@@ -82,8 +90,6 @@ jacocoTestReport {
         html.required = true
     }
 }
-
-
 
 // Tasks personalizadas (herdam config de tasks.withType(Test))
 tasks.register('runChromeTests', Test) {

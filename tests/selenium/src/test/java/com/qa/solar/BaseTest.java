@@ -16,51 +16,58 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  * Fornece configurações comuns e métodos utilitários
  */
 public abstract class BaseTest {
-    
+
     protected WebDriver driver;
     protected WebDriverWait wait;
-    
+
     @BeforeEach
     public void setUp() {
-        // Configurar o driver Chrome        
+        // Configurar o driver Chrome
         setupChromeDriver();
-        
+
         // Configurar wait explícito
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        
-        // Maximizar janela
-        driver.manage().window().maximize();
-        
+
         // Configurar timeout implícito
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
+        
+        // Maximizar janela apenas se não estiver em modo headless
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        if (!headless) {
+            try {
+                driver.manage().window().maximize();
+            } catch (Exception e) {
+                // Ignora erro de maximização em ambientes headless
+            }
+        }
     }
-    
+
     @AfterEach
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
     }
-    
+
     private void setupChromeDriver() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        
+
         // Configurações para execução em CI/CD (headless)
         boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
         if (headless) {
             options.addArguments("--headless");
             options.addArguments("--window-size=1920,1080");
         }
-        
+
         // Configurações para melhor performance e compatibilidade
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        
+
         driver = new ChromeDriver(options);
     }
-    
+
     /**
      * Navega para uma URL específica
      */
