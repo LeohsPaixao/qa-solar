@@ -26,33 +26,21 @@ ext {
 }
 
 dependencies {
-    // Selenium WebDriver
-    testImplementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
-    testImplementation "org.seleniumhq.selenium:selenium-support:${seleniumVersion}"
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "org.seleniumhq.selenium:selenium-support:${seleniumVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    implementation "io.github.cdimascio:dotenv-java:${dotenvVersion}"
+    implementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
     
-    // WebDriver Manager
-    testImplementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
-    
-    // JUnit 5 - Declarando explicitamente as dependências de runtime
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testRuntimeOnly "org.junit.platform:junit-platform-launcher:${junitPlatformLauncherVersion}"
-    
-    // AssertJ para assertions mais expressivas
-    testImplementation "org.assertj:assertj-core:${assertjVersion}"
-    
-    // Logging
-    testImplementation "org.slf4j:slf4j-api:${slf4jVersion}"
     testRuntimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
-    
-    // Utilitários básicos
-    testImplementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
-    testImplementation "io.github.cdimascio:dotenv-java:${dotenvVersion}"
-
 }
 
-// Configuração do test suite para Gradle 9.0
 testing {
     suites {
         test {
@@ -62,23 +50,14 @@ testing {
 }
 
 test {
-    // Configurações de execução
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
     forkEvery = 0
-    
-    // Configurações de sistema
-    def baseUrl = System.getProperty('baseUrl') ?: System.getenv('SELENIUM_BASE_URL') ?: 'http://localhost:8181'
-    systemProperty 'browser', System.getProperty('browser', 'chrome')
-    systemProperty 'headless', System.getProperty('headless', 'false')
-    systemProperty 'baseUrl', baseUrl
 
-    // Configurações de relatório
     reports {
         html.required = true
         junitXml.required = true
     }
-    
-    // Configurações de output
+
     testLogging {
         events 'passed', 'skipped', 'failed'
         exceptionFormat = 'full'
@@ -86,23 +65,12 @@ test {
     }
 }
 
-// Configuração do JaCoCo para cobertura de código
 jacocoTestReport {
     reports {
         html.required = true
     }
 }
 
-// Tasks personalizadas (herdam config de tasks.withType(Test))
-tasks.register('runChromeTests', Test) {
-    systemProperty 'browser', 'chrome'
-}
-
-tasks.register('runHeadlessTests', Test) {
-    systemProperty 'headless', 'true'
-}
-
-// Configurações de compilação
 compileJava {
     options.encoding = 'UTF-8'
     options.compilerArgs += ['-parameters']
@@ -113,7 +81,6 @@ compileTestJava {
     options.compilerArgs += ['-parameters']
 }
 
-// Configurações de limpeza
 clean {
     delete 'build'
 }
