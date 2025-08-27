@@ -22,6 +22,7 @@ ext {
     slf4jVersion = '2.0.11'
     logbackVersion = '1.4.14'
     commonsLang3Version = '3.14.0'
+    dotenvVersion = '3.2.0'
 }
 
 dependencies {
@@ -47,6 +48,8 @@ dependencies {
     
     // Utilitários básicos
     testImplementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    testImplementation "io.github.cdimascio:dotenv-java:${dotenvVersion}"
+
 }
 
 // Configuração do test suite para Gradle 9.0
@@ -64,12 +67,11 @@ test {
     forkEvery = 0
     
     // Configurações de sistema
+    def baseUrl = System.getProperty('baseUrl') ?: System.getenv('SELENIUM_BASE_URL') ?: 'http://localhost:8181'
     systemProperty 'browser', System.getProperty('browser', 'chrome')
     systemProperty 'headless', System.getProperty('headless', 'false')
-    systemProperty 'baseUrl', System.getProperty('baseUrl', 'http://localhost:3000')
-    systemProperty 'implicitWait', System.getProperty('implicitWait', '10')
-    systemProperty 'explicitWait', System.getProperty('explicitWait', '10')
-    
+    systemProperty 'baseUrl', baseUrl
+
     // Configurações de relatório
     reports {
         html.required = true

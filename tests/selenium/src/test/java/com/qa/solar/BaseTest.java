@@ -10,12 +10,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.cdimascio.dotenv.Dotenv;
 
 /**
  * Classe base para todos os testes Selenium
  * Fornece configurações comuns e métodos utilitários
  */
 public abstract class BaseTest {
+
+    private Dotenv dotenv = Dotenv.load();
 
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -31,7 +34,7 @@ public abstract class BaseTest {
         // Configurar timeout implícito
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
-        
+
         // Maximizar janela apenas se não estiver em modo headless
         boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
         if (!headless) {
@@ -72,11 +75,25 @@ public abstract class BaseTest {
      * Navega para uma URL específica
      */
     protected void navigateTo(String url) {
-        driver.get(url);
+        String input = (url == null) ? "" : url.trim();
+        String target;
+
+        if (input.startsWith("http://") || input.startsWith("https://")) {
+            target = input;
+        } else {
+            String base = System.getProperty("baseUrl", dotenv.get("SELENIUM_BASE_URL"));
+            if (base == null || base.isBlank()) {
+                throw new IllegalStateException(
+                        "baseUrl não configurada. Defina via propriedade do sistema ou arquivo .env.");
+            }
+
+            target = java.net.URI.create(base).resolve(input).toString();
+        }
+        driver.get(target);
     }
 
     /**
-     * Aguarda um tempo específico (útil para debug)
+     * Aguarda um tempo específico
      */
     protected void waitForSeconds(int seconds) {
         try {
