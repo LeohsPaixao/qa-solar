@@ -10,12 +10,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.cdimascio.dotenv.Dotenv;
 
 /**
  * Classe base para todos os testes Selenium
  * Fornece configurações comuns e métodos utilitários
  */
 public abstract class BaseTest {
+
+    private Dotenv dotenv = Dotenv.load();
 
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -72,11 +75,12 @@ public abstract class BaseTest {
      * Navega para uma URL específica
      */
     protected void navigateTo(String url) {
-        driver.get(url);
+        String baseUrl = dotenv.get("SELENIUM_BASE_URL");
+        driver.get(baseUrl + url);
     }
 
     /**
-     * Aguarda um tempo específico (útil para debug)
+     * Aguarda um tempo específico
      */
     protected void waitForSeconds(int seconds) {
         try {
