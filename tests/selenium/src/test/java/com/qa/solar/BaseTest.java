@@ -34,7 +34,7 @@ public abstract class BaseTest {
         // Configurar timeout implícito
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
-        
+
         // Maximizar janela apenas se não estiver em modo headless
         boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
         if (!headless) {
@@ -75,8 +75,21 @@ public abstract class BaseTest {
      * Navega para uma URL específica
      */
     protected void navigateTo(String url) {
-        String baseUrl = dotenv.get("SELENIUM_BASE_URL");
-        driver.get(baseUrl + url);
+        String input = (url == null) ? "" : url.trim();
+        String target;
+
+        if (input.startsWith("http://") || input.startsWith("https://")) {
+            target = input;
+        } else {
+            String base = System.getProperty("baseUrl", dotenv.get("SELENIUM_BASE_URL"));
+            if (base == null || base.isBlank()) {
+                throw new IllegalStateException(
+                        "baseUrl não configurada. Defina via propriedade do sistema ou arquivo .env.");
+            }
+
+            target = java.net.URI.create(base).resolve(input).toString();
+        }
+        driver.get(target);
     }
 
     /**

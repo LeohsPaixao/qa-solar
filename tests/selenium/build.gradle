@@ -67,11 +67,11 @@ test {
     forkEvery = 0
     
     // Configurações de sistema
-    String baseUrl = System.getenv('SELENIUM_BASE_URL')
+    def baseUrl = System.getProperty('baseUrl') ?: System.getenv('SELENIUM_BASE_URL') ?: 'http://localhost:8181'
     systemProperty 'browser', System.getProperty('browser', 'chrome')
     systemProperty 'headless', System.getProperty('headless', 'false')
-    systemProperty 'baseUrl', System.getProperty('baseUrl', baseUrl)
-    
+    systemProperty 'baseUrl', baseUrl
+
     // Configurações de relatório
     reports {
         html.required = true

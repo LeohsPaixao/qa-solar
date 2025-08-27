@@ -68,9 +68,11 @@ public class LoginTest extends BaseTest {
     assertTrue(btnLogin.isEnabled(), "O elemento deve ser habilitado");
     btnLogin.click();
 
-    waitForSeconds(1);
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebElement toastContent = wait.until(
+        ExpectedConditions.visibilityOfElementLocated(
+            By.cssSelector("[data-testid='toast-content']")));
 
-    WebElement toastContent = driver.findElement(By.cssSelector("[data-testid='toast-content']"));
     assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
     assertTrue(toastContent.getText().contains("Usuário não encontrado."), "O texto deve ser exibido");
   }
@@ -88,9 +90,11 @@ public class LoginTest extends BaseTest {
     assertTrue(btnLogin.isEnabled(), "O elemento deve ser habilitado");
     btnLogin.click();
 
-    waitForSeconds(1);
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebElement toastContent = wait.until(
+        ExpectedConditions.visibilityOfElementLocated(
+            By.cssSelector("[data-testid='toast-content']")));
 
-    WebElement toastContent = driver.findElement(By.cssSelector("[data-testid='toast-content']"));
     assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
     assertTrue(toastContent.getText().contains("A senha não confere."), "O texto deve ser exibido");
   }
@@ -108,9 +112,11 @@ public class LoginTest extends BaseTest {
     assertTrue(btnLogin.isEnabled(), "O elemento deve ser habilitado");
     btnLogin.click();
 
-    waitForSeconds(1);
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    WebElement toastContent = wait.until(
+        ExpectedConditions.visibilityOfElementLocated(
+            By.cssSelector("[data-testid='toast-content']")));
 
-    WebElement toastContent = driver.findElement(By.cssSelector("[data-testid='toast-content']"));
     assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
     assertTrue(toastContent.getText().contains("Login realizado com sucesso!"), "O texto deve ser exibido");
   }
