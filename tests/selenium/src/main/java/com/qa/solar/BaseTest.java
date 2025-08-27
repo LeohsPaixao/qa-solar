@@ -17,17 +17,10 @@ public abstract class BaseTest {
 
     protected WebDriver driver;
 
-    public void setUp() {
-        setupChromeDriver();
-    }
-
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
-
-    private void setupChromeDriver() {
+    /**
+     * Configura o driver e inicia o navegador
+     */
+    protected void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 
@@ -44,9 +37,21 @@ public abstract class BaseTest {
     }
 
     /**
+     * Encerra o driver e fecha o navegador
+     */
+    protected void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    /**
      * Navega para uma URL específica
      */
     protected void navigateTo(String url) {
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver não inicializado. Chame setUp() antes de navegar.");
+        }
         String input = (url == null) ? "" : url.trim();
         String target;
 
@@ -54,7 +59,11 @@ public abstract class BaseTest {
             target = input;
         } else {
             String base = dotenv.get("SELENIUM_BASE_URL", "http://localhost:8181");
-            target = java.net.URI.create(base).resolve(input).toString();
+            try {
+                target = java.net.URI.create(base).resolve(input).toString();
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("URL inválida: '" + input + "' com base '" + base + "'", e);
+            }
         }
         driver.get(target);
     }
