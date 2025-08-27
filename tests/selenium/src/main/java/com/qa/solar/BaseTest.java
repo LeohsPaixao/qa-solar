@@ -1,13 +1,8 @@
 package com.qa.solar;
 
-import java.time.Duration;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -21,32 +16,11 @@ public abstract class BaseTest {
     private Dotenv dotenv = Dotenv.load();
 
     protected WebDriver driver;
-    protected WebDriverWait wait;
 
-    @BeforeEach
     public void setUp() {
-        // Configurar o driver Chrome
         setupChromeDriver();
-
-        // Configurar wait explícito
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Configurar timeout implícito
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
-        driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
-
-        // Maximizar janela apenas se não estiver em modo headless
-        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
-        if (!headless) {
-            try {
-                driver.manage().window().maximize();
-            } catch (Exception e) {
-                // Ignora erro de maximização em ambientes headless
-            }
-        }
     }
 
-    @AfterEach
     public void tearDown() {
         if (driver != null) {
             driver.quit();
@@ -57,14 +31,12 @@ public abstract class BaseTest {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 
-        // Configurações para execução em CI/CD (headless)
-        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        boolean headless = Boolean.parseBoolean(dotenv.get("HEADLESS", "false"));
         if (headless) {
             options.addArguments("--headless");
             options.addArguments("--window-size=1920,1080");
         }
 
-        // Configurações para melhor performance e compatibilidade
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
 
@@ -81,19 +53,14 @@ public abstract class BaseTest {
         if (input.startsWith("http://") || input.startsWith("https://")) {
             target = input;
         } else {
-            String base = System.getProperty("baseUrl", dotenv.get("SELENIUM_BASE_URL"));
-            if (base == null || base.isBlank()) {
-                throw new IllegalStateException(
-                        "baseUrl não configurada. Defina via propriedade do sistema ou arquivo .env.");
-            }
-
+            String base = dotenv.get("SELENIUM_BASE_URL", "http://localhost:8181");
             target = java.net.URI.create(base).resolve(input).toString();
         }
         driver.get(target);
     }
 
     /**
-     * Aguarda um tempo específico
+     * Aguarda um tempo específico em segundos
      */
     protected void waitForSeconds(int seconds) {
         try {
