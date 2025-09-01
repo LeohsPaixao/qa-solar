@@ -23,6 +23,8 @@ ext {
     logbackVersion = '1.4.14'
     commonsLang3Version = '3.14.0'
     dotenvVersion = '3.2.0'
+    javafakerVersion = '1.0.2'
+    gsonVersion = '2.10.1'
 }
 
 dependencies {
@@ -32,6 +34,8 @@ dependencies {
     implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "io.github.cdimascio:dotenv-java:${dotenvVersion}"
     implementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
+    implementation "com.github.javafaker:javafaker:${javafakerVersion}"
+    implementation "com.google.code.gson:gson:${gsonVersion}"
     
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
