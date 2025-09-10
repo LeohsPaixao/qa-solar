@@ -1,8 +1,15 @@
 package com.qa.solar;
 
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -20,7 +27,7 @@ public abstract class BaseTest {
     /**
      * Configura o driver e inicia o navegador
      */
-    protected void setUp() {
+    protected WebDriver setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 
@@ -34,15 +41,15 @@ public abstract class BaseTest {
         options.addArguments("--disable-dev-shm-usage");
 
         driver = new ChromeDriver(options);
+
+        return driver;
     }
 
     /**
      * Encerra o driver e fecha o navegador
      */
     protected void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 
     /**
@@ -77,5 +84,40 @@ public abstract class BaseTest {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    /**
+     * Aguarda até que um elemento seja visível
+     */
+    protected WebElement waitForElementVisible(WebElement element, int duration) {
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver não inicializado. Chame setUp() antes de aguardar o elemento.");
+        }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
+        wait.until(ExpectedConditions.visibilityOf(element));
+        return element;
+    }
+
+    /**
+     * Aguarda até que um elemento seja localizado e visível
+     */
+    protected WebElement waitForElementLocated(By locator, int duration) {
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver não inicializado. Chame setUp() antes de aguardar o elemento.");
+        }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    /**
+     * Aguarda até que múltiplos elementos sejam localizados e visíveis
+     */
+    protected List<WebElement> waitForElementsLocated(By locator, int duration) {
+        if (driver == null) {
+            throw new IllegalStateException(
+                    "WebDriver não inicializado. Chame setUp() antes de aguardar os elementos.");
+        }
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
+        return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 }
