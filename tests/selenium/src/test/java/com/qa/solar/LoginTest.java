@@ -29,14 +29,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoginTest extends BaseTest {
 
   @BeforeEach
-  public void setUp() {
-    super.setUp();
+  public void setUpTest() {
+    driver = setUp();
     navigateTo("/");
   }
 
   @AfterEach
-  public void tearDown() {
-    super.tearDown();
+  public void tearDownTest() {
+    tearDown();
   }
 
   @Test
@@ -68,10 +68,7 @@ public class LoginTest extends BaseTest {
     assertTrue(btnLogin.isEnabled(), "O elemento deve ser habilitado");
     btnLogin.click();
 
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    WebElement toastContent = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(
-            By.cssSelector("[data-testid='toast-content']")));
+    WebElement toastContent = waitForElementLocated(By.cssSelector("[data-testid='toast-content']"), 10);
 
     assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
     assertTrue(toastContent.getText().contains("Usuário não encontrado."), "O texto deve ser exibido");
@@ -90,10 +87,7 @@ public class LoginTest extends BaseTest {
     assertTrue(btnLogin.isEnabled(), "O elemento deve ser habilitado");
     btnLogin.click();
 
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    WebElement toastContent = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(
-            By.cssSelector("[data-testid='toast-content']")));
+    WebElement toastContent = waitForElementLocated(By.cssSelector("[data-testid='toast-content']"), 10);
 
     assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
     assertTrue(toastContent.getText().contains("A senha não confere."), "O texto deve ser exibido");
@@ -112,10 +106,7 @@ public class LoginTest extends BaseTest {
     assertTrue(btnLogin.isEnabled(), "O elemento deve ser habilitado");
     btnLogin.click();
 
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    WebElement toastContent = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(
-            By.cssSelector("[data-testid='toast-content']")));
+    WebElement toastContent = waitForElementLocated(By.cssSelector("[data-testid='toast-content']"), 10);
 
     assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
     assertTrue(toastContent.getText().contains("Login realizado com sucesso!"), "O texto deve ser exibido");
@@ -147,7 +138,7 @@ public class LoginTest extends BaseTest {
     assertTrue(messageErrorPassword.getText().contains("A senha deve ter pelo menos 6 caracteres."),
         "O texto deve ser exibido");
   }
-  
+
   @Test
   @DisplayName("Deveria ser possível visualizar a mensagem de erro embaixo dos inputs de email e senha quando estão vazios")
   public void shouldSeeEmptyFieldsError() {
