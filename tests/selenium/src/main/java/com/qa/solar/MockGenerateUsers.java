@@ -65,13 +65,13 @@ public abstract class MockGenerateUsers {
     try {
       String baseUrl = dotenv.get("SELENIUM_API_BASE_URL", "http://localhost:3001");
       JsonObject payload = new JsonObject();
-      payload.addProperty("fullName", user.fullName());
+      payload.addProperty("full_name", user.fullName());
+      payload.addProperty("social_name", user.socialName());
+      payload.addProperty("document", user.document());
+      payload.addProperty("doc_type", user.docType());
+      payload.addProperty("phone", user.phone());
       payload.addProperty("email", user.email());
       payload.addProperty("password", user.password());
-      payload.addProperty("document", user.document());
-      payload.addProperty("docType", user.docType());
-      payload.addProperty("phone", user.phone());
-      payload.addProperty("socialName", user.socialName());
       String jsonBody = payload.toString();
 
       HttpRequest request = HttpRequest.newBuilder()
@@ -82,15 +82,9 @@ public abstract class MockGenerateUsers {
           .timeout(Duration.ofSeconds(30))
           .build();
 
-      HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-      if (response.statusCode() != 201) {
-        LOG.log(Level.WARNING, "❌ Erro ao criar usuário: " + " - Status: " + response.statusCode(),
-            new Exception("Resposta: " + response.body()));
-      }
+      httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     } catch (Exception e) {
-      LOG.log(Level.WARNING, "❌ Erro ao criar usuário: " + " - Status: " + e.getMessage());
+      LOG.log(Level.WARNING, e.getMessage());
     }
   }
-
 }

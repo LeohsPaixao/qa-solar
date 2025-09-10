@@ -27,7 +27,7 @@ public class GenerateUsers extends MockGenerateUsers {
       try {
         UserRecord user = generateUser();
         generatedUsers.add(user);
-        LOG.info("✅ Usuário gerado com sucesso: " + user.email());
+        System.out.println("✅ Usuário gerado com sucesso: " + user.email());
       } catch (Exception e) {
         LOG.log(Level.WARNING, "Falha ao gerar usuário no índice " + i, e);
       }

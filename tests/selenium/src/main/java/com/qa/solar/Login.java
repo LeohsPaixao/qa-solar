@@ -30,7 +30,7 @@ public class Login {
       .connectTimeout(Duration.ofSeconds(10))
       .build();
 
-  public void login(String email, String password, WebDriver driver) {
+  public void login(WebDriver driver, String email, String password) {
     try {
       String baseUrl = dotenv.get("SELENIUM_API_BASE_URL", "http://localhost:3001");
       JsonObject payload = new JsonObject();
@@ -59,6 +59,15 @@ public class Login {
       }
 
       String token = jsonResponse.get("token").getAsString();
+
+      driver.get(dotenv.get("SELENIUM_BASE_URL", "http://localhost:8181"));
+
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+
       ((JavascriptExecutor) driver).executeScript("localStorage.setItem('user-token', '" + token + "')");
     } catch (Exception e) {
       LOG.log(Level.WARNING, "Erro ao fazer login: " + " - Status: " + e.getMessage(), e);
