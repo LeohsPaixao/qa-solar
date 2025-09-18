@@ -6,34 +6,61 @@
       <div data-testid="profile-container-form" class="profile-container">
         <div class="form-group">
           <label for="fullName">Nome Completo</label>
-          <input data-testid="input-fullname-profile" id="fullName" type="text" placeholder="Digite seu nome completo"
-            v-model="fullName" @blur="validateFullNameField"
-            :class="['input-fullname-profile', { 'input-error': errors.full_name }]" />
-          <span data-testid="input-error-fulname-profile" v-if="errors.full_name" class="error-message">{{
-            errors.full_name }}</span>
+          <input
+            data-testid="input-fullname-profile"
+            id="fullName"
+            type="text"
+            placeholder="Digite seu nome completo"
+            v-model="fullName"
+            @blur="validateFullNameField"
+            :class="['input-fullname-profile', { 'input-error': errors.full_name }]"
+          />
+          <span data-testid="input-error-fulname-profile" v-if="errors.full_name" class="error-message">{{ errors.full_name }}</span>
         </div>
         <div class="form-group">
           <label for="socialName">Nome Social</label>
-          <input data-testid="input-socialname-profile" id="socialName" type="text" class="input-socialname-profile"
-            placeholder="Digite seu nome social (opcional)" v-model="socialName" />
+          <input
+            data-testid="input-socialname-profile"
+            id="socialName"
+            type="text"
+            class="input-socialname-profile"
+            placeholder="Digite seu nome social (opcional)"
+            v-model="socialName"
+          />
         </div>
         <div class="form-group">
           <label for="phone">Telefone</label>
-          <input data-testid="input-phone-profile" id="phone" type="tel" placeholder="(00) 00000-0000"
-            v-model="phone_number" @blur="validatePhoneField"
-            :class="['input-phone-profile', { 'input-error': errors.phone_number }]" />
-          <span data-testid="input-error-phone-profile" v-if="errors.phone_number" class="error-message">{{
-            errors.phone_number
-            }}</span>
+          <input
+            data-testid="input-phone-profile"
+            id="phone"
+            type="tel"
+            placeholder="(00) 00000-0000"
+            v-model="phone_number"
+            @blur="validatePhoneField"
+            :class="['input-phone-profile', { 'input-error': errors.phone_number }]"
+          />
+          <span data-testid="input-error-phone-profile" v-if="errors.phone_number" class="error-message">{{ errors.phone_number }}</span>
         </div>
         <div class="form-group">
           <label for="cpfCnpj">CPF ou CNPJ</label>
-          <input data-testid="input-cpfcnpj-profile" id="cpfCnpj" type="text" class="input-cpfcnpj-profile"
-            placeholder="Digite seu CPF ou CNPJ" v-model="cpfCnpj" disabled />
+          <input
+            data-testid="input-cpfcnpj-profile"
+            id="cpfCnpj"
+            type="text"
+            class="input-cpfcnpj-profile"
+            placeholder="Digite seu CPF ou CNPJ"
+            v-model="cpfCnpj"
+            disabled
+          />
         </div>
         <div class="button-container-profile">
-          <button data-testid="btn-save-profile" type="button" class="btn btn-save-profile save-button"
-            :disabled="!hasChanges || isUpdating || !isFormValid" @click="handleSave">
+          <button
+            data-testid="btn-save-profile"
+            type="button"
+            class="btn btn-save-profile save-button"
+            :disabled="!hasChanges || isUpdating || !isFormValid"
+            @click="handleSave"
+          >
             {{ isUpdating ? 'Salvando...' : 'Salvar' }}
           </button>
         </div>
@@ -85,13 +112,11 @@ const isFormValid = computed(() => {
 
 const hasChanges = computed(() => {
   const user = props.user ? (Array.isArray(props.user) ? props.user[0] : props.user) : fetchedUser.value;
-  if (!user) return false;
+  if (!user) {
+    return false;
+  }
 
-  return (
-    fullName.value !== (user.full_name || '') ||
-    socialName.value !== (user.social_name || '') ||
-    phone_number.value !== (user.phone || '')
-  );
+  return fullName.value !== (user.full_name || '') || socialName.value !== (user.social_name || '') || phone_number.value !== (user.phone || '');
 });
 
 watch(fullName, (newValue) => {
