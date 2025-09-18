@@ -23,8 +23,13 @@ jobs:
     needs: [backend-tests]
     uses: ./.github/workflows/robot.yml
 
+  selenium-tests:
+    needs: [backend-tests]
+    uses: ./.github/workflows/selenium.yml
+
   docker-deploy:
-    needs: [cypress-tests, playwright-tests, robot-framework-tests]
+    if: github.base_ref != 'main-workflow'
+    needs: [cypress-tests, playwright-tests, robot-framework-tests, selenium-tests]
     uses: ./.github/workflows/docker-deploy.yml
     secrets:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
