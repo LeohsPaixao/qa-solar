@@ -74,6 +74,7 @@ export class UsersService {
         social_name: true,
         email: true,
         phone: true,
+        document: true,
         created_at: true,
         updated_at: true,
       },
