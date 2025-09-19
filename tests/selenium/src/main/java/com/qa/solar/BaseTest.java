@@ -33,7 +33,7 @@ public abstract class BaseTest {
 
         boolean headless = Boolean.parseBoolean(dotenv.get("HEADLESS", "false"));
         if (headless) {
-            options.addArguments("--headless");
+            options.addArguments("--headless=new");
             options.addArguments("--window-size=1920,1080");
         }
 

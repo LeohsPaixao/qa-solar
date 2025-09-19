@@ -4,7 +4,7 @@ build:
 	
 test:
 	@echo "Executando testes de selenium"
-	./gradlew test
+	./gradlew clean test
 
 coverage:
 	@echo "Gerando relatório de cobertura"
@@ -18,6 +18,7 @@ help:
 	@echo "Makefile para executar os testes de selenium"
 	@echo "make build - Buildar o projeto"
 	@echo "make test - Executar os testes"
+	@echo "make test-headless - Executar os testes headless"
 	@echo "make coverage - Gerar o relatório de cobertura"
 	@echo "make clean - Limpar o projeto"
 	@echo "make help - Mostrar esta mensagem de ajuda"
