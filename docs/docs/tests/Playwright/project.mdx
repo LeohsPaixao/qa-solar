@@ -1,0 +1,214 @@
+---
+sidebar_position: 2
+---
+
+# 📂 Projeto
+
+## 🔧 Configuração e Execução
+
+### 📋 Pré-requisitos
+
+> **⚠️ Importante**: Certifique-se de que as dependências foram instaladas no projeto raiz "qa-solar" e que o comando `yarn dev` foi executado antes de iniciar os testes.
+
+### 🚀 Comandos Disponíveis
+
+#### Configuração Inicial
+```bash
+# Instalar dependências do Playwright
+yarn play:install
+```
+
+#### Execução de Testes
+
+**Modo Interativo (Playwright UI)**
+```bash
+# Abrir interface gráfica do Playwright
+yarn play:open
+```
+
+**Modo Headless (CI/CD)**
+```bash
+# Executar todos os testes
+yarn test
+
+# Executar testes Playwright
+yarn play:run
+```
+
+**Utilitários**
+```bash
+# Visualizar relatórios HTML
+yarn play:report
+
+# Executar linting
+yarn lint
+```
+
+## 📂 Estrutura do Projeto
+
+```plaintext
+tests/playwright/
+├── tests/
+│   ├── specs/                                # Especificações de testes
+│   │   ├── login.spec.ts                     # Testes de autenticação
+│   │   ├── registerUser.spec.ts              # Testes de cadastro
+│   │   ├── profile.spec.ts                   # Testes de perfil
+│   │   ├── listUsers.spec.ts                 # Testes de listagem
+│   │   └── recoverPassword.spec.ts           # Testes de recuperação
+│   ├── shared/                               # Utilitários compartilhados
+│   │   ├── commands/                         # Comandos customizados
+│   │   │   ├── fillUserForm.ts               # Helper para preenchimento
+│   │   │   ├── generateValidCPF.ts           # Gerador de CPF válido
+│   │   │   └── login.ts                      # Comando de login
+│   │   ├── mocks/                            # Mocks e dados de teste
+│   │   │   └── generateUsers.ts              # Geração de usuários
+│   │   └── utils/                            # Utilitários gerais
+│   ├── fixtures/                             # Dados de teste estáticos
+│   └── misc/                                 # Arquivos diversos
+│       └── reports/                          # Relatórios de execução
+├── .env                                      # Variáveis de ambiente
+├── playwright.config.ts                      # Configuração principal
+├── package.json                              # Dependências e scripts
+├── eslint.config.mjs                         # Configuração ESLint
+└── CHANGELOG.md                              # Histórico de mudanças
+```
+
+## ⚙️ Configurações Avançadas
+
+### 🔧 Configuração do Playwright
+
+O projeto utiliza configurações otimizadas para performance e confiabilidade:
+
+```typescript
+// Principais configurações
+export default defineConfig({
+  testDir: './tests/specs',                 // Diretório dos testes
+  outputDir: './tests/misc/reports',        // Diretório de relatórios
+  fullyParallel: true,                      // Execução paralela
+  forbidOnly: !!process.env.CI,             // Bloqueia .only em CI
+  retries: process.env.CI ? 2 : 0,          // Retry em CI
+  workers: 1,                               // Número de workers
+  reporter: 'html',                         // Relatório HTML
+  use: {
+    acceptDownloads: false,                 // Não aceita downloads
+    ignoreHTTPSErrors: true,                # Ignora erros HTTPS
+    baseURL: process.env.PLAY_BASE_URL,     # URL base da aplicação
+    screenshot: 'only-on-failure',          # Screenshots em falhas
+    trace: 'on-first-retry',                # Trace em retry
+    viewport: { width: 1280, height: 720 }, # Resolução padrão
+  },
+  expect: {
+    timeout: 5000,                          # Timeout para assertions
+    toHaveScreenshot: {
+      animations: 'disabled',               # Desabilita animações
+      maxDiffPixels: 10,                    # Tolerância de pixels
+    },
+    toMatchSnapshot: {
+      threshold: 0.1,                       # Threshold para snapshots
+    },
+  },
+  projects: [
+    {
+      name: 'chromium',                     # Projeto Chromium
+      use: { ...devices['Desktop Chrome'] }, # Dispositivo desktop
+    },
+  ]
+});
+```
+
+### 🌐 Variáveis de Ambiente
+
+```bash
+# URLs de configuração
+PLAY_BASE_URL=http://localhost:8181         # URL da aplicação frontend
+PLAY_API_URL=http://localhost:3001          # URL da API backend
+```
+
+### 📊 Configuração de Projetos
+
+O Playwright suporta múltiplos projetos para diferentes navegadores:
+
+```typescript
+projects: [
+  {
+    name: 'chromium',
+    use: { ...devices['Desktop Chrome'] },
+  },
+  // Adicionar outros navegadores conforme necessário
+  // {
+  //   name: 'firefox',
+  //   use: { ...devices['Desktop Firefox'] },
+  // },
+  // {
+  //   name: 'webkit',
+  //   use: { ...devices['Desktop Safari'] },
+  // },
+]
+```
+
+## 📚 Comandos Customizados
+
+### 🔐 Comandos de Autenticação
+
+```typescript
+// Login automatizado via API
+export async function login(page: Page, email: string, password: string): Promise<void> {
+  const response = await page.request.fetch(`${process.env.PLAY_API_URL}/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: { email, password }
+  });
+  
+  const { token } = JSON.parse(await response.text());
+  
+  await page.evaluate(({ token }) => {
+    localStorage.setItem('user-token', token);
+  }, { token });
+}
+```
+
+### 📝 Comandos de Formulário
+
+```typescript
+// Preenchimento automático de formulários
+export async function fillUserForm(page: Page) {
+  const cpf = generateValidCPF();
+  
+  const formFields = [
+    { element: page.locator('[data-testid="input-fullname"]'), valor: faker.person.fullName() },
+    { element: page.locator('[data-testid="input-socialname"]'), valor: faker.person.middleName() },
+    { element: page.locator('[data-testid="input-document"]'), valor: cpf },
+    // ... outros campos
+  ];
+  
+  for (const field of formFields) {
+    await field.element.waitFor({ state: 'visible' });
+    await field.element.fill(field.valor);
+  }
+}
+```
+
+### 🎲 Geração de Dados
+
+```typescript
+// Geração de CPF válido
+export function generateValidCPF(): string {
+  const baseDigits = generateRandomDigits(9);
+  const firstVerifier = calculateVerifierDigit(baseDigits);
+  const secondVerifier = calculateVerifierDigit(baseDigits + firstVerifier);
+  const cpf = `${baseDigits}${firstVerifier}${secondVerifier}`;
+  return formatCPF(cpf);
+}
+```
+
+## 🛠️ Dependências Principais
+
+### Produção
+- **@playwright/test**: `1.49.0` - Framework de testes
+- **@faker-js/faker**: `9.8.0` - Geração de dados fictícios
+- **dotenv**: `16.4.5` - Gerenciamento de variáveis de ambiente
+
+### Desenvolvimento
+- **@types/node**: `22.16.0` - Tipos do Node.js
+- **eslint**: `9.20.0` - Linting de código
+- **eslint-plugin-playwright**: `2.2.0` - Regras específicas do Playwright

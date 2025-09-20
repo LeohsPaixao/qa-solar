@@ -1,0 +1,190 @@
+---
+sidebar_position: 4
+---
+
+# 📊 Relatórios e Cobertura
+
+## 📋 Visão Geral
+
+O projeto Playwright implementa um sistema abrangente de relatórios e monitoramento que fornece insights detalhados sobre a execução dos testes, capturas de tela, gravações de vídeo e rastreamento de falhas.
+
+## 📈 Relatórios HTML
+
+### 🎯 Configuração
+O projeto utiliza o **reporter HTML** padrão do Playwright para gerar relatórios visuais interativos com análise detalhada de cada execução de teste.
+
+### 📊 Características dos Relatórios
+- **Interface Interativa**: Navegação intuitiva pelos resultados
+- **Detalhamento por Teste**: Informações específicas de cada cenário
+- **Timeline de Execução**: Visualização temporal dos testes
+- **Filtros Avançados**: Busca por status, duração e outros critérios
+- **Métricas de Performance**: Análise de tempo de execução
+
+### 🚀 Geração e Visualização
+```bash
+# Executar testes (gera relatório automaticamente)
+yarn play:run
+
+# Visualizar relatório HTML
+yarn play:report
+```
+
+### 📁 Estrutura dos Relatórios
+```plaintext
+tests/misc/reports/
+├── playwright-report/                    # Relatório HTML interativo
+│   ├── index.html                       # Dashboard principal
+│   ├── static/                          # Assets estáticos
+│   │   ├── styles.css                   # Estilos do relatório
+│   │   └── app.js                       # JavaScript do relatório
+│   ├── data/                            # Dados dos testes
+│   │   ├── test-results.json            # Resultados em JSON
+│   │   └── attachments/                 # Anexos (screenshots, traces)
+│   └── [test-files].html                # Páginas individuais de teste
+```
+
+## 📸 Capturas de Tela
+
+### 🎯 Configuração Automática
+- **Localização**: `./tests/misc/reports/playwright-report/data/attachments/`
+- **Trigger**: Capturas automáticas em caso de falha de teste
+- **Formato**: PNG com timestamp para identificação
+- **Configuração**: `screenshot: 'only-on-failure'`
+
+### 📋 Cenários de Captura
+- **Falhas de Teste**: Screenshots automáticos quando testes falham
+- **Assertions**: Capturas durante verificações de elementos
+- **Debugging**: Screenshots manuais com `await page.screenshot()`
+
+### 🔧 Configuração Avançada
+```typescript
+// playwright.config.ts
+export default defineConfig({
+  use: {
+    screenshot: 'only-on-failure',        // Apenas em falhas
+    // screenshot: 'on',                  // Sempre capturar
+    // screenshot: 'off',                 // Nunca capturar
+  },
+});
+```
+
+## 🎥 Gravações de Vídeo
+
+### ⚙️ Configuração
+```typescript
+// playwright.config.ts
+export default defineConfig({
+  use: {
+    video: 'retain-on-failure',          // Manter apenas em falhas
+    // video: 'on',                      // Sempre gravar
+    // video: 'off',                     // Nunca gravar
+  },
+});
+```
+
+### 📊 Quando Usar
+- **Debugging**: Habilitar para investigar falhas complexas
+- **CI/CD**: Útil em ambientes de integração contínua
+- **Performance**: Configurar conforme necessidade de análise
+
+### 📁 Localização dos Vídeos
+```plaintext
+tests/misc/reports/
+└── [test-name]-[browser]/
+    └── video.webm                       # Gravação do teste
+```
+
+## 🔍 Trace Viewer
+
+### 🎯 Configuração
+```typescript
+// playwright.config.ts
+export default defineConfig({
+  use: {
+    trace: 'on-first-retry',             // Trace apenas no primeiro retry
+    // trace: 'on',                      // Sempre gerar trace
+    // trace: 'off',                     // Nunca gerar trace
+  },
+});
+```
+
+### 📊 Funcionalidades
+- **Timeline Detalhada**: Visualização completa da execução
+- **Network Requests**: Monitoramento de requisições HTTP
+- **Console Logs**: Captura de logs do console
+- **DOM Snapshots**: Estados do DOM durante a execução
+- **Performance Metrics**: Métricas de performance da página
+
+### 🚀 Visualização de Traces
+```bash
+# Abrir trace viewer
+npx playwright show-trace trace.zip
+```
+
+## 📊 Métricas e Análise
+
+### 🎯 Métricas Disponíveis
+- **Taxa de Sucesso**: Percentual de testes que passam
+- **Tempo de Execução**: Duração média e total dos testes
+- **Flaky Tests**: Identificação de testes instáveis
+- **Performance**: Análise de tempo de resposta por teste
+- **Retry Rate**: Frequência de tentativas de retry
+
+### 📈 Dashboard de Métricas
+O relatório HTML inclui:
+- **Resumo Executivo**: Visão geral dos resultados
+- **Gráficos de Performance**: Visualização temporal
+- **Análise de Falhas**: Detalhamento de erros
+- **Comparação Histórica**: Tendências ao longo do tempo
+
+## 🛠️ Configurações Avançadas
+
+### 🔧 Personalização de Relatórios
+```typescript
+// playwright.config.ts
+export default defineConfig({
+  reporter: [
+    ['html', { 
+      outputFolder: 'custom-reports',
+      open: 'never' 
+    }],
+    ['json', { outputFile: 'results.json' }],
+    ['junit', { outputFile: 'results.xml' }],
+  ],
+});
+```
+
+### 📊 Múltiplos Reporters
+- **HTML**: Relatório visual interativo
+- **JSON**: Dados estruturados para integração
+- **JUnit**: Formato padrão para CI/CD
+- **Line**: Output simples no terminal
+- **List**: Lista detalhada no terminal
+
+### 🌐 Integração com CI/CD
+```yaml
+# Exemplo para GitHub Actions
+- name: Run Playwright tests
+  run: yarn play:run
+
+- name: Upload test results
+  uses: actions/upload-artifact@v3
+  if: always()
+  with:
+    name: playwright-report
+    path: tests/misc/reports/playwright-report/
+```
+
+## 📋 Boas Práticas
+
+### 🎯 Otimização de Relatórios
+- **Screenshots**: Configurar apenas para falhas em produção
+- **Vídeos**: Usar `retain-on-failure` para economia de espaço
+- **Traces**: Habilitar apenas quando necessário para debugging
+- **Cleanup**: Implementar limpeza automática de relatórios antigos
+
+### 📊 Análise de Resultados
+- **Revisar Falhas**: Analisar screenshots e traces de falhas
+- **Monitorar Performance**: Acompanhar tendências de tempo de execução
+- **Identificar Flaky Tests**: Corrigir testes instáveis
+- **Documentar Padrões**: Registrar padrões de falha para melhorias
