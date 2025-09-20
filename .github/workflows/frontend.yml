@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+
+jobs:
+  frontend-unit-tests:
+    name: Frontend Testes Unitários QA-Solar
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4.4.0
+        with:
+          node-version: 22.1.0
+          cache: 'yarn'
+
+      - name: Instalar dependências do Monorepo
+        run: yarn install --frozen-lockfile
+
+      - name: Verificar erros de tipo do Frontend
+        working-directory: apps/frontend
+        run: yarn type-check # Por enquanto, apenas verifica se não há erros de tipo

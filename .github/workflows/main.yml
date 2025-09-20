@@ -28,24 +28,36 @@ jobs:
             frontend:
               - 'apps/frontend/**'
 
-  backend-tests:
+  # FASE 1: Testes Unitários
+  backend-unit-tests:
     if: needs.filter.outputs.backend == 'true'
+    needs: [filter]
     uses: ./.github/workflows/backend.yml
 
-  cypress-tests:
+  frontend-unit-tests:
+    if: needs.filter.outputs.frontend == 'true'
     needs: [filter]
+    uses: ./.github/workflows/frontend.yml
+
+  # FASE 2: Testes E2E (executam após os unitários quando disponíveis)
+  cypress-tests:
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/cypress.yml
 
   playwright-tests:
-    needs: [filter]
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/playwright.yml
 
   robot-framework-tests:
-    needs: [filter]
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/robot.yml
 
   selenium-tests:
-    needs: [filter]
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/selenium.yml
 
   docker-deploy:
