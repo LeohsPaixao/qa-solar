@@ -25,12 +25,25 @@ import org.openqa.selenium.WebElement;
 @DisplayName("Testes de Listagem de Usuários")
 public class ListUsers extends BaseTest {
 
+  /**
+   * Gera 10 usuários de teste antes da execução de todos os testes da classe.
+   *
+   * Executado uma vez antes de todos os métodos de teste para garantir que exista um conjunto
+   * previsível de usuários disponíveis para os testes de listagem e interação.
+   */
   @BeforeAll
   public static void setUpAll() {
     GenerateUsers generateUsers = new GenerateUsers();
     generateUsers.generateUsers(10);
   }
 
+  /**
+   * Executa a configuração antes de cada teste: inicializa o WebDriver, realiza login com
+   * um usuário genérico e navega até a página de listagem de usuários ("/listusers").
+   *
+   * Esta rotina popula o campo `driver` da classe, garante que a sessão esteja autenticada
+   * e posiciona o navegador no contexto esperado para os testes da classe.
+   */
   @BeforeEach
   public void setUpTest() {
     driver = setUp();
@@ -39,11 +52,23 @@ public class ListUsers extends BaseTest {
     navigateTo("/listusers");
   }
 
+  /**
+   * Executa a limpeza após cada teste.
+   *
+   * Chama {@code tearDown()} para encerrar o WebDriver e liberar recursos criados pelo teste.
+   */
   @AfterEach
   public void tearDownTest() {
     tearDown();
   }
 
+  /**
+   * Verifica que os elementos principais da tela de listagem de usuários estejam presentes e visíveis.
+   *
+   * Confirma a presença e visibilidade da tabela de usuários, do checkbox "selecionar todos" e do botão
+   * de exclusão. Se o botão de exclusão estiver fora da área visível, o teste rola a página para torná-lo visível
+   * antes de verificar sua exibição.
+   */
   @Test
   @DisplayName("Deveria ser possível visualizar os elementos da tela de listagem de usuários")
   public void shouldSeeElements() {
@@ -62,6 +87,13 @@ public class ListUsers extends BaseTest {
     }
   }
 
+  /**
+   * Verifica que o checkbox "selecionar todos" funciona: ao clicar fica selecionado e,
+   * ao clicar novamente, é desmarcado.
+   *
+   * Executa cliques no elemento identificado por [data-testid='checkbox-select-all']
+   * e valida seu estado com asserts.
+   */
   @Test
   @DisplayName("Deveria ser possível selecionar todos os usuários")
   public void shouldSelectAllUsers() {

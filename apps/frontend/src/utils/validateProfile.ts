@@ -27,7 +27,15 @@ const validators: Record<keyof FormErrorsProfile, ValidatorFnProfile[]> = {
   ],
 };
 
-// Funções de validação individuais (similar ao Login)
+/**
+ * Valida se um nome completo é fornecido e contém pelo menos nome e sobrenome.
+ *
+ * Retorna uma mensagem de erro quando o valor está vazio ou não atende ao requisito
+ * mínimo de ter pelo menos duas palavras (nome e sobrenome). Caso válido, retorna string vazia.
+ *
+ * @param value - O nome completo a ser validado
+ * @returns Uma mensagem de erro em português ou string vazia quando válido
+ */
 export function validateFullName(value: string): string {
   if (!value) {
     return 'O Nome Completo é obrigatório.';
@@ -38,6 +46,14 @@ export function validateFullName(value: string): string {
   return '';
 }
 
+/**
+ * Valida um valor de telefone, aceitando entradas com formatação.
+ *
+ * Retorna uma mensagem de erro quando o valor contém letras, tem menos de 10 ou mais de 11 dígitos (após remover caracteres não alfanuméricos); retorna string vazia quando válido ou quando o valor é vazio.
+ *
+ * @param value - String de telefone (pode conter espaços, parênteses, traços, etc.)
+ * @returns Mensagem de erro em português ou string vazia se o telefone for válido
+ */
 export function validatePhone(value: string): string {
   if (!value) {
     return '';
@@ -57,6 +73,17 @@ export function validatePhone(value: string): string {
   return '';
 }
 
+/**
+ * Valida os campos de um formulário de perfil e retorna se está válido junto com os erros por campo.
+ *
+ * Executa a bateria de validadores configurados para cada campo e coleta a primeira mensagem de erro
+ * de cada um (quando presente).
+ *
+ * @param formData - Dados do formulário de perfil a serem validados.
+ * @returns Um objeto contendo:
+ *  - `isValid`: true se nenhum erro foi encontrado;
+ *  - `errors`: mapeamento de campos para mensagens de erro (vazio quando não há erros).
+ */
 export function validateProfile(formData: FormDataProfile): { isValid: boolean; errors: FormErrorsProfile } {
   const errors: FormErrorsProfile = {};
 

@@ -30,6 +30,21 @@ public class Login {
       .connectTimeout(Duration.ofSeconds(10))
       .build();
 
+  /**
+   * Efetua login via API e injeta o token no localStorage do navegador controlado pelo WebDriver.
+   *
+   * Faz uma requisição POST para {SELENIUM_API_BASE_URL}/auth/login (padrão http://localhost:3001)
+   * com {email} e {password} como JSON. Se obtiver um token na resposta, navega o {@code driver}
+   * para {SELENIUM_BASE_URL} (padrão http://localhost:8181) e grava o token em
+   * localStorage sob a chave {@code user-token}.
+   *
+   * Observações:
+   * - Registra avisos se o status HTTP não for 200 ou se a resposta não contiver um token.
+   * - Captura internamente exceções; não lança erros para o chamador.
+   *
+   * @param email    endereço de e-mail usado para autenticação
+   * @param password senha usada para autenticação
+   */
   public void login(WebDriver driver, String email, String password) {
     try {
       String baseUrl = dotenv.get("SELENIUM_API_BASE_URL", "http://localhost:3001");

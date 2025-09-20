@@ -24,6 +24,12 @@ public class Profile extends BaseTest {
 
   private Faker faker = new Faker();
 
+  /**
+   * Configura o ambiente antes de cada teste do perfil.
+   *
+   * Inicializa o WebDriver, efetua login com a conta de teste genérica e navega para a página "/profile".
+   * Executado antes de cada método de teste (@BeforeEach).
+   */
   @BeforeEach
   public void setUpTest() {
     driver = setUp();
@@ -32,6 +38,9 @@ public class Profile extends BaseTest {
     navigateTo("/profile");
   }
 
+  /**
+   * Executado após cada teste; finaliza e limpa os recursos de teste (por exemplo, fecha o driver).
+   */
   @AfterEach
   public void tearDownTest() {
     tearDown();
@@ -49,6 +58,13 @@ public class Profile extends BaseTest {
     assertTrue(btnSaveProfile.isDisplayed());
   }
 
+  /**
+   * Verifica que não é possível salvar o perfil quando o campo "Nome Completo" está vazio.
+   *
+   * Executa interação no campo de nome (limpa o valor via JavaScript e força os eventos `input` e `blur`)
+   * e valida que a mensagem de erro "O Nome Completo é obrigatório." é exibida no elemento com
+   * data-testid="input-error-fulname-profile".
+   */
   @Test
   @DisplayName("Não deveria ser possível salvar a alteração sem colocar algum dado no Nome Completo")
   public void shouldNotSaveWithoutFullName() {
@@ -65,6 +81,12 @@ public class Profile extends BaseTest {
     assertTrue(inputErrorFullName.getText().contains("O Nome Completo é obrigatório."));
   }
   
+  /**
+   * Verifica que não é possível salvar alterações do perfil quando o campo "Nome Completo" contém apenas um nome.
+   *
+   * Preenche o campo de nome com um único termo e valida que a mensagem de erro é exibida informando que
+   * é necessário pelo menos Nome e Sobrenome.
+   */
   @Test
   @DisplayName("Não deveria ser possível salvar a alteração com apenas o nome")
   public void shouldNotSaveWithJustTheName() {
@@ -96,6 +118,13 @@ public class Profile extends BaseTest {
     assertTrue(inputErrorPhone.getText().contains("O telefone deve conter apenas números."));
   }
 
+  /**
+   * Verifica que não é possível salvar quando o campo de telefone contém mais de 11 dígitos.
+   *
+   * Realiza: limpa o campo de telefone, insere um valor com muitos dígitos, dispara o evento de
+   * input e blur, e então valida que a mensagem de erro apropriada é exibida
+   * ("O telefone deve ter no máximo 11 dígitos.").
+   */
   @Test
   @DisplayName("Não deveria ser possível salvar a alteração com mais de 11 dígitos no telefone")
   public void shouldNotSaveWithMuchNumbersOnPhone() {
@@ -126,6 +155,12 @@ public class Profile extends BaseTest {
     assertTrue(inputErrorPhone.getText().contains("O telefone deve ter no mínimo 10 dígitos."));
   }
 
+  /**
+   * Verifica que é possível atualizar os dados do perfil e que um toast de sucesso é exibido.
+   *
+   * Insere valores gerados aleatoriamente em Nome Completo, Nome Social e Telefone, submete o formulário
+   * e valida que aparece a mensagem "Usuário alterado com sucesso!".
+   */
   @Test
   @DisplayName("Deveria ser possível salvar a alteração")
   public void shouldSaveProfile() {

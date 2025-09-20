@@ -17,6 +17,16 @@ public class GenerateUsers extends MockGenerateUsers {
   private static final Logger LOG = Logger.getLogger(GenerateUsers.class.getName());
   private List<UserRecord> generatedUsers = new ArrayList<>();
 
+  /**
+   * Gera múltiplos usuários chamando internamente generateUser() e armazena-os em generatedUsers.
+   *
+   * Executa até `quantity` gerações, com um limite máximo de 1000 iterações. Para cada usuário gerado com sucesso
+   * adiciona o registro à lista interna `generatedUsers` e escreve uma mensagem de sucesso no stdout.
+   * Falhas na geração de um usuário são registradas como WARNING; a iteração continua para os próximos índices.
+   *
+   * @param quantity número desejado de usuários a gerar (não negativo; será limitado a 1000)
+   * @throws IllegalArgumentException se quantity for negativo
+   */
   public void generateUsers(int quantity) {
     if (quantity < 0) {
       throw new IllegalArgumentException("quantity deve ser > 0");

@@ -42,6 +42,15 @@ public abstract class MockGenerateUsers {
       String socialName) {
   }
 
+  /**
+   * Gera um usuário fictício, registra-o via requisição HTTP e retorna os dados criados.
+   *
+   * Cria campos realistas usando Faker (nome completo, e‑mail, documento CPF, telefone e nome social)
+   * e gera uma senha aleatória de 12 caracteres baseada em UUID. O usuário é enviado para a API
+   * configurada (por createUserViaRequest) antes do retorno.
+   *
+   * @return o UserRecord contendo os campos gerados (fullName, email, password, document, docType, phone, socialName)
+   */
   protected UserRecord generateUser() {
     String fullName = faker.name().fullName();
     String email = faker.internet().emailAddress();
@@ -60,6 +69,17 @@ public abstract class MockGenerateUsers {
     return user;
   }
 
+  /**
+   * Envia uma requisição HTTP POST para criar um usuário no endpoint {@code {SELENIUM_API_BASE_URL}/users}.
+   *
+   * Constroi um payload JSON com os campos do {@code user} (full_name, social_name, document, doc_type, phone, email, password)
+   * e o envia para o servidor. A variável de ambiente {@code SELENIUM_API_BASE_URL} é usada como base da URL;
+   * se ausente, {@code http://localhost:3001} é usada como padrão. A requisição tem timeout de 30 segundos.
+   *
+   * Falhas na comunicação são capturadas e registradas como WARNING; a exceção não é propagada.
+   *
+   * @param user registro contendo os dados do usuário a serem enviados
+   */
   private void createUserViaRequest(UserRecord user) {
 
     try {

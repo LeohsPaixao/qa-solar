@@ -28,17 +28,36 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @DisplayName("Testes de Recuperação de Senha")
 public class RecoverPassword extends BaseTest {
 
+  /**
+   * Inicializa o ambiente de teste antes de cada cenário.
+   *
+   * Configura o WebDriver (atribuindo-o ao campo `driver`) e navega para a rota
+   * "/recover-password", preparando a aplicação para os testes da tela de
+   * recuperação de senha.
+   */
   @BeforeEach
   public void setUpTest() {
     driver = setUp();
     navigateTo("/recover-password");
   }
 
+  /**
+   * Executa a limpeza do ambiente de teste após cada caso de teste.
+   *
+   * Este método é executado pelo JUnit após cada teste para encerrar recursos do ambiente (por exemplo, driver do Selenium)
+   * e restaurar o estado inicial necessário para os próximos testes.
+   */
   @AfterEach
   public void tearDownTest() {
     tearDown();
   }
 
+  /**
+   * Verifica que os elementos principais da tela de recuperação de senha estão visíveis.
+   *
+   * Confirma que o formulário de recuperação, o campo de email, o botão de recuperação e o link
+   * para voltar ao login existem no DOM e estão exibidos.
+   */
   @Test
   @DisplayName("Deveria ser possível visualizar os elementos da tela de recuperação de senha")
   public void shouldSeeElements() {
@@ -54,6 +73,13 @@ public class RecoverPassword extends BaseTest {
     assertTrue(linkGoToLogin.isDisplayed());
   }
     
+  /**
+   * Verifica que uma mensagem de erro é exibida quando o campo de e-mail fica vazio após interação.
+   *
+   * Executa ações de foco/edição no campo de e-mail e valida que o toast de erro identificado por
+   * `data-testid="message-error-email-recover-password"` esteja visível e contenha o texto
+   * "O email é obrigatório.".
+   */
   @Test
   @DisplayName("Deveria ser possível aparecer uma mensagem de erro quando o email está vazio")
   public void shouldNotShowToastWhenClickingOnButton() {
@@ -71,6 +97,13 @@ public class RecoverPassword extends BaseTest {
     assertTrue(toastContent.getText().contains("O email é obrigatório."));
   }
 
+  /**
+   * Verifica que um toast de erro é exibido quando um email valido em formato correto
+   * não corresponde a um usuário existente.
+   *
+   * Realiza entrada de email, remove o foco do campo, aciona o botão de recuperação
+   * e valida que o toast de feedback aparece contendo "Usuário não encontrado.".
+   */
   @Test
   @DisplayName("Deveria ser possível aparecer um toast de feedback caso coloque um email inválido")
   public void shouldShowToastWhenInvalidEmail() {
@@ -86,6 +119,13 @@ public class RecoverPassword extends BaseTest {
     assertTrue(messageErrorEmail.getText().contains("Usuário não encontrado."));
   }
 
+  /**
+   * Verifica que o sistema envia um e‑mail de recuperação de senha ao submeter um endereço válido.
+   *
+   * Executa a interação na tela de recuperação: preenche o campo de e‑mail com um endereço válido,
+   * submete o formulário e valida que um toast de sucesso é exibido contendo a mensagem esperada
+   * sobre o envio das instruções para recuperar a senha.
+   */
   @Test
   @DisplayName("Deveria ser possível enviar o email de recuperação de senha")
   public void shouldSendEmailRecoveryPassword() {
@@ -102,6 +142,15 @@ public class RecoverPassword extends BaseTest {
     assertTrue(toastContent.getText().contains("Um e-mail foi enviado com instruções para recuperar a senha."));
   }
 
+  /**
+   * Navega para a tela de login clicando no link de retorno e valida que a URL e os elementos esperados estão presentes.
+   *
+   * Executa o clique no link identificado por `data-testid='link-go-to-login'`, espera que a URL contenha "/",
+   * converte a URL atual para um objeto URL e verifica que o caminho é "/" e o protocolo é "http".
+   * Em seguida valida que o formulário de login e o botão de login estão visíveis na página.
+   *
+   * @throws MalformedURLException se a URL atual não puder ser convertida para um objeto {@link java.net.URL}
+   */
   @Test
   @DisplayName("Deveria ser possível voltar para a tela de login pelo link")
   public void shouldNavigateToLogin() throws MalformedURLException {
