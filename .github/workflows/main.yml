@@ -15,11 +15,6 @@ jobs:
       docs: ${{ steps.filter.outputs.docs }}
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
-      cypress: ${{ steps.filter.outputs.cypress }}
-      playwright: ${{ steps.filter.outputs.playwright }}
-      robot: ${{ steps.filter.outputs.robot }}
-      selenium: ${{ steps.filter.outputs.selenium }}
-      k6: ${{ steps.filter.outputs.k6 }}
     steps:
       - name: Filtrar arquivos alterados
         id: filter
@@ -32,34 +27,37 @@ jobs:
               - 'apps/backend/**'
             frontend:
               - 'apps/frontend/**'
-            cypress:
-              - 'tests/cypress/**'
-            playwright:
-              - 'tests/playwright/**'
-            robot:
-              - 'tests/robot/**'
-            selenium:
-              - 'tests/selenium/**'
-            k6:
-              - 'tests/k6/**'
 
-  backend-tests:
+  # FASE 1: Testes Unitários
+  backend-unit-tests:
+    needs: [filter]
+    if: needs.filter.outputs.backend == 'true'
     uses: ./.github/workflows/backend.yml
 
+  frontend-unit-tests:
+    needs: [filter]
+    if: needs.filter.outputs.frontend == 'true'
+    uses: ./.github/workflows/frontend.yml
+
+  # FASE 2: Testes E2E (executam após os unitários quando disponíveis)
   cypress-tests:
-    needs: [backend-tests]
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/cypress.yml
 
   playwright-tests:
-    needs: [backend-tests]
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/playwright.yml
 
   robot-framework-tests:
-    needs: [backend-tests]
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/robot.yml
 
   selenium-tests:
-    needs: [backend-tests]
+    needs: [filter, backend-unit-tests, frontend-unit-tests]
+    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
     uses: ./.github/workflows/selenium.yml
 
   docker-deploy:
@@ -71,7 +69,6 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   docs-deploy:
-    if: github.base_ref == 'main' && needs.filter.outputs.docs == 'true'
     needs:
       [
         filter,
@@ -80,6 +77,7 @@ jobs:
         robot-framework-tests,
         selenium-tests,
       ]
+    if: github.base_ref == 'main' && needs.filter.outputs.docs == 'true'
     uses: ./.github/workflows/docs-deploy.yml
     permissions:
       contents: write

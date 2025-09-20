@@ -69,7 +69,7 @@ public class Login {
         Thread.currentThread().interrupt();
       }
 
-      ((JavascriptExecutor) driver).executeScript("localStorage.setItem('user-token', '" + token + "')");
+      ((JavascriptExecutor) driver).executeScript("localStorage.setItem('user-token', arguments[0])", token);
       return true;
     } catch (Exception e) {
       LOG.log(Level.WARNING, "Erro ao fazer login: " + " - Status: " + e.getMessage(), e);

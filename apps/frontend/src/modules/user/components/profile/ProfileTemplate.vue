@@ -35,11 +35,11 @@
             id="phone"
             type="tel"
             placeholder="(00) 00000-0000"
-            v-model="phone_number"
+            v-model="phone"
             @blur="validatePhoneField"
-            :class="['input-phone-profile', { 'input-error': errors.phone_number }]"
+            :class="['input-phone-profile', { 'input-error': errors.phone }]"
           />
-          <span data-testid="input-error-phone-profile" v-if="errors.phone_number" class="error-message">{{ errors.phone_number }}</span>
+          <span data-testid="input-error-phone-profile" v-if="errors.phone" class="error-message">{{ errors.phone }}</span>
         </div>
         <div class="form-group">
           <label for="cpfCnpj">CPF ou CNPJ</label>
@@ -78,10 +78,10 @@ import { useFetchUser } from '../../../../composables/useFetchUser';
 import { useUpdateUser } from '../../../../composables/useUpdateUser';
 
 const fullName = ref('');
-const phone_number = ref('');
+const phone = ref('');
 const socialName = ref('');
 const cpfCnpj = ref('');
-const errors = ref({ full_name: '', phone_number: '' });
+const errors = ref({ full_name: '', phone: '' });
 
 const props = defineProps<Props>();
 
@@ -100,14 +100,14 @@ watchEffect(() => {
 
   if (user.value) {
     fullName.value = user.value.full_name || '';
-    phone_number.value = user.value.phone || '';
+    phone.value = user.value.phone || '';
     socialName.value = user.value.social_name || '';
     cpfCnpj.value = user.value.document || '';
   }
 });
 
 const isFormValid = computed(() => {
-  return fullName.value.trim() !== '' && phone_number.value.trim() !== '' && !errors.value.full_name && !errors.value.phone_number;
+  return fullName.value.trim() !== '' && phone.value.trim() !== '' && !errors.value.full_name && !errors.value.phone;
 });
 
 const hasChanges = computed(() => {
@@ -116,7 +116,7 @@ const hasChanges = computed(() => {
     return false;
   }
 
-  return fullName.value !== (user.full_name || '') || socialName.value !== (user.social_name || '') || phone_number.value !== (user.phone || '');
+  return fullName.value !== (user.full_name || '') || socialName.value !== (user.social_name || '') || phone.value !== (user.phone || '');
 });
 
 watch(fullName, (newValue) => {
@@ -125,8 +125,8 @@ watch(fullName, (newValue) => {
   }
 });
 
-watch(phone_number, (newValue) => {
-  if (newValue && errors.value.phone_number) {
+watch(phone, (newValue) => {
+  if (newValue && errors.value.phone) {
     validatePhoneField();
   }
 });
@@ -136,13 +136,13 @@ const validateFullNameField = () => {
 };
 
 const validatePhoneField = () => {
-  errors.value.phone_number = validatePhone(phone_number.value);
+  errors.value.phone = validatePhone(phone.value);
 };
 
 const validateForm = () => {
   validateFullNameField();
   validatePhoneField();
-  return !errors.value.full_name && !errors.value.phone_number;
+  return !errors.value.full_name && !errors.value.phone;
 };
 
 const handleSave = () => {
@@ -150,7 +150,7 @@ const handleSave = () => {
     const updateData: UpdateUserData = {
       full_name: fullName.value.trim(),
       social_name: socialName.value.trim(),
-      phone_number: phone_number.value.trim(),
+      phone: phone.value.trim(),
     };
 
     updateUser(updateData);

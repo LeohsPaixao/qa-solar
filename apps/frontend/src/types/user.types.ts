@@ -32,7 +32,7 @@ export interface RegisterData {
   social_name?: string;
   document: string;
   doc_type: 'cpf' | 'cnpj';
-  phone_number?: string;
+  phone?: string;
   email: string;
   password: string;
   password_confirmation: string;
@@ -57,7 +57,7 @@ export interface UpdateUserData {
   password?: string;
   password_confirmation?: string;
   social_name?: string;
-  phone_number?: string;
+  phone?: string;
   document?: string;
 }
 
@@ -92,7 +92,7 @@ export interface FormData {
   social_name?: string;
   document: string;
   doc_type: 'cpf' | 'cnpj';
-  phone_number?: string;
+  phone?: string;
   email: string;
   password: string;
   password_confirmation: string;
@@ -101,7 +101,7 @@ export interface FormData {
 export interface FormErrors {
   full_name?: string;
   document?: string;
-  phone_number?: string;
+  phone?: string;
   email?: string;
   password?: string;
   password_confirmation?: string;
@@ -109,12 +109,12 @@ export interface FormErrors {
 
 export interface FormDataProfile {
   full_name: string;
-  phone_number?: string;
+  phone?: string;
 }
 
 export interface FormErrorsProfile {
   full_name?: string;
-  phone_number?: string;
+  phone?: string;
 }
 
 export type ValidatorFn = (value: string, formData: FormData) => string | undefined;

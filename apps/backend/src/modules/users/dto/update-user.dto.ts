@@ -15,5 +15,5 @@ export class UpdateUserDto {
   @ApiProperty({ description: 'Telefone do usuário' })
   @IsString()
   @IsOptional()
-  phone_number?: string;
+  phone?: string;
 }

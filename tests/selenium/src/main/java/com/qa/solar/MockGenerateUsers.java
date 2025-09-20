@@ -53,7 +53,7 @@ public class MockGenerateUsers {
         .substring(0, 12);
     String document = generateValidCPF.generateValidCPF();
     String docType = "cpf";
-    String phone = faker.phoneNumber().cellPhone();
+    String phone = faker.number().digits(11);
     String socialName = faker.name().lastName();
 
     UserRecord user = new UserRecord(fullName, email, password, document, docType, phone, socialName);
@@ -61,7 +61,7 @@ public class MockGenerateUsers {
     return user;
   }
 
-  private void createUserViaRequest(UserRecord user) {
+  private boolean createUserViaRequest(UserRecord user) {
 
     try {
       String baseUrl = dotenv.get("SELENIUM_API_URL", "http://localhost:3001");
@@ -85,14 +85,15 @@ public class MockGenerateUsers {
       HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
       if (response.statusCode() > 201 || response.statusCode() >= 500) {
-        throw new RuntimeException(String.format(
-            "Falha ao criar usuário. Status: %d, Body: %s",
-            response.statusCode(),
-            response.body()));
+        LOG.log(Level.SEVERE, "Erro ao criar usuário via requisição HTTP",
+            new Exception("Status: " + response.statusCode()));
+        return false;
       }
+
+      return true;
     } catch (Exception e) {
       LOG.log(Level.SEVERE, "Erro ao criar usuário via requisição HTTP", e);
-      throw new RuntimeException("Falha ao criar usuário", e);
+      return false;
     }
   }
 }
