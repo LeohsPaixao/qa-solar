@@ -8,6 +8,41 @@ on:
   workflow_dispatch:
 
 jobs:
+  filter:
+    name: Filtrar arquivos alterados
+    runs-on: ubuntu-latest
+    outputs:
+      docs: ${{ steps.filter.outputs.docs }}
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+      cypress: ${{ steps.filter.outputs.cypress }}
+      playwright: ${{ steps.filter.outputs.playwright }}
+      robot: ${{ steps.filter.outputs.robot }}
+      selenium: ${{ steps.filter.outputs.selenium }}
+      k6: ${{ steps.filter.outputs.k6 }}
+    steps:
+      - name: Filtrar arquivos alterados
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            docs:
+              - 'docs/**'
+            backend:
+              - 'apps/backend/**'
+            frontend:
+              - 'apps/frontend/**'
+            cypress:
+              - 'tests/cypress/**'
+            playwright:
+              - 'tests/playwright/**'
+            robot:
+              - 'tests/robot/**'
+            selenium:
+              - 'tests/selenium/**'
+            k6:
+              - 'tests/k6/**'
+
   backend-tests:
     uses: ./.github/workflows/backend.yml
 
@@ -36,9 +71,15 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   docs-deploy:
-    if: github.base_ref == 'main' && (contains(github.event.pull_request.changed_files, 'docs/'))
+    if: github.base_ref == 'main' && needs.filter.outputs.docs == 'true'
     needs:
-      [cypress-tests, playwright-tests, robot-framework-tests, selenium-tests]
+      [
+        filter,
+        cypress-tests,
+        playwright-tests,
+        robot-framework-tests,
+        selenium-tests,
+      ]
     uses: ./.github/workflows/docs-deploy.yml
     permissions:
       contents: write

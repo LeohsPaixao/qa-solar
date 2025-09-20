@@ -21,9 +21,10 @@ import io.github.cdimascio.dotenv.Dotenv;
  * @version 1.0
  * @since 2025-08-29
  */
-public abstract class MockGenerateUsers {
+public class MockGenerateUsers {
   private static final Logger LOG = Logger.getLogger(MockGenerateUsers.class.getName());
   private Faker faker = new Faker();
+  private GenerateValidCPF generateValidCPF = new GenerateValidCPF();
   private Dotenv dotenv = Dotenv.load();
   private HttpClient httpClient = HttpClient.newBuilder()
       .connectTimeout(Duration.ofSeconds(10))
@@ -50,7 +51,7 @@ public abstract class MockGenerateUsers {
         .toString()
         .replace("-", "")
         .substring(0, 12);
-    String document = faker.idNumber().ssnValid();
+    String document = generateValidCPF.generateValidCPF();
     String docType = "cpf";
     String phone = faker.phoneNumber().cellPhone();
     String socialName = faker.name().lastName();
@@ -63,7 +64,7 @@ public abstract class MockGenerateUsers {
   private void createUserViaRequest(UserRecord user) {
 
     try {
-      String baseUrl = dotenv.get("SELENIUM_API_BASE_URL", "http://localhost:3001");
+      String baseUrl = dotenv.get("SELENIUM_API_URL", "http://localhost:3001");
       JsonObject payload = new JsonObject();
       payload.addProperty("full_name", user.fullName());
       payload.addProperty("social_name", user.socialName());
@@ -81,10 +82,17 @@ public abstract class MockGenerateUsers {
           .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
           .timeout(Duration.ofSeconds(30))
           .build();
+      HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-      httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+      if (response.statusCode() > 201 || response.statusCode() >= 500) {
+        throw new RuntimeException(String.format(
+            "Falha ao criar usuário. Status: %d, Body: %s",
+            response.statusCode(),
+            response.body()));
+      }
     } catch (Exception e) {
-      LOG.log(Level.WARNING, e.getMessage());
+      LOG.log(Level.SEVERE, "Erro ao criar usuário via requisição HTTP", e);
+      throw new RuntimeException("Falha ao criar usuário", e);
     }
   }
 }

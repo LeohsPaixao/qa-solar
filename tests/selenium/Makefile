@@ -1,6 +1,6 @@
 build:
 	@echo "Buildando o projeto"
-	./gradlew build clean -x test --console=plain
+	./gradlew clean build -x test --console=plain
 	
 test:
 	@echo "Executando testes de selenium"
