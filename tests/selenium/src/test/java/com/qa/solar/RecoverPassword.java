@@ -56,7 +56,7 @@ public class RecoverPassword extends BaseTest {
     
   @Test
   @DisplayName("Deveria ser possível aparecer uma mensagem de erro quando o email está vazio")
-  public void shouldNotShowToastWhenClickingOnButton() {
+  public void shouldShowErrorMessageWhenEmailIsEmpty() {
     WebElement inputEmailRecoverPassword = waitForElementLocated(
         By.cssSelector("[data-testid='input-email-recover-password']"), 10);
 
@@ -114,7 +114,7 @@ public class RecoverPassword extends BaseTest {
     URL url = URI.create(driver.getCurrentUrl()).toURL();
 
     assertEquals("/", url.getPath());
-    assertEquals("http", url.getProtocol());
+    assertTrue(url.getProtocol().startsWith("http"), "Protocol should be HTTP or HTTPS");
 
     WebElement formLogin = waitForElementLocated(By.cssSelector("[data-testid='form-login']"), 10);
     WebElement btnLogin = waitForElementLocated(By.cssSelector("[data-testid='btn-login']"), 10);

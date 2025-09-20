@@ -131,7 +131,7 @@ public class Profile extends BaseTest {
   public void shouldSaveProfile() {
     String fullName = faker.name().fullName();
     String socialName = faker.name().lastName();
-    String phone = faker.phoneNumber().cellPhone();
+    String phone = faker.number().digits(11);
 
     WebElement inputFullName = waitForElementLocated(By.cssSelector("[data-testid='input-fullname-profile']"), 10);
     WebElement inputSocialName = waitForElementLocated(By.cssSelector("[data-testid='input-socialname-profile']"), 10);
