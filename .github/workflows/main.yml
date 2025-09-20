@@ -15,11 +15,6 @@ jobs:
       docs: ${{ steps.filter.outputs.docs }}
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
-      cypress: ${{ steps.filter.outputs.cypress }}
-      playwright: ${{ steps.filter.outputs.playwright }}
-      robot: ${{ steps.filter.outputs.robot }}
-      selenium: ${{ steps.filter.outputs.selenium }}
-      k6: ${{ steps.filter.outputs.k6 }}
     steps:
       - name: Filtrar arquivos alterados
         id: filter
@@ -32,34 +27,25 @@ jobs:
               - 'apps/backend/**'
             frontend:
               - 'apps/frontend/**'
-            cypress:
-              - 'tests/cypress/**'
-            playwright:
-              - 'tests/playwright/**'
-            robot:
-              - 'tests/robot/**'
-            selenium:
-              - 'tests/selenium/**'
-            k6:
-              - 'tests/k6/**'
 
   backend-tests:
+    if: needs.filter.outputs.backend == 'true'
     uses: ./.github/workflows/backend.yml
 
   cypress-tests:
-    needs: [backend-tests]
+    needs: [filter]
     uses: ./.github/workflows/cypress.yml
 
   playwright-tests:
-    needs: [backend-tests]
+    needs: [filter]
     uses: ./.github/workflows/playwright.yml
 
   robot-framework-tests:
-    needs: [backend-tests]
+    needs: [filter]
     uses: ./.github/workflows/robot.yml
 
   selenium-tests:
-    needs: [backend-tests]
+    needs: [filter]
     uses: ./.github/workflows/selenium.yml
 
   docker-deploy:

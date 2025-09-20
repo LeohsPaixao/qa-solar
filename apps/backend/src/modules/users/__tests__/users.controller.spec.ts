@@ -246,7 +246,7 @@ describe('UserController', () => {
     const updateUserDto = {
       full_name: 'John Doe Updated',
       social_name: 'John Doe Updated',
-      phone_number: '1234567890',
+      phone: '1234567890',
     };
 
     const result = await controller.update(req, updateUserDto);

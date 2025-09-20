@@ -252,7 +252,7 @@ public class RegisterTest extends BaseTest {
     String fullName = faker.name().fullName();
     String socialName = faker.name().lastName();
     String email = faker.internet().emailAddress();
-    String phone = faker.phoneNumber().cellPhone();
+    String phone = faker.number().digits(11);
     String password = faker.internet().password(6, 20);
     String passwordConfirmation = password;
     String document = generateValidCPF.generateValidCPF();
