@@ -1,5 +1,11 @@
 # frontend
 
+## 2.0.2
+
+### Patch Changes
+
+- 9088391: test: cria os testes de perfil no projeto selenium e refatora a tela de perfil
+
 ## 2.0.1
 
 ### Patch Changes
