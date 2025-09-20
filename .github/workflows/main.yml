@@ -40,3 +40,5 @@ jobs:
     needs:
       [cypress-tests, playwright-tests, robot-framework-tests, selenium-tests]
     uses: ./.github/workflows/docs-deploy.yml
+    permissions:
+      contents: write
