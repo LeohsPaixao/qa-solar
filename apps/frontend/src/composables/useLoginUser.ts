@@ -32,10 +32,7 @@ export const useLoginUser = () => {
         if (data.token) {
           await router.push('/home');
 
-          toast.success(data.message, {
-            autoClose: 3000,
-            toastId: 'login-success',
-          });
+          toast.success(data.message || 'Login realizado com sucesso', { autoClose: 3000 });
         }
       }
     },
@@ -46,10 +43,7 @@ export const useLoginUser = () => {
     (error: any) => {
       if (error) {
         const errorMessage = error.response?.data?.message || 'Erro ao realizar login';
-        toast.error(errorMessage, {
-          autoClose: 5000,
-          toastId: 'login-error',
-        });
+        toast.error(errorMessage, { autoClose: 5000 });
       }
     },
   );

@@ -1,0 +1,282 @@
+---
+sidebar_position: 3
+---
+
+# 🧪 Tipos de Testes
+
+## 📋 Visão Geral
+
+O projeto Robot Framework implementa testes end-to-end (E2E) focados na validação de fluxos completos da aplicação, garantindo que todas as funcionalidades críticas funcionem corretamente desde a interface do usuário até a integração com APIs e banco de dados.
+
+## 🔄 Testes End-to-End (E2E)
+
+### 🎯 Objetivo
+Os testes E2E simulam o comportamento real do usuário, validando fluxos completos da aplicação desde a interface até a integração com APIs e banco de dados.
+
+### 📊 Cobertura Atual
+- **Autenticação**: Login, logout e recuperação de senha
+- **Cadastro**: Registro de novos usuários com validações completas
+- **Perfil**: Edição e atualização de dados do usuário
+- **Listagem**: Visualização e gerenciamento de usuários
+- **Navegação**: Fluxos de navegação entre páginas
+- **Validações**: Testes de validação de formulários e campos
+
+### 🛠️ Características Técnicas
+- **Base URL**: `http://localhost:8181`
+- **Browser**: Chrome/Chromium com Browser Library
+- **API Integration**: Testes diretos com APIs REST
+- **Paralelização**: Suporte para execução paralela com Pabot
+- **Screenshots**: Capturas automáticas em caso de falha
+
+## 📝 Exemplos de Implementação
+
+### 🔐 Teste de Login
+
+```robot
+*** Settings ***
+Documentation       Suite de testes para validar funcionalidades de login.
+
+Resource            ../resources/keywords.resource
+Resource            ../resources/loginKeywords.resource
+
+Test Setup          Preparar Teste    ${BASE_URL}
+Test Teardown       Fechar O Navegador
+
+*** Test Cases ***
+Cenário 1: Deveria Ser Possivel Visualizar Os Elementos Da Tela
+    [Documentation]    Testa a exibição correta dos elementos na tela de login.
+    Verificar Os Elementos Da Tela
+
+Cenário 2: Deveria Ser Possivel Fazer Login Com As Credenciais Válidas
+    [Documentation]    Testa login com credenciais corretas.
+    Digitar O Email Do Usuario    generic@example.com
+    Digitar O Password Do Usuario    123456
+    Clicar No Botão De Entrar Na Conta
+    Verificar O Feedback Do Usuario    Login realizado com sucesso!
+
+Cenário 3: Deveria Ser Possivel Ir Para A Tela De Cadastro
+    [Documentation]    Testa a navegação para a página de cadastro.
+    Clicar No Link    link-signup
+    Verificar A Navegação Da Url    signup
+```
+
+### 📝 Teste de Cadastro
+
+```robot
+*** Settings ***
+Documentation       Suite de testes para validar funcionalidades de cadastro de usuários.
+
+Resource            ../resources/keywords.resource
+Resource            ../resources/registerKeywords.resource
+
+Test Setup          Preparar Teste    ${BASE_URL}    signup
+Test Teardown       Fechar O Navegador
+
+*** Test Cases ***
+Cenário 1: Deveria Ser Possível Visualizar Os Elementos Da Tela De Cadastros
+    [Documentation]    Verifica se todos os elementos esperados na tela de cadastro são exibidos corretamente.
+    Verificar Os Elementos Da Tela De Cadastro
+
+Cenário 2: Não Deveria Ser Possível Criar O Usuário Com O Nome Completo Errado
+    [Documentation]    Testa a validação do campo "Nome Completo" com um valor inválido.
+    Preencher O Campo    fullname    Teste
+    Verificar A Mensagem Do Erro No Campo    fullname    O Nome Completo deve conter pelo menos Nome e Sobrenome.
+
+Cenário 3: Deveria Ser Possível Cadastrar Um Usuário
+    [Documentation]    Valida o fluxo completo para criar um novo usuário com dados válidos.
+    Preencher Todos Os Campos
+    Clicar No Botão Cadastrar
+    Verificar A Mensagem De Sucesso No Toast
+```
+
+### 👤 Teste de Perfil
+
+```robot
+*** Settings ***
+Documentation       Suite de testes para validar funcionalidades de perfil de usuário.
+
+Library             ../library/CustomDataLibrary.py
+Resource            ../resources/keywords.resource
+Resource            ../resources/profileKeywords.resource
+
+Test Setup          Preparar Teste Com API    ${BASE_URL}    profile
+Test Teardown       Fechar O Navegador
+
+*** Test Cases ***
+Cenário 1: Deveria Ser Possível Visualizar Os Elementos Da Tela De Perfil
+    [Documentation]    Verifica se os elementos da tela de perfil do usuário estão visíveis.
+    Verificar Os Elementos Da Tela De Perfil Do Usuário
+
+Cenário 2: Deveria Ser Possível Salvar Alteração
+    [Documentation]    Verifica se é possível salvar alteração.
+    ${fullName}=    Generate Full Name
+    ${phone}=    Generate Phone
+    ${socialName}=    Generate First Name
+
+    Preencher Os Campos Do Formulário    fullname-profile    ${fullName}
+    Preencher Os Campos Do Formulário    phone-profile    ${phone}
+    Preencher Os Campos Do Formulário    socialname-profile    ${socialName}
+    Clicar No Botão Salvar    [data-testid="btn-save-profile"]
+    Verificar A Mensagem Do Toast Ao Tentar Atualizar    Usuário alterado com sucesso!
+```
+
+### 📋 Teste de Listagem
+
+```robot
+*** Settings ***
+Documentation       Suite de testes para validar funcionalidades de listagem de usuários.
+
+Resource            ../resources/keywords.resource
+Resource            ../resources/listUsersKeywords.resource
+
+Test Setup          Preparar Teste Com API    ${BASE_URL}    listusers
+Test Teardown       Fechar O Navegador
+
+*** Test Cases ***
+Deveria Ser Possível Visualizar Elementos Da Tela De Listagem De Usuários
+    [Documentation]    Testa a exibição correta dos elementos na tela de listagem de usuários.
+    Verificar Elemento Visível    [data-testid="table-users"]
+    Verificar Elemento Visível    [data-testid="checkbox-select-all"]
+    Verificar Elemento Visível    [data-testid="btn-delete-user"]
+
+Deveria Ser Possível Selecionar Um Usuário E Excluí-lo
+    [Documentation]    Testa a seleção de um usuário e sua exclusão.
+    Selecionar Checkbox Por Índice    2
+    Clicar Botão    [data-testid="btn-delete-user"]
+    Verificar Mensagem Toast    1 usuário(s) excluído(s) com sucesso!
+```
+
+### 🔄 Teste de Recuperação de Senha
+
+```robot
+*** Settings ***
+Documentation       Suite de testes para validar funcionalidades de recuperação de senha.
+
+Resource            ../resources/keywords.resource
+Resource            ../resources/recoverKeywords.resource
+
+Test Setup          Preparar Teste    ${BASE_URL}    recover-password
+Test Teardown       Fechar O Navegador
+
+*** Test Cases ***
+Cenário 1: Deveria Ser Possível Visualizar Os Elementos Da Tela E Recuperar A Senha
+    [Documentation]    Verifica se os elementos da tela de recuperação de senha estão visíveis.
+    Verificar Os Elementos Da Tela De Recuperação De Senha
+
+Cenário 2: Deveria Ser Possível Enviar O Email De Recuperação De Senha
+    [Documentation]    Verifica se é possível enviar o email de recuperação de senha.
+    Preencher O Campo De Email    generic@example.com
+    Clicar No Botão De Recuperar A Senha
+    Verificar A Mensagem Do Toast De Recuperação    Um e-mail foi enviado com instruções para recuperar a senha.
+```
+
+## 🎯 Estratégias de Teste
+
+### 📋 Padrões de Nomenclatura
+- **Suites**: `[Funcionalidade].robot` (ex: `login.robot`)
+- **Test Cases**: `Cenário [Número]: [Descrição do Comportamento]`
+- **Keywords**: `[Ação] [Objeto]` (ex: `Clicar No Botão De Entrar`)
+- **Tags**: Uso de tags para categorização e filtros
+
+### 🔧 Hooks e Setup
+- **Test Setup**: Configuração antes de cada teste
+- **Test Teardown**: Limpeza após cada teste
+- **Suite Setup**: Configuração antes da suite
+- **Suite Teardown**: Limpeza após a suite
+
+### 🎨 Seletores de Teste
+- **Padrão**: `[data-testid="elemento"]`
+- **CSS Selectors**: `css=[data-testid="elemento"]`
+- **Consistência**: Todos os elementos interativos possuem data-testid
+- **Manutenibilidade**: Seletores independentes de mudanças de CSS
+
+### 🔄 Keywords e Recursos
+- **Modularidade**: Keywords organizadas por funcionalidade
+- **Reutilização**: Keywords compartilhadas entre testes
+- **Parâmetros**: Uso de argumentos para flexibilidade
+- **Documentação**: Documentação clara para cada keyword
+
+## 📊 Métricas de Qualidade
+
+### 🎯 Cobertura de Testes
+- **Fluxos Principais**: 5 fluxos principais cobertos
+- **Cenários**: 30+ cenários de teste implementados
+- **Validações**: Cobertura completa de validações de formulário
+
+### ⚡ Performance
+- **Execução E2E**: ~8-12 minutos
+- **Paralelização**: 4 processos simultâneos com Pabot
+- **Retry Strategy**: Implementada via Robot Framework
+
+### 🛡️ Confiabilidade
+- **API Integration**: Testes diretos com APIs para maior confiabilidade
+- **Data Isolation**: Geração de dados únicos para cada execução
+- **Error Handling**: Tratamento robusto de erros e timeouts
+- **Screenshots**: Capturas automáticas em caso de falha
+
+## 🔧 Keywords Avançadas
+
+### 🎲 Geração de Dados
+```robot
+*** Keywords ***
+Preencher Todos Os Campos
+    ${cpf}=    Generate Valid Cpf
+    ${fullName}=    Generate Full Name
+    ${email}=    Generate Email
+    ${phone}=    Generate Phone
+    
+    Fill Text    css=[data-testid="input-fullname"]    ${fullName}
+    Fill Text    css=[data-testid="input-socialname"]    Nome Social
+    Fill Text    css=[data-testid="input-document"]    ${cpf}
+    Fill Text    css=[data-testid="input-phone"]    ${phone}
+    Fill Text    css=[data-testid="input-email"]    ${email}
+    Fill Text    css=[data-testid="input-password"]    123456
+    Fill Text    css=[data-testid="input-password-confirmation"]    123456
+```
+
+### 🔐 Autenticação via API
+```robot
+*** Keywords ***
+Login Via API
+    ${payload}=    Evaluate    {"email": "${EMAIL}", "password": "${PASSWORD}"}    json
+    ${response}=    POST    ${API_URL}/auth/login    json=${payload}
+    Should Be Equal As Numbers    ${response.status_code}    200
+    
+    ${responseJson}=    Evaluate    ${response.text}    json
+    ${token}=    Set Variable    ${responseJson["token"]}
+    
+    LocalStorage Set Item    user-token    ${token}
+```
+
+### 🎯 Validações e Assertions
+```robot
+*** Keywords ***
+Verificar A Mensagem Do Erro No Campo
+    [Arguments]    ${name}    ${error}
+    Wait For Elements State    [data-testid="input-error-${name}"]    visible
+    ${elementText}=    Get Text    [data-testid="input-error-${name}"]
+    Should Be Equal    ${elementText}    ${error}
+
+Verificar A Navegação Da Url
+    [Arguments]    ${expectedPath}
+    Wait For Navigation    ${BASE_URL}${expectedPath}
+    ${currentUrl}=    Get Url
+    Should Start With    ${currentUrl}    ${BASE_URL}
+    ${urlComponents}=    Parse Url    ${currentUrl}
+    Should Be Equal As Strings    ${urlComponents.path}    /${expectedPath}
+```
+
+### 🔄 Interações com Elementos
+```robot
+*** Keywords ***
+Selecionar Checkbox Por Índice
+    [Arguments]    ${index}
+    ${checkboxes}=    Get Elements    [data-testid="checkbox-select-users"]
+    Run Keyword If    ${index} >= len(${checkboxes})    Fail    Índice ${index} fora do intervalo: existem apenas ${len(${checkboxes})} checkboxes.
+    ${checkbox}=    Get From List    ${checkboxes}    ${index}
+    Check Checkbox    ${checkbox}
+
+Simular Evento De Blur
+    [Arguments]    ${locator}
+    Press Keys    css=[data-testid="input-${locator}"]    Tab
+```

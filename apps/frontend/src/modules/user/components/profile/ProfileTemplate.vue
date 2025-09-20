@@ -11,11 +11,11 @@
             id="fullName"
             type="text"
             placeholder="Digite seu nome completo"
-            v-model="formData.full_name"
-            @blur="validateField('full_name')"
-            :class="['input-fullname-profile', { 'input-error': formErrors.full_name }]"
+            v-model="fullName"
+            @blur="validateFullNameField"
+            :class="['input-fullname-profile', { 'input-error': errors.full_name }]"
           />
-          <span data-testid="input-error-fulname-profile" v-if="formErrors.full_name" class="error-message">{{ formErrors.full_name }}</span>
+          <span data-testid="input-error-fulname-profile" v-if="errors.full_name" class="error-message">{{ errors.full_name }}</span>
         </div>
         <div class="form-group">
           <label for="socialName">Nome Social</label>
@@ -35,11 +35,11 @@
             id="phone"
             type="tel"
             placeholder="(00) 00000-0000"
-            v-model="formData.phone"
-            @blur="validateField('phone')"
-            :class="['input-phone-profile', { 'input-error': formErrors.phone }]"
+            v-model="phone"
+            @blur="validatePhoneField"
+            :class="['input-phone-profile', { 'input-error': errors.phone }]"
           />
-          <span data-testid="input-error-phone-profile" v-if="formErrors.phone" class="error-message">{{ formErrors.phone }}</span>
+          <span data-testid="input-error-phone-profile" v-if="errors.phone" class="error-message">{{ errors.phone }}</span>
         </div>
         <div class="form-group">
           <label for="cpfCnpj">CPF ou CNPJ</label>
@@ -71,24 +71,17 @@
 
 <script lang="ts" setup>
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
-import type { FormDataProfile, FormErrorsProfile, Props, UpdateUserData, User } from '@/types/user.types';
-import { validateProfile } from '@/utils/validateProfile';
-import { computed, reactive, ref, watch, watchEffect } from 'vue';
+import type { Props, UpdateUserData, User } from '@/types/user.types';
+import { validateFullName, validatePhone } from '@/utils/validateProfile';
+import { computed, ref, watch, watchEffect } from 'vue';
 import { useFetchUser } from '../../../../composables/useFetchUser';
 import { useUpdateUser } from '../../../../composables/useUpdateUser';
 
-const formData = reactive<FormDataProfile>({
-  full_name: '',
-  phone: '',
-});
-
-const socialName = ref<string>('');
-const cpfCnpj = ref<string>('');
-const originalData = ref<User>({} as User);
-const formErrors = reactive<FormErrorsProfile>({
-  full_name: '',
-  phone: '',
-});
+const fullName = ref('');
+const phone = ref('');
+const socialName = ref('');
+const cpfCnpj = ref('');
+const errors = ref({ full_name: '', phone: '' });
 
 const props = defineProps<Props>();
 
@@ -106,78 +99,63 @@ watchEffect(() => {
   });
 
   if (user.value) {
-    formData.full_name = user.value.full_name || '';
-    formData.phone = user.value.phone || '';
+    fullName.value = user.value.full_name || '';
+    phone.value = user.value.phone || '';
     socialName.value = user.value.social_name || '';
     cpfCnpj.value = user.value.document || '';
-    originalData.value = {
-      ...user.value,
-    };
   }
 });
 
 const isFormValid = computed(() => {
-  const result = validateProfile(formData);
-  return result.isValid;
+  return fullName.value.trim() !== '' && phone.value.trim() !== '' && !errors.value.full_name && !errors.value.phone;
 });
 
 const hasChanges = computed(() => {
-  return (
-    formData.full_name !== (originalData.value.full_name || '') ||
-    socialName.value !== (originalData.value.social_name || '') ||
-    formData.phone !== (originalData.value.phone || '')
-  );
-});
-
-watch(
-  () => formData.full_name,
-  (newValue) => {
-    if (newValue) {
-      const result = validateProfile({ ...formData, full_name: newValue });
-      formErrors.full_name = result.errors.full_name || '';
-    } else {
-      formErrors.full_name = '';
-    }
-  },
-);
-
-watch(
-  () => formData.phone,
-  (newValue) => {
-    if (newValue) {
-      const result = validateProfile({ ...formData, phone: newValue });
-      formErrors.phone = result.errors.phone || '';
-    } else {
-      formErrors.phone = '';
-    }
-  },
-);
-
-function validateField(field: keyof FormErrorsProfile): void {
-  const result = validateProfile(formData);
-  formErrors[field] = result.errors[field] || '';
-}
-
-function handleSave() {
-  const updateData: UpdateUserData = {
-    full_name: formData.full_name,
-    social_name: socialName.value,
-    phone: formData.phone,
-  };
-
-  const { isValid, errors } = validateProfile(formData);
-  Object.assign(formErrors, errors);
-
-  if (!isValid) {
-    return;
+  const user = props.user ? (Array.isArray(props.user) ? props.user[0] : props.user) : fetchedUser.value;
+  if (!user) {
+    return false;
   }
 
-  updateUser(updateData, {
-    onSuccess: () => {
-      originalData.value = { ...originalData.value, ...updateData };
-    },
-  });
-}
+  return fullName.value !== (user.full_name || '') || socialName.value !== (user.social_name || '') || phone.value !== (user.phone || '');
+});
+
+watch(fullName, (newValue) => {
+  if (newValue && errors.value.full_name) {
+    validateFullNameField();
+  }
+});
+
+watch(phone, (newValue) => {
+  if (newValue && errors.value.phone) {
+    validatePhoneField();
+  }
+});
+
+const validateFullNameField = () => {
+  errors.value.full_name = validateFullName(fullName.value);
+};
+
+const validatePhoneField = () => {
+  errors.value.phone = validatePhone(phone.value);
+};
+
+const validateForm = () => {
+  validateFullNameField();
+  validatePhoneField();
+  return !errors.value.full_name && !errors.value.phone;
+};
+
+const handleSave = () => {
+  if (validateForm()) {
+    const updateData: UpdateUserData = {
+      full_name: fullName.value.trim(),
+      social_name: socialName.value.trim(),
+      phone: phone.value.trim(),
+    };
+
+    updateUser(updateData);
+  }
+};
 </script>
 
 <style src="./ProfileStyle.css"></style>

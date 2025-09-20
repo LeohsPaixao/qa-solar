@@ -15,13 +15,13 @@ export class UsersController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Criar um novo usuário' })
-  @ApiResponse({ status: 201, description: 'Usuário criado com sucesso.' })
+  @ApiResponse({ status: 201, description: 'Usuário criado com sucesso!' })
   @ApiResponse({ status: 409, description: 'CPF/CNPJ ou email já está em uso.' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
   async create(@Body() createUserDto: CreateUserDto) {
     const user = await this.usersService.create(createUserDto);
     return {
-      message: 'Usuário cadastrado com sucesso!',
+      message: 'Usuário criado com sucesso!',
       user,
     };
   }
@@ -55,13 +55,13 @@ export class UsersController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Atualizar dados do usuário logado' })
-  @ApiResponse({ status: 200, description: 'Usuário alterado com sucesso', type: UserDto })
-  @ApiResponse({ status: 404, description: 'Usuário não encontrado para atualizar' })
+  @ApiResponse({ status: 200, description: 'Usuário alterado com sucesso!', type: UserDto })
+  @ApiResponse({ status: 404, description: 'Usuário não encontrado para atualizar!' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
   async update(@Request() req: any, @Body() updateUserDto: UpdateUserDto) {
     const user = await this.usersService.update(req.user.id, updateUserDto);
     return {
-      message: 'Usuário alterado com sucesso.',
+      message: 'Usuário alterado com sucesso!',
       user,
     };
   }

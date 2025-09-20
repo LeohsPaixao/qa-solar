@@ -95,17 +95,25 @@ temp/
 # Test results and reports
 *.jtl
 *.csv
-*.xml
 *.html
 *.json
-!package.json
-!tsconfig.json
+!package.*
+!tsconfig.*
 !eslint.config.*
-!prettierrc.json
-!turbo.json
+!prettierrc.*
+!turbo.*
 !commitlint.config.*
-!.changeset/config.json
+!.changeset/config.*
 !cypress.config.*
 !playwright.config.*
 !jest.config.*
 !vite.config.*
+
+# Docusaurus
+/docs/build
+/docs/.docusaurus
+/docs/.cache-loader
+
+# Selenium
+tests/selenium/build/
+tests/selenium/.gradle/

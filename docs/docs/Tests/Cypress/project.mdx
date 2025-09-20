@@ -1,0 +1,177 @@
+---
+sidebar_position: 2
+---
+
+# 📂 Projeto
+
+## 🔧 Configuração e Execução
+
+### 📋 Pré-requisitos
+
+> **⚠️ Importante**: Certifique-se de que as dependências foram instaladas no projeto raiz "qa-solar" e que o comando `yarn dev` foi executado antes de iniciar os testes.
+
+### 🚀 Comandos Disponíveis
+
+#### Configuração Inicial
+```bash
+# Copiar variáveis de ambiente
+cp .env.example .env
+```
+
+#### Execução de Testes
+
+**Modo Interativo (Cypress Test Runner)**
+```bash
+# Abrir interface gráfica do Cypress
+yarn cy:open
+```
+
+**Modo Headless (CI/CD)**
+```bash
+# Executar todos os testes
+yarn test
+
+# Executar apenas testes E2E
+yarn cy:e2e:run
+
+# Executar apenas testes de componentes
+yarn cy:component:run
+```
+
+**Utilitários**
+```bash
+# Limpar arquivos de cobertura e relatórios
+yarn cy:clean
+
+# Gerar relatório de cobertura
+yarn cy:coverage
+
+# Executar linting
+yarn lint
+```
+
+## 📂 Estrutura do Projeto
+
+```plaintext
+tests/cypress/
+├── tests/
+│   ├── e2e/                                # Testes end-to-end
+│   │   ├── specs/                          # Especificações de testes E2E
+│   │   │   ├── login.cy.ts                 # Testes de autenticação
+│   │   │   ├── registerUser.cy.ts          # Testes de cadastro
+│   │   │   ├── profile.cy.ts               # Testes de perfil
+│   │   │   ├── listUsers.cy.ts             # Testes de listagem
+│   │   │   └── recoveryPassword.cy.ts      # Testes de recuperação
+│   │   ├── fixtures/                       # Dados de teste estáticos
+│   │   ├── shared/                         # Utilitários compartilhados
+│   │   │   ├── fillUserForm.ts             # Helper para preenchimento
+│   │   │   └── generateValidCPF.ts         # Gerador de CPF válido
+│   │   └── support/                        # Configurações e comandos
+│   │       ├── commands/                   # Comandos customizados
+│   │       ├── mocks/                      # Mocks e interceptors
+│   │       └── e2e.ts                      # Configuração E2E
+│   └── component/                          # Testes de componentes
+│       ├── specs/                          # Especificações de componentes
+│       │   ├── AppHeader.cy.ts             # Testes do cabeçalho
+│       │   ├── AppFooter.cy.ts             # Testes do rodapé
+│       │   ├── Login.cy.ts                 # Testes do componente login
+│       │   ├── RegisterUser.cy.ts          # Testes do componente cadastro
+│       │   ├── UserProfile.cy.ts           # Testes do componente perfil
+│       │   ├── ListUsers.cy.ts             # Testes do componente listagem
+│       │   ├── LoadingErrorState.cy.ts     # Testes de estados
+│       │   └── recoverPassword.cy.ts       # Testes de recuperação
+│       ├── support/                        # Configurações de componentes
+│       │   ├── commands/                   # Comandos customizados
+│       │   ├── component.ts                # Configuração de componentes
+│       │   └── component-index.html        # Template HTML
+│       └── fixtures/                       # Dados de teste para componentes
+├── coverage/                               # Relatórios de cobertura
+├── .env                                    # Variáveis de ambiente
+├── cypress.config.ts                       # Configuração principal
+├── package.json                            # Dependências e scripts
+├── tsconfig.json                           # Configuração TypeScript
+└── eslint.config.mjs                       # Configuração ESLint
+```
+
+## ⚙️ Configurações Avançadas
+
+### 🔧 Configuração do Cypress
+
+O projeto utiliza configurações otimizadas para performance e confiabilidade:
+
+```typescript
+// Principais configurações
+export default defineConfig({
+  projectId: 'en7s34',                    // Cypress Cloud integration
+  video: false,                           // Desabilita gravação de vídeo
+  chromeWebSecurity: false,               // Desabilita CORS para testes
+  defaultCommandTimeout: 4000,            // Timeout padrão para comandos
+  pageLoadTimeout: 120000,                // Timeout para carregamento de página
+  experimentalMemoryManagement: true,     // Otimização de memória
+  retries: {
+    experimentalStrategy: 'detect-flake-and-pass-on-threshold',
+    maxRetries: 1,
+    passesRequired: 1
+  }
+});
+```
+
+### 🌐 Variáveis de Ambiente
+
+```bash
+# URLs de configuração
+CYPRESS_BASE_URL=http://localhost:8181    # URL da aplicação frontend
+CYPRESS_API_URL=http://localhost:3001     # URL da API backend
+```
+
+### 📊 Integração com Cypress Cloud
+
+O projeto está configurado para integração com Cypress Cloud:
+- **Project ID**: `en7s34`
+- **Monitoramento**: Execuções e resultados centralizados
+- **Relatórios**: Dashboard com métricas de qualidade
+
+## 📚 Comandos Customizados
+
+### E2E Commands
+
+```typescript
+// Login automatizado
+cy.login('email@example.com', 'password')
+
+// Navegação com espera de rede
+cy.visitAndwait('/path')
+
+// Verificação de DOM carregado
+cy.checkDomLoaded('[data-testid="element"]')
+
+// Espera por animações
+cy.waitForAnimation(1000)
+```
+
+### Component Commands
+
+```typescript
+// Montagem de componentes com plugins
+cy.mount(Component, { props: { title: 'Test' } })
+
+// Interação com componentes
+cy.interactWithComponent('[data-testid="button"]', 'click')
+
+// Verificação de propriedades
+cy.checkComponentProps('[data-testid="component"]', { title: 'Expected' })
+```
+
+## 🛠️ Dependências Principais
+
+### Produção
+- **Cypress**: `14.0.3` - Framework de testes
+- **@faker-js/faker**: `9.8.0` - Geração de dados fictícios
+- **cypress-network-idle**: `1.15.0` - Controle de requisições de rede
+- **dotenv**: `16.4.5` - Gerenciamento de variáveis de ambiente
+
+### Desenvolvimento
+- **@cypress/code-coverage**: `3.14.4` - Relatórios de cobertura
+- **@bahmutov/cypress-esbuild-preprocessor**: `2.2.5` - Preprocessamento
+- **eslint-plugin-cypress**: `4.1.0` - Linting específico para Cypress
+- **TypeScript**: `5.8.3` - Tipagem estática

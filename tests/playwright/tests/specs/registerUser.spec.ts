@@ -105,7 +105,7 @@ test.describe('Tela de Cadastro de Usuários', {
 
     const toast = page.locator('[data-testid="toast-content"]')
     await toast.waitFor({ state: 'visible' })
-    await expect(toast).toHaveText('Usuário cadastrado com sucesso!');
+    await expect(toast).toHaveText('Usuário criado com sucesso!');
   });
 
   test('Deveria ser possivel ir para a tela de login ao clicar no link', async ({ page }) => {

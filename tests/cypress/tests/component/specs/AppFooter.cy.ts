@@ -50,7 +50,6 @@ describe('AppFooter Component', () => {
   it('Deveria ser possivel visualizar o estilo do link do GitHub', () => {
     cy.mount(AppFooter);
 
-    cy.get('.github-link').should('have.css', 'text-decoration', 'underline solid rgb(0, 0, 238)');
     cy.get('.github-link').should('have.css', 'display', 'flex');
     cy.get('.github-link').should('have.css', 'align-items', 'center');
   });

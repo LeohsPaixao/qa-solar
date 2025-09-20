@@ -1,5 +1,12 @@
 # playwright-ui-tests
 
+## 2.0.1
+
+### Patch Changes
+
+- 8e30405: feat: remove o arquivo REAMDE.md dos projetos
+- 20aef23: feat: adiciona a propriedade private para os projetos
+
 ## 2.0.0
 
 ### Major Changes

@@ -20,7 +20,7 @@ describe('Componente de perfil de usuário', () => {
       statusCode: 200,
       delay: 1000,
       body: {
-        message: 'Perfil atualizado com sucesso!',
+        message: 'Usuário alterado com sucesso!',
         user: {
           id: 1,
           full_name: 'Teste Usuário',
@@ -126,10 +126,8 @@ describe('Componente de perfil de usuário', () => {
       });
     });
 
-    // Inserir telefone inválido
-    cy.get('[data-testid="input-phone-profile"]').clear().type('123');
+    cy.get('[data-testid="input-phone-profile"]').clear().type('123').blur();
 
-    // Verificar se a mensagem de erro aparece
     cy.get('[data-testid="input-error-phone-profile"]').should('be.visible');
     cy.get('[data-testid="input-phone-profile"]').should('have.class', 'input-error');
   });

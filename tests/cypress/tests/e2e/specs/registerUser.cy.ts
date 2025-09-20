@@ -21,7 +21,7 @@ describe('Tela de Cadastro de Usuário', () => {
   it('Deveria ser possivel cadastrar um usuário', () => {
     fillUserForm();
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();
-    cy.get('[data-testid="toast-content"]').should('have.text', 'Usuário cadastrado com sucesso!');
+    cy.get('[data-testid="toast-content"]').should('have.text', 'Usuário criado com sucesso!');
   });
 
   it('Deveria ser possivel ir para a tela de login ao clicar no link', () => {

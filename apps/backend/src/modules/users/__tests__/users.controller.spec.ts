@@ -130,7 +130,7 @@ describe('UserController', () => {
     const result = await controller.create(createUserDto);
 
     expect(result).toEqual({
-      message: 'Usuário cadastrado com sucesso!',
+      message: 'Usuário criado com sucesso!',
       user: mockUserWithoutPassword,
     });
 
@@ -194,6 +194,7 @@ describe('UserController', () => {
       id: 1,
       full_name: 'John Doe',
       social_name: 'John Doe',
+      document: '1234567890',
       email: 'john@example.com',
       phone: '1234567890',
       created_at: new Date(),
@@ -212,6 +213,7 @@ describe('UserController', () => {
         id: true,
         full_name: true,
         social_name: true,
+        document: true,
         email: true,
         phone: true,
         created_at: true,
@@ -244,13 +246,13 @@ describe('UserController', () => {
     const updateUserDto = {
       full_name: 'John Doe Updated',
       social_name: 'John Doe Updated',
-      phone_number: '1234567890',
+      phone: '1234567890',
     };
 
     const result = await controller.update(req, updateUserDto);
 
     expect(result).toEqual({
-      message: 'Usuário alterado com sucesso.',
+      message: 'Usuário alterado com sucesso!',
       user: mockUser,
     });
 

@@ -25,6 +25,7 @@ Cenário 2: Não Deveria Ser Possível Salvar Sem Nome Completo
 Cenário 3: Não Deveria Ser Possível Salvar Apenas Com Nome
     [Documentation]    Verifica se não é possível salvar apenas com nome.
     Preencher Os Campos Do Formulário    fullname-profile    testname
+    Simular Evento De Blur    fullname-profile
     Verificar Os Erros Do Input
     ...    fulname-profile
     ...    O Nome Completo deve conter pelo menos Nome e Sobrenome.
@@ -32,6 +33,7 @@ Cenário 3: Não Deveria Ser Possível Salvar Apenas Com Nome
 Cenário 4: Não Deveria Ser Possível Salvar Com Letras No Telefone
     [Documentation]    Verifica se não é possível salvar com letras no telefone.
     Preencher Os Campos Do Formulário    phone-profile    testphone
+    Simular Evento De Blur    phone-profile
     Verificar Os Erros Do Input
     ...    phone-profile
     ...    O telefone deve conter apenas números.
@@ -39,6 +41,7 @@ Cenário 4: Não Deveria Ser Possível Salvar Com Letras No Telefone
 Cenário 5: Não Deveria Ser Possível Salvar Telefone Com Mais De 11 Dígitos
     [Documentation]    Verifica se não é possível salvar telefone com mais de 11 dígitos.
     Preencher Os Campos Do Formulário    phone-profile    1452145214521452
+    Simular Evento De Blur    phone-profile
     Verificar Os Erros Do Input
     ...    phone-profile
     ...    O telefone deve ter no máximo 11 dígitos.
@@ -46,6 +49,7 @@ Cenário 5: Não Deveria Ser Possível Salvar Telefone Com Mais De 11 Dígitos
 Cenário 6: Não Deveria Ser Possível Salvar Telefone Com Menos De 10 Dígitos
     [Documentation]    Verifica se não é possível salvar telefone com menos de 10 dígitos.
     Preencher Os Campos Do Formulário    phone-profile    1452
+    Simular Evento De Blur    phone-profile
     Verificar Os Erros Do Input
     ...    phone-profile
     ...    O telefone deve ter no mínimo 10 dígitos.
@@ -60,4 +64,4 @@ Cenário 7: Deveria Ser Possível Salvar Alteração
     Preencher Os Campos Do Formulário    phone-profile    ${phone}
     Preencher Os Campos Do Formulário    socialname-profile    ${socialName}
     Clicar No Botão Salvar    [data-testid="btn-save-profile"]
-    Verificar A Mensagem Do Toast Ao Tentar Atualizar    Perfil atualizado com sucesso!
+    Verificar A Mensagem Do Toast Ao Tentar Atualizar    Usuário alterado com sucesso!

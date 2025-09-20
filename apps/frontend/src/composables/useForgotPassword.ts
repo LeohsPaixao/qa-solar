@@ -21,7 +21,7 @@ export const useForgotPassword = () => {
     () => mutation.data.value,
     (data: ForgotPasswordResponse | undefined) => {
       if (data) {
-        toast.success(data.message, { autoClose: 5000 });
+        toast.success(data.message || 'Um e-mail foi enviado com instruções para recuperar a senha.', { autoClose: 5000 });
       }
     },
   );

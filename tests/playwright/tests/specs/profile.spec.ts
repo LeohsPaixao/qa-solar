@@ -28,24 +28,28 @@ test.describe('Tela de Perfil', {
 
   test('Não deveria ser possível salvar a alteração com apenas o nome', async ({ page }) => {
     await page.locator('[data-testid="input-fullname-profile"]').fill('testname');
+    await page.locator('[data-testid="input-fullname-profile"]').blur();
     await expect(page.locator('[data-testid="input-error-fulname-profile"]')).toBeVisible();
     await expect(page.locator('[data-testid="input-error-fulname-profile"]')).toHaveText('O Nome Completo deve conter pelo menos Nome e Sobrenome.');
   });
 
   test('Não deveria ser possível salvar a alteração com letras no telefone', async ({ page }) => {
     await page.locator('[data-testid="input-phone-profile"]').fill('testphone');
+    await page.locator('[data-testid="input-phone-profile"]').blur();
     await expect(page.locator('[data-testid="input-error-phone-profile"]')).toBeVisible();
     await expect(page.locator('[data-testid="input-error-phone-profile"]')).toHaveText('O telefone deve conter apenas números.');
   });
 
   test('Não deveria ser possível salvar a alteração com mais de 11 dígitos no telefone', async ({ page }) => {
     await page.locator('[data-testid="input-phone-profile"]').fill('1452145214521452');
+    await page.locator('[data-testid="input-phone-profile"]').blur();
     await expect(page.locator('[data-testid="input-error-phone-profile"]')).toBeVisible();
     await expect(page.locator('[data-testid="input-error-phone-profile"]')).toHaveText('O telefone deve ter no máximo 11 dígitos.');
   });
 
   test('Não deveria ser possível salvar a alteração com menos de 10 dígitos no telefone', async ({ page }) => {
     await page.locator('[data-testid="input-phone-profile"]').fill('1452');
+    await page.locator('[data-testid="input-phone-profile"]').blur();
     await expect(page.locator('[data-testid="input-error-phone-profile"]')).toBeVisible();
     await expect(page.locator('[data-testid="input-error-phone-profile"]')).toHaveText('O telefone deve ter no mínimo 10 dígitos.');
   });
@@ -60,6 +64,6 @@ test.describe('Tela de Perfil', {
     await page.locator('[data-testid="input-socialname-profile"]').fill(socialName);
     await page.locator('[data-testid="btn-save-profile"]').click();
     await expect(page.locator('[data-testid="toast-content"]')).toBeVisible();
-    await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Perfil atualizado com sucesso!');
+    await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Usuário alterado com sucesso!');
   });
 });

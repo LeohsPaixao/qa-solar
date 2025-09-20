@@ -1,0 +1,97 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group = 'com.qa.solar'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven {
+       url = "https://plugins.gradle.org/m2/"
+    }
+}
+
+ext {
+    seleniumVersion = '4.35.0'
+    webdriverManagerVersion = '5.7.0'
+    junitVersion = '5.10.2'
+    junitPlatformLauncherVersion = '1.10.2'
+    assertjVersion = '3.25.3'
+    slf4jVersion = '2.0.11'
+    logbackVersion = '1.4.14'
+    commonsLang3Version = '3.14.0'
+    dotenvVersion = '3.2.0'
+    javafakerVersion = '1.0.2'
+    gsonVersion = '2.10.1'
+}
+
+dependencies {
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "org.seleniumhq.selenium:selenium-support:${seleniumVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    implementation "io.github.cdimascio:dotenv-java:${dotenvVersion}"
+    implementation "io.github.bonigarcia:webdrivermanager:${webdriverManagerVersion}"
+    implementation "com.github.javafaker:javafaker:${javafakerVersion}"
+    implementation "com.google.code.gson:gson:${gsonVersion}"
+    
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:${junitVersion}"
+    testImplementation "org.assertj:assertj-core:${assertjVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher:${junitPlatformLauncherVersion}"
+    testRuntimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
+}
+
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+    }
+}
+
+test {
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    forkEvery = 0
+    
+    // Configurações de sistema para reduzir verbosidade
+    systemProperty 'logback.configurationFile', 'logback.xml'
+    systemProperty 'logback.statusListenerClass', 'ch.qos.logback.core.status.NopStatusListener'
+
+    reports {
+        html.required = true
+        junitXml.required = true
+        junitXml.outputPerTestCase = true
+    }
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'short'
+        showStandardStreams = false
+        showStackTraces = true
+        showCauses = true
+    }
+}
+
+jacocoTestReport {
+    reports {
+        html.required = true
+    }
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-parameters']
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-parameters']
+}
+
+clean {
+    delete 'build'
+}

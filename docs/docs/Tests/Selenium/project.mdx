@@ -1,0 +1,275 @@
+---
+sidebar_position: 2
+---
+
+# 📂 Projeto
+
+## 🔧 Configuração e Execução
+
+### 📋 Pré-requisitos
+
+> **⚠️ Importante**: Certifique-se de que as dependências foram instaladas no projeto raiz "qa-solar" e que o comando `yarn dev` foi executado antes de iniciar os testes.
+
+**Requisitos do Sistema:**
+- **Java 17+**: JDK necessário para execução
+- **Gradle 8.8**: Sistema de build (incluído no wrapper)
+- **Chrome/Chromium**: Navegador para execução dos testes
+
+### 🚀 Comandos Disponíveis
+
+#### Configuração Inicial
+```bash
+# Tornar gradlew executável (Linux/Mac)
+chmod +x gradlew
+
+# Verificar instalação do Java
+java -version
+```
+
+#### Execução de Testes
+
+**Via Makefile (Recomendado)**
+```bash
+# Executar todos os testes
+make test
+
+# Buildar o projeto
+make build
+
+# Gerar relatório de cobertura
+make coverage
+
+# Limpar o projeto
+make clean
+
+# Ver ajuda
+make help
+```
+
+**Via Gradle Wrapper**
+```bash
+# Executar todos os testes
+./gradlew test
+
+# Executar testes com relatório HTML
+./gradlew test --info
+
+# Gerar relatório de cobertura
+./gradlew jacocoTestReport
+
+# Limpar build
+./gradlew clean
+
+# Build completo
+./gradlew build
+```
+
+## 📂 Estrutura do Projeto
+
+```plaintext
+tests/selenium/
+├── src/
+│   ├── main/java/com/qa/solar/          # Classes utilitárias
+│   │   ├── BaseTest.java                # Classe base para testes
+│   │   ├── Login.java                   # Utilitário de login via API
+│   │   ├── GenerateValidCPF.java        # Gerador de CPF válido
+│   │   ├── GenerateUsers.java           # Geração de usuários
+│   │   └── MockGenerateUsers.java       # Mock de criação de usuários
+│   └── test/java/com/qa/solar/          # Classes de teste
+│       ├── LoginTest.java               # Testes de autenticação
+│       ├── RegisterTest.java            # Testes de cadastro
+│       ├── Profile.java                 # Testes de perfil
+│       ├── ListUsers.java               # Testes de listagem
+│       └── RecoverPassword.java         # Testes de recuperação
+├── src/test/resources/                  # Recursos de teste
+│   ├── logback.xml                      # Configuração de logging
+│   └── logback-test.xml                 # Configuração de logging para testes
+├── build.gradle                         # Configuração do Gradle
+├── gradle.properties                    # Propriedades do Gradle
+├── settings.gradle                      # Configuração do projeto
+├── gradlew                              # Gradle wrapper (Unix)
+├── gradlew.bat                          # Gradle wrapper (Windows)
+├── Makefile                             # Comandos simplificados
+├── package.json                         # Metadados do projeto
+└── .env                                 # Variáveis de ambiente (criar)
+```
+
+## ⚙️ Configurações Avançadas
+
+### 🔧 Configuração do Gradle
+
+O projeto utiliza configurações otimizadas para performance e confiabilidade:
+
+```gradle
+// Principais configurações
+plugins {
+    id 'java'
+    id 'jacoco'                    // Relatórios de cobertura
+}
+
+// Dependências principais
+dependencies {
+    implementation "org.seleniumhq.selenium:selenium-java:4.35.0"
+    implementation "io.github.bonigarcia:webdrivermanager:5.7.0"
+    implementation "org.junit.jupiter:junit-jupiter-api:5.10.2"
+    implementation "com.github.javafaker:javafaker:1.0.2"
+    implementation "io.github.cdimascio:dotenv-java:3.2.0"
+    implementation "com.google.code.gson:gson:2.10.1"
+}
+
+// Configuração de testes
+test {
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    forkEvery = 0
+    
+    reports {
+        html.required = true
+        junitXml.required = true
+    }
+    
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'short'
+        showStandardStreams = false
+    }
+}
+```
+
+### 🌐 Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```bash
+# URLs de configuração
+SELENIUM_BASE_URL=http://localhost:8181      # URL da aplicação frontend
+SELENIUM_API_BASE_URL=http://localhost:3001  # URL da API backend
+
+# Configurações do navegador
+HEADLESS=false                               # Executar em modo headless
+```
+
+### 🔧 Configuração do BaseTest
+
+A classe base fornece funcionalidades comuns:
+
+```java
+public abstract class BaseTest {
+    protected WebDriver driver;
+    
+    // Configuração do driver
+    protected WebDriver setUp() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        
+        boolean headless = Boolean.parseBoolean(dotenv.get("HEADLESS", "false"));
+        if (headless) {
+            options.addArguments("--headless=new");
+            options.addArguments("--window-size=1920,1080");
+        }
+        
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        
+        driver = new ChromeDriver(options);
+        return driver;
+    }
+    
+    // Navegação
+    protected void navigateTo(String url) {
+        // Implementação de navegação com base URL
+    }
+    
+    // Esperas explícitas
+    protected WebElement waitForElementLocated(By locator, int duration) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(duration));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+}
+```
+
+## 📚 Classes Utilitárias
+
+### 🔐 Login via API
+
+```java
+public class Login {
+    public void login(WebDriver driver, String email, String password) {
+        // Faz requisição HTTP para API de login
+        // Armazena token no localStorage do navegador
+        // Navega para a aplicação
+    }
+}
+```
+
+### 🎲 Geração de Dados
+
+```java
+public class GenerateValidCPF {
+    public String generateValidCPF() {
+        // Gera CPF válido seguindo algoritmo oficial
+        // Retorna CPF formatado (XXX.XXX.XXX-XX)
+    }
+}
+
+public class GenerateUsers {
+    public void generateUsers(int quantity) {
+        // Gera usuários via requisições HTTP
+        // Utiliza JavaFaker para dados realistas
+    }
+}
+```
+
+### 🧪 Padrão de Testes
+
+```java
+@DisplayName("Testes de Login")
+public class LoginTest extends BaseTest {
+    
+    @BeforeEach
+    public void setUpTest() {
+        driver = setUp();
+        navigateTo("/");
+    }
+    
+    @AfterEach
+    public void tearDownTest() {
+        tearDown();
+    }
+    
+    @Test
+    @DisplayName("Deveria ser possível fazer login com credenciais válidas")
+    public void shouldLoginWithValidCredentials() {
+        // Implementação do teste
+    }
+}
+```
+
+## 🛠️ Dependências Principais
+
+### Produção
+- **Selenium WebDriver**: `4.35.0` - Automação de navegadores
+- **WebDriverManager**: `5.7.0` - Gerenciamento automático de drivers
+- **JavaFaker**: `1.0.2` - Geração de dados fictícios
+- **Dotenv Java**: `3.2.0` - Gerenciamento de variáveis de ambiente
+- **Gson**: `2.10.1` - Serialização/deserialização JSON
+
+### Desenvolvimento
+- **JUnit 5**: `5.10.2` - Framework de testes
+- **AssertJ**: `3.25.3` - Assertions fluentes
+- **JaCoCo**: Plugin para relatórios de cobertura
+- **Logback**: `1.4.14` - Sistema de logging
+- **Apache Commons Lang3**: `3.14.0` - Utilitários Java
+
+## 🚀 Otimizações de Performance
+
+### ⚡ Configurações do Gradle
+- **Paralelização**: `maxParallelForks` configurado para metade dos cores disponíveis
+- **Cache**: Habilitado para builds incrementais
+- **Daemon**: Reutilização de JVM para builds mais rápidos
+- **Memory**: Configuração otimizada de heap (2GB)
+
+### 🔧 Configurações do Selenium
+- **Headless Mode**: Suporte para execução sem interface gráfica
+- **Chrome Options**: Configurações otimizadas para CI/CD
+- **WebDriverManager**: Download automático e cache de drivers
+- **Explicit Waits**: Esperas inteligentes para elementos

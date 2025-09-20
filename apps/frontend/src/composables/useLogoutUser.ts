@@ -28,7 +28,7 @@ export const useLogout = () => {
         localStorage.removeItem('user-token');
         await router.push('/');
 
-        toast.success(data.message, { autoClose: 3000 });
+        toast.success(data.message || 'Logout realizado com sucesso', { autoClose: 3000 });
       }
     },
   );
@@ -38,8 +38,6 @@ export const useLogout = () => {
     (error: any) => {
       if (error) {
         const errorMessage = error.response?.data?.message || 'Erro ao realizar logout';
-        localStorage.removeItem('user-token');
-        queryClient.clear();
         toast.error(errorMessage, { autoClose: 5000 });
       }
     },

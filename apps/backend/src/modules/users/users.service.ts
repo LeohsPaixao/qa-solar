@@ -74,6 +74,7 @@ export class UsersService {
         social_name: true,
         email: true,
         phone: true,
+        document: true,
         created_at: true,
         updated_at: true,
       },
@@ -99,14 +100,14 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const { full_name, social_name, phone_number } = updateUserDto;
+    const { full_name, social_name, phone } = updateUserDto;
 
     const user = await this.prisma.user.update({
       where: { id },
       data: {
         full_name,
         social_name: social_name || null,
-        phone: phone_number || null,
+        phone: phone || null,
         updated_at: new Date(),
       },
     });
