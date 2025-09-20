@@ -1,0 +1,88 @@
+---
+sidebar_position: 4
+---
+
+
+# 📊 Relatórios e Cobertura
+
+## 📋 Visão Geral
+
+O projeto implementa um sistema abrangente de relatórios e monitoramento que fornece insights detalhados sobre a qualidade dos testes, cobertura de código e performance da aplicação.
+
+## 📈 Relatórios de Cobertura de Código
+
+### 🎯 Configuração
+O projeto utiliza **@cypress/code-coverage** para gerar relatórios detalhados de cobertura de código durante a execução dos testes de componentes.
+
+### 📊 Tipos de Relatórios
+- **HTML**: Relatório visual interativo com navegação por arquivos
+- **Text Summary**: Resumo textual no terminal
+- **LCOV**: Formato padrão para integração com ferramentas CI/CD
+
+### 🚀 Geração de Relatórios
+```bash
+# Executar testes com cobertura
+yarn cy:component:run
+
+# Gerar relatório de cobertura
+yarn cy:coverage
+
+# Limpar arquivos de cobertura
+yarn cy:clean
+```
+
+### 📁 Estrutura dos Relatórios
+```plaintext
+coverage/
+├── lcov-report/                    # Relatório HTML interativo
+│   ├── index.html                 # Dashboard principal
+│   ├── base.css                   # Estilos do relatório
+│   └── [arquivos].html            # Cobertura por arquivo
+├── lcov.info                      # Dados LCOV para CI/CD
+└── clover.xml                     # Formato Clover (alternativo)
+```
+
+## 📸 Capturas de Tela
+
+### 🎯 Configuração Automática
+- **Localização**: `./tests/e2e/misc/screenshots/` e `./tests/component/misc/screenshots/`
+- **Trigger**: Capturas automáticas em caso de falha de teste
+- **Formato**: PNG com timestamp para identificação
+
+### 📋 Cenários de Captura
+- **Falhas de Teste**: Screenshots automáticos quando testes falham
+- **Assertions**: Capturas durante verificações de elementos
+- **Debugging**: Screenshots manuais com `cy.screenshot()`
+
+## 🎥 Gravações de Vídeo
+
+### ⚙️ Configuração
+```typescript
+// cypress.config.ts
+export default defineConfig({
+  video: false,  // Desabilitado para otimização de performance
+  // video: true, // Habilitar para debugging
+});
+```
+
+### 📊 Quando Usar
+- **Debugging**: Habilitar temporariamente para investigar falhas
+- **CI/CD**: Útil em ambientes de integração contínua
+- **Performance**: Desabilitado por padrão para otimização
+
+## ☁️ Cypress Cloud Integration
+
+### 🎯 Monitoramento Centralizado
+- **Project ID**: `en7s34`
+- **Dashboard**: Métricas em tempo real de execuções
+- **Histórico**: Comparação de resultados entre execuções
+- **Alertas**: Notificações automáticas de falhas
+
+### 📊 Métricas Disponíveis
+- **Taxa de Sucesso**: Percentual de testes que passam
+- **Tempo de Execução**: Duração média dos testes
+- **Flaky Tests**: Identificação de testes instáveis
+- **Performance**: Análise de tempo de resposta
+
+### 🔗 Acesso ao Dashboard
+[![QA-Solar](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/count/en7s34/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/en7s34/runs)
