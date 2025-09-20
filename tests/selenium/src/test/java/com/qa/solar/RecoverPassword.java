@@ -60,7 +60,10 @@ public class RecoverPassword extends BaseTest {
     WebElement inputEmailRecoverPassword = waitForElementLocated(
         By.cssSelector("[data-testid='input-email-recover-password']"), 10);
 
-    inputEmailRecoverPassword.sendKeys("");
+    inputEmailRecoverPassword.sendKeys("email");
+    ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputEmailRecoverPassword);
+    ((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('input'));",
+        inputEmailRecoverPassword);
     ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", inputEmailRecoverPassword);
 
     WebElement toastContent = waitForElementLocated(By.cssSelector("[data-testid='message-error-email-recover-password']"), 10);

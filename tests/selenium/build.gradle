@@ -56,16 +56,23 @@ testing {
 test {
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
     forkEvery = 0
+    
+    // Configurações de sistema para reduzir verbosidade
+    systemProperty 'logback.configurationFile', 'logback.xml'
+    systemProperty 'logback.statusListenerClass', 'ch.qos.logback.core.status.NopStatusListener'
 
     reports {
         html.required = true
         junitXml.required = true
+        junitXml.outputPerTestCase = true
     }
 
     testLogging {
         events 'passed', 'skipped', 'failed'
-        exceptionFormat = 'full'
-        showStandardStreams = true
+        exceptionFormat = 'short'
+        showStandardStreams = false
+        showStackTraces = true
+        showCauses = true
     }
 }
 

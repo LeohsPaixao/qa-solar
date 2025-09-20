@@ -95,7 +95,6 @@ temp/
 # Test results and reports
 *.jtl
 *.csv
-*.xml
 *.html
 *.json
 !package.*
