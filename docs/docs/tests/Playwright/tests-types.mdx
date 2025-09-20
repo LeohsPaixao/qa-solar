@@ -1,0 +1,178 @@
+---
+sidebar_position: 3
+---
+
+# 🧪 Tipos de Testes
+
+## 📋 Visão Geral
+
+O projeto Playwright implementa testes end-to-end (E2E) focados na validação de fluxos completos da aplicação, garantindo que todas as funcionalidades críticas funcionem corretamente desde a interface do usuário até a integração com APIs e banco de dados.
+
+## 🔄 Testes End-to-End (E2E)
+
+### 🎯 Objetivo
+Os testes E2E simulam o comportamento real do usuário, validando fluxos completos da aplicação desde a interface até a integração com APIs e banco de dados.
+
+### 📊 Cobertura Atual
+- **Autenticação**: Login, logout e recuperação de senha
+- **Cadastro**: Registro de novos usuários com validações completas
+- **Perfil**: Edição e atualização de dados do usuário
+- **Listagem**: Visualização e gerenciamento de usuários
+- **Navegação**: Fluxos de navegação entre páginas
+- **Validações**: Testes de validação de formulários e campos
+
+### 🛠️ Características Técnicas
+- **Base URL**: `http://localhost:8181`
+- **Timeout**: 5 segundos para assertions
+- **Retry Strategy**: 2 tentativas em ambiente CI
+- **API Integration**: Testes diretos com APIs REST
+- **Multi-browser**: Suporte para Chromium (configurável para outros)
+
+## 📝 Exemplos de Implementação
+
+### 🔐 Teste de Login
+
+```typescript
+test.describe('Tela de Login', {
+  annotation: { type: 'Test', description: 'Teste de login' },
+}, () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
+  test('Deveria ser possível fazer login com credenciais válidas', async ({ page }) => {
+    await expect(page.locator('[data-testid="btn-login"]')).toBeDisabled();
+    await page.locator('[data-testid="input-email"]').fill('generic@example.com');
+    await page.locator('[data-testid="input-password"]').fill('123456');
+    await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
+    await page.locator('[data-testid="btn-login"]').click();
+    
+    const toastContent = page.locator('[data-testid="toast-content"]');
+    await expect(toastContent).toHaveText('Login realizado com sucesso!');
+  });
+});
+```
+
+### 📝 Teste de Cadastro
+
+```typescript
+test.describe('Tela de Cadastro de Usuários', {
+  annotation: { type: 'Test', description: 'Teste de cadastro de usuário' },
+}, () => {
+  test('Deveria ser possivel cadastrar um usuário', async ({ page }) => {
+    const cpf = generateValidCPF();
+    
+    await page.locator('[data-testid="input-fullname"]').fill(faker.person.fullName());
+    await page.locator('[data-testid="input-socialname"]').fill(faker.person.middleName());
+    await page.locator('[data-testid="input-document"]').fill(cpf);
+    await page.locator('[data-testid="input-phone"]').fill(faker.phone.number({ style: 'national' }));
+    await page.locator('[data-testid="input-email"]').fill(faker.internet.email({ provider: 'example.qa.solar' }));
+    await page.locator('[data-testid="input-password"]').fill('123456');
+    await page.locator('[data-testid="input-password-confirmation"]').fill('123456');
+    await page.locator('[data-testid="btn-register"]').click();
+
+    const toast = page.locator('[data-testid="toast-content"]');
+    await toast.waitFor({ state: 'visible' });
+    await expect(toast).toHaveText('Usuário criado com sucesso!');
+  });
+});
+```
+
+### 👤 Teste de Perfil
+
+```typescript
+test.describe('Tela de Perfil', {
+  annotation: { type: 'Test', description: 'Teste de perfil' },
+}, () => {
+  test.beforeEach(async ({ page }) => {
+    login(page, 'generic@example.com', '123456');
+    await page.goto('/profile');
+    await page.waitForURL('/profile');
+  });
+
+  test('Deveria ser possível salvar a alteração', async ({ page }) => {
+    const fullName = faker.person.fullName();
+    const phone = faker.phone.number({ style: 'national' });
+    const socialName = faker.person.firstName();
+
+    await page.locator('[data-testid="input-fullname-profile"]').fill(fullName);
+    await page.locator('[data-testid="input-phone-profile"]').fill(phone);
+    await page.locator('[data-testid="input-socialname-profile"]').fill(socialName);
+    await page.locator('[data-testid="btn-save-profile"]').click();
+    
+    await expect(page.locator('[data-testid="toast-content"]')).toBeVisible();
+    await expect(page.locator('[data-testid="toast-content"]')).toHaveText('Usuário alterado com sucesso!');
+  });
+});
+```
+
+### 📋 Teste de Listagem
+
+```typescript
+test.describe('Tela de listagem de Usuários', {
+  annotation: { type: 'Test', description: 'Teste de listagem de usuários' },
+}, () => {
+  test.beforeAll(async () => {
+    await generateUsers();
+  });
+
+  test.beforeEach(async ({ page }) => {
+    login(page, 'generic@example.com', '123456');
+    await page.goto('/listusers');
+    await page.waitForURL('/listusers');
+  });
+
+  test('Deveria ser possível selecionar um usuário e excluí-lo', async ({ page }) => {
+    const userCheckbox = page.locator('[data-testid="checkbox-select-users"]').nth(2);
+    await userCheckbox.check();
+    const deleteButton = page.locator('[data-testid="btn-delete-user"]');
+    await deleteButton.scrollIntoViewIfNeeded();
+    await deleteButton.click();
+    
+    const toastContent = page.locator('[data-testid="toast-content"]').first();
+    await expect(toastContent).toBeVisible();
+    await expect(toastContent).toHaveText('1 usuário(s) excluído(s) com sucesso!');
+  });
+});
+```
+
+## 🎯 Estratégias de Teste
+
+### 📋 Padrões de Nomenclatura
+- **Describe**: `test.describe('Tela de [Funcionalidade]')`
+- **Testes**: `test('Deveria [comportamento esperado]')`
+- **Anotações**: Uso de annotations para documentação
+
+### 🔧 Utilidades Compartilhadas
+- **fillUserForm()**: Preenchimento automático de formulários
+- **generateValidCPF()**: Geração de CPFs válidos para testes
+- **login()**: Autenticação automatizada via API
+- **generateUsers()**: Criação de usuários para testes
+
+### 🎨 Seletores de Teste
+- **Padrão**: `[data-testid="elemento"]`
+- **Consistência**: Todos os elementos interativos possuem data-testid
+- **Manutenibilidade**: Seletores independentes de mudanças de CSS
+
+### 🔄 Hooks e Setup
+- **beforeAll**: Configuração inicial (ex: geração de dados)
+- **beforeEach**: Setup antes de cada teste (ex: login, navegação)
+- **afterEach**: Limpeza após cada teste
+- **afterAll**: Limpeza final
+
+## 📊 Métricas de Qualidade
+
+### 🎯 Cobertura de Testes
+- **Fluxos Principais**: 5 fluxos principais cobertos
+- **Cenários**: 30+ cenários de teste implementados
+- **Validações**: Cobertura completa de validações de formulário
+
+### ⚡ Performance
+- **Execução E2E**: ~3-5 minutos
+- **Retry Rate**: 2 tentativas em CI para estabilidade
+- **Workers**: 1 worker para evitar conflitos de dados
+
+### 🛡️ Confiabilidade
+- **API Integration**: Testes diretos com APIs para maior confiabilidade
+- **Data Isolation**: Geração de dados únicos para cada execução
+- **Error Handling**: Tratamento robusto de erros e timeouts
