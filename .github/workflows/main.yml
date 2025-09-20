@@ -28,8 +28,17 @@ jobs:
     uses: ./.github/workflows/selenium.yml
 
   docker-deploy:
-    if: github.base_ref != 'main-workflow'
-    needs: [cypress-tests, playwright-tests, robot-framework-tests, selenium-tests]
+    if: github.base_ref == 'main'
+    needs:
+      [cypress-tests, playwright-tests, robot-framework-tests, selenium-tests]
     uses: ./.github/workflows/docker-deploy.yml
     secrets:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  docs-deploy:
+    if: github.base_ref == 'main' && (contains(github.event.pull_request.changed_files, 'docs/'))
+    needs:
+      [cypress-tests, playwright-tests, robot-framework-tests, selenium-tests]
+    uses: ./.github/workflows/docs-deploy.yml
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

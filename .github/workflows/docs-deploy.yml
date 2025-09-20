@@ -1,13 +1,10 @@
 name: Deploy Docs
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'docs/**'
-      - 'docs/docusaurus.config.ts'
-      - 'docs/sidebars.ts'
+  workflow_call:
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 
 permissions:
   contents: write
@@ -26,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.1.0
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
