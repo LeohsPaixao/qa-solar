@@ -1,0 +1,278 @@
+---
+sidebar_position: 3
+---
+
+# 🧪 Tipos de Testes
+
+## 📋 Visão Geral
+
+O projeto Selenium implementa testes end-to-end (E2E) focados na validação de fluxos completos da aplicação, garantindo que todas as funcionalidades críticas funcionem corretamente desde a interface do usuário até a integração com APIs e banco de dados.
+
+## 🔄 Testes End-to-End (E2E)
+
+### 🎯 Objetivo
+Os testes E2E simulam o comportamento real do usuário, validando fluxos completos da aplicação desde a interface até a integração com APIs e banco de dados.
+
+### 📊 Cobertura Atual
+- **Autenticação**: Login, logout e recuperação de senha
+- **Cadastro**: Registro de novos usuários com validações completas
+- **Perfil**: Edição e atualização de dados do usuário
+- **Listagem**: Visualização e gerenciamento de usuários
+- **Navegação**: Fluxos de navegação entre páginas
+- **Validações**: Testes de validação de formulários e campos
+
+### 🛠️ Características Técnicas
+- **Base URL**: `http://localhost:8181`
+- **Timeout**: 10 segundos para esperas explícitas
+- **Browser**: Chrome/Chromium com WebDriverManager
+- **API Integration**: Testes diretos com APIs REST
+- **Headless Support**: Execução sem interface gráfica
+
+## 📝 Exemplos de Implementação
+
+### 🔐 Teste de Login
+
+```java
+@DisplayName("Testes de Login")
+public class LoginTest extends BaseTest {
+    
+    @BeforeEach
+    public void setUpTest() {
+        driver = setUp();
+        navigateTo("/");
+    }
+    
+    @Test
+    @DisplayName("Deveria ser possível fazer login com credenciais válidas")
+    public void shouldLoginWithValidCredentials() {
+        WebElement inputEmail = driver.findElement(By.cssSelector("[data-testid='input-email']"));
+        WebElement inputPassword = driver.findElement(By.cssSelector("[data-testid='input-password']"));
+        WebElement btnLogin = driver.findElement(By.cssSelector("[data-testid='btn-login']"));
+        
+        inputEmail.sendKeys("generic@example.com");
+        inputPassword.sendKeys("123456");
+        
+        assertTrue(btnLogin.isEnabled(), "O elemento deve ser habilitado");
+        btnLogin.click();
+        
+        WebElement toastContent = waitForElementLocated(By.cssSelector("[data-testid='toast-content']"), 10);
+        
+        assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
+        assertTrue(toastContent.getText().contains("Login realizado com sucesso!"), "O texto deve ser exibido");
+    }
+}
+```
+
+### 📝 Teste de Cadastro
+
+```java
+@DisplayName("Testes de Cadastro")
+public class RegisterTest extends BaseTest {
+    
+    private GenerateValidCPF generateValidCPF = new GenerateValidCPF();
+    private Faker faker = new Faker();
+    
+    @Test
+    @DisplayName("Deveria ser possível cadastrar um usuário")
+    public void shouldCreateUser() {
+        String fullName = faker.name().fullName();
+        String socialName = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String phone = faker.phoneNumber().cellPhone();
+        String password = faker.internet().password(6, 20);
+        String document = generateValidCPF.generateValidCPF();
+        
+        // Preenchimento do formulário
+        WebElement inputFullname = waitForElementLocated(By.cssSelector("[data-testid='input-fullname']"), 10);
+        WebElement inputSocialname = waitForElementLocated(By.cssSelector("[data-testid='input-socialname']"), 10);
+        WebElement inputDocument = waitForElementLocated(By.cssSelector("[data-testid='input-document']"), 10);
+        WebElement inputPhone = waitForElementLocated(By.cssSelector("[data-testid='input-phone']"), 10);
+        WebElement inputEmail = waitForElementLocated(By.cssSelector("[data-testid='input-email']"), 10);
+        WebElement inputPassword = waitForElementLocated(By.cssSelector("[data-testid='input-password']"), 10);
+        WebElement inputPasswordConfirmation = waitForElementLocated(By.cssSelector("[data-testid='input-password-confirmation']"), 10);
+        WebElement btnRegister = waitForElementLocated(By.cssSelector("[data-testid='btn-register']"), 10);
+        
+        inputFullname.sendKeys(fullName);
+        inputSocialname.sendKeys(socialName);
+        inputDocument.sendKeys(document);
+        inputPhone.sendKeys(phone);
+        inputEmail.sendKeys(email);
+        inputPassword.sendKeys(password);
+        inputPasswordConfirmation.sendKeys(password);
+        btnRegister.click();
+        
+        WebElement toast = waitForElementLocated(By.cssSelector("[data-testid='toast-content']"), 10);
+        assertTrue(toast.isDisplayed());
+        assertTrue(toast.getText().contains("Usuário criado com sucesso!"));
+    }
+}
+```
+
+### 👤 Teste de Perfil
+
+```java
+@DisplayName("Testes de Perfil")
+public class Profile extends BaseTest {
+    
+    private Faker faker = new Faker();
+    
+    @BeforeEach
+    public void setUpTest() {
+        driver = setUp();
+        Login login = new Login();
+        login.login(driver, "generic@example.com", "123456");
+        navigateTo("/profile");
+    }
+    
+    @Test
+    @DisplayName("Deveria ser possível salvar a alteração")
+    public void shouldSaveProfile() {
+        String fullName = faker.name().fullName();
+        String socialName = faker.name().lastName();
+        String phone = faker.phoneNumber().cellPhone();
+        
+        WebElement inputFullName = waitForElementLocated(By.cssSelector("[data-testid='input-fullname-profile']"), 10);
+        WebElement inputSocialName = waitForElementLocated(By.cssSelector("[data-testid='input-socialname-profile']"), 10);
+        WebElement inputPhone = waitForElementLocated(By.cssSelector("[data-testid='input-phone-profile']"), 10);
+        WebElement btnSave = waitForElementLocated(By.cssSelector("[data-testid='btn-save-profile']"), 10);
+        
+        // Limpar e preencher campos
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputFullName);
+        inputFullName.sendKeys(fullName);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('input'));", inputFullName);
+        
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputSocialName);
+        inputSocialName.sendKeys(socialName);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('input'));", inputSocialName);
+        
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", inputPhone);
+        inputPhone.sendKeys(phone);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('input'));", inputPhone);
+        
+        btnSave.click();
+        
+        WebElement toast = waitForElementLocated(By.cssSelector("[data-testid='toast-content']"), 10);
+        assertTrue(toast.isDisplayed());
+        assertTrue(toast.getText().contains("Usuário alterado com sucesso!"));
+    }
+}
+```
+
+### 📋 Teste de Listagem
+
+```java
+@DisplayName("Testes de Listagem de Usuários")
+public class ListUsers extends BaseTest {
+    
+    @BeforeAll
+    public static void setUpAll() {
+        GenerateUsers generateUsers = new GenerateUsers();
+        generateUsers.generateUsers(10);
+    }
+    
+    @BeforeEach
+    public void setUpTest() {
+        driver = setUp();
+        Login login = new Login();
+        login.login(driver, "generic@example.com", "123456");
+        navigateTo("/listusers");
+    }
+    
+    @Test
+    @DisplayName("Deveria ser possível selecionar um usuário e excluí-lo")
+    public void shouldSelectUserAndDelete() {
+        waitForElementLocated(By.cssSelector("[data-testid='checkbox-select-users']"), 10);
+        List<WebElement> checkboxesSelectUsers = driver.findElements(By.cssSelector("[data-testid='checkbox-select-users']"));
+        
+        checkboxesSelectUsers.get(2).click();
+        
+        WebElement btnDeleteUser = waitForElementLocated(By.cssSelector("[data-testid='btn-delete-user']"), 10);
+        btnDeleteUser.click();
+        
+        WebElement toastContent = waitForElementLocated(By.cssSelector("[data-testid='toast-content']"), 10);
+        
+        assertTrue(toastContent.isDisplayed(), "O elemento deve ser exibido");
+        assertEquals(toastContent.getText(), "1 usuário(s) excluído(s) com sucesso!", "A mensagem deve ser exibida");
+    }
+}
+```
+
+## 🎯 Estratégias de Teste
+
+### 📋 Padrões de Nomenclatura
+- **Classe**: `@DisplayName("Testes de [Funcionalidade]")`
+- **Métodos**: `@DisplayName("Deveria [comportamento esperado]")`
+- **Métodos de Teste**: `should[Comportamento]()` ou `shouldNot[Comportamento]()`
+
+### 🔧 Hooks e Setup
+- **@BeforeAll**: Configuração inicial (ex: geração de dados)
+- **@BeforeEach**: Setup antes de cada teste (ex: login, navegação)
+- **@AfterEach**: Limpeza após cada teste (ex: fechar navegador)
+- **@AfterAll**: Limpeza final
+
+### 🎨 Seletores de Teste
+- **Padrão**: `[data-testid="elemento"]`
+- **Consistência**: Todos os elementos interativos possuem data-testid
+- **Manutenibilidade**: Seletores independentes de mudanças de CSS
+
+### 🔄 Esperas e Sincronização
+- **Explicit Waits**: `WebDriverWait` com condições específicas
+- **Implicit Waits**: Configurados globalmente
+- **JavaScript Executor**: Para interações complexas
+- **Expected Conditions**: Condições predefinidas do Selenium
+
+## 📊 Métricas de Qualidade
+
+### 🎯 Cobertura de Testes
+- **Fluxos Principais**: 5 fluxos principais cobertos
+- **Cenários**: 30+ cenários de teste implementados
+- **Validações**: Cobertura completa de validações de formulário
+
+### ⚡ Performance
+- **Execução E2E**: ~5-8 minutos
+- **Paralelização**: Configurada para metade dos cores disponíveis
+- **Retry Strategy**: Implementada via Gradle
+
+### 🛡️ Confiabilidade
+- **API Integration**: Testes diretos com APIs para maior confiabilidade
+- **Data Isolation**: Geração de dados únicos para cada execução
+- **Error Handling**: Tratamento robusto de erros e timeouts
+- **WebDriverManager**: Gerenciamento automático de drivers
+
+## 🔧 Utilitários Avançados
+
+### 🎲 Geração de Dados
+```java
+// CPF válido
+GenerateValidCPF cpfGenerator = new GenerateValidCPF();
+String cpf = cpfGenerator.generateValidCPF();
+
+// Dados com JavaFaker
+Faker faker = new Faker();
+String fullName = faker.name().fullName();
+String email = faker.internet().emailAddress();
+String phone = faker.phoneNumber().cellPhone();
+```
+
+### 🔐 Autenticação via API
+```java
+Login login = new Login();
+login.login(driver, "generic@example.com", "123456");
+// Token é automaticamente armazenado no localStorage
+```
+
+### 📊 Geração de Usuários
+```java
+GenerateUsers generateUsers = new GenerateUsers();
+generateUsers.generateUsers(10); // Gera 10 usuários via API
+```
+
+### 🎯 Interações JavaScript
+```java
+// Limpar campo e disparar eventos
+((JavascriptExecutor) driver).executeScript("arguments[0].value = '';", element);
+((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('input'));", element);
+
+// Scroll para elemento
+((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+```
