@@ -126,10 +126,8 @@ describe('Componente de perfil de usuário', () => {
       });
     });
 
-    // Inserir telefone inválido
-    cy.get('[data-testid="input-phone-profile"]').clear().type('123');
+    cy.get('[data-testid="input-phone-profile"]').clear().type('123').blur();
 
-    // Verificar se a mensagem de erro aparece
     cy.get('[data-testid="input-error-phone-profile"]').should('be.visible');
     cy.get('[data-testid="input-phone-profile"]').should('have.class', 'input-error');
   });

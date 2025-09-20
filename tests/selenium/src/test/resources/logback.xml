@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Console Appender -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Silent Appender for XML Reports -->
+    <appender name="SILENT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern></pattern>
+        </encoder>
+    </appender>
+
+    <!-- File Appender -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>build/logs/selenium-tests.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>build/logs/selenium-tests.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Selenium WebDriver Logger -->
+    <logger name="org.openqa.selenium" level="WARN"/>
+    <logger name="org.openqa.selenium.remote" level="WARN"/>
+    <logger name="com.qa.solar" level="INFO"/>
+    
+    <!-- HTTP Client Loggers - Silenciar logs excessivos -->
+    <logger name="org.apache.hc" level="WARN"/>
+    <logger name="org.apache.hc.client5" level="WARN"/>
+    <logger name="org.apache.hc.client5.http" level="WARN"/>
+    <logger name="org.apache.hc.client5.http.wire" level="WARN"/>
+    <logger name="org.apache.hc.client5.http.impl" level="WARN"/>
+    
+    <!-- WebDriverManager Logger -->
+    <logger name="io.github.bonigarcia.wdm" level="WARN"/>
+    
+    <!-- Gradle Logger -->
+    <logger name="org.gradle" level="WARN"/>
+    
+    <!-- JUnit Logger -->
+    <logger name="org.junit" level="WARN"/>
+    
+    <!-- Logback Internal Loggers - Silenciar logs de inicialização -->
+    <logger name="ch.qos.logback" level="WARN"/>
+    <logger name="ch.qos.logback.classic" level="WARN"/>
+    <logger name="ch.qos.logback.core" level="WARN"/>
+    <logger name="ch.qos.logback.core.model" level="WARN"/>
+    <logger name="ch.qos.logback.core.rolling" level="WARN"/>
+    <logger name="ch.qos.logback.core.util" level="WARN"/>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

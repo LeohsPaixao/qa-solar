@@ -1,0 +1,122 @@
+---
+sidebar_position: 3
+---
+
+# 🧪 Tipos de Testes
+
+## 📋 Visão Geral
+
+O projeto implementa dois tipos principais de testes automatizados, cada um com objetivos específicos e estratégias de implementação otimizadas para garantir a qualidade da aplicação.
+
+## 🔄 Testes End-to-End (E2E)
+
+### 🎯 Objetivo
+Os testes E2E simulam o comportamento real do usuário, validando fluxos completos da aplicação desde a interface até a integração com APIs e banco de dados.
+
+### 📊 Cobertura Atual
+- **Autenticação**: Login, logout e recuperação de senha
+- **Cadastro**: Registro de novos usuários com validações
+- **Perfil**: Edição e atualização de dados do usuário
+- **Listagem**: Visualização e gerenciamento de usuários
+- **Navegação**: Fluxos de navegação entre páginas
+
+### 🛠️ Características Técnicas
+- **Base URL**: `http://localhost:8181`
+- **Timeout**: 4 segundos para comandos, 120 segundos para carregamento
+- **Retry Strategy**: Detecção de flaky tests com retry automático
+- **Network Control**: Interceptação e mock de requisições API
+
+## 🧩 Testes de Componentes
+
+### 🎯 Objetivo
+Os testes de componentes verificam o comportamento isolado de componentes Vue.js individuais, garantindo que cada componente funcione corretamente em diferentes cenários e estados.
+
+### 📊 Cobertura Atual
+- **AppHeader**: Navegação e dropdown de usuário
+- **AppFooter**: Links e informações de copyright
+- **Login**: Validação de formulário e estados
+- **RegisterUser**: Validação completa de cadastro
+- **UserProfile**: Edição de perfil e validações
+- **ListUsers**: Seleção e gerenciamento de usuários
+- **LoadingErrorState**: Estados de carregamento e erro
+
+### 🛠️ Características Técnicas
+- **Framework**: Vue.js com Vite
+- **Plugins**: Vue Query e Vue3Toastify integrados
+- **Isolamento**: Componentes testados independentemente
+- **Props Testing**: Validação de propriedades e eventos
+
+## 📝 Exemplos de Implementação
+
+### 🔄 Teste E2E - Fluxo de Cadastro
+
+```typescript
+describe('Tela de Cadastro de Usuário', () => {
+  beforeEach(() => {
+    cy.visitAndwait('/signup');
+    waitUntilDocumentLoaded();
+  });
+
+  it('Deveria ser possivel cadastrar um usuário', () => {
+    // Preenchimento automático com dados válidos
+    fillUserForm();
+    
+    // Submissão do formulário
+    cy.get('[data-testid="btn-register"]')
+      .should('be.enabled')
+      .click();
+    
+    // Verificação de sucesso
+    cy.get('[data-testid="toast-content"]')
+      .should('have.text', 'Usuário criado com sucesso!');
+  });
+});
+```
+
+### 🧩 Teste de Componente - Validação de Formulário
+
+```typescript
+describe('Componente de registro de usuário', () => {
+  it('Deveria exibir mensagem de erro para CPF inválido', () => {
+    cy.mount(RegisterTemplate);
+    
+    // Inserção de CPF inválido
+    cy.get('[data-testid="input-document"]')
+      .type('12345678900', { delay: 0 });
+    
+    // Verificação da mensagem de erro
+    cy.get('[data-testid="input-error-cpfcnpj"]')
+      .should('be.visible')
+      .and('have.text', 'CPF inválido.');
+  });
+});
+```
+
+## 🎯 Estratégias de Teste
+
+### 📋 Padrões de Nomenclatura
+- **E2E**: `describe('Tela de [Funcionalidade]')`
+- **Componente**: `describe('Componente de [Nome do Componente]')`
+- **Cenários**: `it('Deveria [comportamento esperado]')`
+
+### 🔧 Utilidades Compartilhadas
+- **fillUserForm()**: Preenchimento automático de formulários
+- **generateValidCPF()**: Geração de CPFs válidos para testes
+- **waitUntilDocumentLoaded()**: Aguarda carregamento completo do DOM
+
+### 🎨 Seletores de Teste
+- **Padrão**: `[data-testid="elemento"]`
+- **Consistência**: Todos os elementos interativos possuem data-testid
+- **Manutenibilidade**: Seletores independentes de mudanças de CSS
+
+## 📊 Métricas de Qualidade
+
+### 🎯 Cobertura de Testes
+- **E2E**: 5 fluxos principais cobertos
+- **Componentes**: 7 componentes principais testados
+- **Cenários**: 50+ cenários de teste implementados
+
+### ⚡ Performance
+- **Execução E2E**: ~2-3 minutos
+- **Execução Componentes**: ~1-2 minutos
+- **Retry Rate**: 5% com estratégia de detecção de flaky tests

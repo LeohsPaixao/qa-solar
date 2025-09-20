@@ -1,0 +1,241 @@
+---
+sidebar_position: 4
+---
+
+# 📊 Relatórios e Cobertura
+
+## 📋 Visão Geral
+
+O projeto Selenium implementa um sistema abrangente de relatórios e monitoramento que fornece insights detalhados sobre a execução dos testes, cobertura de código, logs de execução e métricas de performance.
+
+## 📈 Relatórios de Cobertura de Código
+
+### 🎯 Configuração
+O projeto utiliza **JaCoCo** (Java Code Coverage) para gerar relatórios detalhados de cobertura de código durante a execução dos testes.
+
+### 📊 Tipos de Relatórios
+- **HTML**: Relatório visual interativo com navegação por arquivos
+- **XML**: Formato estruturado para integração com ferramentas CI/CD
+- **CSV**: Dados tabulares para análise em planilhas
+
+### 🚀 Geração de Relatórios
+```bash
+# Via Makefile
+make coverage
+
+# Via Gradle
+./gradlew jacocoTestReport
+
+# Executar testes e gerar cobertura
+./gradlew test jacocoTestReport
+```
+
+### 📁 Estrutura dos Relatórios
+```plaintext
+build/reports/
+├── jacoco/                              # Relatórios de cobertura
+│   ├── test/                            # Relatórios de teste
+│   │   ├── html/                        # Relatório HTML interativo
+│   │   │   ├── index.html               # Dashboard principal
+│   │   │   ├── jacoco-resources/        # Assets estáticos
+│   │   │   └── [pacotes].html           # Cobertura por pacote
+│   │   ├── jacocoTestReport.xml         # Dados XML para CI/CD
+│   │   └── jacocoTestReport.csv         # Dados CSV
+│   └── jacocoTestReport.xml             # Relatório consolidado
+└── tests/                               # Relatórios de execução
+    ├── test/                            # Relatórios de teste
+    │   ├── index.html                   # Dashboard de testes
+    │   ├── classes/                     # Resultados por classe
+    │   └── packages/                    # Resultados por pacote
+    └── test-results/                    # Resultados JUnit XML
+        └── TEST-*.xml                   # Arquivos XML individuais
+```
+
+## 📊 Relatórios de Execução
+
+### 🎯 Configuração Automática
+- **Localização**: `./build/reports/tests/test/`
+- **Formato**: HTML com navegação interativa
+- **Trigger**: Gerado automaticamente a cada execução de testes
+
+### 📋 Características dos Relatórios
+- **Dashboard Principal**: Visão geral de todos os testes
+- **Detalhamento por Classe**: Resultados específicos de cada classe de teste
+- **Detalhamento por Pacote**: Agrupamento por pacotes Java
+- **Timeline de Execução**: Visualização temporal dos testes
+- **Métricas de Performance**: Tempo de execução por teste
+
+### 🔧 Configuração Avançada
+```gradle
+// build.gradle
+test {
+    reports {
+        html.required = true              // Relatório HTML
+        junitXml.required = true          // Relatório JUnit XML
+        junitXml.outputPerTestCase = true // XML por teste
+    }
+    
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        exceptionFormat = 'short'
+        showStandardStreams = false
+        showStackTraces = true
+        showCauses = true
+    }
+}
+```
+
+## 📝 Logs e Debugging
+
+### ⚙️ Configuração de Logging
+```xml
+<!-- src/test/resources/logback-test.xml -->
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <logger name="com.qa.solar" level="DEBUG"/>
+    <logger name="org.openqa.selenium" level="INFO"/>
+    
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
+```
+
+### 📊 Níveis de Log
+- **DEBUG**: Informações detalhadas para debugging
+- **INFO**: Informações gerais de execução
+- **WARN**: Avisos sobre situações anômalas
+- **ERROR**: Erros que não impedem a execução
+
+### 🔍 Logs Específicos
+- **Selenium**: Logs de interação com o navegador
+- **API Calls**: Logs de requisições HTTP
+- **Test Execution**: Logs de execução dos testes
+- **Data Generation**: Logs de geração de dados
+
+## 📊 Métricas e Análise
+
+### 🎯 Métricas Disponíveis
+- **Taxa de Sucesso**: Percentual de testes que passam
+- **Tempo de Execução**: Duração média e total dos testes
+- **Cobertura de Código**: Percentual de código coberto por testes
+- **Performance**: Análise de tempo de resposta por teste
+- **Retry Rate**: Frequência de tentativas de retry
+
+### 📈 Dashboard de Métricas
+O relatório HTML inclui:
+- **Resumo Executivo**: Visão geral dos resultados
+- **Gráficos de Performance**: Visualização temporal
+- **Análise de Cobertura**: Detalhamento por classe e método
+- **Análise de Falhas**: Detalhamento de erros
+- **Comparação Histórica**: Tendências ao longo do tempo
+
+## 🛠️ Configurações Avançadas
+
+### 🔧 Personalização de Relatórios
+```gradle
+// build.gradle
+jacocoTestReport {
+    reports {
+        html.required = true
+        xml.required = true
+        csv.required = false
+    }
+    
+    // Configurações de cobertura
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                '**/BaseTest.class',
+                '**/GenerateUsers.class',
+                '**/MockGenerateUsers.class'
+            ])
+        }))
+    }
+}
+```
+
+### 📊 Múltiplos Formatos
+- **HTML**: Relatório visual interativo
+- **XML**: Dados estruturados para integração
+- **CSV**: Dados tabulares para análise
+- **Console**: Output detalhado no terminal
+
+### 🌐 Integração com CI/CD
+```yaml
+# Exemplo para GitHub Actions
+- name: Run Selenium tests
+  run: make test
+
+- name: Generate coverage report
+  run: make coverage
+
+- name: Upload test results
+  uses: actions/upload-artifact@v3
+  if: always()
+  with:
+    name: selenium-test-results
+    path: |
+      build/reports/tests/test/
+      build/reports/jacoco/test/html/
+```
+
+## 📋 Boas Práticas
+
+### 🎯 Otimização de Relatórios
+- **Exclusões**: Excluir classes utilitárias da cobertura
+- **Thresholds**: Definir limites mínimos de cobertura
+- **Cleanup**: Implementar limpeza automática de relatórios antigos
+- **Aggregation**: Consolidar relatórios de múltiplos módulos
+
+### 📊 Análise de Resultados
+- **Revisar Falhas**: Analisar logs e stack traces de falhas
+- **Monitorar Performance**: Acompanhar tendências de tempo de execução
+- **Identificar Gaps**: Corrigir lacunas na cobertura de código
+- **Documentar Padrões**: Registrar padrões de falha para melhorias
+
+### 🔧 Configurações de Performance
+```gradle
+// gradle.properties
+org.gradle.parallel=true
+org.gradle.caching=true
+org.gradle.configureondemand=true
+org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m
+```
+
+### 📈 Métricas de Qualidade
+- **Cobertura Mínima**: 80% de cobertura de código
+- **Tempo Máximo**: 10 minutos para execução completa
+- **Taxa de Sucesso**: 95% de testes passando
+- **Retry Rate**: Máximo 5% de retry automático
+
+## 🚀 Comandos Úteis
+
+### 📊 Visualização de Relatórios
+```bash
+# Abrir relatório de cobertura no navegador
+open build/reports/jacoco/test/html/index.html
+
+# Abrir relatório de testes no navegador
+open build/reports/tests/test/index.html
+
+# Ver resumo no terminal
+./gradlew test --console=plain
+```
+
+### 🔍 Debugging
+```bash
+# Executar com logs detalhados
+./gradlew test --info --debug
+
+# Executar teste específico
+./gradlew test --tests "LoginTest.shouldLoginWithValidCredentials"
+
+# Executar com relatório detalhado
+./gradlew test --info --console=plain
+```

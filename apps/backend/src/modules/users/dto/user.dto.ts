@@ -7,8 +7,17 @@ export class UserDto {
   @ApiProperty({ description: 'Nome completo do usuário' })
   full_name: string;
 
+  @ApiProperty({ description: 'Nome social do usuário' })
+  social_name?: string;
+
   @ApiProperty({ description: 'Email do usuário' })
   email: string;
+
+  @ApiProperty({ description: 'Telefone do usuário' })
+  phone?: string;
+
+  @ApiProperty({ description: 'Documento do usuário' })
+  document?: string;
 
   @ApiProperty({ description: 'Data de criação' })
   created_at: Date;
