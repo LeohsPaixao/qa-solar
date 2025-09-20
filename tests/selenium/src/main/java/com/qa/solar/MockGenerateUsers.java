@@ -39,7 +39,7 @@ public class MockGenerateUsers {
       String password,
       String document,
       String docType,
-      String phone_number,
+      String phone,
       String socialName) {
   }
 
@@ -70,7 +70,7 @@ public class MockGenerateUsers {
       payload.addProperty("social_name", user.socialName());
       payload.addProperty("document", user.document());
       payload.addProperty("doc_type", user.docType());
-      payload.addProperty("phone_number", user.phone_number());
+      payload.addProperty("phone", user.phone());
       payload.addProperty("email", user.email());
       payload.addProperty("password", user.password());
       String jsonBody = payload.toString();

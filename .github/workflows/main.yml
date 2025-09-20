@@ -30,13 +30,13 @@ jobs:
 
   # FASE 1: Testes Unitários
   backend-unit-tests:
-    if: needs.filter.outputs.backend == 'true'
     needs: [filter]
+    if: needs.filter.outputs.backend == 'true'
     uses: ./.github/workflows/backend.yml
 
   frontend-unit-tests:
-    if: needs.filter.outputs.frontend == 'true'
     needs: [filter]
+    if: needs.filter.outputs.frontend == 'true'
     uses: ./.github/workflows/frontend.yml
 
   # FASE 2: Testes E2E (executam após os unitários quando disponíveis)
@@ -69,7 +69,6 @@ jobs:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   docs-deploy:
-    if: github.base_ref == 'main' && needs.filter.outputs.docs == 'true'
     needs:
       [
         filter,
@@ -78,6 +77,7 @@ jobs:
         robot-framework-tests,
         selenium-tests,
       ]
+    if: github.base_ref == 'main' && needs.filter.outputs.docs == 'true'
     uses: ./.github/workflows/docs-deploy.yml
     permissions:
       contents: write
