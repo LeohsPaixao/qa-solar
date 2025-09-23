@@ -1,3 +1,9 @@
+/**
+ * Formata uma data para o formato DD/MM/AAAA, HH:mm.
+ *
+ * @param dateString - String representando a data a ser formatada.
+ * @returns String representando a data formatada.
+ */
 export function formatDate(dateString?: string): string {
   if (!dateString) {
     return '-';
@@ -11,6 +17,7 @@ export function formatDate(dateString?: string): string {
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
+      timeZone: 'UTC',
     });
   } catch {
     return dateString;
