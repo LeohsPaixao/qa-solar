@@ -1,9 +1,12 @@
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
-import { defineConfig } from 'vite';
+import { config } from 'dotenv';
 import istanbul from 'vite-plugin-istanbul';
 import vueDevTools from 'vite-plugin-vue-devtools';
+import { defineConfig } from 'vitest/config';
+
+config();
 
 export default defineConfig({
   plugins: [
@@ -24,6 +27,34 @@ export default defineConfig({
   ],
   build: {
     sourcemap: true,
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    reporters: 'verbose',
+    outputFile: 'coverage/index.html',
+    testTimeout: 5000,
+    retry: process.env.CI ? 2 : 0,
+    include: ['src/**/*.spec.ts'],
+    exclude: ['node_modules', 'dist', 'test/**/*'],
+    poolOptions: {
+      threads: {
+        maxThreads: 1,
+      },
+    },
+    coverage: {
+      provider: 'v8',
+      include: ['src/**/*'],
+      exclude: ['node_modules', 'test/**/*', 'src/**/*.d.ts', 'src/main.ts'],
+      extension: ['.js', '.ts', '.vue'],
+      reporter: ['html', 'text-summary', 'lcov'],
+      thresholds: {
+        statements: 80,
+        branches: 80,
+        functions: 80,
+        lines: 80,
+      },
+    },
   },
   resolve: {
     alias: {
