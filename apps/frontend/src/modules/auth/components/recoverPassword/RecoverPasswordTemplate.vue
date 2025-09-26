@@ -37,7 +37,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { useForgotPassword } from '../../../../composables/useForgotPassword';
-import { validateEmail } from '../../../../utils/validateLogin';
+import { validateLoginFormData } from '../../../../utils/validateLogin';
 
 const email = ref('');
 const errors = ref({ email: '' });
@@ -47,12 +47,12 @@ const mutation = useForgotPassword();
 
 watch(email, (newValue) => {
   if (newValue && errors.value.email) {
-    validateEmailField();
+    validateEmailField({ email: newValue });
   }
 });
 
 const validateEmailField = () => {
-  errors.value.email = validateEmail(email.value);
+  errors.value.email = validateLoginFormData({ email: email.value }).errors.email;
 };
 
 const clearEmailError = () => {
