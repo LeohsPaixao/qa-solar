@@ -21,6 +21,16 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+export interface LoginFormErrors {
+  email?: string;
+  password?: string;
+}
+
 export interface LoginResponse {
   token: string;
   message: string;
@@ -31,7 +41,7 @@ export interface RegisterData {
   full_name: string;
   social_name?: string;
   document: string;
-  doc_type: 'cpf' | 'cnpj';
+  doc_type: DocType;
   phone?: string;
   email: string;
   password: string;
@@ -91,7 +101,7 @@ export interface FormData {
   full_name: string;
   social_name?: string;
   document: string;
-  doc_type: 'cpf' | 'cnpj';
+  doc_type: DocType;
   phone?: string;
   email: string;
   password: string;
@@ -117,5 +127,8 @@ export interface FormErrorsProfile {
   phone?: string;
 }
 
+export type DocType = 'cpf' | 'cnpj';
+
 export type ValidatorFn = (value: string, formData: FormData) => string | undefined;
 export type ValidatorFnProfile = (value: string, formData: FormDataProfile) => string | undefined;
+export type ValidatorFnLogin = (value: string, formData: LoginFormData) => string | undefined;

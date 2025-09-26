@@ -12,7 +12,7 @@
             type="text"
             placeholder="Digite seu nome completo"
             v-model="fullName"
-            @blur="validateFullNameField"
+            @blur="validateFullNameField()"
             :class="['input-fullname-profile', { 'input-error': errors.full_name }]"
           />
           <span data-testid="input-error-fulname-profile" v-if="errors.full_name" class="error-message">{{ errors.full_name }}</span>
@@ -36,7 +36,7 @@
             type="tel"
             placeholder="(00) 00000-0000"
             v-model="phone"
-            @blur="validatePhoneField"
+            @blur="validatePhoneField()"
             :class="['input-phone-profile', { 'input-error': errors.phone }]"
           />
           <span data-testid="input-error-phone-profile" v-if="errors.phone" class="error-message">{{ errors.phone }}</span>
@@ -71,17 +71,17 @@
 
 <script lang="ts" setup>
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
-import type { Props, UpdateUserData, User } from '@/types/user.types';
-import { validateFullName, validatePhone } from '@/utils/validateProfile';
+import type { FormDataProfile, FormErrorsProfile, Props, UpdateUserData, User } from '@/types/user.types';
+import { validateProfile } from '@/utils/validateProfile';
 import { computed, ref, watch, watchEffect } from 'vue';
 import { useFetchUser } from '../../../../composables/useFetchUser';
 import { useUpdateUser } from '../../../../composables/useUpdateUser';
 
-const fullName = ref('');
-const phone = ref('');
-const socialName = ref('');
-const cpfCnpj = ref('');
-const errors = ref({ full_name: '', phone: '' });
+const fullName = ref<string>('');
+const phone = ref<string>('');
+const socialName = ref<string>('');
+const cpfCnpj = ref<string>('');
+const errors = ref<FormErrorsProfile>({});
 
 const props = defineProps<Props>();
 
@@ -106,11 +106,11 @@ watchEffect(() => {
   }
 });
 
-const isFormValid = computed(() => {
+const isFormValid = computed((): boolean => {
   return fullName.value.trim() !== '' && phone.value.trim() !== '' && !errors.value.full_name && !errors.value.phone;
 });
 
-const hasChanges = computed(() => {
+const hasChanges = computed((): boolean => {
   const user = props.user ? (Array.isArray(props.user) ? props.user[0] : props.user) : fetchedUser.value;
   if (!user) {
     return false;
@@ -119,33 +119,47 @@ const hasChanges = computed(() => {
   return fullName.value !== (user.full_name || '') || socialName.value !== (user.social_name || '') || phone.value !== (user.phone || '');
 });
 
-watch(fullName, (newValue) => {
+watch(fullName, (newValue: string) => {
   if (newValue && errors.value.full_name) {
     validateFullNameField();
   }
 });
 
-watch(phone, (newValue) => {
+watch(phone, (newValue: string) => {
   if (newValue && errors.value.phone) {
     validatePhoneField();
   }
 });
 
-const validateFullNameField = () => {
-  errors.value.full_name = validateFullName(fullName.value);
+const validateFullNameField = (): void => {
+  const formData: FormDataProfile = {
+    full_name: fullName.value,
+    phone: phone.value,
+  };
+  const validation = validateProfile(formData);
+  errors.value.full_name = validation.errors.full_name || '';
 };
 
-const validatePhoneField = () => {
-  errors.value.phone = validatePhone(phone.value);
+const validatePhoneField = (): void => {
+  const formData: FormDataProfile = {
+    full_name: fullName.value,
+    phone: phone.value,
+  };
+  const validation = validateProfile(formData);
+  errors.value.phone = validation.errors.phone || '';
 };
 
-const validateForm = () => {
-  validateFullNameField();
-  validatePhoneField();
-  return !errors.value.full_name && !errors.value.phone;
+const validateForm = (): boolean => {
+  const formData: FormDataProfile = {
+    full_name: fullName.value,
+    phone: phone.value,
+  };
+  const validation = validateProfile(formData);
+  errors.value = validation.errors;
+  return validation.isValid;
 };
 
-const handleSave = () => {
+const handleSave = (): void => {
   if (validateForm()) {
     const updateData: UpdateUserData = {
       full_name: fullName.value.trim(),
