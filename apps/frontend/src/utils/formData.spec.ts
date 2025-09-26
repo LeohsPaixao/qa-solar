@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from '../../../../node_modules/vitest/dist/index.js';
 import { formatDate } from './formDate';
 
 describe('formData', () => {

@@ -1,20 +1,29 @@
-export function validateEmail(value: string): string {
-  if (!value) {
-    return 'O email é obrigatório.';
-  }
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(value)) {
-    return 'Por favor, insira um email válido.';
-  }
-  return '';
-}
+import type { LoginFormData, LoginFormErrors, ValidatorFnLogin } from '../types/user.types';
 
-export function validatePassword(value: string): string {
-  if (!value) {
-    return 'A senha é obrigatória.';
+const loginValidators: Record<keyof LoginFormErrors, ValidatorFnLogin[]> = {
+  email: [(value) => (!value ? 'O Email é obrigatório.' : undefined), (value) => (!/\S+@\S+\.\S+/.test(value) ? 'Email inválido.' : undefined)],
+  password: [(value) => (!value ? 'A Senha é obrigatória.' : undefined)],
+};
+
+/**
+ * Valida os dados de login
+ * @param formData - Os dados de login a serem validados
+ * @returns Um objeto contendo a validade e os erros da validação
+ */
+export function validateLoginFormData(formData: LoginFormData): { isValid: boolean; errors: LoginFormErrors } {
+  const errors: LoginFormErrors = {};
+
+  for (const [field, fieldValidators] of Object.entries(loginValidators)) {
+    const fieldValue = formData[field as keyof LoginFormData] || '';
+    for (const validate of fieldValidators) {
+      const error = validate(fieldValue as string, formData);
+      if (error) {
+        errors[field as keyof LoginFormErrors] = error;
+        break;
+      }
+    }
   }
-  if (value.length < 6) {
-    return 'A senha deve ter pelo menos 6 caracteres.';
-  }
-  return '';
+
+  const isValid = Object.keys(errors).length === 0;
+  return { isValid, errors };
 }

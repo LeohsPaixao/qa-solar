@@ -27,36 +27,11 @@ const validators: Record<keyof FormErrorsProfile, ValidatorFnProfile[]> = {
   ],
 };
 
-// Funções de validação individuais (similar ao Login)
-export function validateFullName(value: string): string {
-  if (!value) {
-    return 'O Nome Completo é obrigatório.';
-  }
-  if (!/^[a-zA-ZÀ-ÿ.]+(\s+[a-zA-ZÀ-ÿ.]+)+$/.test(value)) {
-    return 'O Nome Completo deve conter pelo menos Nome e Sobrenome.';
-  }
-  return '';
-}
-
-export function validatePhone(value: string): string {
-  if (!value) {
-    return '';
-  }
-
-  const normalizedValue = value.replace(/[^0-9a-zA-Z]/g, '');
-  if (/[a-zA-Z]/.test(normalizedValue)) {
-    return 'O telefone deve conter apenas números.';
-  }
-  if (normalizedValue.length > 11) {
-    return 'O telefone deve ter no máximo 11 dígitos.';
-  }
-  if (normalizedValue.length < 10) {
-    return 'O telefone deve ter no mínimo 10 dígitos.';
-  }
-
-  return '';
-}
-
+/**
+ * Valida os dados do perfil
+ * @param formData - Os dados do perfil a serem validados
+ * @returns Um objeto contendo a validade e os erros da validação
+ */
 export function validateProfile(formData: FormDataProfile): { isValid: boolean; errors: FormErrorsProfile } {
   const errors: FormErrorsProfile = {};
 

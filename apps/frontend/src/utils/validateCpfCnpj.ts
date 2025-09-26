@@ -1,3 +1,14 @@
+/**
+ * Valida se um CPF é válido segundo o algoritmo oficial brasileiro
+ * @param cpf - String contendo o CPF (pode conter formatação como pontos e hífen)
+ * @returns true se o CPF for válido, false caso contrário
+ * @example
+ * ```typescript
+ * validateCPF('123.456.789-09') // true
+ * validateCPF('12345678909') // true
+ * validateCPF('123.456.789-00') // false
+ * ```
+ */
 export function validateCPF(cpf: string): boolean {
   const cleanCpf = cpf.replace(/\D/g, '');
 
@@ -20,6 +31,17 @@ export function validateCPF(cpf: string): boolean {
   return firstDigit === parseInt(cleanCpf[9]) && secondDigit === parseInt(cleanCpf[10]);
 }
 
+/**
+ * Valida se um CNPJ é válido segundo o algoritmo oficial brasileiro
+ * @param cnpj - String contendo o CNPJ (pode conter formatação como pontos, barra e hífen)
+ * @returns true se o CNPJ for válido, false caso contrário
+ * @example
+ * ```typescript
+ * validateCNPJ('76.663.428/0001-86') // true
+ * validateCNPJ('76663428000186') // true
+ * validateCNPJ('12.456.789/0001-01') // false
+ * ```
+ */
 export function validateCNPJ(cnpj: string): boolean {
   const cleanCnpj = cnpj.replace(/\D/g, '');
 
