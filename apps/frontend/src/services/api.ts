@@ -82,4 +82,3 @@ export default api;
 export { errorInterceptor, getAuthToken, removeAuthToken, requestInterceptor, responseInterceptor };
 
 export type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse };
-
