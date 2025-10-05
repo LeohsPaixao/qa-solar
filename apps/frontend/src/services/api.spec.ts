@@ -4,7 +4,6 @@ import { beforeEach, describe, expect, it } from '../../../../node_modules/vites
 import { api, errorInterceptor, requestInterceptor, responseInterceptor } from './api';
 
 describe('api', () => {
-
   const TOKEN_KEY = 'user-token';
 
   beforeEach(() => {
