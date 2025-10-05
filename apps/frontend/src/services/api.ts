@@ -1,31 +1,35 @@
 import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import type { ApiErrorResponse } from '../types/services.types';
 
-// Configuração da API
 const API_CONFIG = {
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
-  timeout: 10000, // 10 segundos
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 } as const;
 
-// Função para obter token do localStorage
+/**
+ * Obtém o token de autenticação do localStorage.
+ * @returns {string | null}
+ */
 const getAuthToken = (): string | null => {
   return localStorage.getItem('user-token');
 };
 
-// Função para remover token do localStorage
+/**
+ * Remove o token de autenticação do localStorage.
+ * @returns {void}
+ */
 const removeAuthToken = (): void => {
   localStorage.removeItem('user-token');
 };
 
-// Função para redirecionar para login
-const redirectToLogin = (): void => {
-  window.location.href = '/';
-};
-
-// Interceptador de requisição
+/**
+ * Interceptador de requisição.
+ * @param {InternalAxiosRequestConfig} config - A configuração da requisição.
+ * @returns {InternalAxiosRequestConfig}
+ */
 const requestInterceptor = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   const token = getAuthToken();
 
@@ -36,28 +40,37 @@ const requestInterceptor = (config: InternalAxiosRequestConfig): InternalAxiosRe
   return config;
 };
 
-// Interceptador de resposta
+/**
+ * Interceptador de resposta.
+ * @param {AxiosResponse} response - A resposta da requisição.
+ * @returns {AxiosResponse}
+ */
 const responseInterceptor = (response: AxiosResponse): AxiosResponse => {
   return response;
 };
 
-// Interceptador de erro
-const errorInterceptor = (error: AxiosError<ApiErrorResponse>): Promise<never> => {
+/**
+ * Interceptador de erro.
+ * @param {AxiosError<ApiErrorResponse>} error - O erro da requisição.
+ * @returns {Promise<unknown>}
+ */
+const errorInterceptor = (error: AxiosError<ApiErrorResponse>): Promise<unknown> => {
   const { response, config } = error;
 
-  // Se for erro 401 (não autorizado) e não for uma requisição de login
   if (response?.status === 401 && !config?.url?.includes('/auth/login')) {
     removeAuthToken();
-    redirectToLogin();
+    return Promise.reject(error);
   }
 
   return Promise.reject(error);
 };
 
-// Criação da instância do axios
+/**
+ * Criação da instância do axios.
+ * @returns {AxiosInstance}
+ */
 const api: AxiosInstance = axios.create(API_CONFIG);
 
-// Aplicação dos interceptadores
 api.interceptors.request.use(requestInterceptor, (error: AxiosError) => {
   return Promise.reject(error);
 });
@@ -66,4 +79,7 @@ api.interceptors.response.use(responseInterceptor, errorInterceptor);
 
 export default api;
 
+export { errorInterceptor, getAuthToken, removeAuthToken, requestInterceptor, responseInterceptor };
+
 export type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse };
+
