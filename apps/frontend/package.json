@@ -12,9 +12,9 @@
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
     "test": "vitest",
-    "test:ui": "vitest --ui",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage",
+    "test:run:ci": "vitest run --reporter=json",
+    "test:cov": "vitest run --coverage",
     "lint": "eslint --fix",
     "format": "prettier --write src/"
   },
