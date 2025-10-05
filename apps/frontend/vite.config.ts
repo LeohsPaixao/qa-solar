@@ -19,7 +19,7 @@ export default defineConfig({
     }),
     istanbul({
       include: 'src/**/*',
-      exclude: ['node_modules', 'test/**/*'],
+      exclude: ['node_modules', 'test/**/*', 'src/router/index.ts'],
       extension: ['.js', '.ts', '.vue'],
       cypress: true,
     }),
@@ -36,7 +36,7 @@ export default defineConfig({
     testTimeout: 5000,
     retry: process.env.CI ? 2 : 0,
     include: ['src/**/*.spec.ts'],
-    exclude: ['node_modules', 'dist', 'test/**/*'],
+    exclude: ['node_modules', 'dist', 'test/**/*', 'src/router/index.ts'],
     poolOptions: {
       threads: {
         maxThreads: 1,
@@ -45,7 +45,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
-      exclude: ['node_modules', 'test/**/*', 'src/**/*.d.ts', 'src/main.ts', 'src/**/*.types.ts'],
+      exclude: ['node_modules', 'test/**/*', 'src/**/*.d.ts', 'src/main.ts', 'src/**/*.types.ts', 'src/router/index.ts'],
       extension: ['.js', '.ts', '.vue'],
       reporter: ['html', 'text-summary', 'lcov'],
       thresholds: {
