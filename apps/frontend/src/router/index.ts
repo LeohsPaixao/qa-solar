@@ -5,10 +5,7 @@ import ProfileTemplate from '@/modules/user/components/profile/ProfileTemplate.v
 import RegisterTemplate from '@/modules/user/components/register/RegisterTemplate.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../components/AppHome.vue';
-
-const isAuthenticated = () => {
-  return !!localStorage.getItem('user-token');
-};
+import { authGuard } from '../utils/authGuards';
 
 const routes = [
   {
@@ -30,11 +27,13 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: ProfileTemplate,
+    meta: { requiresAuth: true },
   },
   {
     path: '/listusers',
     name: 'ListUsers',
     component: ListUsersTemplate,
+    meta: { requiresAuth: true },
   },
   {
     path: '/home',
@@ -49,12 +48,6 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, _from, next) => {
-  if (to.meta.requiresAuth && !isAuthenticated()) {
-    next('/');
-  } else {
-    next();
-  }
-});
+router.beforeEach(authGuard);
 
 export default router;
