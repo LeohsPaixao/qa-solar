@@ -1,7 +1,7 @@
 import { ApiErrorResponse } from '@/types/services.types.js';
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { beforeEach, describe, expect, it } from '../../../../node_modules/vitest/dist/index.js';
-import { default as api, errorInterceptor, getAuthToken, removeAuthToken, requestInterceptor, responseInterceptor } from './api';
+import { api, errorInterceptor, requestInterceptor, responseInterceptor } from './api';
 
 describe('api', () => {
   beforeEach(() => {
@@ -20,15 +20,8 @@ describe('api', () => {
     expect(api.defaults.timeout).toBe(10000);
   });
 
-  it('Deveria retornar o token do localStorage', () => {
-    localStorage.setItem('user-token', 'abc123');
-    expect(getAuthToken()).toBe('abc123');
-  });
-
-  it('Deveria remover o token do localStorage', () => {
-    localStorage.setItem('user-token', 'abc123');
-    removeAuthToken();
-    expect(localStorage.getItem('user-token')).toBeNull();
+  it('Deveria retornar uma instância do axios com o headers correto', () => {
+    expect(api.defaults.headers['Content-Type']).toBe('application/json');
   });
 
   describe('requestInterceptor', () => {

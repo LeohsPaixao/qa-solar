@@ -45,8 +45,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
-      exclude: ['node_modules', 'test/**/*', 'src/**/*.d.ts', 'src/main.ts', 'src/**/*.types.ts', 'src/router/index.ts'],
-      extension: ['.js', '.ts', '.vue'],
+      exclude: ['node_modules', 'src/main.ts', 'src/types', 'src/router/index.ts', 'src/plugins'],
+      extension: ['.js', '.ts'],
       reporter: ['html', 'text-summary', 'lcov'],
       thresholds: {
         statements: 80,

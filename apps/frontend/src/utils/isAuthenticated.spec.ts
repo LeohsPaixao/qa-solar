@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from '../../../../node_modules/vitest/dist/index.js';
-import { isAuthenticated } from './isAuthenticated';
+import { getAuthToken, isAuthenticated, removeAuthToken } from './isAuthenticated';
 
 describe('isAuthenticated', () => {
   beforeEach(() => {
@@ -14,5 +14,16 @@ describe('isAuthenticated', () => {
   it('Deveria retornar false se o usuário não está autenticado', () => {
     localStorage.removeItem('user-token');
     expect(isAuthenticated()).toBe(false);
+  });
+
+  it('Deveria retornar o token do localStorage', () => {
+    localStorage.setItem('user-token', 'abc123');
+    expect(getAuthToken()).toBe('abc123');
+  });
+
+  it('Deveria remover o token do localStorage', () => {
+    localStorage.setItem('user-token', 'abc123');
+    removeAuthToken();
+    expect(localStorage.getItem('user-token')).toBeNull();
   });
 });

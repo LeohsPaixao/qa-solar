@@ -7,10 +7,6 @@ const validators: Record<keyof FormErrorsProfile, ValidatorFnProfile[]> = {
   ],
   phone: [
     (value) => {
-      if (!value) {
-        return undefined;
-      }
-
       const normalizedValue = value.replace(/[^0-9a-zA-Z]/g, '');
       if (/[a-zA-Z]/.test(normalizedValue)) {
         return 'O telefone deve conter apenas números.';

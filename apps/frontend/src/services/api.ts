@@ -1,5 +1,6 @@
-import axios, { type AxiosError, type AxiosInstance, type AxiosRequestConfig, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
+import axios, { type AxiosError, type AxiosInstance, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import type { ApiErrorResponse } from '../types/services.types';
+import { getAuthToken, removeAuthToken } from '../utils/isAuthenticated';
 
 const API_CONFIG = {
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
@@ -8,22 +9,6 @@ const API_CONFIG = {
     'Content-Type': 'application/json',
   },
 } as const;
-
-/**
- * Obtém o token de autenticação do localStorage.
- * @returns {string | null}
- */
-const getAuthToken = (): string | null => {
-  return localStorage.getItem('user-token');
-};
-
-/**
- * Remove o token de autenticação do localStorage.
- * @returns {void}
- */
-const removeAuthToken = (): void => {
-  localStorage.removeItem('user-token');
-};
 
 /**
  * Interceptador de requisição.
@@ -71,14 +56,8 @@ const errorInterceptor = (error: AxiosError<ApiErrorResponse>): Promise<unknown>
  */
 const api: AxiosInstance = axios.create(API_CONFIG);
 
-api.interceptors.request.use(requestInterceptor, (error: AxiosError) => {
-  return Promise.reject(error);
-});
+api.interceptors.request.use(requestInterceptor);
 
 api.interceptors.response.use(responseInterceptor, errorInterceptor);
 
-export default api;
-
-export { errorInterceptor, getAuthToken, removeAuthToken, requestInterceptor, responseInterceptor };
-
-export type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse };
+export { api, errorInterceptor, requestInterceptor, responseInterceptor };
