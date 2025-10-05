@@ -45,7 +45,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
-      exclude: ['node_modules', 'test/**/*', 'src/**/*.d.ts', 'src/main.ts'],
+      exclude: ['node_modules', 'test/**/*', 'src/**/*.d.ts', 'src/main.ts', 'src/**/*.types.ts'],
       extension: ['.js', '.ts', '.vue'],
       reporter: ['html', 'text-summary', 'lcov'],
       thresholds: {
