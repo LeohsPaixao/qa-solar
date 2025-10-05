@@ -12,10 +12,10 @@ describe('formData', () => {
     expect(formattedDate).toBe('01/01/2025, 00:00');
   });
 
-  it('Deveria retornar "Invalid Date" se a data for inválida', () => {
+  it('Deveria retornar "-" se a data for inválida', () => {
     const date = 'invalid-date';
     const formattedDate = formatDate(date);
-    expect(formattedDate).toBe('Invalid Date');
+    expect(formattedDate).toBe('-');
   });
 
   it('Deveria retornar "-" se a data for undefined', () => {
