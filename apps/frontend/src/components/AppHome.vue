@@ -14,10 +14,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// Componente principal da aplicação que exibe a página inicial
-// com logo, descrição do projeto e renderiza o RouterView
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .main-container {
