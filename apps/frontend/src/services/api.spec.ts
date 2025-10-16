@@ -1,12 +1,13 @@
 import { ApiErrorResponse } from '@/types/services.types.js';
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { beforeEach, describe, expect, it } from '../../../../node_modules/vitest/dist/index.js';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { api, errorInterceptor, requestInterceptor, responseInterceptor } from './api';
 
 describe('api', () => {
   const TOKEN_KEY = 'user-token';
 
   beforeEach(() => {
+    vi.clearAllMocks();
     localStorage.clear();
   });
 
