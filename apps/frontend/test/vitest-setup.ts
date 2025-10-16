@@ -1,51 +1,44 @@
 import { config } from '@vue/test-utils';
 import { vi } from 'vitest';
 import { globalStubs } from './global-stubs';
-import {
-  mockDocument,
-  mockLocalStorage,
-  mockToast,
-  mockUseFetchUser,
-  mockUseLogout,
-  mockUseRouter
-} from './mocks/composables';
+import { mockDocument, mockLocalStorage, mockToast, mockUseFetchUser, mockUseLogout, mockUseRouter } from './mocks/composables';
 
 // Mock dos composables
 vi.mock('../src/composables/useFetchUser', () => ({
-  useFetchUser: mockUseFetchUser
+  useFetchUser: mockUseFetchUser,
 }));
 
 vi.mock('../src/composables/useLogoutUser', () => ({
-  useLogout: mockUseLogout
+  useLogout: mockUseLogout,
 }));
 
 vi.mock('vue-router', async () => {
   const actual = await vi.importActual('vue-router');
   return {
     ...actual,
-    useRouter: mockUseRouter
+    useRouter: mockUseRouter,
   };
 });
 
 vi.mock('vue3-toastify', () => ({
-  toast: mockToast
+  toast: mockToast,
 }));
 
 // Mock do localStorage
 Object.defineProperty(window, 'localStorage', {
   value: mockLocalStorage,
-  writable: true
+  writable: true,
 });
 
 // Mock do document
 Object.defineProperty(document, 'addEventListener', {
   value: mockDocument.addEventListener,
-  writable: true
+  writable: true,
 });
 
 Object.defineProperty(document, 'removeEventListener', {
   value: mockDocument.removeEventListener,
-  writable: true
+  writable: true,
 });
 
 config.global.stubs = {
@@ -53,8 +46,8 @@ config.global.stubs = {
   ...globalStubs,
   'svg-icon': {
     template: '<div data-testid="svg-icon"><slot /></div>',
-    props: ['type', 'path']
-  }
+    props: ['type', 'path'],
+  },
 };
 
 config.global.mocks = {

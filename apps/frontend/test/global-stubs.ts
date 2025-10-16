@@ -1,4 +1,3 @@
-
 export const globalStubs = {
   RouterView: true,
   RouterLink: {

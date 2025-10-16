@@ -11,15 +11,15 @@ export const mockUseFetchUser = vi.fn(() => ({
       phone: '11999999999',
       document: '12345678901',
       created_at: '2024-01-01T00:00:00Z',
-      updated_at: '2024-01-01T00:00:00Z'
-    } as User
+      updated_at: '2024-01-01T00:00:00Z',
+    } as User,
   },
   error: { value: null },
   isLoading: { value: false },
   isError: { value: false },
   isSuccess: { value: true },
   refetch: vi.fn(),
-  isFetching: { value: false }
+  isFetching: { value: false },
 }));
 
 // Mock do useLogout
@@ -30,7 +30,7 @@ export const mockUseLogout = vi.fn(() => ({
   isLoading: { value: false },
   isError: { value: false },
   isSuccess: { value: false },
-  isPending: { value: false }
+  isPending: { value: false },
 }));
 
 // Mock do useRouter
@@ -45,9 +45,9 @@ export const mockUseRouter = vi.fn(() => ({
       path: '/',
       name: 'home',
       params: {},
-      query: {}
-    }
-  }
+      query: {},
+    },
+  },
 }));
 
 // Mock do toast
@@ -55,7 +55,7 @@ export const mockToast = {
   success: vi.fn(),
   error: vi.fn(),
   info: vi.fn(),
-  warning: vi.fn()
+  warning: vi.fn(),
 };
 
 // Mock do localStorage
@@ -72,11 +72,11 @@ export const mockLocalStorage = {
   clear: vi.fn(() => {
     mockLocalStorage._storage = {};
   }),
-  _storage: {} as Record<string, string>
+  _storage: {} as Record<string, string>,
 };
 
 // Mock do document
 export const mockDocument = {
   addEventListener: vi.fn(),
-  removeEventListener: vi.fn()
+  removeEventListener: vi.fn(),
 };
