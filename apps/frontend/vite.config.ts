@@ -37,6 +37,7 @@ export default defineConfig({
     retry: process.env.CI ? 2 : 0,
     include: ['src/**/*.spec.ts'],
     exclude: ['node_modules', 'dist', 'test/**/*', 'src/router/index.ts'],
+    setupFiles: ['./test/vitest-setup.ts'],
     poolOptions: {
       threads: {
         maxThreads: 1,
@@ -45,7 +46,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
-      exclude: ['node_modules', 'src/main.ts', 'src/types', 'src/router/index.ts', 'src/plugins', 'src/**/*.d.ts', 'src/**/*.types.ts'],
+      exclude: ['node_modules', 'test/**/*', 'src/main.ts', 'src/types', 'src/router/index.ts', 'src/plugins', 'src/**/*.d.ts', 'src/**/*.types.ts'],
       extension: ['.js', '.ts', '.vue'],
       reporter: ['html', 'text-summary', 'lcov'],
       thresholds: {
