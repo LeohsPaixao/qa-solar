@@ -1,4 +1,5 @@
-const Configuration = {
+/** @type {import('@commitlint/types').UserConfig} */
+export default {
   extends: [
     "@commitlint/config-conventional"
   ],
@@ -26,12 +27,12 @@ const Configuration = {
       rules: {
         'scope-wrong': ({ scope }) => {
           if (!scope) {
-            return [true, '']; // Se não houver escopo, permite o commit
+            return [true, ''];
           }
           if (scope.match(/^[a-z]/)) {
-            return [true, '']; // Se o escopo começar com letra minúscula, permite o commit
+            return [true, ''];
           }
-          return [false, 'scope must start with a lowercase letter']; // Caso contrário, falha
+          return [false, 'scope must start with a lowercase letter'];
         },
         'subject-wrong': ({ subject }) => {
           const oldPatternCommit = /^\(|\(.+\)|\)$/g;
@@ -43,4 +44,3 @@ const Configuration = {
     }
   ]
 };
-export default Configuration;
