@@ -1,10 +1,11 @@
-import { beforeEach, describe, expect, it } from '../../../../node_modules/vitest/dist/index.js';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getAuthToken, isAuthenticated, removeAuthToken } from './isAuthenticated';
 
 describe('isAuthenticated', () => {
   const TOKEN_KEY = 'user-token';
 
   beforeEach(() => {
+    vi.clearAllMocks();
     localStorage.clear();
   });
 

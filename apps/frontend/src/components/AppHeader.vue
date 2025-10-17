@@ -70,12 +70,20 @@ const handleClickOutside = (event: Event): void => {
   }
 };
 
-onMounted(() => {
+const setupClickOutsideListener = (): void => {
   document.addEventListener('click', handleClickOutside);
+};
+
+const removeClickOutsideListener = (): void => {
+  document.removeEventListener('click', handleClickOutside);
+};
+
+onMounted(() => {
+  setupClickOutsideListener();
 });
 
 onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside);
+  removeClickOutsideListener();
 });
 </script>
 

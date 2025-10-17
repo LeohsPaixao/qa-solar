@@ -17,6 +17,9 @@
     "docker:build": "docker compose up --build",
     "changeset": "changeset",
     "version-packages": "changeset version",
+    "n8n": "docker compose -f docker-compose.n8n.yml up -d",
+    "stop-n8n": "docker compose -f docker-compose.n8n.yml down",
+    "restart-n8n": "docker compose -f docker-compose.n8n.yml restart",
     "dev": "turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
@@ -57,6 +60,6 @@
     "typescript": "5.8.3"
   },
   "engines": {
-    "node": "22.19.0"
+    "node": ">=22.19.0 <23"
   }
 }
