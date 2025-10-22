@@ -20,7 +20,8 @@ export const useLogout = () => {
   });
 
   watch(
-    () => mutation.data.value, (data: LogoutResponse | undefined) => {
+    () => mutation.data.value,
+    (data: LogoutResponse | undefined) => {
       if (data) {
         removeAuthToken();
         queryClient.clear();

@@ -82,7 +82,7 @@ describe('useUpdateUser', () => {
         full_name: 'Usuário alterado!',
         email: 'teste@exemplo.com',
       },
-    }
+    };
 
     vi.mocked(api.patch<UpdateUserResponse>).mockResolvedValueOnce({
       data: mockResponse,
@@ -105,7 +105,7 @@ describe('useUpdateUser', () => {
     expect(isError.value).toBe(false);
     expect(isSuccess.value).toBe(true);
     expect(data.value).toStrictEqual(mockResponse);
-  })
+  });
 
   it('Deveria retornar erro ao falhar a alteração do perfil do usuário', () => {
     const mockError = {
@@ -136,5 +136,5 @@ describe('useUpdateUser', () => {
     expect(isSuccess.value).toBe(false);
     expect(data.value).toBe(null);
     expect(error.value).toStrictEqual(mockError);
-  })
+  });
 });

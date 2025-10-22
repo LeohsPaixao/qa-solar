@@ -11,7 +11,6 @@ vi.mocked(useQueryClient).mockReturnValue({ setQueryData } as any);
 import { getUserQuery, useFetchUser } from './useFetchUser';
 
 describe('useFetchUser', () => {
-  
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -91,11 +90,11 @@ describe('useFetchUser', () => {
       error: { value: null },
       isLoading: { value: false },
       isError: { value: false },
-      isSuccess: { value: true }, 
+      isSuccess: { value: true },
       isFetching: { value: false },
       refetch: vi.fn(),
     } as any);
-  
+
     const { data, isError, isSuccess } = useFetchUser();
 
     expect(isError.value).toBe(false);

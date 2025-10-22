@@ -71,8 +71,7 @@ const handleLogout = (): void => {
     onError: (error: ApiErrorResponse): void => {
       toast.error(error.response?.data?.message || 'Erro ao realizar logout', { autoClose: 5000 });
     },
-  },
-  );
+  });
 };
 
 const handleClickOutside = (event: Event): void => {

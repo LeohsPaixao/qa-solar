@@ -270,10 +270,7 @@ describe('AppHeader', () => {
       const logoutOption = wrapper.find('[data-testid="dropdown-profile-logout"]');
       await logoutOption.trigger('click');
 
-      expect(mockToast.success).toHaveBeenCalledWith(
-        'Logout realizado com sucesso!',
-        { autoClose: 3000 }
-      );
+      expect(mockToast.success).toHaveBeenCalledWith('Logout realizado com sucesso!', { autoClose: 3000 });
     });
 
     it('Deveria exibir toast de sucesso com mensagem padrão quando não houver mensagem na resposta', async () => {
@@ -306,10 +303,7 @@ describe('AppHeader', () => {
       const logoutOption = wrapper.find('[data-testid="dropdown-profile-logout"]');
       await logoutOption.trigger('click');
 
-      expect(mockToast.success).toHaveBeenCalledWith(
-        'O usuário foi deslogado com sucesso!',
-        { autoClose: 3000 }
-      );
+      expect(mockToast.success).toHaveBeenCalledWith('O usuário foi deslogado com sucesso!', { autoClose: 3000 });
     });
 
     it('Deveria exibir toast de erro quando logout falhar', async () => {
@@ -346,10 +340,7 @@ describe('AppHeader', () => {
       const logoutOption = wrapper.find('[data-testid="dropdown-profile-logout"]');
       await logoutOption.trigger('click');
 
-      expect(mockToast.error).toHaveBeenCalledWith(
-        'Erro interno do servidor',
-        { autoClose: 5000 }
-      );
+      expect(mockToast.error).toHaveBeenCalledWith('Erro interno do servidor', { autoClose: 5000 });
     });
 
     it('Deveria exibir toast de erro com mensagem padrão quando não houver mensagem de erro', async () => {
@@ -384,10 +375,7 @@ describe('AppHeader', () => {
       const logoutOption = wrapper.find('[data-testid="dropdown-profile-logout"]');
       await logoutOption.trigger('click');
 
-      expect(mockToast.error).toHaveBeenCalledWith(
-        'Erro ao realizar logout',
-        { autoClose: 5000 }
-      );
+      expect(mockToast.error).toHaveBeenCalledWith('Erro ao realizar logout', { autoClose: 5000 });
     });
   });
 });

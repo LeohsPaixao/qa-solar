@@ -129,7 +129,7 @@ describe('useRegisterUser', () => {
       mutateAsync: vi.fn(),
       reset: vi.fn(),
     } as any);
-  
+
     const { error, isError, isSuccess, data } = useRegisterUser();
 
     expect(isError.value).toBe(true);

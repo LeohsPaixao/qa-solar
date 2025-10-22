@@ -104,7 +104,7 @@ const handleDelete = (): void => {
     deleteUserMutation(selectedUsers.value, {
       onSuccess: (data: DeleteUserResponse) => {
         toast.success(data.message || 'Usuário(s) excluído(s) com sucesso!', {
-          autoClose: 3000
+          autoClose: 3000,
         });
         selectedUsers.value = [];
         selectAll.value = false;

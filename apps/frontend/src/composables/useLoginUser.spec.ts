@@ -104,9 +104,9 @@ describe('useLoginUser', () => {
       response: {
         data: {
           message: 'Erro ao realizar login',
-        }
-      }
-    }
+        },
+      },
+    };
 
     vi.mocked(api.post<LoginResponse>).mockRejectedValueOnce(mockError);
 
@@ -128,5 +128,5 @@ describe('useLoginUser', () => {
     expect(isSuccess.value).toBe(false);
     expect(data.value).toBe(null);
     expect(error.value).toStrictEqual(mockError);
-  })
+  });
 });

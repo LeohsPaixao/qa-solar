@@ -8,8 +8,15 @@
 
         <div class="form-group-login">
           <label for="email" data-testid="label-email">Insira seu E-mail</label>
-          <input data-testid="input-email" type="email" id="email" autocomplete="username" v-model="email"
-            @blur="validateFields" :class="['input-email-login', { 'input-error': errors.email }]" />
+          <input
+            data-testid="input-email"
+            type="email"
+            id="email"
+            autocomplete="username"
+            v-model="email"
+            @blur="validateFields"
+            :class="['input-email-login', { 'input-error': errors.email }]"
+          />
           <span data-testid="message-error-email" v-if="errors.email" class="error-message">
             {{ errors.email }}
           </span>
@@ -17,9 +24,15 @@
 
         <div class="form-group-login">
           <label for="password" data-testid="label-password">Insira sua Senha</label>
-          <input data-testid="input-password" type="password" id="password" autocomplete="current-password"
-            v-model="password" @blur="validateFields"
-            :class="['input-password-login', { 'input-error': errors.password }]" />
+          <input
+            data-testid="input-password"
+            type="password"
+            id="password"
+            autocomplete="current-password"
+            v-model="password"
+            @blur="validateFields"
+            :class="['input-password-login', { 'input-error': errors.password }]"
+          />
           <span data-testid="message-error-password" v-if="errors.password" class="error-message">
             {{ errors.password }}
           </span>
@@ -30,15 +43,13 @@
         </button>
 
         <div class="link-container">
-          <a data-testid="link-recover-password" href="/recover-password" class="link recover-password"> Esqueceu a
-            senha? </a>
+          <a data-testid="link-recover-password" href="/recover-password" class="link recover-password"> Esqueceu a senha? </a>
           <a data-testid="link-signup" href="/signup" class="link signup"> Criar uma nova conta </a>
         </div>
       </form>
 
       <p class="message-user-login">
-        <strong>Atenção:</strong> Para acessar com as credenciais padrão, utilize o e-mail <em>generic@example.com</em>
-        e a senha <em>123456</em>.
+        <strong>Atenção:</strong> Para acessar com as credenciais padrão, utilize o e-mail <em>generic@example.com</em> e a senha <em>123456</em>.
         Essas informações foram geradas automaticamente pelo seeder para facilitar testes e demonstrações.
       </p>
     </div>
@@ -86,14 +97,15 @@ const validateFields = (): void => {
   const validation = validateLoginFormData(formData);
   errors.value.email = validation.errors.email || '';
   errors.value.password = validation.errors.password || '';
-}
+};
 
 const handleLogin = (): void => {
   if (!errors.value.email && !errors.value.password) {
-    loginUserMutation({
-      email: email.value.trim(),
-      password: password.value.trim(),
-    },
+    loginUserMutation(
+      {
+        email: email.value.trim(),
+        password: password.value.trim(),
+      },
       {
         onSuccess: async (data: LoginResponse): Promise<void> => {
           await router.push('/home');
@@ -102,7 +114,8 @@ const handleLogin = (): void => {
         onError: (error: ApiErrorResponse): void => {
           toast.error(error.response?.data?.message || 'Erro ao realizar login', { autoClose: 5000 });
         },
-      });
+      },
+    );
   }
 };
 </script>

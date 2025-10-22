@@ -13,4 +13,3 @@ export const useForgotPassword = () => {
     mutationFn: sendForgotPasswordEmailMutation,
   });
 };
-

@@ -46,7 +46,7 @@ vi.mock('../src/services/api', async () => {
             use: vi.fn(),
           },
         },
-      }
+      },
     ),
   };
 });
