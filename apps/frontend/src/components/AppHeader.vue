@@ -24,18 +24,21 @@
 </template>
 
 <script setup lang="ts">
+import type { ApiErrorResponse } from '@/types/error.types';
 import SvgIcon from '@jamescoyle/vue-icon';
 import { mdiAccountCircle } from '@mdi/js';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { useFetchUser } from '../composables/useFetchUser';
 import { useLogout } from '../composables/useLogoutUser';
-import type { Props, User } from '../types/user.types';
+import type { LogoutResponse, Props, User } from '../types/user.types';
 
 const props = defineProps<Props>();
 
 const router = useRouter();
-const { mutate: logout } = useLogout();
+const { mutate: logoutUserMutation } = useLogout();
 const { data: fetchedUser } = useFetchUser();
 
 const dropdownOpen = ref<boolean>(false);
@@ -60,7 +63,15 @@ const goToProfile = (): void => {
 
 const handleLogout = (): void => {
   closeDropdown();
-  logout();
+  logoutUserMutation(undefined, {
+    onSuccess: async (data: LogoutResponse): Promise<void> => {
+      await router.push('/');
+      toast.success(data.message || 'O usuário foi deslogado com sucesso!', { autoClose: 3000 });
+    },
+    onError: (error: ApiErrorResponse): void => {
+      toast.error(error.response?.data?.message || 'Erro ao realizar logout', { autoClose: 5000 });
+    },
+  });
 };
 
 const handleClickOutside = (event: Event): void => {

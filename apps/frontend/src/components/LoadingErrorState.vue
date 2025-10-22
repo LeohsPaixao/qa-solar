@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ErrorProps } from '../types/error.types';
+import type { ErrorProps } from '@/types/error.types';
 
 withDefaults(defineProps<ErrorProps>(), {
   isLoading: false,

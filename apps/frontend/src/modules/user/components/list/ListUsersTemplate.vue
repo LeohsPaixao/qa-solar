@@ -59,8 +59,11 @@
 </template>
 
 <script setup lang="ts">
-import type { User, UserList } from '@/types/user.types';
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { DeleteUserResponse, User, UserList } from '@/types/user.types';
 import { computed, ref } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { useDeleteUser } from '../../../../composables/useDeleteUser';
 import { useFetchUser } from '../../../../composables/useFetchUser';
 import { useFetchUsers } from '../../../../composables/useFetchUsers';
@@ -74,7 +77,7 @@ const selectAll = ref<boolean>(false);
 // Composables
 const { data: usersData, isLoading } = useFetchUsers();
 const { data: loggedInUser } = useFetchUser();
-const { mutate: deleteUser, isPending: isDeleting } = useDeleteUser();
+const { mutate: deleteUserMutation, isPending: isDeleting } = useDeleteUser();
 
 // Props
 const usersList = computed<User[]>(() => {
@@ -98,7 +101,19 @@ const toggleSelectAll = (): void => {
 
 const handleDelete = (): void => {
   if (selectedUsers.value.length > 0) {
-    deleteUser(selectedUsers.value);
+    deleteUserMutation(selectedUsers.value, {
+      onSuccess: (data: DeleteUserResponse) => {
+        toast.success(data.message || 'Usuário(s) excluído(s) com sucesso!', {
+          autoClose: 3000,
+        });
+        selectedUsers.value = [];
+        selectAll.value = false;
+      },
+      onError: (error: ApiErrorResponse) => {
+        const errorMessage = error.response?.data?.message || 'Erro ao excluir usuário(s)';
+        toast.error(errorMessage, { autoClose: 5000 });
+      },
+    });
   }
 };
 </script>

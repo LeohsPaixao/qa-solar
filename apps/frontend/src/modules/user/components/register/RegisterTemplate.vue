@@ -129,8 +129,6 @@
         {{ isPending ? 'Cadastrando...' : 'Cadastrar' }}
       </button>
 
-      <p v-if="error" class="error">{{ error }}</p>
-
       <div class="link-container">
         <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login"> Voltar ao Login </router-link>
       </div>
@@ -139,13 +137,16 @@
 </template>
 
 <script setup lang="ts">
-import type { FormData, FormErrors } from '@/types/user.types';
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { FormData, FormErrors, RegisterResponse } from '@/types/user.types';
 import { validateFormData } from '@/utils/validateForm';
 import { computed, reactive, watch } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { useRegisterUser } from '../../../../composables/useRegisterUser';
 
 // Composables
-const { mutate, isPending, error } = useRegisterUser();
+const { mutate: registerUserMutation, isPending } = useRegisterUser();
 
 const formData = reactive<FormData>({
   full_name: '',
@@ -264,16 +265,26 @@ const handleSubmit = async (): Promise<void> => {
     return;
   }
 
-  mutate({
-    full_name: formData.full_name.trim(),
-    social_name: formData.social_name?.trim() || '',
-    document: formData.document.trim(),
-    doc_type: formData.doc_type,
-    phone: formData.phone?.trim() || '',
-    email: formData.email.trim(),
-    password: formData.password.trim(),
-    password_confirmation: formData.password_confirmation.trim(),
-  });
+  registerUserMutation(
+    {
+      full_name: formData.full_name.trim(),
+      social_name: formData.social_name?.trim() || '',
+      document: formData.document.trim(),
+      doc_type: formData.doc_type,
+      phone: formData.phone?.trim() || '',
+      email: formData.email.trim(),
+      password: formData.password.trim(),
+      password_confirmation: formData.password_confirmation.trim(),
+    },
+    {
+      onSuccess: (data: RegisterResponse): void => {
+        toast.success(data.message || 'Usuário criado com sucesso!', { autoClose: 3000 });
+      },
+      onError: (error: ApiErrorResponse): void => {
+        toast.error(error.response?.data?.message || 'Erro ao registrar usuário', { autoClose: 5000 });
+      },
+    },
+  );
 };
 
 const validateField = (field: keyof FormErrors): void => {
