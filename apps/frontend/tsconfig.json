@@ -32,9 +32,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
-,
-"test/vitest-setup.ts",
-"test/global-stubs.ts"
-]
+    "src/**/*.vue",
+    "test/vitest-setup.ts",
+    "test/global-stubs.ts"
+  ]
 }

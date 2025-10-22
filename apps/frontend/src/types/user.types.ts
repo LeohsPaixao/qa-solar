@@ -93,6 +93,14 @@ export interface ForgotPasswordResponse {
   message: string;
 }
 
+export interface ForgotPasswordFormData {
+  email: string;
+}
+
+export interface ForgotPasswordFormErrors {
+  email?: string;
+}
+
 export interface Props {
   user?: User;
 }
@@ -132,3 +140,4 @@ export type DocType = 'cpf' | 'cnpj';
 export type ValidatorFn = (value: string, formData: FormData) => string | undefined;
 export type ValidatorFnProfile = (value: string, formData: FormDataProfile) => string | undefined;
 export type ValidatorFnLogin = (value: string, formData: LoginFormData) => string | undefined;
+export type ValidatorFnForgotPassword = (value: string, formData: ForgotPasswordFormData) => string | undefined;

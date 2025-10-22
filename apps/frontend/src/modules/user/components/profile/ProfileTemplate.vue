@@ -71,9 +71,12 @@
 
 <script lang="ts" setup>
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
-import type { FormDataProfile, FormErrorsProfile, Props, UpdateUserData, User } from '@/types/user.types';
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { FormDataProfile, FormErrorsProfile, Props, UpdateUserData, UpdateUserResponse, User } from '@/types/user.types';
 import { validateProfile } from '@/utils/validateProfile';
 import { computed, ref, watch, watchEffect } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { useFetchUser } from '../../../../composables/useFetchUser';
 import { useUpdateUser } from '../../../../composables/useUpdateUser';
 
@@ -86,9 +89,7 @@ const errors = ref<FormErrorsProfile>({});
 const props = defineProps<Props>();
 
 const { data: fetchedUser, isLoading: isLoadingFetch, isError } = useFetchUser();
-const mutation = useUpdateUser();
-const updateUser = mutation.mutate;
-const isUpdating = mutation.isPending;
+const { mutate: updateUserMutation, isPending: isUpdating } = useUpdateUser();
 
 watchEffect(() => {
   const user = computed<User | undefined>(() => {
@@ -167,7 +168,14 @@ const handleSave = (): void => {
       phone: phone.value.trim(),
     };
 
-    updateUser(updateData);
+    updateUserMutation(updateData, {
+      onSuccess: (data: UpdateUserResponse) => {
+        toast.success(data.message || 'Usuário alterado com sucesso!', { autoClose: 3000 });
+      },
+      onError: (error: ApiErrorResponse) => {
+        toast.error(error.response?.data?.message || 'Erro ao alterar perfil', { autoClose: 5000 });
+      },
+    });
   }
 };
 </script>
