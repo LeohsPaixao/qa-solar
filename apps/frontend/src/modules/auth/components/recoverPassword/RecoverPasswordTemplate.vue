@@ -1,30 +1,25 @@
 <template>
   <div class="recover-password-container main-content">
-    <form data-testid="form-recover-password" class="form-recover-password" @submit.prevent="handleRecoverPassword">
+    <form data-testid="form-recover-password" class="form-recover-password" @submit.prevent="onSubmit">
       <img data-testid="logo-recover-password" src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
       <h2>Recuperar Senha</h2>
       <p>Por favor, insira o seu e-mail para recuperar a senha:</p>
 
       <div class="form-group-recover-password">
         <label class="label-email" for="email" data-testid="label-email-recover-password">E-mail</label>
-        <input
+        <Field
           data-testid="input-email-recover-password"
           type="email"
           id="email"
           autocomplete="username"
-          v-model="email"
-          class="input-email-recover-password"
+          name="email"
           placeholder="Digite seu e-mail"
-          required
-          @blur="validateEmailField"
-          :class="['input-email-recover-password', { 'input-error': errors.email }]"
+          :class="['input-email-recover-password', { 'input-error': emailError }]"
         />
-        <span data-testid="message-error-email-recover-password" v-if="errors.email" class="error-message">
-          {{ errors.email }}
-        </span>
+        <ErrorMessage data-testid="message-error-email-recover-password" name="email" class="error-message" />
       </div>
-      <button data-testid="btn-recover-password" class="btn btn-recover btn-recover-password" type="submit" :disabled="!isFormValid || isPending">
-        {{ isPending ? 'Enviando e-mail...' : 'Enviar instruções' }}
+      <button data-testid="btn-recover-password" class="btn btn-recover btn-recover-password" type="submit" :disabled="isPending">
+        {{ btnText }}
       </button>
       <div class="link-container">
         <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login"> Voltar ao Login </router-link>
@@ -38,42 +33,42 @@
 
 <script setup lang="ts">
 import type { ApiErrorResponse } from '@/types/error.types';
-import type { ForgotPasswordFormData, ForgotPasswordFormErrors } from '@/types/user.types';
-import { validateForgotPasswordFormData } from '@/utils/validateForgotPasswordFormData';
-import { computed, ref, watch } from 'vue';
+import type { ForgotPasswordFormData } from '@/types/user.types';
+import { toTypedSchema } from '@vee-validate/yup';
+import { ErrorMessage, Field, useField, useForm } from 'vee-validate';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import * as yup from 'yup';
 import { useForgotPassword } from '../../../../composables/useForgotPassword';
-
-const email = ref<string>('');
-const errors = ref<ForgotPasswordFormErrors>({ email: '' });
 
 const { mutate: sendForgotPasswordEmailMutation, isPending } = useForgotPassword();
 const router = useRouter();
 
-const isFormValid = computed(() => {
-  return email.value.trim() !== '' && !errors.value.email;
+const validationSchema = toTypedSchema(
+  yup.object({
+    email: yup.string().required('O Email é obrigatório.').email('Email inválido.'),
+  }),
+);
+
+const { handleSubmit } = useForm({
+  initialValues: {
+    email: '',
+  },
+  validationSchema,
 });
 
-watch(email, (newValue: string) => {
-  if (newValue && errors.value.email) {
-    validateEmailField();
-  }
+const { errorMessage: emailError } = useField('email');
+
+const btnText = computed(() => {
+  return isPending.value ? 'Enviando e-mail...' : 'Enviar instruções';
 });
 
-const validateEmailField = (): void => {
-  const formData: ForgotPasswordFormData = {
-    email: email.value,
-  };
-  const validation = validateForgotPasswordFormData(formData);
-  errors.value.email = validation.errors.email || '';
-};
-
-const handleRecoverPassword = (): void => {
-  if (!errors.value.email) {
+const onSubmit = handleSubmit((formValues: ForgotPasswordFormData) => {
+  if (!emailError.value) {
     sendForgotPasswordEmailMutation(
-      { email: email.value.trim() },
+      { email: formValues.email.trim() },
       {
         onSuccess: async (): Promise<void> => {
           await router.push('/');
@@ -85,7 +80,7 @@ const handleRecoverPassword = (): void => {
       },
     );
   }
-};
+});
 </script>
 
 <style src="./RecoverPasswordStyle.css"></style>
