@@ -1,5 +1,5 @@
-import { mergeConfig } from 'vite'
-import viteConfig from './vite.config'
+import { mergeConfig } from 'vite';
+import viteConfig from './vite.config';
 
 export default mergeConfig(viteConfig, {
   test: {
@@ -20,7 +20,17 @@ export default mergeConfig(viteConfig, {
     coverage: {
       provider: 'v8',
       include: ['src/**/*'],
-      exclude: ['node_modules', 'test/**/*', 'src/main.ts', 'src/types', 'src/router/index.ts', 'src/plugins', 'src/**/*.d.ts', 'src/**/*.types.ts', 'src/modules/**/**/utils/mocks/**/*.ts'],
+      exclude: [
+        'node_modules',
+        'test/**/*',
+        'src/main.ts',
+        'src/types',
+        'src/router/index.ts',
+        'src/plugins',
+        'src/**/*.d.ts',
+        'src/**/*.types.ts',
+        'src/modules/**/**/utils/mocks/**/*.ts',
+      ],
       extension: ['.js', '.ts', '.vue'],
       reporter: ['html', 'text-summary', 'lcov'],
       thresholds: {
@@ -31,4 +41,4 @@ export default mergeConfig(viteConfig, {
       },
     },
   },
-})
+});
