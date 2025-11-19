@@ -51,7 +51,7 @@
           @click="handleDelete"
           aria-label="Excluir usuários selecionados"
         >
-          {{ isDeleting ? 'Excluindo...' : 'Excluir' }}
+          {{ btnText }}
         </button>
       </footer>
     </div>
@@ -85,6 +85,10 @@ const usersList = computed<User[]>(() => {
     return Array.isArray(props.users) ? props.users : [props.users];
   }
   return usersData.value?.users || [];
+});
+
+const btnText = computed(() => {
+  return isDeleting.value ? 'Excluindo...' : 'Excluir';
 });
 
 const isLoggedInUserSelected = computed<boolean>(() => {
