@@ -47,7 +47,7 @@ jobs:
     uses: ./.github/workflows/cypress-component.yml
 
   cypress-tests:
-    needs: [filter]
+    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
@@ -56,7 +56,7 @@ jobs:
     uses: ./.github/workflows/cypress.yml
 
   playwright-tests:
-    needs: [filter]
+    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
@@ -65,7 +65,7 @@ jobs:
     uses: ./.github/workflows/playwright.yml
 
   robot-framework-tests:
-    needs: [filter]
+    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
@@ -74,7 +74,7 @@ jobs:
     uses: ./.github/workflows/robot.yml
 
   selenium-tests:
-    needs: [filter]
+    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
