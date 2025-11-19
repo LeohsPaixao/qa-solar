@@ -58,12 +58,9 @@ jobs:
           yarn dev &
           sleep 5
 
-      - name: Executar testes E2E Cypress
+      - name: Executar testes de Componentes Cypress
+        id: cypress-component-tests
         uses: cypress-io/github-action@v6
         with:
           working-directory: tests/cypress
-          command: npx cypress run --config-file cypress.config.ts
-        env:
-          CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
-          CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
+          command: npx cypress run --component --config-file cypress.config.ts
