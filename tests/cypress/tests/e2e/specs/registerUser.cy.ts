@@ -18,6 +18,24 @@ describe('Tela de Cadastro de Usuário', () => {
     cy.get('[data-testid="link-go-to-login"]').should('be.visible');
   });
 
+  it('Deveria ser possível visualizar os erros nos campos do formulário', () => {
+    cy.get('[data-testid="input-fullname"]').type(' ', { delay: 0 }).clear().blur();
+    cy.get('[data-testid="input-error-fullname"]').should('be.visible');
+    cy.get('[data-testid="input-error-fullname"]').should('have.text', 'O Nome Completo é obrigatório.');
+    cy.get('[data-testid="input-document"]').type(' ', { delay: 0 }).clear().blur();
+    cy.get('[data-testid="input-error-cpfcnpj"]').should('be.visible');
+    cy.get('[data-testid="input-error-cpfcnpj"]').should('have.text', 'O CPF/CNPJ é obrigatório.');
+    cy.get('[data-testid="input-email"]').type(' ', { delay: 0 }).clear().blur();
+    cy.get('[data-testid="input-error-email"]').should('be.visible');
+    cy.get('[data-testid="input-error-email"]').should('have.text', 'O Email é obrigatório.');
+    cy.get('[data-testid="input-password"]').type(' ', { delay: 0 }).clear().blur();
+    cy.get('[data-testid="input-error-password"]').should('be.visible');
+    cy.get('[data-testid="input-error-password"]').should('have.text', 'A Senha é obrigatória.');
+    cy.get('[data-testid="input-password-confirmation"]').type(' ', { delay: 0 }).clear().blur();
+    cy.get('[data-testid="input-error-password-confirmation"]').should('be.visible');
+    cy.get('[data-testid="input-error-password-confirmation"]').should('have.text', 'A confirmação de senha é obrigatória.');
+  });
+
   it('Deveria ser possivel cadastrar um usuário', () => {
     fillUserForm();
     cy.get('[data-testid="btn-register"]').should('be.enabled').click();

@@ -11,11 +11,11 @@ describe('Tela de Login', () => {
     cy.get('[data-testid="logo"]').should('be.visible');
     cy.get('[data-testid="input-email"]').should('be.visible');
     cy.get('[data-testid="input-password"]').should('be.visible');
-    cy.get('[data-testid="btn-login"]').should('be.visible').and('be.disabled');
+    cy.get('[data-testid="btn-login"]').should('be.visible').and('be.enabled');
   });
 
   it('Não deveria ser possivel fazer login com credenciais inválidas', () => {
-    cy.get('[data-testid="btn-login"]').should('be.disabled');
+    cy.get('[data-testid="btn-login"]').should('be.enabled');
     cy.get('[data-testid="input-email"]').should('be.visible').type('email@example.com');
     cy.get('[data-testid="input-password"]').should('be.visible').type('password');
     cy.get('[data-testid="btn-login"]').should('be.enabled').click();
@@ -23,7 +23,7 @@ describe('Tela de Login', () => {
   });
 
   it('Não deveria ser possivel fazer login com a senha inválida', () => {
-    cy.get('[data-testid="btn-login"]').should('be.disabled');
+    cy.get('[data-testid="btn-login"]').should('be.enabled');
     cy.get('[data-testid="input-email"]').should('be.visible').type('generic@example.com');
     cy.get('[data-testid="input-password"]').should('be.visible').type('password');
     cy.get('[data-testid="btn-login"]').should('be.enabled').click();
@@ -31,7 +31,7 @@ describe('Tela de Login', () => {
   });
 
   it('Deveria ser possivel fazer login com credenciais válidas', () => {
-    cy.get('[data-testid="btn-login"]').should('be.disabled');
+    cy.get('[data-testid="btn-login"]').should('be.enabled');
     cy.get('[data-testid="input-email"]').should('be.visible').type('generic@example.com');
     cy.get('[data-testid="input-password"]').should('be.visible').type('123456');
     cy.get('[data-testid="btn-login"]').should('be.enabled').click();
