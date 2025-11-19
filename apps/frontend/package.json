@@ -11,10 +11,8 @@
     "build": "rimraf dist && vite build",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:run:ci": "vitest run --reporter=json",
-    "test:cov": "vitest run --coverage",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint --fix",
     "format": "prettier --write src/"
   },
