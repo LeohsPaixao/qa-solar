@@ -16,7 +16,9 @@ describe('api', () => {
   });
 
   it('Deveria retornar uma instância do axios com o baseURL correto', () => {
-    expect(api.defaults.baseURL).toBe(import.meta.env.VITE_API_URL);
+    const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+    expect(api.defaults.baseURL).toBe(baseURL);
   });
 
   it('Deveria retornar uma instância do axios com o timeout correto', () => {

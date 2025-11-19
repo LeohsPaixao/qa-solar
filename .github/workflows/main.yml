@@ -15,7 +15,6 @@ jobs:
       docs: ${{ steps.filter.outputs.docs }}
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
-      cypress-component: ${{ steps.filter.outputs.cypress-component }}
     steps:
       - name: Filtrar arquivos alterados
         id: filter
@@ -28,8 +27,6 @@ jobs:
               - 'apps/backend/**'
             frontend:
               - 'apps/frontend/**'
-            cypress-component:
-              - 'tests/cypress/tests/component/**'
 
   backend-unit-tests:
     needs: [filter]
@@ -42,8 +39,6 @@ jobs:
     uses: ./.github/workflows/frontend.yml
 
   cypress-component-tests:
-    needs: [filter]
-    if: always() && needs.filter.outputs.cypress-component == 'true'
     uses: ./.github/workflows/cypress-component.yml
 
   cypress-tests:

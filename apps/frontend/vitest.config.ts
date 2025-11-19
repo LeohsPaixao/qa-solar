@@ -30,6 +30,7 @@ export default mergeConfig(viteConfig, {
         'src/**/*.d.ts',
         'src/**/*.types.ts',
         'src/modules/**/**/utils/mocks/**/*.ts',
+        'src/App.vue',
       ],
       extension: ['.js', '.ts', '.vue'],
       reporter: ['html', 'text-summary', 'lcov'],
