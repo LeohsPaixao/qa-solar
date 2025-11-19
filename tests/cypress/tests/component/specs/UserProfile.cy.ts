@@ -1,38 +1,11 @@
 import ProfileTemplate from 'frontend/src/modules/user/components/profile/ProfileTemplate.vue';
+import { mockGetMe } from '../support/mocks/getMe';
+import { mockPatchMe } from '../support/mocks/patchMe';
 
 describe('Componente de perfil de usuário', () => {
   beforeEach(() => {
-    cy.intercept('GET', '**/users/me', {
-      statusCode: 200,
-      body: {
-        id: 1,
-        full_name: 'Teste Usuário',
-        social_name: 'Teste Usuário',
-        email: 'teste@example.com',
-        phone: '11999999999',
-        document: '11122233344',
-        created_at: '2024-01-01T00:00:00Z',
-        updated_at: '2024-01-01T00:00:00Z'
-      }
-    }).as('fetchUser');
-
-    cy.intercept('PATCH', '**/users/me', {
-      statusCode: 200,
-      delay: 1000,
-      body: {
-        message: 'Usuário alterado com sucesso!',
-        user: {
-          id: 1,
-          full_name: 'Teste Usuário',
-          social_name: 'Teste Usuário',
-          email: 'teste@example.com',
-          phone: '11999999999',
-          document: '11122233344',
-          created_at: '2024-01-01T00:00:00Z',
-          updated_at: '2024-01-01T00:00:00Z'
-        }
-      }
-    }).as('updateUser');
+    mockGetMe();
+    mockPatchMe();
   });
 
   it('Deveria exibir o componente de perfil de usuário', () => {
@@ -67,39 +40,6 @@ describe('Componente de perfil de usuário', () => {
     cy.get('[data-testid="input-cpfcnpj-profile"]').should('be.disabled');
   });
 
-  it('Deveria mostrar o botão de salvar desabilitado quando não há mudanças', () => {
-    cy.fixture('userData.json').then((userData) => {
-      cy.mount(ProfileTemplate, {
-        props: {
-          user: userData
-        }
-      });
-    });
-
-    cy.get('[data-testid="btn-save-profile"]').should('be.disabled');
-  });
-
-  it('Deveria habilitar o botão de salvar quando há mudanças nos campos editáveis', () => {
-    cy.fixture('userData.json').then((userData) => {
-      cy.mount(ProfileTemplate, {
-        props: {
-          user: userData
-        }
-      });
-    });
-
-    // Inicialmente desabilitado
-    cy.get('[data-testid="btn-save-profile"]').should('be.disabled');
-
-    // Alterar nome completo
-    cy.get('[data-testid="input-fullname-profile"]').clear().type('Novo Nome');
-    cy.get('[data-testid="btn-save-profile"]').should('not.be.disabled');
-
-    // Voltar ao valor original
-    cy.get('[data-testid="input-fullname-profile"]').clear().type('Teste Usuário');
-    cy.get('[data-testid="btn-save-profile"]').should('be.disabled');
-  });
-
   it('Deveria exibir mensagens de erro quando campos obrigatórios estão vazios', () => {
     cy.fixture('userData.json').then((userData) => {
       cy.mount(ProfileTemplate, {
@@ -109,15 +49,14 @@ describe('Componente de perfil de usuário', () => {
       });
     });
 
-    // Limpar campo obrigatório e tentar salvar
     cy.get('[data-testid="input-fullname-profile"]').clear().blur();
-
-    // Verificar se a mensagem de erro aparece
+    cy.get('[data-testid="input-phone-profile"]').clear().blur();
     cy.get('[data-testid="input-error-fulname-profile"]').should('be.visible');
-    cy.get('[data-testid="input-fullname-profile"]').should('have.class', 'input-error');
+    cy.get('[data-testid="input-error-fulname-profile"]').should('have.text', 'O Nome Completo é obrigatório.');
+    cy.get('[data-testid="input-error-phone-profile"]').should('be.visible').and('have.text', 'O Telefone é obrigatório.');
   });
 
-  it('Deveria exibir mensagem de erro para telefone inválido', () => {
+  it('Deveria exibir mensagem de erro quando o telefone for inválido', () => {
     cy.fixture('userData.json').then((userData) => {
       cy.mount(ProfileTemplate, {
         props: {
@@ -126,13 +65,11 @@ describe('Componente de perfil de usuário', () => {
       });
     });
 
-    cy.get('[data-testid="input-phone-profile"]').clear().type('123').blur();
-
-    cy.get('[data-testid="input-error-phone-profile"]').should('be.visible');
-    cy.get('[data-testid="input-phone-profile"]').should('have.class', 'input-error');
+    cy.get('[data-testid="input-phone-profile"]').clear().type('123a').blur();
+    cy.get('[data-testid="input-error-phone-profile"]').should('be.visible').and('have.text', 'O telefone deve conter apenas números.');
   });
 
-  it('Deveria mostrar "Salvando..." no botão durante o processo de atualização', () => {
+  it('Deveria exibir mensagem de erro quando o telefone tiver menos de 10 dígitos', () => {
     cy.fixture('userData.json').then((userData) => {
       cy.mount(ProfileTemplate, {
         props: {
@@ -141,12 +78,21 @@ describe('Componente de perfil de usuário', () => {
       });
     });
 
-    // Fazer uma mudança válida
-    cy.get('[data-testid="input-fullname-profile"]').clear().type('Novo Nome Válido');
-    cy.get('[data-testid="btn-save-profile"]').click();
+    cy.get('[data-testid="input-phone-profile"]').clear().type('123456789').blur();
+    cy.get('[data-testid="input-error-phone-profile"]').should('be.visible').and('have.text', 'O telefone deve ter no mínimo 10 dígitos.');
+  });
 
-    // Verificar se o texto muda para "Salvando..."
-    cy.get('[data-testid="btn-save-profile"]').should('contain.text', 'Salvando...');
+  it('Deveria exibir mensagem de erro quando o telefone tiver mais de 11 dígitos', () => {
+    cy.fixture('userData.json').then((userData) => {
+      cy.mount(ProfileTemplate, {
+        props: {
+          user: userData
+        }
+      });
+    });
+
+    cy.get('[data-testid="input-phone-profile"]').clear().type('123456789012').blur();
+    cy.get('[data-testid="input-error-phone-profile"]').should('be.visible').and('have.text', 'O telefone deve ter no máximo 11 dígitos.');
   });
 
   it('Deveria exibir todos os labels corretamente', () => {

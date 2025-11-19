@@ -33,7 +33,7 @@ describe('Componente de registro de usuário', () => {
 
   it('Deveria ser possível visualizar o erro no campo de Nome Completo quando tiver apenas um nome', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-fullname"]').type('João', { delay: 0 });
+    cy.get('[data-testid="input-fullname"]').type('João', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-fullname"]').should('be.visible');
     cy.get('[data-testid="input-error-fullname"]').should('have.text', 'O Nome Completo deve conter pelo menos Nome e Sobrenome.');
   });
@@ -54,7 +54,7 @@ describe('Componente de registro de usuário', () => {
 
   it('Deveria ser possível visualizar o erro no campo de CPF quando o valor for inválido', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-document"]').type('12345678900', { delay: 0 });
+    cy.get('[data-testid="input-document"]').type('12345678900', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-cpfcnpj"]').should('be.visible');
     cy.get('[data-testid="input-error-cpfcnpj"]').should('have.text', 'CPF inválido.');
   });
@@ -62,28 +62,28 @@ describe('Componente de registro de usuário', () => {
   it('Deveria ser possível visualizar o erro no campo de CNPJ quando o valor for inválido', () => {
     cy.mount(RegisterTemplate);
     cy.get('[data-testid="select-document-type"]').select('cnpj');
-    cy.get('[data-testid="input-document"]').type('12345678900', { delay: 0 });
+    cy.get('[data-testid="input-document"]').type('12345678900', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-cpfcnpj"]').should('be.visible');
     cy.get('[data-testid="input-error-cpfcnpj"]').should('have.text', 'CNPJ inválido.');
   });
 
   it('Deveria ser possível visualizar o erro no campo de Telefone quando o valor for inválido', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-phone"]').type('1a2b3c4', { delay: 0 });
+    cy.get('[data-testid="input-phone"]').type('1a2b3c4', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-phone"]').should('be.visible');
     cy.get('[data-testid="input-error-phone"]').should('have.text', 'O telefone deve conter apenas números.');
   });
 
   it('Deveria ser possível visualizar o erro no campo de Telefone quando tiver menos de 10 dígitos', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-phone"]').type('123456789', { delay: 0 });
+    cy.get('[data-testid="input-phone"]').type('123456789', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-phone"]').should('be.visible');
     cy.get('[data-testid="input-error-phone"]').should('have.text', 'O telefone deve ter no mínimo 10 dígitos.');
   });
 
   it('Deveria ser possível visualizar o erro no campo de Telefone quando tiver mais de 11 dígitos', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-phone"]').type('123456789012', { delay: 0 });
+    cy.get('[data-testid="input-phone"]').type('123456789012', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-phone"]').should('be.visible');
     cy.get('[data-testid="input-error-phone"]').should('have.text', 'O telefone deve ter no máximo 11 dígitos.');
   });
@@ -97,7 +97,7 @@ describe('Componente de registro de usuário', () => {
 
   it('Deveria ser possível visualizar o erro no campo de Email quando o valor for inválido', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-email"]').type('invalid-email', { delay: 0 });
+    cy.get('[data-testid="input-email"]').type('invalid-email', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-email"]').should('be.visible');
     cy.get('[data-testid="input-error-email"]').should('have.text', 'Email inválido.');
   });
@@ -111,14 +111,14 @@ describe('Componente de registro de usuário', () => {
 
   it('Deveria ser possível visualizar o erro no campo de Senha quando tiver menos de 6 caracteres', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-password"]').type('12345', { delay: 0 });
+    cy.get('[data-testid="input-password"]').type('12345', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-password"]').should('be.visible');
     cy.get('[data-testid="input-error-password"]').should('have.text', 'A Senha deve ter no mínimo 6 caracteres.');
   });
 
   it('Deveria ser possível visualizar o erro no campo de Senha quando tiver mais de 20 caracteres', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-password"]').type('123456789012345678901', { delay: 0 });
+    cy.get('[data-testid="input-password"]').type('123456789012345678901', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-password"]').should('be.visible');
     cy.get('[data-testid="input-error-password"]').should('have.text', 'A Senha deve ter no máximo 20 caracteres.');
   });
@@ -132,8 +132,8 @@ describe('Componente de registro de usuário', () => {
 
   it('Deveria ser possível visualizar o erro no campo de Confirmação de Senha quando as senhas não coincidem', () => {
     cy.mount(RegisterTemplate);
-    cy.get('[data-testid="input-password"]').type('123456', { delay: 0 });
-    cy.get('[data-testid="input-password-confirmation"]').type('1234567', { delay: 0 });
+    cy.get('[data-testid="input-password"]').type('123456', { delay: 0 }).blur();
+    cy.get('[data-testid="input-password-confirmation"]').type('1234567', { delay: 0 }).blur();
     cy.get('[data-testid="input-error-password-confirmation"]').should('be.visible');
     cy.get('[data-testid="input-error-password-confirmation"]').should('have.text', 'As senhas não coincidem.');
   });

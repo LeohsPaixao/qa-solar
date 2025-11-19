@@ -1,13 +1,10 @@
 import AppHeader from 'frontend/src/components/AppHeader.vue';
+import { mockGetMe } from '../support/mocks/getMe';
 
 describe('AppHeader Component', () => {
 
   beforeEach(() => {
-    cy.intercept('GET', '**/users/me', {
-      fixture: 'userData.json',
-      statusCode: 200,
-      delay: 1000,
-    });
+    mockGetMe();
   });
 
   it('Deveria ser possivel visualizar os links de navegação', () => {
