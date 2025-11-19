@@ -15,6 +15,7 @@ jobs:
       docs: ${{ steps.filter.outputs.docs }}
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
+      cypress-component-tests: ${{ steps.filter.outputs.cypress-component-tests }}
     steps:
       - name: Filtrar arquivos alterados
         id: filter
@@ -27,6 +28,8 @@ jobs:
               - 'apps/backend/**'
             frontend:
               - 'apps/frontend/**'
+            cypress-component-tests:
+              - 'tests/cypress/tests/component/**'
 
   backend-unit-tests:
     needs: [filter]
@@ -39,32 +42,55 @@ jobs:
     uses: ./.github/workflows/frontend.yml
 
   cypress-component-tests:
+    needs: [filter]
+    if: needs.filter.outputs.cypress-component-tests == 'true'
     uses: ./.github/workflows/cypress-component.yml
 
   cypress-tests:
-    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
-    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
+    needs: [filter]
+    if: >-
+      always() &&
+      (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
+      (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped') &&
+      (needs.cypress-component-tests.result == 'success' || needs.cypress-component-tests.result == 'skipped')
     uses: ./.github/workflows/cypress.yml
 
   playwright-tests:
-    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
-    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
+    needs: [filter]
+    if: >-
+      always() &&
+      (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
+      (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped') &&
+      (needs.cypress-component-tests.result == 'success' || needs.cypress-component-tests.result == 'skipped')
     uses: ./.github/workflows/playwright.yml
 
   robot-framework-tests:
-    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
-    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
+    needs: [filter]
+    if: >-
+      always() &&
+      (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
+      (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped') &&
+      (needs.cypress-component-tests.result == 'success' || needs.cypress-component-tests.result == 'skipped')
     uses: ./.github/workflows/robot.yml
 
   selenium-tests:
-    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
-    if: always() && (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') && (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped')
+    needs: [filter]
+    if: >-
+      always() &&
+      (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
+      (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped') &&
+      (needs.cypress-component-tests.result == 'success' || needs.cypress-component-tests.result == 'skipped')
     uses: ./.github/workflows/selenium.yml
 
   docker-deploy:
     if: github.base_ref == 'main'
     needs:
-      [cypress-tests, cypress-component-tests, playwright-tests, robot-framework-tests, selenium-tests]
+      [
+        cypress-tests,
+        playwright-tests,
+        robot-framework-tests,
+        selenium-tests,
+      ]
     uses: ./.github/workflows/docker-deploy.yml
     secrets:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -74,7 +100,6 @@ jobs:
       [
         filter,
         cypress-tests,
-        cypress-component-tests,
         playwright-tests,
         robot-framework-tests,
         selenium-tests,

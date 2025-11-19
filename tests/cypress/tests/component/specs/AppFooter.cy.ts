@@ -62,4 +62,4 @@ describe('AppFooter Component', () => {
     cy.get('.github-link').should('have.attr', 'target', '_blank');
     cy.get('.github-link').should('have.attr', 'rel', 'noopener noreferrer');
   });
-}); 
+});

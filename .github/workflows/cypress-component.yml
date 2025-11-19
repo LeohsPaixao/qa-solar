@@ -31,32 +31,10 @@ jobs:
         uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.19.0
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Instalar dependências do Monorepo
         run: yarn install --frozen-lockfile
-
-      - name: Executar seeders
-        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
-          JWT_SECRET: jwt_secret
-
-      - name: Iniciar backend
-        run: |
-          cd apps/backend
-          yarn dev &
-          sleep 5
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
-          JWT_SECRET: jwt_secret
-          API_URL: http://localhost:3001
-
-      - name: Iniciar frontend
-        run: |
-          cd apps/frontend
-          yarn dev &
-          sleep 5
 
       - name: Executar testes de Componentes Cypress
         id: cypress-component-tests

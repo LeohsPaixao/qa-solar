@@ -41,12 +41,8 @@ export default defineConfig({
 
       on('before:browser:launch', (browser: Cypress.Browser, launchOptions: Cypress.BeforeBrowserLaunchOptions) => {
         if (browser.family === 'chromium') {
-          launchOptions.args.push('--incognito');
-          launchOptions.args.push('--no-sandbox');
           launchOptions.args.push('--disable-gpu');
           launchOptions.args.push('--disable-dev-shm-usage');
-          launchOptions.args.push('--disable-renderer-backgrounding');
-          launchOptions.args.push('--disable-background-timer-throttling');
         }
         return launchOptions;
       });
@@ -88,12 +84,8 @@ export default defineConfig({
 
       on('before:browser:launch', (browser: Cypress.Browser, launchOptions: Cypress.BeforeBrowserLaunchOptions) => {
         if (browser.family === 'chromium') {
-          launchOptions.args.push('--incognito');
-          launchOptions.args.push('--no-sandbox');
           launchOptions.args.push('--disable-gpu');
           launchOptions.args.push('--disable-dev-shm-usage');
-          launchOptions.args.push('--disable-renderer-backgrounding');
-          launchOptions.args.push('--disable-background-timer-throttling');
         }
         return launchOptions;
       });

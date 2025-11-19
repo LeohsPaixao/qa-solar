@@ -19,13 +19,13 @@ describe('Componente de recuperação de senha', () => {
     cy.mount(RecoverPasswordTemplate);
     cy.get('[data-testid="input-email-recover-password"]').type('invalid-email');
     cy.get('[data-testid="input-email-recover-password"]').blur();
-    cy.get('[data-testid="message-error-email-recover-password"]').should('be.visible').and('have.text', 'Por favor, insira um email válido.');
+    cy.get('[data-testid="message-error-email-recover-password"]').should('be.visible').and('have.text', 'Email inválido.');
   });
 
   it('Deveria exibir mensagem de sucesso quando o campo e-mail está vazio', () => {
     cy.mount(RecoverPasswordTemplate);
     cy.get('[data-testid="input-email-recover-password"]').type('generic@example.com').clear().blur();
-    cy.get('[data-testid="message-error-email-recover-password"]').should('be.visible').and('have.text', 'O email é obrigatório.');
+    cy.get('[data-testid="message-error-email-recover-password"]').should('be.visible').and('have.text', 'O Email é obrigatório.');
   });
 
   it('Deveria ter o link de voltar ao login', () => {
