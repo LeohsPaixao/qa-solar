@@ -16,7 +16,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4.4.0
         with:
-          node-version: 22.1.0
+          node-version: 22.19.0
           cache: 'yarn'
 
       - name: Instalar dependências do Monorepo
