@@ -1,6 +1,13 @@
 # Diretórios e arquivos
 OUTPUT_DIR_BASE = ../../qa-results/raw/selenium-e2e
 
+define get_timestamp
+	$(eval TIMESTAMP := $(shell npx tsx ../../scripts/timestamp.ts))
+	$(if $(TIMESTAMP),,$(error Erro: Falha ao gerar timestamp))
+	$(eval OUTPUT_DIR := $(OUTPUT_DIR_BASE)/$(TIMESTAMP))
+	@mkdir -p $(OUTPUT_DIR)
+endef
+
 .PHONY: building test coverage clean help
 
 building:
@@ -9,11 +16,8 @@ building:
 	
 test:
 	@echo "Executando testes de selenium"
-	@TIMESTAMP=$$(npx tsx ../../scripts/timestamp.ts); \
-	OUTPUT_DIR=$(OUTPUT_DIR_BASE)/$$TIMESTAMP; \
-	mkdir -p $$OUTPUT_DIR; \
-	echo "Salvando resultados em: $$(cd $(CURDIR) && cd $$OUTPUT_DIR && pwd)"; \
-	./gradlew clean test --console=plain -Ptest.report.dir=$$OUTPUT_DIR
+	$(call get_timestamp)
+	./gradlew clean test --console=plain -Ptest.report.dir=$(OUTPUT_DIR)
 
 coverage:
 	@echo "Gerando relatório de cobertura"

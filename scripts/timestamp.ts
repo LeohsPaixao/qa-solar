@@ -7,6 +7,7 @@ export function timestamp(): string {
   return new Date()
     .toISOString()
     .replace(/:/g, '-')
+    .replace('T', '-')
     .split('.')[0];
 }
 

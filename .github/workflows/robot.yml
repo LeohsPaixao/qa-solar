@@ -73,7 +73,7 @@ jobs:
 
       - name: Executar testes Robot Framework
         working-directory: tests/robot
-        run: make test-all
+        run: make test
 
       - name: Salvar relatórios Robot Framework
         if: ${{ failure() }}
