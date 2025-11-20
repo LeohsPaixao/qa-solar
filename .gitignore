@@ -48,12 +48,11 @@ tests/playwright/tests/misc/
 tests/playwright/.cache/
 
 # Robot
-tests/robot/results/
+tests/robot/tests/misc/
 tests/robot/tests/**/__pycache__/
 tests/robot/.venv
 tests/robot/venv/
 tests/robot/.pabotsuitenames
-.pabotsuitenames
 
 # Selenium
 tests/selenium/build/
