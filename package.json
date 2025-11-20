@@ -6,6 +6,7 @@
   "author": "Leonardo Paixao <leonardohspaixao@gmail.com>",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "packageManager": "yarn@1.22.22",
   "workspaces": [
     "apps/*",
@@ -56,6 +57,7 @@
     "@tsconfig/node22": "22.0.5",
     "@types/node": "22.19.1",
     "lint-staged": "16.1.2",
+    "ts-node": "10.9.2",
     "turbo": "2.5.2",
     "typescript": "5.8.3"
   },
