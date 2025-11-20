@@ -15,7 +15,7 @@ clean-logs:
 
 test-all:
 	@echo "Executando todos os testes com Robot Framework..."
-	@TIMESTAMP=$$(npx ts-node ../../scripts/timestamp.ts); \
+	@TIMESTAMP=$$(npx tsx ../../scripts/timestamp.ts); \
 	OUTPUT_DIR=$(OUTPUT_DIR_BASE)/$$TIMESTAMP; \
 	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $$OUTPUT_DIR $(TESTS_DIR)
 
@@ -25,7 +25,7 @@ test-scenario:
 		echo "Erro: Especifique a tag com TAG=<tag>."; \
 		exit 1; \
 	fi
-	@TIMESTAMP=$$(npx ts-node ../../scripts/timestamp.ts); \
+	@TIMESTAMP=$$(npx tsx ../../scripts/timestamp.ts); \
 	OUTPUT_DIR=$(OUTPUT_DIR_BASE)/$$TIMESTAMP; \
 	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $$OUTPUT_DIR --include $(TAG) $(TESTS_DIR)
 
@@ -36,14 +36,14 @@ test-file:
 		echo "Erro: Especifique o caminho do arquivo com FILE_PATH=<path>."; \
 		exit 1; \
 	fi
-	@TIMESTAMP=$$(npx ts-node ../../scripts/timestamp.ts); \
+	@TIMESTAMP=$$(npx tsx ../../scripts/timestamp.ts); \
 	OUTPUT_DIR=$(OUTPUT_DIR_BASE)/$$TIMESTAMP; \
 	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $$OUTPUT_DIR $(FILE_PATH)
 
 test-args:
 	@echo "Executando testes com Robot Framework usando arquivo de argumentos..."
 	@echo "Exemplo: make test-args ARG_FILE=args.robotargs"
-	@TIMESTAMP=$$(npx ts-node ../../scripts/timestamp.ts); \
+	@TIMESTAMP=$$(npx tsx ../../scripts/timestamp.ts); \
 	OUTPUT_DIR=$(OUTPUT_DIR_BASE)/$$TIMESTAMP; \
 	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots robot --outputdir $$OUTPUT_DIR -A $(ARG_FILE) $(TESTS_DIR)
 
@@ -57,7 +57,7 @@ format:
 
 parallel:
 	@echo "Executando testes em paralelo com Pabot..."
-	@TIMESTAMP=$$(npx ts-node ../../scripts/timestamp.ts); \
+	@TIMESTAMP=$$(npx tsx ../../scripts/timestamp.ts); \
 	OUTPUT_DIR=$(OUTPUT_DIR_BASE)/$$TIMESTAMP; \
 	BROWSER_OUTPUTDIR=$(OUTPUT_DIR_BROWSER)/screenshots pabot --processes $(PROCESSES) --outputdir $$OUTPUT_DIR $(TESTS_DIR)
 
