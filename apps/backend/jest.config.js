@@ -1,5 +1,9 @@
 const path = require('path');
 
+/**
+ * Gera uma string de timestamp a partir da data/hora atual em ISO, sem frações de segundo e com ":" substituídos por "-".
+ * @returns {string} Timestamp no formato "YYYY-MM-DDTHH-MM-SS" (sem frações de segundo), derivado da representação ISO atual.
+ */
 function getTimestamp() {
   return new Date().toISOString().replace(/:/g, '-').split('.')[0];
 }
