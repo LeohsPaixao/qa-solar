@@ -68,7 +68,7 @@ public class RecoverPassword extends BaseTest {
 
     WebElement toastContent = waitForElementLocated(By.cssSelector("[data-testid='message-error-email-recover-password']"), 10);
     assertTrue(toastContent.isDisplayed());
-    assertTrue(toastContent.getText().contains("O email é obrigatório."));
+    assertTrue(toastContent.getText().contains("O Email é obrigatório."));
   }
 
   @Test
