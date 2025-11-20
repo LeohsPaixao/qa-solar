@@ -2,4 +2,4 @@
 "frontend": patch
 ---
 
-test: cria testes unitarios no serviços do frontend e adiciona JSDoc
+test: cria testes unitários nos serviços do frontend e adiciona JSDoc

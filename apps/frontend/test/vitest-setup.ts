@@ -19,8 +19,8 @@ vi.mock('vue3-toastify', () => ({
 }));
 
 // Mock da API (dependência dos composables)
-vi.mock('../src/services/api', async () => {
-  const actual = await vi.importActual('../src/services/api');
+vi.mock('@/services/api', async () => {
+  const actual = await vi.importActual('@/services/api');
   return {
     ...actual,
     api: Object.assign(
@@ -77,6 +77,7 @@ vi.mock('@tanstack/vue-query', () => ({
     setQueryData: vi.fn(),
     invalidateQueries: vi.fn(),
     getQueryData: vi.fn(),
+    clear: vi.fn(),
   })),
   QueryClient: vi.fn(),
   VueQueryPlugin: vi.fn(),

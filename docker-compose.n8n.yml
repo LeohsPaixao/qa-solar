@@ -7,7 +7,7 @@ services:
       - 5678
     environment:
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
-      - N8N_ENCRYPTION_KEY=your-encryption-key
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-your-encryption-key}
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       - N8N_RUNNERS_ENABLED=true
       - DB_SQLITE_POOL_SIZE=10

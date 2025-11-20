@@ -5,4 +5,4 @@
 "backend": patch
 ---
 
-test: atualiza a versão do node e os pacotes referenciado ao node de todos os projetos typescript
+test: atualiza a versão do node e os pacotes referenciados ao node de todos os projetos typescript
