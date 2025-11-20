@@ -2,6 +2,8 @@ import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
 import codeCoverage from '@cypress/code-coverage/task';
 import { defineConfig } from 'cypress';
 import dotenv from 'dotenv';
+import path from 'path';
+import { timestamp } from '../../scripts/timestamp';
 
 dotenv.config();
 
@@ -18,7 +20,6 @@ export default defineConfig({
   numTestsKeptInMemory: 0,
   reporter: 'mochawesome',
   reporterOptions: {
-    reportDir: './tests/misc/reports',
     overwrite: false,
     html: false,
     json: true,
@@ -46,14 +47,7 @@ export default defineConfig({
 
       codeCoverage(on, config);
 
-      on('before:browser:launch', (browser: Cypress.Browser, launchOptions: Cypress.BeforeBrowserLaunchOptions) => {
-        if (browser.family === 'chromium') {
-          launchOptions.args.push('--disable-gpu');
-          launchOptions.args.push('--disable-dev-shm-usage');
-        }
-        return launchOptions;
-      });
-
+      config.reporterOptions.reportDir = path.resolve(__dirname, '../../qa-results/raw/cypress-e2e', timestamp());
       config.env.CYPRESS_API_URL = process.env.CYPRESS_API_URL || 'http://localhost:3001';
 
       return config;
@@ -89,14 +83,7 @@ export default defineConfig({
 
       codeCoverage(on, config);
 
-      on('before:browser:launch', (browser: Cypress.Browser, launchOptions: Cypress.BeforeBrowserLaunchOptions) => {
-        if (browser.family === 'chromium') {
-          launchOptions.args.push('--disable-gpu');
-          launchOptions.args.push('--disable-dev-shm-usage');
-        }
-        return launchOptions;
-      });
-
+      config.reporterOptions.reportDir = path.resolve(__dirname, '../../qa-results/raw/cypress-ct', timestamp());
       return config;
     },
   },

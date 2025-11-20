@@ -10,8 +10,8 @@
     "cy:open": "yarn cy:clean && npx cypress open --config-file cypress.config.ts",
     "cy:clean": "rimraf .nyc_output && rimraf coverage && rimraf tests/misc/*",
     "cy:coverage": "c8 report --temp-directory=.nyc_output --reporter=html --reporter=text-summary",
-    "cy:e2e:run": "yarn cy:clean && npx cypress run --browser chrome --config-file cypress.config.ts",
-    "cy:component:run": "yarn cy:clean && npx cypress run --component --browser chrome --config-file cypress.config.ts",
+    "cy:e2e:run": "npx cypress run --config-file cypress.config.ts",
+    "cy:component:run": "npx cypress run --component --config-file cypress.config.ts",
     "lint": "eslint --fix"
   },
   "dependencies": {
