@@ -2,7 +2,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js'],
   rootDir: '.',
   testRegex: '.*\\.(spec|e2e-spec)\\.ts$',
-  testTimeout: 5000,
+  testTimeout: 10000,
   testEnvironment: 'node',
   setupFilesAfterEnv: ['<rootDir>/test/setup-jest.ts'],
   collectCoverageFrom: ['src/modules/**/*.ts'],

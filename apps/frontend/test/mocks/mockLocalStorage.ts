@@ -1,8 +1,8 @@
 import { vi } from 'vitest';
 
-export const mockLocalStorage = {
+export const mockLocalStorage: any = {
   getItem: vi.fn((key: string) => {
-    return mockLocalStorage._storage[key] || null;
+    return mockLocalStorage._storage[key] ?? null;
   }),
   setItem: vi.fn((key: string, value: string) => {
     mockLocalStorage._storage[key] = value;

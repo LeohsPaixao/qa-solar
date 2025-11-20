@@ -61,7 +61,7 @@ export const mockToast = {
 // Mock do localStorage
 export const mockLocalStorage = {
   getItem: vi.fn((key: string) => {
-    return mockLocalStorage._storage[key] || null;
+    return key in mockLocalStorage._storage ? mockLocalStorage._storage[key] : null;
   }),
   setItem: vi.fn((key: string, value: string) => {
     mockLocalStorage._storage[key] = value;
