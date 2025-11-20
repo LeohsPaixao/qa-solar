@@ -1,65 +1,47 @@
 <template>
   <div class="login-container main-content">
     <div class="content">
-      <form data-testid="form-login" class="form-login" @submit.prevent="handleLogin">
+      <form data-testid="form-login" class="form-login" @submit.prevent="onSubmit">
         <img data-testid="logo" src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
         <h2>Bem-vindo de volta!</h2>
         <p>Por favor, entre com suas credenciais abaixo:</p>
 
-        <!-- Campo de E-mail -->
         <div class="form-group-login">
           <label for="email" data-testid="label-email">Insira seu E-mail</label>
-          <input
+          <Field
             data-testid="input-email"
             type="email"
             id="email"
+            name="email"
             autocomplete="username"
-            v-model="email"
-            @blur="validateEmailField"
-            @input="clearEmailError"
-            :class="['input-email-login', { 'input-error': errors.email }]"
+            :class="['input-email-login', { 'input-error': emailError }]"
           />
-          <span data-testid="message-error-email" v-if="errors.email" class="error-message">
-            {{ errors.email }}
-          </span>
+          <ErrorMessage data-testid="message-error-email" name="email" class="error-message" />
         </div>
 
-        <!-- Campo de Senha -->
         <div class="form-group-login">
           <label for="password" data-testid="label-password">Insira sua Senha</label>
-          <input
+          <Field
             data-testid="input-password"
             type="password"
             id="password"
+            name="password"
             autocomplete="current-password"
-            v-model="password"
-            @blur="validatePasswordField"
-            @input="clearPasswordError"
-            :class="['input-password-login', { 'input-error': errors.password }]"
+            :class="['input-password-login', { 'input-error': passwordError }]"
           />
-          <span data-testid="message-error-password" v-if="errors.password" class="error-message">
-            {{ errors.password }}
-          </span>
+          <ErrorMessage data-testid="message-error-password" name="password" class="error-message" />
         </div>
 
-        <!-- Botão de Login -->
-        <button data-testid="btn-login" class="btn btn-login" type="submit" :disabled="!isFormValid || isPending">
-          {{ isPending ? 'Entrando...' : 'Entrar na Conta' }}
+        <button data-testid="btn-login" class="btn btn-login" type="submit" :disabled="isPending">
+          {{ btnText }}
         </button>
 
-        <!-- Links de Navegação -->
         <div class="link-container">
           <a data-testid="link-recover-password" href="/recover-password" class="link recover-password"> Esqueceu a senha? </a>
           <a data-testid="link-signup" href="/signup" class="link signup"> Criar uma nova conta </a>
         </div>
-
-        <!-- Mensagem de Erro da API -->
-        <p v-if="error" class="error-message">
-          {{ error?.message }}
-        </p>
       </form>
 
-      <!-- Mensagem Informativa -->
       <p class="message-user-login">
         <strong>Atenção:</strong> Para acessar com as credenciais padrão, utilize o e-mail <em>generic@example.com</em> e a senha <em>123456</em>.
         Essas informações foram geradas automaticamente pelo seeder para facilitar testes e demonstrações.
@@ -68,75 +50,60 @@
   </div>
 </template>
 
-<script setup>
-import { validateEmail, validatePassword } from '@/utils/validateLogin';
-import { computed, ref, watch } from 'vue';
+<script setup lang="ts">
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { LoginFormData, LoginResponse } from '@/types/user.types';
+import { toTypedSchema } from '@vee-validate/yup';
+import { ErrorMessage, Field, useField, useForm } from 'vee-validate';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import * as yup from 'yup';
 import { useLoginUser } from '../../../../composables/useLoginUser';
 
-// Estados reativos
-const email = ref('');
-const password = ref('');
-const errors = ref({ email: '', password: '' });
+const validationSchema = toTypedSchema(
+  yup.object({
+    email: yup.string().required('O Email é obrigatório.').email('Email inválido.'),
+    password: yup.string().required('A Senha é obrigatória.'),
+  }),
+);
 
-// Composables
-const { mutate, isPending, error } = useLoginUser();
-
-// Computed properties
-const isFormValid = computed(() => {
-  return email.value.trim() !== '' && password.value.trim() !== '' && !errors.value.email && !errors.value.password;
+const { handleSubmit } = useForm({
+  initialValues: {
+    email: '',
+    password: '',
+  },
+  validationSchema,
 });
 
-// Watchers para validação em tempo real
-watch(email, (newValue) => {
-  if (newValue && errors.value.email) {
-    validateEmailField();
-  }
+const { mutate: loginUserMutation, isPending } = useLoginUser();
+const router = useRouter();
+
+const { errorMessage: emailError } = useField('email');
+const { errorMessage: passwordError } = useField('password');
+
+const btnText = computed(() => {
+  return isPending.value ? 'Entrando...' : 'Entrar na Conta';
 });
 
-watch(password, (newValue) => {
-  if (newValue && errors.value.password) {
-    validatePasswordField();
-  }
+const onSubmit = handleSubmit((formValues: LoginFormData) => {
+  loginUserMutation(
+    {
+      email: formValues.email.trim(),
+      password: formValues.password.trim(),
+    },
+    {
+      onSuccess: async (data: LoginResponse): Promise<void> => {
+        await router.push('/home');
+        toast.success(data.message || 'Login realizado com sucesso!', { autoClose: 3000 });
+      },
+      onError: (error: ApiErrorResponse): void => {
+        toast.error(error.response?.data?.message || 'Erro ao realizar login', { autoClose: 5000 });
+      },
+    },
+  );
 });
-
-// Funções de validação
-const validateEmailField = () => {
-  errors.value.email = validateEmail(email.value);
-};
-
-const validatePasswordField = () => {
-  errors.value.password = validatePassword(password.value);
-};
-
-// Funções para limpar erros
-const clearEmailError = () => {
-  if (errors.value.email) {
-    errors.value.email = '';
-  }
-};
-
-const clearPasswordError = () => {
-  if (errors.value.password) {
-    errors.value.password = '';
-  }
-};
-
-// Função principal de validação
-const validateForm = () => {
-  validateEmailField();
-  validatePasswordField();
-  return !errors.value.email && !errors.value.password;
-};
-
-// Handler do formulário
-const handleLogin = () => {
-  if (validateForm()) {
-    mutate({
-      email: email.value.trim(),
-      password: password.value.trim(),
-    });
-  }
-};
 </script>
 
 <style src="./LoginStyle.css"></style>

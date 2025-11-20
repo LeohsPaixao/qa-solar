@@ -1,5 +1,12 @@
 # playwright-ui-tests
 
+## 2.0.2
+
+### Patch Changes
+
+- 60c68b7: test: corrige os testes E2E do projeto de testes Playwright
+- 2f520cc: test: atualiza a versão do node e os pacotes referenciados ao node de todos os projetos typescript
+
 ## 2.0.1
 
 ### Patch Changes

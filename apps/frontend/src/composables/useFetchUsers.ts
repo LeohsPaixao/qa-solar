@@ -1,11 +1,10 @@
+import { api } from '@/services/api';
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { UserList } from '@/types/user.types';
 import { useQuery, useQueryClient } from '@tanstack/vue-query';
 import { watch } from 'vue';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import api from '../services/api';
-import type { UserList } from '../types/user.types';
 
-const fetchUsers = async (): Promise<UserList> => {
+export const getUsersQuery = async (): Promise<UserList> => {
   const response = await api.get<UserList>('/users');
   return response.data;
 };
@@ -13,9 +12,9 @@ const fetchUsers = async (): Promise<UserList> => {
 export const useFetchUsers = () => {
   const queryClient = useQueryClient();
 
-  const query = useQuery({
+  const query = useQuery<UserList, ApiErrorResponse>({
     queryKey: ['users'],
-    queryFn: fetchUsers,
+    queryFn: getUsersQuery,
     staleTime: 1000 * 60 * 5,
     retry: 1,
   });
@@ -25,16 +24,6 @@ export const useFetchUsers = () => {
     (data: UserList | undefined) => {
       if (data) {
         queryClient.setQueryData(['users'], data);
-      }
-    },
-  );
-
-  watch(
-    () => query.error.value,
-    (error: any) => {
-      if (error) {
-        const errorMessage = error.response?.data?.message || 'Erro ao buscar usuários';
-        toast.error(errorMessage, { autoClose: 5000 });
       }
     },
   );

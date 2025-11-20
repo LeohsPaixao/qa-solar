@@ -1,19 +1,12 @@
 import ListUsersTemplate from 'frontend/src/modules/user/components/list/ListUsersTemplate.vue';
+import { mockGetMe } from '../support/mocks/getMe';
+import { mockGetUsersList } from '../support/mocks/getUsersList';
 
 describe('Componente de lista de usuários', () => {
 
   beforeEach(() => {
-    cy.intercept('GET', '**/users', {
-      fixture: 'listUsers.json',
-      statusCode: 200,
-      delay: 1000,
-    });
-
-    cy.intercept('GET', '**/users/me', {
-      fixture: 'userData.json',
-      statusCode: 200,
-      delay: 1000,
-    });
+    mockGetUsersList();
+    mockGetMe();
   });
 
   it('Deveria ser possivel visualizar o componente', () => {

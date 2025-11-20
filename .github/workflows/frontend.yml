@@ -16,7 +16,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4.4.0
         with:
-          node-version: 22.1.0
+          node-version: 22.19.0
           cache: 'yarn'
 
       - name: Instalar dependências do Monorepo
@@ -24,4 +24,16 @@ jobs:
 
       - name: Verificar erros de tipo do Frontend
         working-directory: apps/frontend
-        run: yarn type-check # Por enquanto, apenas verifica se não há erros de tipo
+        run: yarn type-check
+
+      - name: Executar testes do Frontend
+        working-directory: apps/frontend
+        run: yarn test
+
+      - name: Salvar relatórios de testes do Frontend
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: frontend-tests
+          path: apps/frontend/coverage
+          retention-days: 7

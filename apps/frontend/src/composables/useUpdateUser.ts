@@ -1,11 +1,10 @@
+import { api } from '@/services/api';
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { UpdateUserData, UpdateUserResponse } from '@/types/user.types';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { watch } from 'vue';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-import api from '../services/api';
-import type { UpdateUserData, UpdateUserResponse } from '../types/user.types';
 
-const updateUser = async (userData: UpdateUserData): Promise<UpdateUserResponse> => {
+export const updateUserMutation = async (userData: UpdateUserData): Promise<UpdateUserResponse> => {
   const response = await api.patch<UpdateUserResponse>('/users/me', userData);
   return response.data;
 };
@@ -13,8 +12,8 @@ const updateUser = async (userData: UpdateUserData): Promise<UpdateUserResponse>
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation({
-    mutationFn: updateUser,
+  const mutation = useMutation<UpdateUserResponse, ApiErrorResponse, UpdateUserData>({
+    mutationFn: updateUserMutation,
   });
 
   watch(
@@ -23,17 +22,6 @@ export const useUpdateUser = () => {
       if (data) {
         queryClient.setQueryData(['user'], data.user);
         queryClient.invalidateQueries({ queryKey: ['user'] });
-        toast.success(data.message || 'Usuário alterado com sucesso!', { autoClose: 3000 });
-      }
-    },
-  );
-
-  watch(
-    () => mutation.error.value,
-    (error: any) => {
-      if (error) {
-        const errorMessage = error.response?.data?.message || 'Erro ao atualizar perfil';
-        toast.error(errorMessage, { autoClose: 5000 });
       }
     },
   );

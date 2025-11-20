@@ -1,67 +1,59 @@
 <template>
   <LoadingErrorState :isLoading="isLoadingFetch" :isError="isError" />
   <div v-if="!isLoadingFetch && !isError" data-testid="profile-page" class="profile-page main-content">
-    <form data-testid="form-profile" class="form-profile">
+    <form data-testid="form-profile" class="form-profile" @submit.prevent="onSubmit">
       <h1 data-testid="profile-title" class="title">Perfil</h1>
       <div data-testid="profile-container-form" class="profile-container">
         <div class="form-group">
           <label for="fullName">Nome Completo</label>
-          <input
+          <Field
             data-testid="input-fullname-profile"
             id="fullName"
             type="text"
             placeholder="Digite seu nome completo"
-            v-model="fullName"
-            @blur="validateFullNameField"
-            :class="['input-fullname-profile', { 'input-error': errors.full_name }]"
+            name="full_name"
+            :class="['input-fullname-profile', { 'input-error': fullNameError }]"
           />
-          <span data-testid="input-error-fulname-profile" v-if="errors.full_name" class="error-message">{{ errors.full_name }}</span>
+          <ErrorMessage data-testid="input-error-fulname-profile" name="full_name" class="error-message" />
         </div>
         <div class="form-group">
           <label for="socialName">Nome Social</label>
-          <input
+          <Field
             data-testid="input-socialname-profile"
             id="socialName"
             type="text"
             class="input-socialname-profile"
             placeholder="Digite seu nome social (opcional)"
-            v-model="socialName"
+            name="social_name"
           />
         </div>
         <div class="form-group">
           <label for="phone">Telefone</label>
-          <input
+          <Field
             data-testid="input-phone-profile"
             id="phone"
             type="tel"
             placeholder="(00) 00000-0000"
-            v-model="phone"
-            @blur="validatePhoneField"
-            :class="['input-phone-profile', { 'input-error': errors.phone }]"
+            name="phone"
+            :class="['input-phone-profile', { 'input-error': phoneError }]"
           />
-          <span data-testid="input-error-phone-profile" v-if="errors.phone" class="error-message">{{ errors.phone }}</span>
+          <ErrorMessage data-testid="input-error-phone-profile" name="phone" class="error-message" />
         </div>
         <div class="form-group">
           <label for="cpfCnpj">CPF ou CNPJ</label>
-          <input
+          <Field
             data-testid="input-cpfcnpj-profile"
             id="cpfCnpj"
             type="text"
             class="input-cpfcnpj-profile"
             placeholder="Digite seu CPF ou CNPJ"
-            v-model="cpfCnpj"
+            name="document"
             disabled
           />
         </div>
         <div class="button-container-profile">
-          <button
-            data-testid="btn-save-profile"
-            type="button"
-            class="btn btn-save-profile save-button"
-            :disabled="!hasChanges || isUpdating || !isFormValid"
-            @click="handleSave"
-          >
-            {{ isUpdating ? 'Salvando...' : 'Salvar' }}
+          <button data-testid="btn-save-profile" type="submit" class="btn btn-save-profile save-button" :disabled="isPending">
+            {{ btnText }}
           </button>
         </div>
       </div>
@@ -69,26 +61,75 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import LoadingErrorState from '@/components/LoadingErrorState.vue';
-import type { Props, UpdateUserData, User } from '@/types/user.types';
-import { validateFullName, validatePhone } from '@/utils/validateProfile';
-import { computed, ref, watch, watchEffect } from 'vue';
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { Props, UpdateUserData, UpdateUserResponse, User } from '@/types/user.types';
+import { toTypedSchema } from '@vee-validate/yup';
+import { ErrorMessage, Field, useField, useForm } from 'vee-validate';
+import { computed, watchEffect } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import * as yup from 'yup';
 import { useFetchUser } from '../../../../composables/useFetchUser';
 import { useUpdateUser } from '../../../../composables/useUpdateUser';
-
-const fullName = ref('');
-const phone = ref('');
-const socialName = ref('');
-const cpfCnpj = ref('');
-const errors = ref({ full_name: '', phone: '' });
 
 const props = defineProps<Props>();
 
 const { data: fetchedUser, isLoading: isLoadingFetch, isError } = useFetchUser();
-const mutation = useUpdateUser();
-const updateUser = mutation.mutate;
-const isUpdating = mutation.isPending;
+const { mutate: updateUserMutation, isPending } = useUpdateUser();
+
+const validationSchema = toTypedSchema(
+  yup.object({
+    full_name: yup
+      .string()
+      .required('O Nome Completo é obrigatório.')
+      .matches(/^[a-zA-ZÀ-ÿ.]+(\s+[a-zA-ZÀ-ÿ.]+)+$/, 'O Nome Completo deve conter pelo menos Nome e Sobrenome.'),
+    phone: yup
+      .string()
+      .required('O Telefone é obrigatório.')
+      .test('phone-format', 'O telefone deve conter apenas números.', function (value) {
+        if (!value) {
+          return false;
+        }
+        const normalizedValue = value.replace(/[^0-9a-zA-Z]/g, '');
+        return !/[a-zA-Z]/.test(normalizedValue);
+      })
+      .test('phone-length-min', 'O telefone deve ter no mínimo 10 dígitos.', function (value) {
+        if (!value) {
+          return false;
+        }
+        const normalizedValue = value.replace(/[^0-9]/g, '');
+        return normalizedValue.length >= 10;
+      })
+      .test('phone-length-max', 'O telefone deve ter no máximo 11 dígitos.', function (value) {
+        if (!value) {
+          return false;
+        }
+        const normalizedValue = value.replace(/[^0-9]/g, '');
+        return normalizedValue.length <= 11;
+      }),
+    social_name: yup.string().optional(),
+    document: yup.string().optional(),
+  }),
+);
+
+const { handleSubmit, setFieldValue } = useForm({
+  initialValues: {
+    full_name: '',
+    social_name: '',
+    phone: '',
+    document: '',
+  },
+  validationSchema,
+});
+
+const { errorMessage: fullNameError } = useField('full_name');
+const { errorMessage: phoneError } = useField('phone');
+
+const btnText = computed(() => {
+  return isPending.value ? 'Salvando...' : 'Salvar';
+});
 
 watchEffect(() => {
   const user = computed<User | undefined>(() => {
@@ -99,63 +140,29 @@ watchEffect(() => {
   });
 
   if (user.value) {
-    fullName.value = user.value.full_name || '';
-    phone.value = user.value.phone || '';
-    socialName.value = user.value.social_name || '';
-    cpfCnpj.value = user.value.document || '';
+    setFieldValue('full_name', user.value.full_name || '');
+    setFieldValue('phone', user.value.phone || '');
+    setFieldValue('social_name', user.value.social_name || '');
+    setFieldValue('document', user.value.document || '');
   }
 });
 
-const isFormValid = computed(() => {
-  return fullName.value.trim() !== '' && phone.value.trim() !== '' && !errors.value.full_name && !errors.value.phone;
+const onSubmit = handleSubmit((formValues: UpdateUserData) => {
+  const updateData: UpdateUserData = {
+    full_name: formValues.full_name?.trim() || undefined,
+    social_name: formValues.social_name?.trim() || undefined,
+    phone: formValues.phone?.trim() || undefined,
+  };
+
+  updateUserMutation(updateData, {
+    onSuccess: (data: UpdateUserResponse) => {
+      toast.success(data.message || 'Usuário alterado com sucesso!', { autoClose: 3000 });
+    },
+    onError: (error: ApiErrorResponse) => {
+      toast.error(error.response?.data?.message || 'Erro ao alterar perfil', { autoClose: 5000 });
+    },
+  });
 });
-
-const hasChanges = computed(() => {
-  const user = props.user ? (Array.isArray(props.user) ? props.user[0] : props.user) : fetchedUser.value;
-  if (!user) {
-    return false;
-  }
-
-  return fullName.value !== (user.full_name || '') || socialName.value !== (user.social_name || '') || phone.value !== (user.phone || '');
-});
-
-watch(fullName, (newValue) => {
-  if (newValue && errors.value.full_name) {
-    validateFullNameField();
-  }
-});
-
-watch(phone, (newValue) => {
-  if (newValue && errors.value.phone) {
-    validatePhoneField();
-  }
-});
-
-const validateFullNameField = () => {
-  errors.value.full_name = validateFullName(fullName.value);
-};
-
-const validatePhoneField = () => {
-  errors.value.phone = validatePhone(phone.value);
-};
-
-const validateForm = () => {
-  validateFullNameField();
-  validatePhoneField();
-  return !errors.value.full_name && !errors.value.phone;
-};
-
-const handleSave = () => {
-  if (validateForm()) {
-    const updateData: UpdateUserData = {
-      full_name: fullName.value.trim(),
-      social_name: socialName.value.trim(),
-      phone: phone.value.trim(),
-    };
-
-    updateUser(updateData);
-  }
-};
 </script>
 
 <style src="./ProfileStyle.css"></style>

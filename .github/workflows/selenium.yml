@@ -31,7 +31,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4.4.0
         with:
-          node-version: 22.1.0
+          node-version: 22.19.0
           cache: 'yarn'
 
       - name: Configurar Java
@@ -76,7 +76,7 @@ jobs:
 
       - name: Buildar o projeto Selenium
         working-directory: tests/selenium
-        run: make build
+        run: make building
 
       - name: Executar testes Selenium
         working-directory: tests/selenium

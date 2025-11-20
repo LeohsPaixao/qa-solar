@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface UserList {
-  users: User[];
+  users?: User[];
   total?: number;
   page?: number;
   limit?: number;
@@ -19,6 +19,16 @@ export interface UserList {
 export interface LoginCredentials {
   email: string;
   password: string;
+}
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+export interface LoginFormErrors {
+  email?: string;
+  password?: string;
 }
 
 export interface LoginResponse {
@@ -31,7 +41,7 @@ export interface RegisterData {
   full_name: string;
   social_name?: string;
   document: string;
-  doc_type: 'cpf' | 'cnpj';
+  doc_type: DocType;
   phone?: string;
   email: string;
   password: string;
@@ -83,6 +93,14 @@ export interface ForgotPasswordResponse {
   message: string;
 }
 
+export interface ForgotPasswordFormData {
+  email: string;
+}
+
+export interface ForgotPasswordFormErrors {
+  email?: string;
+}
+
 export interface Props {
   user?: User;
 }
@@ -91,7 +109,7 @@ export interface FormData {
   full_name: string;
   social_name?: string;
   document: string;
-  doc_type: 'cpf' | 'cnpj';
+  doc_type: DocType;
   phone?: string;
   email: string;
   password: string;
@@ -117,5 +135,9 @@ export interface FormErrorsProfile {
   phone?: string;
 }
 
+export type DocType = 'cpf' | 'cnpj';
+
 export type ValidatorFn = (value: string, formData: FormData) => string | undefined;
 export type ValidatorFnProfile = (value: string, formData: FormDataProfile) => string | undefined;
+export type ValidatorFnLogin = (value: string, formData: LoginFormData) => string | undefined;
+export type ValidatorFnForgotPassword = (value: string, formData: ForgotPasswordFormData) => string | undefined;

@@ -1,135 +1,117 @@
 <template>
   <div class="register-container main-content">
-    <form data-testid="register-form" class="register-form" @submit.prevent="handleSubmit">
+    <form data-testid="register-form" class="register-form" @submit.prevent="onSubmit">
       <img data-testid="logo-register" src="@/assets/images/logoqae2e-branco.jpg" alt="Logo" class="logo" />
       <h2 data-testid="title-register">Bem-vindo!</h2>
       <p data-testid="description-register">Por favor, preencha os campos abaixo para se registrar:</p>
 
       <div data-testid="form-group-fullname" class="form-group">
         <label data-testid="label-fullname" for="full_name">Nome Completo <span class="required">*</span></label>
-        <input
+        <Field
           data-testid="input-fullname"
           type="text"
           id="full_name"
-          v-model="formData.full_name"
-          @blur="validateField('full_name')"
+          name="full_name"
           placeholder="Insira o Nome Completo"
-          :class="{ 'error-input': errors.full_name }"
+          :class="['input-fullname', { 'error-input': fullNameError }]"
         />
-        <p data-testid="input-error-fullname" class="error" v-if="errors.full_name">
-          {{ errors.full_name }}
-        </p>
+        <ErrorMessage data-testid="input-error-fullname" name="full_name" class="error" />
       </div>
 
       <div data-testid="form-group-socialname" class="form-group">
         <label data-testid="label-socialname" for="social_name">Nome Social</label>
-        <input
+        <Field
           data-testid="input-socialname"
           type="text"
           id="social_name"
-          v-model="formData.social_name"
+          name="social_name"
           placeholder="Insira o Nome Social (opcional)"
+          class="input-socialname"
         />
       </div>
 
       <div data-testid="form-group-document" class="form-group">
         <label data-testid="label-document" for="document">CPF/CNPJ <span class="required">*</span></label>
-        <select
+        <Field
           data-testid="select-document-type"
+          as="select"
           id="doc_type"
-          v-model="formData.doc_type"
+          name="doc_type"
           @change="handleDocTypeChange"
-          :class="{ 'error-input': errors.document }"
+          :class="['select-document-type', { 'error-input': documentError }]"
         >
           <option value="cpf">CPF</option>
           <option value="cnpj">CNPJ</option>
-        </select>
-        <input
+        </Field>
+        <Field
           data-testid="input-document"
           type="text"
           id="document"
-          v-model="formData.document"
-          @blur="validateField('document')"
+          name="document"
           :placeholder="placeholder"
-          :class="{ 'error-input': errors.document }"
+          :class="['input-document', { 'error-input': documentError }]"
         />
-        <p data-testid="input-error-cpfcnpj" class="error" v-if="errors.document">
-          {{ errors.document }}
-        </p>
+        <ErrorMessage data-testid="input-error-cpfcnpj" name="document" class="error" />
       </div>
 
       <div data-testid="form-group-phone" class="form-group">
         <label data-testid="label-phone" for="phone">Telefone</label>
-        <input
+        <Field
           data-testid="input-phone"
           type="text"
           id="phone"
-          v-model="formData.phone"
-          @blur="validateField('phone')"
+          name="phone"
           placeholder="Insira o Telefone (opcional)"
-          :class="{ 'error-input': errors.phone }"
+          :class="['input-phone', { 'error-input': phoneError }]"
         />
-        <p data-testid="input-error-phone" class="error" v-if="errors.phone">
-          {{ errors.phone }}
-        </p>
+        <ErrorMessage data-testid="input-error-phone" name="phone" class="error" />
       </div>
 
       <div data-testid="form-group-email" class="form-group">
         <label data-testid="label-email" for="email">Email <span class="required">*</span></label>
-        <input
+        <Field
           data-testid="input-email"
           type="email"
           id="email"
+          name="email"
           autocomplete="username"
-          v-model="formData.email"
-          @blur="validateField('email')"
           placeholder="Insira o Email"
-          :class="{ 'error-input': errors.email }"
+          :class="['input-email', { 'error-input': emailError }]"
         />
-        <p data-testid="input-error-email" class="error" v-if="errors.email">
-          {{ errors.email }}
-        </p>
+        <ErrorMessage data-testid="input-error-email" name="email" class="error" />
       </div>
 
       <div data-testid="form-group-password" class="form-group">
         <label data-testid="label-password" for="password">Senha <span class="required">*</span></label>
-        <input
+        <Field
           data-testid="input-password"
           type="password"
           id="password"
+          name="password"
           autocomplete="current-password"
-          v-model="formData.password"
-          @blur="validateField('password')"
           placeholder="Insira a Senha"
-          :class="{ 'error-input': errors.password }"
+          :class="['input-password', { 'error-input': passwordError }]"
         />
-        <p data-testid="input-error-password" class="error" v-if="errors.password">
-          {{ errors.password }}
-        </p>
+        <ErrorMessage data-testid="input-error-password" name="password" class="error" />
       </div>
 
       <div data-testid="form-group-password-confirmation" class="form-group">
         <label data-testid="label-password-confirmation" for="password_confirmation">Confirmar Senha <span class="required">*</span></label>
-        <input
+        <Field
           data-testid="input-password-confirmation"
           type="password"
           id="password_confirmation"
+          name="password_confirmation"
           autocomplete="new-password"
-          v-model="formData.password_confirmation"
-          @blur="validateField('password_confirmation')"
           placeholder="Confirme a Senha"
-          :class="{ 'error-input': errors.password_confirmation }"
+          :class="['input-password-confirmation', { 'error-input': passwordConfirmationError }]"
         />
-        <p data-testid="input-error-password-confirmation" class="error" v-if="errors.password_confirmation">
-          {{ errors.password_confirmation }}
-        </p>
+        <ErrorMessage data-testid="input-error-password-confirmation" name="password_confirmation" class="error" />
       </div>
 
-      <button data-testid="btn-register" type="submit" class="btn btn-submit" :disabled="isPending || !isFormValid">
-        {{ isPending ? 'Cadastrando...' : 'Cadastrar' }}
+      <button data-testid="btn-register" type="submit" class="btn btn-submit" :disabled="isPending">
+        {{ btnText }}
       </button>
-
-      <p v-if="error" class="error">{{ error }}</p>
 
       <div class="link-container">
         <router-link to="/" data-testid="link-go-to-login" class="link-go-to-login"> Voltar ao Login </router-link>
@@ -139,147 +121,141 @@
 </template>
 
 <script setup lang="ts">
-import type { FormData, FormErrors } from '@/types/user.types';
-import { validateFormData } from '@/utils/validateForm';
-import { computed, reactive, watch } from 'vue';
+import type { ApiErrorResponse } from '@/types/error.types';
+import type { DocType, RegisterResponse } from '@/types/user.types';
+import { validateCNPJ, validateCPF } from '@/utils/validateCpfCnpj';
+import { toTypedSchema } from '@vee-validate/yup';
+import { ErrorMessage, Field, useField, useForm } from 'vee-validate';
+import { computed } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import * as yup from 'yup';
 import { useRegisterUser } from '../../../../composables/useRegisterUser';
 
-// Composables
-const { mutate, isPending, error } = useRegisterUser();
+const { mutate: registerUserMutation, isPending } = useRegisterUser();
 
-const formData = reactive<FormData>({
-  full_name: '',
-  social_name: '',
-  document: '',
-  doc_type: 'cpf',
-  phone: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
+const validationSchema = toTypedSchema(
+  yup.object({
+    full_name: yup
+      .string()
+      .required('O Nome Completo é obrigatório.')
+      .matches(/^[a-zA-ZÀ-ÿ.]+(\s+[a-zA-ZÀ-ÿ.]+)+$/, 'O Nome Completo deve conter pelo menos Nome e Sobrenome.'),
+    social_name: yup.string().optional(),
+    doc_type: yup.string().oneOf(['cpf', 'cnpj']).required(),
+    document: yup
+      .string()
+      .required('O CPF/CNPJ é obrigatório.')
+      .test('document-valid', 'CPF inválido.', function (value) {
+        if (!value) {
+          return false;
+        }
+        const docType = this.parent.doc_type;
+        if (docType === 'cpf') {
+          return validateCPF(value);
+        }
+        return true;
+      })
+      .test('document-valid-cnpj', 'CNPJ inválido.', function (value) {
+        if (!value) {
+          return false;
+        }
+        const docType = this.parent.doc_type;
+        if (docType === 'cnpj') {
+          return validateCNPJ(value);
+        }
+        return true;
+      }),
+    phone: yup
+      .string()
+      .optional()
+      .test('phone-format', 'O telefone deve conter apenas números.', function (value) {
+        if (!value) {
+          return true;
+        }
+        const normalizedValue = value.replace(/[^0-9a-zA-Z]/g, '');
+        return !/[a-zA-Z]/.test(normalizedValue);
+      })
+      .test('phone-length-min', 'O telefone deve ter no mínimo 10 dígitos.', function (value) {
+        if (!value) {
+          return true;
+        }
+        const normalizedValue = value.replace(/[^0-9]/g, '');
+        return normalizedValue.length >= 10;
+      })
+      .test('phone-length-max', 'O telefone deve ter no máximo 11 dígitos.', function (value) {
+        if (!value) {
+          return true;
+        }
+        const normalizedValue = value.replace(/[^0-9]/g, '');
+        return normalizedValue.length <= 11;
+      }),
+    email: yup.string().required('O Email é obrigatório.').email('Email inválido.'),
+    password: yup
+      .string()
+      .required('A Senha é obrigatória.')
+      .test('no-leading-space', 'O valor não pode começar com espaço.', (value) => !value?.startsWith(' '))
+      .min(6, 'A Senha deve ter no mínimo 6 caracteres.')
+      .max(20, 'A Senha deve ter no máximo 20 caracteres.'),
+    password_confirmation: yup
+      .string()
+      .required('A confirmação de senha é obrigatória.')
+      .oneOf([yup.ref('password')], 'As senhas não coincidem.'),
+  }),
+);
+
+const { handleSubmit, values, setFieldValue } = useForm({
+  initialValues: {
+    full_name: '',
+    social_name: '',
+    document: '',
+    doc_type: 'cpf' as DocType,
+    phone: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  },
+  validationSchema,
 });
 
-const errors = reactive<FormErrors>({
-  full_name: '',
-  document: '',
-  phone: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
+const { errorMessage: fullNameError } = useField('full_name');
+const { errorMessage: documentError } = useField('document');
+const { errorMessage: phoneError } = useField('phone');
+const { errorMessage: emailError } = useField('email');
+const { errorMessage: passwordError } = useField('password');
+const { errorMessage: passwordConfirmationError } = useField('password_confirmation');
+
+const placeholder = computed<string>(() => (values.doc_type === 'cpf' ? 'Insira o CPF' : 'Insira o CNPJ'));
+
+const btnText = computed(() => {
+  return isPending.value ? 'Cadastrando...' : 'Cadastrar';
 });
 
-const isFormValid = computed(() => {
-  const result = validateFormData(formData);
-  return result.isValid;
-});
-
-const placeholder = computed<string>(() => (formData.doc_type === 'cpf' ? 'Insira o CPF' : 'Insira o CNPJ'));
-
-watch(
-  () => formData.full_name,
-  (newValue) => {
-    if (newValue) {
-      const result = validateFormData({ ...formData, full_name: newValue });
-      errors.full_name = result.errors.full_name || '';
-    } else {
-      errors.full_name = '';
-    }
-  },
-);
-
-watch(
-  () => formData.document,
-  (newValue) => {
-    if (newValue) {
-      const result = validateFormData({ ...formData, document: newValue });
-      errors.document = result.errors.document || '';
-    } else {
-      errors.document = '';
-    }
-  },
-);
-
-watch(
-  () => formData.phone,
-  (newValue) => {
-    if (newValue) {
-      const result = validateFormData({ ...formData, phone: newValue });
-      errors.phone = result.errors.phone || '';
-    } else {
-      errors.phone = '';
-    }
-  },
-);
-
-watch(
-  () => formData.email,
-  (newValue) => {
-    if (newValue) {
-      const result = validateFormData({ ...formData, email: newValue });
-      errors.email = result.errors.email || '';
-    } else {
-      errors.email = '';
-    }
-  },
-);
-
-watch(
-  () => formData.password,
-  (newValue) => {
-    if (newValue) {
-      const result = validateFormData({ ...formData, password: newValue });
-      errors.password = result.errors.password || '';
-      if (formData.password_confirmation) {
-        const confirmResult = validateFormData({ ...formData, password: newValue, password_confirmation: formData.password_confirmation });
-        errors.password_confirmation = confirmResult.errors.password_confirmation || '';
-      }
-    } else {
-      errors.password = '';
-    }
-  },
-);
-
-watch(
-  () => formData.password_confirmation,
-  (newValue) => {
-    if (newValue) {
-      const result = validateFormData({ ...formData, password_confirmation: newValue });
-      errors.password_confirmation = result.errors.password_confirmation || '';
-    } else {
-      errors.password_confirmation = '';
-    }
-  },
-);
-
-// Methods
 const handleDocTypeChange = (): void => {
-  formData.document = '';
-  errors.document = '';
+  setFieldValue('document', '');
 };
 
-const handleSubmit = async (): Promise<void> => {
-  const result = validateFormData(formData);
-  Object.assign(errors, result.errors);
-
-  if (!result.isValid) {
-    return;
-  }
-
-  mutate({
-    full_name: formData.full_name.trim(),
-    social_name: formData.social_name?.trim() || '',
-    document: formData.document.trim(),
-    doc_type: formData.doc_type,
-    phone: formData.phone?.trim() || '',
-    email: formData.email.trim(),
-    password: formData.password.trim(),
-    password_confirmation: formData.password_confirmation.trim(),
-  });
-};
-
-const validateField = (field: keyof FormErrors): void => {
-  const result = validateFormData(formData);
-  errors[field] = result.errors[field] || '';
-};
+const onSubmit = handleSubmit((formValues) => {
+  registerUserMutation(
+    {
+      full_name: formValues.full_name.trim(),
+      social_name: formValues.social_name?.trim() || '',
+      document: formValues.document.trim(),
+      doc_type: formValues.doc_type,
+      phone: formValues.phone?.trim() || '',
+      email: formValues.email.trim(),
+      password: formValues.password.trim(),
+      password_confirmation: formValues.password_confirmation.trim(),
+    },
+    {
+      onSuccess: (data: RegisterResponse): void => {
+        toast.success(data.message || 'Usuário criado com sucesso!', { autoClose: 3000 });
+      },
+      onError: (error: ApiErrorResponse): void => {
+        toast.error(error.response?.data?.message || 'Erro ao registrar usuário', { autoClose: 5000 });
+      },
+    },
+  );
+});
 </script>
 
 <style src="./RegisterStyle.css"></style>

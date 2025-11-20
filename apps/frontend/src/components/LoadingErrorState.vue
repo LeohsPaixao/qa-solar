@@ -1,15 +1,15 @@
 <template>
-  <div v-if="isLoading" class="loading-container">
-    <p>Carregando...</p>
-    <div class="spinner" />
+  <div v-if="isLoading" data-testid="loading-container" class="loading-container">
+    <p data-testid="loading-message">Carregando...</p>
+    <div data-testid="spinner" class="spinner" />
   </div>
-  <div v-else-if="isError" class="error-container">
-    <p>{{ errorMessage }}</p>
+  <div v-else-if="isError" data-testid="error-container" class="error-container">
+    <p data-testid="error-message">{{ errorMessage }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { ErrorProps } from '../types/error.types';
+import type { ErrorProps } from '@/types/error.types';
 
 withDefaults(defineProps<ErrorProps>(), {
   isLoading: false,
@@ -58,6 +58,7 @@ withDefaults(defineProps<ErrorProps>(), {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

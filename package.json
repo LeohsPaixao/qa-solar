@@ -17,6 +17,9 @@
     "docker:build": "docker compose up --build",
     "changeset": "changeset",
     "version-packages": "changeset version",
+    "n8n": "docker compose -f docker-compose.n8n.yml up -d",
+    "stop-n8n": "docker compose -f docker-compose.n8n.yml down",
+    "restart-n8n": "docker compose -f docker-compose.n8n.yml restart",
     "dev": "turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
@@ -50,12 +53,13 @@
   "devDependencies": {
     "@commitlint/cli": "19.6.0",
     "@commitlint/config-conventional": "19.6.0",
-    "@types/node": "22.16.0",
+    "@tsconfig/node22": "22.0.5",
+    "@types/node": "22.19.1",
     "lint-staged": "16.1.2",
     "turbo": "2.5.2",
     "typescript": "5.8.3"
   },
   "engines": {
-    "node": "22.1.0"
+    "node": ">=22.19.0 <23"
   }
 }

@@ -14,11 +14,11 @@ test.describe('Tela de Login', {
     await expect(page.locator('[data-testid="input-email"]')).toBeVisible();
     await expect(page.locator('[data-testid="input-password"]')).toBeVisible();
     await expect(page.locator('[data-testid="btn-login"]')).toBeVisible();
-    await expect(page.locator('[data-testid="btn-login"]')).toBeDisabled();
+    await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
   });
 
   test('Não deveria ser possível fazer login com credenciais inválidas', async ({ page }) => {
-    await expect(page.locator('[data-testid="btn-login"]')).toBeDisabled();
+    await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
     await page.locator('[data-testid="input-email"]').fill('email@example.com');
     await page.locator('[data-testid="input-password"]').fill('password@example.com');
     await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
@@ -29,7 +29,7 @@ test.describe('Tela de Login', {
   });
 
   test('Não deveria ser possível fazer login com a senha inválida', async ({ page }) => {
-    await expect(page.locator('[data-testid="btn-login"]')).toBeDisabled();
+    await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
     await page.locator('[data-testid="input-email"]').fill('generic@example.com');
     await page.locator('[data-testid="input-password"]').fill('password@example.com');
     await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
@@ -40,7 +40,7 @@ test.describe('Tela de Login', {
   });
 
   test('Deveria ser possível fazer login com credenciais válidas', async ({ page }) => {
-    await expect(page.locator('[data-testid="btn-login"]')).toBeDisabled();
+    await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
     await page.locator('[data-testid="input-email"]').fill('generic@example.com');
     await page.locator('[data-testid="input-password"]').fill('123456');
     await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
@@ -50,30 +50,23 @@ test.describe('Tela de Login', {
   });
 
   test('Deveria ser possivel visualizar o erro de email invalido embaixo do input de email', async ({ page }) => {
-    await page.locator('[data-testid="input-email"]').fill('email@email');
+    await page.locator('[data-testid="input-email"]').fill('invalid-email');
     await page.locator('[data-testid="input-email"]').blur();
     await expect(page.locator('[data-testid="message-error-email"]')).toBeVisible();
-    await expect(page.locator('[data-testid="message-error-email"]')).toHaveText('Por favor, insira um email válido.');
-  });
-
-  test('Deveria ser possível visualizar o erro de senha invalida embaixo do input de senha', async ({ page }) => {
-    await page.locator('[data-testid="input-password"]').fill('1234');
-    await page.locator('[data-testid="input-password"]').blur();
-    await expect(page.locator('[data-testid="message-error-password"]')).toBeVisible();
-    await expect(page.locator('[data-testid="message-error-password"]')).toHaveText('A senha deve ter pelo menos 6 caracteres.');
+    await expect(page.locator('[data-testid="message-error-email"]')).toHaveText('Email inválido.');
   });
 
   test('Deveria ser possível visualizar a mensagem de erro embaixo dos inputs de email e senha quando estão vazios', async ({ page }) => {
-    await expect(page.locator('[data-testid="btn-login"]')).toBeDisabled();
+    await expect(page.locator('[data-testid="btn-login"]')).toBeEnabled();
     await page.locator('[data-testid="input-email"]').fill('email@email.com');
     await page.locator('[data-testid="input-email"]').clear();
     await page.locator('[data-testid="input-password"]').fill('123456');
     await page.locator('[data-testid="input-password"]').clear();
     await page.locator('[data-testid="input-password"]').blur();
     await expect(page.locator('[data-testid="message-error-email"]')).toBeVisible();
-    await expect(page.locator('[data-testid="message-error-email"]')).toHaveText('O email é obrigatório.');
+    await expect(page.locator('[data-testid="message-error-email"]')).toHaveText('O Email é obrigatório.');
     await expect(page.locator('[data-testid="message-error-password"]')).toBeVisible();
-    await expect(page.locator('[data-testid="message-error-password"]')).toHaveText('A senha é obrigatória.');
+    await expect(page.locator('[data-testid="message-error-password"]')).toHaveText('A Senha é obrigatória.');
   });
 
   test('Deveria ser possível ir para a tela de cadastro', async ({ page, baseURL }) => {

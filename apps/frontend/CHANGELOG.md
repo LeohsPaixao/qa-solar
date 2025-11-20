@@ -1,5 +1,29 @@
 # frontend
 
+## 2.0.3
+
+### Patch Changes
+
+- 13b6a20: test: ajusta e corrija alguns testes unitários e funções
+- 2f520cc: test: instala e configura o framework vitest para testes unitários no frontend
+- db20925: test: cria os testes unitários para os utilitários de Roteamento
+- cca6bec: test: adiciona testes unitários para componentes principais e melhora infraestrutura de testes
+
+  - Configura infraestrutura de testes com Vitest, mocks e setup
+  - Cria novos testes unitários para AppFooter, AppHeader, AppHome e LoadingErrorState
+  - Corrige falhas nos testes existentes (api.spec.ts, isAuthenticated.spec.ts)
+  - Melhora testabilidade da função handleClickOutside no AppHeader
+  - Adiciona data-testid para melhor identificação de elementos nos testes
+
+- a951846: test: desenvolve os testes unitários para os utilitários do frontend
+- d5770cd: test: cria testes unitários para os template de perfil do usuário logado
+- 4eba93c: test: cria testes unitários para o template de registro de usuários
+- 4eba93c: test: cria testes unitários para o template de login
+- d5770cd: test: cria testes unitários para os template de listagem de usuários
+- e8ffbf3: test: melhora a configuração do Jest para os testes unitários do Backend e Vitest para os testes unitários do Frontend
+- 8d33004: test: cria testes unitários nos serviços do frontend e adiciona JSDoc
+- 70ad39e: test: cria testes unitários para o template de recuperação de senha
+
 ## 2.0.2
 
 ### Patch Changes

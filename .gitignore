@@ -56,6 +56,7 @@ tests/robot/tests/**/__pycache__/
 tests/robot/.venv
 tests/robot/venv/
 tests/robot/.pabotsuitenames
+.pabotsuitenames
 
 # Performance tests
 tests/performance/reports/

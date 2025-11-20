@@ -1,5 +1,11 @@
 # qa-solar-performance
 
+## 1.3.2
+
+### Patch Changes
+
+- 2f520cc: test: atualiza a versão do node e os pacotes referenciados ao node de todos os projetos typescript
+
 ## 1.3.1
 
 ### Patch Changes
