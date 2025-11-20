@@ -61,6 +61,9 @@ tests/robot/.pabotsuitenames
 tests/performance/reports/
 tests/performance/.cache/
 
+# QA results
+qa-results/raw/
+
 # Build artifacts
 dist/
 
@@ -96,7 +99,6 @@ temp/
 *.jtl
 *.csv
 *.html
-*.json
 !package.*
 !tsconfig.*
 !eslint.config.*
