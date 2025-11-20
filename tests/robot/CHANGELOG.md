@@ -1,5 +1,11 @@
 # robot-framework
 
+## 2.0.2
+
+### Patch Changes
+
+- 60c68b7: test: corrige os testes E2E no projeto de testes Robot Framework
+
 ## 2.0.1
 
 ### Patch Changes

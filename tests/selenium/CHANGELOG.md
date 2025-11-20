@@ -1,5 +1,11 @@
 # selenium-ui-tests
 
+## 2.0.1
+
+### Patch Changes
+
+- 60c68b7: test: corrige os testes E2E no projeto de testes Selenium
+
 ## 2.0.0
 
 ### Major Changes

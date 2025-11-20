@@ -22,9 +22,6 @@ export default defineConfig({
     }),
     vueDevTools(),
   ],
-  optimizeDeps: {
-    exclude: ['@tanstack/vue-query'],
-  },
   build: {
     sourcemap: true,
   },

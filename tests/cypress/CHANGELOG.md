@@ -1,5 +1,16 @@
 # cypress-ui-tests
 
+## 2.1.0
+
+### Minor Changes
+
+- 60c68b7: test: refatora todos os testes de componentes do cypress
+
+### Patch Changes
+
+- 60c68b7: test: corrige os testes E2E do projeto de testes Cypress
+- 2f520cc: test: atualiza a versão do node e os pacotes referenciados ao node de todos os projetos typescript
+
 ## 2.0.1
 
 ### Patch Changes

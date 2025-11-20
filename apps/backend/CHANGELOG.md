@@ -1,5 +1,12 @@
 # backend
 
+## 2.0.3
+
+### Patch Changes
+
+- 2f520cc: test: atualiza a versão do node e os pacotes referenciados ao node de todos os projetos typescript
+- e8ffbf3: test: melhora a configuração do Jest para os testes unitários do Backend e Vitest para os testes unitários do Frontend
+
 ## 2.0.2
 
 ### Patch Changes
