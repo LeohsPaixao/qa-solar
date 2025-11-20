@@ -1,6 +1,7 @@
 /**
- * Generate a timestamp in the format YYYY-MM-DD-HH-MM-SS
- * @returns {string} The timestamp
+ * Gera um carimbo de data/hora no formato YYYY-MM-DD-HH-MM-SS representando o instante em UTC.
+ *
+ * @returns A string contendo a data e hora formatadas como `YYYY-MM-DD-HH-MM-SS` (UTC)
  */
 export function timestamp(): string {
   return new Date()
