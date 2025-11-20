@@ -45,8 +45,6 @@ tests/cypress/tests/misc/
 
 # Playwright
 tests/playwright/tests/misc/
-tests/playwright/playwright-report/
-tests/playwright/blob-report/
 tests/playwright/.cache/
 
 # Robot
@@ -56,6 +54,10 @@ tests/robot/.venv
 tests/robot/venv/
 tests/robot/.pabotsuitenames
 .pabotsuitenames
+
+# Selenium
+tests/selenium/build/
+tests/selenium/.gradle/
 
 # Performance tests
 tests/performance/reports/
@@ -115,7 +117,3 @@ temp/
 /docs/build
 /docs/.docusaurus
 /docs/.cache-loader
-
-# Selenium
-tests/selenium/build/
-tests/selenium/.gradle/
