@@ -10,8 +10,8 @@
     "dev": "rimraf dist && nest start",
     "dev:debug": "rimraf dist && nest start --debug --watch",
     "lint": "eslint --fix",
-    "test": " jest --config jest.config.js",
-    "test:cov": "jest --coverage",
+    "test": "jest --config jest.config.js",
+    "test:coverage": "jest --coverage",
     "prisma:seed": "npx tsx prisma/seeders/*.ts"
   },
   "dependencies": {
