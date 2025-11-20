@@ -1,4 +1,4 @@
-buildind:
+building:
 	@echo "Buildando o projeto"
 	./gradlew clean build -x test --console=plain
 	
@@ -16,7 +16,7 @@ clean:
 
 help:
 	@echo "Makefile para executar os testes de selenium"
-	@echo "make build - Buildar o projeto"
+	@echo "make building - Buildar o projeto"
 	@echo "make test - Executar os testes"
 	@echo "make test-headless - Executar os testes headless"
 	@echo "make coverage - Gerar o relatório de cobertura"
