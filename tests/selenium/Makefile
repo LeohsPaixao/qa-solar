@@ -9,7 +9,7 @@ building:
 	
 test:
 	@echo "Executando testes de selenium"
-	@TIMESTAMP=$$(npx ts-node ../../scripts/timestamp.ts); \
+	@TIMESTAMP=$$(npx tsx ../../scripts/timestamp.ts); \
 	OUTPUT_DIR=$(OUTPUT_DIR_BASE)/$$TIMESTAMP; \
 	mkdir -p $$OUTPUT_DIR; \
 	echo "Salvando resultados em: $$(cd $(CURDIR) && cd $$OUTPUT_DIR && pwd)"; \
