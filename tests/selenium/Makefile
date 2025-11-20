@@ -1,4 +1,4 @@
-build:
+buildind:
 	@echo "Buildando o projeto"
 	./gradlew clean build -x test --console=plain
 	

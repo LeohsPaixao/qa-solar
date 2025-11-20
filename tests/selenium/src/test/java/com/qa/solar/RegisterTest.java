@@ -148,7 +148,7 @@ public class RegisterTest extends BaseTest {
   @DisplayName("Não deveria ser possível criar o usuário com o email inválido")
   public void shouldNotCreateUserWithInvalidEmail() {
     WebElement inputEmail = waitForElementLocated(By.cssSelector("[data-testid='input-email']"), 10);
-    inputEmail.sendKeys("email@exassd");
+    inputEmail.sendKeys("invalid-email");
     ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", inputEmail);
 
     WebElement messageErrorEmail = waitForElementLocated(By.cssSelector("[data-testid='input-error-email']"), 10);
