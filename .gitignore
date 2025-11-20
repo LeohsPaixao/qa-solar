@@ -41,26 +41,29 @@ node_modules/
 vite.config.ts.*
 
 # Cypress
-tests/cypress/tests/e2e/misc/
-tests/cypress/tests/component/misc/
+tests/cypress/tests/misc/
 
 # Playwright
 tests/playwright/tests/misc/
-tests/playwright/playwright-report/
-tests/playwright/blob-report/
 tests/playwright/.cache/
 
 # Robot
-tests/robot/results/
+tests/robot/tests/misc/
 tests/robot/tests/**/__pycache__/
 tests/robot/.venv
 tests/robot/venv/
 tests/robot/.pabotsuitenames
-.pabotsuitenames
+
+# Selenium
+tests/selenium/build/
+tests/selenium/.gradle/
 
 # Performance tests
 tests/performance/reports/
 tests/performance/.cache/
+
+# QA results
+qa-results/raw/
 
 # Build artifacts
 dist/
@@ -97,7 +100,6 @@ temp/
 *.jtl
 *.csv
 *.html
-*.json
 !package.*
 !tsconfig.*
 !eslint.config.*
@@ -114,7 +116,3 @@ temp/
 /docs/build
 /docs/.docusaurus
 /docs/.cache-loader
-
-# Selenium
-tests/selenium/build/
-tests/selenium/.gradle/
