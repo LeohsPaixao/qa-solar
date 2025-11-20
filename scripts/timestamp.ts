@@ -9,9 +9,12 @@ export function timestamp(): string {
     .split('.')[0];
 }
 
-const isMainModule = import.meta.url.endsWith(process.argv[1]?.replace(/\\/g, '/') || '') ||
-  process.argv[1]?.includes('timestamp.ts');
+const isMainModule = (() => {
+  if (typeof process === 'undefined') return false;
+  const scriptPath = process.argv[1] || '';
+  return scriptPath.includes('timestamp.ts') || scriptPath.endsWith('timestamp');
+})();
 
-if (isMainModule || (typeof process !== 'undefined' && process.argv[1]?.endsWith('timestamp.ts'))) {
+if (isMainModule) {
   console.log(timestamp());
 }
