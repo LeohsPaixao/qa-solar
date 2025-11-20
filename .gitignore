@@ -41,8 +41,7 @@ node_modules/
 vite.config.ts.*
 
 # Cypress
-tests/cypress/tests/e2e/misc/
-tests/cypress/tests/component/misc/
+tests/cypress/tests/misc/
 
 # Playwright
 tests/playwright/tests/misc/
