@@ -47,7 +47,7 @@ Cenário 7: Não Deveria Ser Possível Colocar Menos Do Que 10 Dígitos No Campo
 
 Cenário 8
     [Documentation]    Verifica a validação do campo "Email" ao inserir um email inválido.
-    Preencher O Campo    email    email@esdsd
+    Preencher O Campo    email    invalid-email
     Verificar A Mensagem Do Erro No Campo    email    Email inválido.
 
 Cenário 9: Não Deveria Ser Possível Criar O Usuário Com Uma Senha Com Menos De 6 Caracteres

@@ -34,6 +34,14 @@ Cenário 4: Deveria Ser Possivel Fazer Login Com As Credenciais Válidas
     Clicar No Botão De Entrar Na Conta
     Verificar O Feedback Do Usuario    Login realizado com sucesso!
 
+Cenário 5: Deveria Ser Possível visualizar a mensagem de erro embaixo dos inputs de email e senha quando estão vazios
+    [Documentation]    Testa a visualização da mensagem de erro embaixo dos inputs de email e senha quando estão vazios.
+    Digitar O Email Do Usuario    "teste@example.com"
+    Digitar O Password Do Usuario    "123456"
+    Limpar Os Campos De Email E Senha
+    Verificar A Mensagem De Erro No Input    email    O Email é obrigatório.
+    Verificar A Mensagem De Erro No Input    password    A Senha é obrigatória.
+
 Cenário 5: Deveria Ser Possivel Ir Para A Tela De Cadastro
     [Documentation]    Testa a navegação para a página de cadastro.
     Clicar No Link    link-signup
