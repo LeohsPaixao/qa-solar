@@ -30,7 +30,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4.4.0
         with:
-          node-version: 22.1.0
+          node-version: 22.19.0
           cache: 'yarn'
 
       - name: Instalar dependências do Monorepo
@@ -57,13 +57,6 @@ jobs:
           cd apps/frontend
           yarn dev &
           sleep 5
-
-      - name: Executar testes de Componentes Cypress
-        id: cypress-component-tests
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: tests/cypress
-          command: npx cypress run --component --config-file cypress.config.ts
 
       - name: Executar testes E2E Cypress
         uses: cypress-io/github-action@v6

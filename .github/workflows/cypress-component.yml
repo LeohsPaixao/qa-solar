@@ -2,8 +2,8 @@ on:
   workflow_call:
 
 jobs:
-  backend-tests:
-    name: Backend Testes QA-Solar
+  cypress-tests:
+    name: Cypress Testes QA-Solar
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -17,6 +17,11 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: tests_base
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Checkout do repositório
@@ -26,20 +31,14 @@ jobs:
         uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.19.0
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Instalar dependências do Monorepo
         run: yarn install --frozen-lockfile
 
-      - name: Executar seeders
-        run: chmod +x .github/scripts/run-seeders.sh && .github/scripts/run-seeders.sh
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
-          JWT_SECRET: jwt_secret
-
-      - name: Executar testes do Backend
-        working-directory: apps/backend
-        run: yarn test
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
-          JWT_SECRET: jwt_secret
+      - name: Executar testes de Componentes Cypress
+        id: cypress-component-tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: tests/cypress
+          command: npx cypress run --component --config-file cypress.config.ts

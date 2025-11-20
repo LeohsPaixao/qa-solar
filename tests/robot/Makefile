@@ -8,7 +8,7 @@ LOG_DIR = results/logs
 # Variáveis para paralelismo e qualidade de código
 PROCESSES = 4
 
-.PHONY: clean test-all test-scenario test-file test-args lint tidy parallel clean-logs help
+.PHONY: clean test-all test-scenario test-file test-args lint format parallel clean-logs help
 
 clean:
 	@echo "Limpando o diretório de resultados..."
@@ -47,11 +47,11 @@ test-args: clean
 
 lint:
 	@echo "Verificando a qualidade do código com Robocop..."
-	robocop -ft .robot,.resource $(TESTS_DIR)
+	robocop check --config robocop.toml
 
-tidy:
-	@echo "Formatando os arquivos .robot com Robotidy..."
-	robotidy $(TESTS_DIR)
+format:
+	@echo "Formatando o código com Robocop..."
+	robocop format --config robocop.toml
 
 parallel: clean
 	@echo "Executando testes em paralelo com Pabot..."
@@ -67,5 +67,5 @@ help:
 	@echo "  make test-file FILE_PATH=<path> - Executa um arquivo de teste específico"
 	@echo "  make test-args            - Executa os testes usando o arquivo de argumentos $(ARG_FILE)"
 	@echo "  make lint                 - Verifica problemas de estilo nos testes com Robocop"
-	@echo "  make tidy                 - Formata os arquivos .robot com Robotidy"
+	@echo "  make format               - Formata os arquivos .robot e .resource com Robocop"
 	@echo "  make parallel             - Executa os testes em paralelo utilizando Pabot (com $(PROCESSES) processos)"

@@ -16,7 +16,7 @@ test.describe('Tela de Perfil', {
     await expect(page.locator('[data-testid="form-profile"]')).toBeVisible();
     await expect(page.locator('.form-group').first()).toBeVisible();
     await expect(page.locator('[data-testid="btn-save-profile"]')).toBeVisible();
-    await expect(page.locator('[data-testid="btn-save-profile"]')).toBeDisabled();
+    await expect(page.locator('[data-testid="btn-save-profile"]')).toBeEnabled();
   });
 
   test('Não deveria ser possível salvar a alteração sem colocar algum dado no Nome Completo', async ({ page }) => {

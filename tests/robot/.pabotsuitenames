@@ -1,6 +1,9 @@
-datasources:34b1c023f4eea388d90fc0932aaf449f83537a8d
+datasources:b1caf44277a7b93bce58b335668a597ab2ec8fde
 commandlineoptions:97d170e1550eee4afc0af065b78cda302a97674c
 suitesfrom:no-suites-from-option
-file:0c53d82e4ec9d12d7153246abb1829a885af3ab7
+file:3294fb8231f8bc4ac6f1a2f65da00a3486711faf
 --suite Specs.Login
 --suite Specs.Register
+--suite Specs.Profile
+--suite Specs.listUsers
+--suite Specs.recoverPassword

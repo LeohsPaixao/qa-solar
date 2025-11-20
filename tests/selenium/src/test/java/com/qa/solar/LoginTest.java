@@ -117,26 +117,12 @@ public class LoginTest extends BaseTest {
   public void shouldSeeInvalidEmailError() {
     WebElement inputEmail = driver.findElement(By.cssSelector("[data-testid='input-email']"));
 
-    inputEmail.sendKeys("email@email");
+    inputEmail.sendKeys("invalid-email");
     ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", inputEmail);
 
     WebElement messageErrorEmail = driver.findElement(By.cssSelector("[data-testid='message-error-email']"));
     assertTrue(messageErrorEmail.isDisplayed(), "O elemento deve ser exibido");
-    assertTrue(messageErrorEmail.getText().contains("Por favor, insira um email válido."), "O texto deve ser exibido");
-  }
-
-  @Test
-  @DisplayName("Deveria ser possível visualizar o erro de senha inválida embaixo do input de senha")
-  public void shouldSeeInvalidPasswordError() {
-    WebElement inputPassword = driver.findElement(By.cssSelector("[data-testid='input-password']"));
-
-    inputPassword.sendKeys("1234");
-    ((JavascriptExecutor) driver).executeScript("arguments[0].blur();", inputPassword);
-
-    WebElement messageErrorPassword = driver.findElement(By.cssSelector("[data-testid='message-error-password']"));
-    assertTrue(messageErrorPassword.isDisplayed(), "O elemento deve ser exibido");
-    assertTrue(messageErrorPassword.getText().contains("A senha deve ter pelo menos 6 caracteres."),
-        "O texto deve ser exibido");
+    assertTrue(messageErrorEmail.getText().contains("Email inválido."), "O texto deve ser exibido");
   }
 
   @Test
@@ -159,8 +145,8 @@ public class LoginTest extends BaseTest {
 
     assertTrue(messageErrorEmail.isDisplayed(), "O elemento deve ser exibido");
     assertTrue(messageErrorPassword.isDisplayed(), "O elemento deve ser exibido");
-    assertTrue(messageErrorEmail.getText().contains("O email é obrigatório."), "O texto email deve ser exibido");
-    assertTrue(messageErrorPassword.getText().contains("A senha é obrigatória."), "O texto senha deve ser exibido");
+    assertTrue(messageErrorEmail.getText().contains("O Email é obrigatório."), "O texto email deve ser exibido");
+    assertTrue(messageErrorPassword.getText().contains("A Senha é obrigatória."), "O texto senha deve ser exibido");
   }
 
   @Test

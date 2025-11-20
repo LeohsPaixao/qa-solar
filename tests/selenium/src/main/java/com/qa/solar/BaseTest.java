@@ -72,7 +72,7 @@ public abstract class BaseTest {
                 throw new IllegalArgumentException("URL inválida: '" + input + "' com base '" + base + "'", e);
             }
         }
-        driver.get(target);
+        driver.get(target != null ? target : "");
     }
 
     /**

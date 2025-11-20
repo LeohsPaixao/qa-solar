@@ -57,7 +57,6 @@ test {
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
     forkEvery = 0
     
-    // Configurações de sistema para reduzir verbosidade
     systemProperty 'logback.configurationFile', 'logback.xml'
     systemProperty 'logback.statusListenerClass', 'ch.qos.logback.core.status.NopStatusListener'
 
