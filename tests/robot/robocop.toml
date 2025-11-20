@@ -1,0 +1,60 @@
+[tool.robocop]
+# Diretórios a serem analisados
+include = ["tests"]
+
+# Arquivos e diretórios a serem ignorados
+exclude = [
+    "venv/**",
+    "**/__pycache__/**",
+    "**/*.pyc",
+    "**/node_modules/**"
+]
+
+[tool.robocop.lint]
+# Nível mínimo de severidade (E: Error, W: Warning, I: Info)
+threshold = "W"
+
+# Regras a serem excluídas (muito restritivas para projetos pequenos)
+ignore = [
+    "0201",  # missing-doc-keyword - pode ser opcional em projetos pequenos
+    "0202",  # missing-doc-test-case - pode ser opcional em projetos pequenos
+    "0203",  # missing-doc-suite - pode ser opcional em projetos pequenos
+    "0204",  # missing-doc-resource-file - pode ser opcional em projetos pequenos
+    "0502",  # too-few-calls-in-keyword - pode ser muito restritivo
+    "0504",  # too-long-test-case - pode ser muito restritivo
+    "0505",  # too-many-calls-in-test-case - pode ser muito restritivo
+    "0506",  # file-too-long - pode ser muito restritivo
+    "0507",  # too-many-arguments - pode ser muito restritivo
+    "0527",  # too-many-test-cases - pode ser muito restritivo
+]
+
+# Relatórios a serem gerados
+reports = [
+    "rules_by_id",
+    "scan_timer"
+]
+
+# Configurações específicas de regras
+configure = [
+    # Comprimento máximo de linha (padrão é 120)
+    "line-too-long.line_length=120",
+    
+    # Comprimento máximo de keyword (padrão é 30)
+    "too-long-keyword.max_len=50",
+    
+    # Número mínimo de chamadas em keyword (padrão é 2)
+    "too-few-calls-in-keyword.min_calls=1",
+    
+    # Número máximo de chamadas em keyword (padrão é 20)
+    "too-many-calls-in-keyword.max_calls=30",
+    
+    # Linhas em branco entre seções (padrão é 2 para SPC03, 1 para formatter)
+    "empty-lines-between-sections.empty_lines=2",
+]
+
+[tool.robocop.format]
+# Configurações de formatação
+configure = [
+    # Linhas em branco entre seções no formatter (padrão é 1)
+    "NormalizeNewLines.section_lines=2",
+]
