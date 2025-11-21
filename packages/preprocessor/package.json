@@ -1,16 +1,16 @@
 {
   "name": "preprocessor",
   "version": "1.0.0",
-  "description": "API Preprocessor for results tests per framework",
+  "description": "Preprocessor for results tests per framework",
   "main": "index.ts",
   "author": "Leonardo Paixão",
   "license": "MIT",
   "private": true,
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "tsc --watch",
-    "format": "prettier --write ."
+    "preprocess": "yarn build && node dist/core/cli.js",
+    "format": "prettier --write .",
+    "test-debug": "tsx test/test-debug.ts"
   },
   "dependencies": {
     "fast-xml-parser": "5.3.2",
@@ -21,12 +21,9 @@
     "p-map": "7.0.4"
   },
   "devDependencies": {
-    "@types/fast-xml-parser": "5.3.2",
-    "@types/xml2js": "0.6.2",
-    "@types/zod": "4.1.12",
-    "@types/fs-extra": "11.3.2",
-    "@types/glob": "13.0.0",
-    "@types/p-map": "7.0.4",
-    "typescript": "5.8.3"
+    "@types/xml2js": "0.4.14",
+    "@types/fs-extra": "11.0.4",
+    "typescript": "5.8.3",
+    "tsx": "4.20.6"
   }
 }

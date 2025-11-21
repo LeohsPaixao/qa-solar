@@ -1,0 +1,77 @@
+{
+  "framework": "cypress-ct",
+  "timestamp": "2025-11-20T15-38-15",
+  "summary": {
+    "total": 7,
+    "passed": 7,
+    "failed": 0,
+    "skipped": 0,
+    "duration_s": 0.812
+  },
+  "tests": [
+    {
+      "id": "spec:deveria-ser-possivel-visualizar-a-mensagem-de-copyright",
+      "name": "Deveria ser possivel visualizar a mensagem de copyright",
+      "status": "passed",
+      "duration_s": 0.217,
+      "file": "AppFooter.cy.ts",
+      "tags": [],
+      "error": null
+    },
+    {
+      "id": "spec:deveria-ser-possivel-visualizar-o-link-do-github",
+      "name": "Deveria ser possivel visualizar o link do GitHub",
+      "status": "passed",
+      "duration_s": 0.141,
+      "file": "AppFooter.cy.ts",
+      "tags": [],
+      "error": null
+    },
+    {
+      "id": "spec:deveria-ser-possivel-visualizar-o-estilo-e-o-layout-do-footer",
+      "name": "Deveria ser possivel visualizar o estilo e o layout do footer",
+      "status": "passed",
+      "duration_s": 0.17,
+      "file": "AppFooter.cy.ts",
+      "tags": [],
+      "error": null
+    },
+    {
+      "id": "spec:deveria-ser-possivel-visualizar-o-estilo-do-cone-do-github",
+      "name": "Deveria ser possivel visualizar o estilo do ícone do GitHub",
+      "status": "passed",
+      "duration_s": 0.09,
+      "file": "AppFooter.cy.ts",
+      "tags": [],
+      "error": null
+    },
+    {
+      "id": "spec:deveria-ser-possivel-visualizar-o-estilo-da-mensagem-do-footer",
+      "name": "Deveria ser possivel visualizar o estilo da mensagem do footer",
+      "status": "passed",
+      "duration_s": 0.087,
+      "file": "AppFooter.cy.ts",
+      "tags": [],
+      "error": null
+    },
+    {
+      "id": "spec:deveria-ser-possivel-visualizar-o-estilo-do-link-do-github",
+      "name": "Deveria ser possivel visualizar o estilo do link do GitHub",
+      "status": "passed",
+      "duration_s": 0.05,
+      "file": "AppFooter.cy.ts",
+      "tags": [],
+      "error": null
+    },
+    {
+      "id": "spec:deveria-ser-possivel-visualizar-o-texto-alternativo-do-cone-do-github",
+      "name": "Deveria ser possivel visualizar o texto alternativo do ícone do GitHub",
+      "status": "passed",
+      "duration_s": 0.057,
+      "file": "AppFooter.cy.ts",
+      "tags": [],
+      "error": null
+    }
+  ],
+  "metadata": {}
+}
