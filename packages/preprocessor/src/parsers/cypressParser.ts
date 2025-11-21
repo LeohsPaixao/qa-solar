@@ -154,6 +154,7 @@ export const cypressParser: Parser = {
     return {
       framework: file.framework,
       timestamp: file.timestamp,
+      type: file.type,
       raw: data,
       tests: parsedTests,
       metadata: extractMetadata(data)
