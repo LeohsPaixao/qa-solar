@@ -1,6 +1,7 @@
 {
   "framework": "cypress-ct",
   "timestamp": "2025-11-20T15-39-16",
+  "type": "ct",
   "summary": {
     "total": 68,
     "passed": 68,
