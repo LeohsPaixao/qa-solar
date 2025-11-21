@@ -82,16 +82,35 @@ async function findResultFiles(
 }
 
 /**
+ * Normaliza um timestamp para formato comparável
+ * Converte 2025-11-20-21-39-05 para 2025-11-20T21-39-05
+ */
+function normalizeTimestamp(timestamp: string): string {
+  return timestamp.replace(/-(\d{2})-(\d{2})-(\d{2})$/, 'T$1-$2-$3');
+}
+
+/**
+ * Compara dois timestamps para ordenação (mais recente primeiro)
+ */
+function compareTimestamps(a: string, b: string): number {
+  const normalizedA = normalizeTimestamp(a);
+  const normalizedB = normalizeTimestamp(b);
+  // Ordena em ordem decrescente (mais recente primeiro)
+  return normalizedB.localeCompare(normalizedA);
+}
+
+/**
  * Escaneia o diretório raw para encontrar arquivos de resultados de testes
+ * Retorna apenas o diretório de timestamp MAIS RECENTE de cada framework
  * @param rawDir - o diretório raw para escanear
- * @returns uma promise que resolve para um array de RawFile
+ * @returns uma promise que resolve para um array de RawFile (apenas o mais recente de cada framework)
  */
 export async function scanRawDirectory(rawDir: string): Promise<RawFile[]> {
-  const rawFiles: RawFile[] = [];
+  const rawFilesByFramework = new Map<Framework, RawFile>();
 
   // Verifica se o diretório existe
   if (!(await fs.pathExists(rawDir))) {
-    return rawFiles;
+    return [];
   }
 
   // Lista todos os diretórios de frameworks
@@ -110,53 +129,57 @@ export async function scanRawDirectory(rawDir: string): Promise<RawFile[]> {
 
     // Lista diretórios de timestamp dentro do framework
     const timestampEntries = await fs.readdir(frameworkPath, { withFileTypes: true });
-    const timestampDirs = timestampEntries.filter(entry => entry.isDirectory());
+    const timestampDirs = timestampEntries
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name)
+      .filter(timestamp => isValidTimestamp(timestamp))
+      .sort(compareTimestamps); // Ordena do mais recente para o mais antigo
 
-    for (const timestampDir of timestampDirs) {
-      const timestamp = timestampDir.name;
-
-      if (!isValidTimestamp(timestamp)) {
-        // Ignora diretórios que não são timestamps válidos
-        continue;
-      }
-
-      const timestampPath = path.join(frameworkPath, timestamp);
-
-      // Encontra arquivos de resultado neste diretório de timestamp
-      const resultFiles = await findResultFiles(timestampPath, framework);
-
-      if (resultFiles.length === 0) {
-        // Nenhum arquivo encontrado, continua para o próximo timestamp
-        continue;
-      }
-
-      // Para frameworks com múltiplos arquivos (Cypress, Selenium),
-      // cria um RawFile apontando para o diretório base
-      // O loader será responsável por fazer o merge
-      const baseDir = timestampPath;
-      
-      // Usa o primeiro arquivo encontrado como referência principal
-      // ou o arquivo principal se existir (ex: mochawesome.json para Cypress)
-      let mainFile = resultFiles[0];
-      
-      // Para Cypress, prioriza mochawesome.json se existir
-      if (framework === 'cypress-e2e' || framework === 'cypress-ct') {
-        const mainMochawesome = resultFiles.find(f => 
-          path.basename(f) === 'mochawesome.json'
-        );
-        if (mainMochawesome) {
-          mainFile = mainMochawesome;
-        }
-      }
-
-      rawFiles.push({
-        path: mainFile,
-        framework,
-        timestamp,
-        baseDir
-      });
+    if (timestampDirs.length === 0) {
+      // Nenhum timestamp válido encontrado
+      continue;
     }
+
+    // Pega apenas o timestamp mais recente (primeiro após ordenação)
+    const latestTimestamp = timestampDirs[0];
+    const timestampPath = path.join(frameworkPath, latestTimestamp);
+
+    // Encontra arquivos de resultado neste diretório de timestamp
+    const resultFiles = await findResultFiles(timestampPath, framework);
+
+    if (resultFiles.length === 0) {
+      // Nenhum arquivo encontrado, continua para o próximo framework
+      continue;
+    }
+
+    // Para frameworks com múltiplos arquivos (Cypress, Selenium),
+    // cria um RawFile apontando para o diretório base
+    // O loader será responsável por fazer o merge
+    const baseDir = timestampPath;
+
+    // Usa o primeiro arquivo encontrado como referência principal
+    // ou o arquivo principal se existir (ex: mochawesome.json para Cypress)
+    let mainFile = resultFiles[0];
+
+    // Para Cypress, prioriza mochawesome.json se existir
+    if (framework === 'cypress-e2e' || framework === 'cypress-ct') {
+      const mainMochawesome = resultFiles.find(f =>
+        path.basename(f) === 'mochawesome.json'
+      );
+      if (mainMochawesome) {
+        mainFile = mainMochawesome;
+      }
+    }
+
+    // Armazena apenas o mais recente de cada framework
+    rawFilesByFramework.set(framework, {
+      path: mainFile,
+      framework,
+      timestamp: latestTimestamp,
+      baseDir
+    });
   }
 
-  return rawFiles;
+  // Retorna apenas os arquivos mais recentes de cada framework
+  return Array.from(rawFilesByFramework.values());
 }
