@@ -1,6 +1,7 @@
 {
   "framework": "cypress-e2e",
   "timestamp": "2025-11-20T15-41-24",
+  "type": "e2e",
   "summary": {
     "total": 25,
     "passed": 24,
