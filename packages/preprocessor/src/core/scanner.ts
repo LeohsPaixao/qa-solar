@@ -17,6 +17,17 @@ const FRAMEWORK_FILE_PATTERNS: Record<Framework, string[]> = {
 };
 
 /**
+ * Detecta o tipo de teste a partir do nome do framework
+ */
+function detectTypeTest(filePath: string): { type: 'ct' | 'e2e' | 'unit' | 'unknown' } {
+  if (filePath.includes("cypress-ct") || filePath.includes("playwright-ct")) return { type: 'ct' };
+  if (filePath.includes("cypress-e2e") || filePath.includes("playwright-e2e")) return { type: 'e2e' };
+  if (filePath.includes("vitest") || filePath.includes("jest")) return { type: 'unit' };
+  if (filePath.includes("robot-e2e") || filePath.includes("selenium-e2e")) return { type: 'e2e' };
+  return { type: 'unknown' };
+}
+
+/**
  * Verifica se uma string é um timestamp válido
  * Formato esperado: 2025-11-20T15-41-24 ou 2025-11-20-21-39-05
  */
@@ -171,12 +182,16 @@ export async function scanRawDirectory(rawDir: string): Promise<RawFile[]> {
       }
     }
 
+    // Detecta o tipo de teste baseado no caminho
+    const testType = detectTypeTest(mainFile);
+
     // Armazena apenas o mais recente de cada framework
     rawFilesByFramework.set(framework, {
       path: mainFile,
       framework,
       timestamp: latestTimestamp,
-      baseDir
+      baseDir,
+      type: testType.type
     });
   }
 

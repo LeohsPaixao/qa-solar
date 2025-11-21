@@ -97,6 +97,7 @@ export function normalize(parsed: ParsedData): NormalizedFrameworkData {
   return {
     framework: parsed.framework,
     timestamp: parsed.timestamp,
+    type: parsed.type,
     summary,
     tests: normalizedTests,
     metadata: parsed.metadata
