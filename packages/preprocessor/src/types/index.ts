@@ -23,6 +23,11 @@ export type Framework =
 export type TestStatus = 'passed' | 'failed' | 'skipped';
 
 /**
+ * Tipo de teste
+ */
+export type TestType = 'ct' | 'e2e' | 'unit' | 'unknown';
+
+/**
  * Informações sobre um arquivo raw encontrado
  */
 export interface RawFile {
@@ -30,6 +35,7 @@ export interface RawFile {
   framework: Framework;
   timestamp: string;
   baseDir: string;
+  type: TestType;
 }
 
 /**
@@ -72,6 +78,7 @@ export interface FrameworkMetadata {
 export interface NormalizedFrameworkData {
   framework: Framework;
   timestamp: string;
+  type: TestType;
   summary: TestSummary;
   tests: TestResult[];
   metadata?: FrameworkMetadata;
@@ -99,6 +106,7 @@ export interface SummaryData {
 export interface ParsedData {
   framework: Framework;
   timestamp: string;
+  type: TestType;
   raw: unknown;
   tests: unknown[];
   metadata?: FrameworkMetadata;
