@@ -2,4 +2,4 @@
 "preprocessor": patch
 ---
 
-feat: desenvolve o preprocessamento de dados dos testes de cypress
+feat: implementa o loader e parser do framework Cypress no pre-processador
