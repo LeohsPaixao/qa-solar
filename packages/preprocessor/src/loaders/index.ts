@@ -1,8 +1,7 @@
 import { Loader, RawFile } from '../types';
 import { loadCypress } from './loadCypress';
-// Importar outros loaders conforme forem implementados
+import { loadPlaywright } from './loadPlaywright';
 // import { loadJest } from './loadJest';
-// import { loadPlaywright } from './loadPlaywright';
 // import { loadRobot } from './loadRobot';
 // import { loadSelenium } from './loadSelenium';
 // import { loadVitest } from './loadVitest';
@@ -12,6 +11,7 @@ import { loadCypress } from './loadCypress';
  */
 const loaders: Loader[] = [
   loadCypress,
+  loadPlaywright,
   // Adicionar outros loaders conforme forem implementados
 ];
 
