@@ -2,6 +2,8 @@ import path from 'path';
 import { FrameworkMetadata, ParsedData, Parser, RawFile } from '../types';
 import { VitestAssertionResult, VitestData, VitestError, VitestTestResult } from '../types/vitest.types';
 
+const ANSI_ESCAPE_REGEX = new RegExp('\\u001B\\[[0-9;]*m', 'g');
+
 /**
  * Converte duração de milissegundos para segundos
  * @param ms - Duração em milissegundos
@@ -54,13 +56,13 @@ function extractErrorMessage(failureMessages: VitestError[] | string[] | undefin
   const firstItem = failureMessages[0];
 
   if (typeof firstItem === 'string') {
-    return firstItem.replace(/\u001b\[[0-9;]*m/g, '');
+    return firstItem.replace(ANSI_ESCAPE_REGEX, '');
   }
 
   if (firstItem && typeof firstItem === 'object' && 'message' in firstItem) {
     const error = firstItem as VitestError;
     if (error.message) {
-      return error.message.replace(/\u001b\[[0-9;]*m/g, '');
+      return error.message.replace(ANSI_ESCAPE_REGEX, '');
     }
   }
 

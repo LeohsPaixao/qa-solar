@@ -2,4 +2,4 @@
 "preprocessor": patch
 ---
 
-feat: configura um schema com zop para validação do JSONs processados
+feat: configura um schema com zod para validação do JSONs processados

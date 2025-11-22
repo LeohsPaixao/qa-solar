@@ -29,6 +29,8 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
   const normalizedResults: NormalizedFrameworkData[] = [];
   const processedRawFiles: Array<{ path: string; framework: Framework }> = [];
 
+  await cleanProcessedDirectory(config);
+
   for (const rawFile of rawFiles) {
     try {
       const loader = getLoaderFor(rawFile);
@@ -38,22 +40,18 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
       const parsed: ParsedData = await parser.parse(content, rawFile);
 
       const normalized = normalize(parsed);
-      normalizedResults.push(normalized);
-      processedRawFiles.push({
-        path: rawFile.path,
-        framework: rawFile.framework,
-      });
+      const validatedNormalized = normalizedFrameworkDataSchema.safeParse(normalized);
 
-      await cleanProcessedDirectory(config);
-      setTimeout(async () => {
-        const validatedNormalized = normalizedFrameworkDataSchema.safeParse(normalized);
+      if (!validatedNormalized.success) {
+        throw new Error('Invalid normalized data');
+      }
 
-        if (!validatedNormalized.success) {
-          throw new Error('Invalid normalized data');
-        }
+      const normalizedData = validatedNormalized.data as NormalizedFrameworkData;
 
-        await saveProcessedFile(validatedNormalized.data as NormalizedFrameworkData, config);
-      }, 1500);
+      normalizedResults.push(normalizedData);
+      processedRawFiles.push({ path: rawFile.path, framework: rawFile.framework });
+
+      await saveProcessedFile(normalizedData, config);
     } catch (error) {
       if (error instanceof Error && (error.message.includes('No loader found') || error.message.includes('No parser found'))) {
         continue;

@@ -89,9 +89,11 @@ async function findResultFiles(timestampDir: string, framework: Framework): Prom
  * Formato esperado: 2025-11-20-21-39-05
  */
 function normalizeTimestamp(timestamp: string): string {
+  if (timestamp.includes('T')) {
+    return timestamp;
+  }
   return timestamp.replace(/-(\d{2})-(\d{2})-(\d{2})$/, 'T$1-$2-$3');
 }
-
 /**
  * Compara dois timestamps para ordenação (mais recente primeiro)
  */

@@ -1,6 +1,6 @@
 {
   "timestamp": "2025-11-22T02-09-13",
-  "generatedAt": "2025-11-22T06:28:27.623Z",
+  "generatedAt": "2025-11-22T23:36:00.421Z",
   "overall": {
     "total": 414,
     "passed": 410,
@@ -70,13 +70,13 @@
       "vitest.json"
     ],
     "rawFiles": [
-      "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/cypress-ct/2025-11-20T15-39-16/mochawesome.json",
-      "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/cypress-e2e/2025-11-20T15-41-24/mochawesome.json",
-      "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/jest/2025-11-22T02-09-13/results.json",
-      "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/playwright-e2e/2025-11-20T16-17-55/results.json",
-      "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/robot-e2e/2025-11-20-21-39-05/output.xml",
-      "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/selenium-e2e/2025-11-22-03-48-32/TEST-com.qa.solar.ListUsers.xml",
-      "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/vitest/2025-11-21-23-36-14/results.json"
+      "mochawesome.json",
+      "mochawesome.json",
+      "results.json",
+      "results.json",
+      "output.xml",
+      "TEST-com.qa.solar.ListUsers.xml",
+      "results.json"
     ]
   }
 }
