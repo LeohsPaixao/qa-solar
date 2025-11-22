@@ -10,14 +10,7 @@ import { vitestParser } from './vitestParser';
  * Lista de todos os parsers implementados
  * @returns Array de parsers
  */
-const parsers: Parser[] = [
-  cypressParser,
-  playwrightParser,
-  vitestParser,
-  jestParser,
-  robotParser,
-  seleniumParser,
-];
+const parsers: Parser[] = [cypressParser, playwrightParser, vitestParser, jestParser, robotParser, seleniumParser];
 
 /**
  * Seleciona o parser para o arquivo dado
@@ -26,11 +19,11 @@ const parsers: Parser[] = [
  * @throws Error se não encontrar nenhum parser para o arquivo
  */
 export function getParserFor(file: RawFile): Parser {
-  const parser = parsers.find(p => p.canParse(file));
-  
+  const parser = parsers.find((p) => p.canParse(file));
+
   if (!parser) {
     throw new Error(`No parser found for framework: ${file.framework}`);
   }
-  
+
   return parser;
 }

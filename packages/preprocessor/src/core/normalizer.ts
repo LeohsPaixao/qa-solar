@@ -33,9 +33,7 @@ function validateAndConvertTest(test: unknown): TestResult {
     duration_s: testObj.duration_s,
     file: testObj.file,
     tags: Array.isArray(testObj.tags) ? (testObj.tags as string[]) : undefined,
-    error: testObj.error !== undefined 
-      ? (testObj.error === null ? null : String(testObj.error))
-      : undefined
+    error: testObj.error !== undefined ? (testObj.error === null ? null : String(testObj.error)) : undefined,
   };
 }
 
@@ -48,7 +46,7 @@ function calculateSummary(tests: TestResult[]): TestSummary {
     passed: 0,
     failed: 0,
     skipped: 0,
-    duration_s: 0
+    duration_s: 0,
   };
 
   for (const test of tests) {
@@ -94,6 +92,6 @@ export function normalize(parsed: ParsedData): NormalizedFrameworkData {
     type: parsed.type,
     summary,
     tests: normalizedTests,
-    metadata: parsed.metadata
+    metadata: parsed.metadata,
   };
 }

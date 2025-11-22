@@ -24,5 +24,5 @@ export const loadVitest: Loader = {
     } catch (error) {
       throw new Error(`Error loading Vitest results from ${resultsPath}: ${error instanceof Error ? error.message : String(error)}`);
     }
-  }
+  },
 };

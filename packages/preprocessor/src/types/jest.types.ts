@@ -36,8 +36,8 @@ export interface JestSummary {
 }
 
 /**
- * Resultado de um teste individual do Jest 
-*/
+ * Resultado de um teste individual do Jest
+ */
 export interface JestTest {
   name: string;
   duration: number;

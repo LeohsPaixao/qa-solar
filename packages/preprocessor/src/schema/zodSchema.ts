@@ -5,7 +5,7 @@ const byFrameworkSchema = z.object({
   passed: z.number(),
   failed: z.number(),
   skipped: z.number(),
-  duration_s: z.number()
+  duration_s: z.number(),
 });
 
 export const summarySchema = z.object({
@@ -16,13 +16,13 @@ export const summarySchema = z.object({
     passed: z.number(),
     failed: z.number(),
     skipped: z.number(),
-    duration_s: z.number()
+    duration_s: z.number(),
   }),
   byFramework: z.record(z.string(), byFrameworkSchema),
   artifacts: z.object({
     processedFiles: z.array(z.string()),
-    rawFiles: z.array(z.string())
-  })
+    rawFiles: z.array(z.string()),
+  }),
 });
 
 const normalizedSummarySchema = z.object({
@@ -30,17 +30,17 @@ const normalizedSummarySchema = z.object({
   passed: z.number(),
   failed: z.number(),
   skipped: z.number(),
-  duration_s: z.number()
+  duration_s: z.number(),
 });
 
 const normalizedTestsSchema = z.object({
   id: z.string(),
   name: z.string(),
-  status: z.enum(["passed", "failed", "skipped"]),
+  status: z.enum(['passed', 'failed', 'skipped']),
   duration_s: z.number(),
   file: z.string(),
   tags: z.array(z.string()).default([]),
-  error: z.string().optional().nullable()
+  error: z.string().optional().nullable(),
 });
 
 const normalizedMetadataSchema = z.object({
@@ -59,8 +59,8 @@ const normalizedMetadataSchema = z.object({
 export const normalizedFrameworkDataSchema = z.object({
   framework: z.string(),
   timestamp: z.string(),
-  type: z.enum(["unit", "e2e", "ct"]),
+  type: z.enum(['unit', 'e2e', 'ct']),
   summary: normalizedSummarySchema,
   tests: z.array(normalizedTestsSchema),
-  metadata: normalizedMetadataSchema.default({})
+  metadata: normalizedMetadataSchema.default({}),
 });

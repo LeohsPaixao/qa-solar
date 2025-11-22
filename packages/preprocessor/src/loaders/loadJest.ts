@@ -24,5 +24,5 @@ export const loadJest: Loader = {
     } catch (error) {
       throw new Error(`Error loading Jest results from ${resultsPath}: ${error instanceof Error ? error.message : String(error)}`);
     }
-  }
+  },
 };

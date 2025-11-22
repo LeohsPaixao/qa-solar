@@ -73,4 +73,3 @@ export interface VitestError {
 export interface VitestCoverage {
   [key: string]: unknown;
 }
-

@@ -140,4 +140,3 @@ export interface RobotStat {
 export interface RobotErrors {
   msg?: RobotMessage[];
 }
-

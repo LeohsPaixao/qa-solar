@@ -13,12 +13,14 @@ async function findSeleniumFiles(baseDir: string): Promise<string[]> {
   try {
     const entries = await fs.readdir(baseDir, { withFileTypes: true });
     const xmlFiles = entries
-      .filter(entry => {
-        if (!entry.isFile()) return false;
+      .filter((entry) => {
+        if (!entry.isFile()) {
+          return false;
+        }
         const name = entry.name;
         return /^TEST-.*\.xml$/.test(name);
       })
-      .map(entry => path.join(baseDir, entry.name))
+      .map((entry) => path.join(baseDir, entry.name))
       .sort();
 
     files.push(...xmlFiles);
@@ -75,6 +77,5 @@ export const loadSelenium: Loader = {
     }
 
     return loadedFiles;
-  }
+  },
 };
-

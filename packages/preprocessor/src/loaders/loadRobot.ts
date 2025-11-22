@@ -18,10 +18,10 @@ export const loadRobot: Loader = {
     }
 
     try {
-      const content = await fs.readFile(resultsPath, "utf-8");
+      const content = await fs.readFile(resultsPath, 'utf-8');
       return content;
     } catch (error) {
       throw new Error(`Error loading Robot Framework results from ${resultsPath}: ${error instanceof Error ? error.message : String(error)}`);
     }
-  }
-}
+  },
+};

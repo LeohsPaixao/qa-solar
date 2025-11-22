@@ -34,7 +34,7 @@ function mergeMochawesomeFiles(files: MochawesomeData[]): MochawesomeData {
     other: 0,
     hasOther: false,
     skipped: 0,
-    hasSkipped: false
+    hasSkipped: false,
   };
 
   for (const file of files) {
@@ -63,13 +63,12 @@ function mergeMochawesomeFiles(files: MochawesomeData[]): MochawesomeData {
 
   merged.stats = mergedStats;
 
-  merged.results = files.flatMap(file => file.results);
+  merged.results = files.flatMap((file) => file.results);
 
   merged.meta = files[0].meta;
 
   return merged;
 }
-
 
 /**
  * Converte duração de milissegundos para segundos
@@ -88,9 +87,15 @@ function msToSeconds(ms: number): number {
  * @returns Status padronizado
  */
 function mapStateToStatus(state: string, skipped: boolean, pending: boolean): 'passed' | 'failed' | 'skipped' {
-  if (skipped) return 'skipped';
-  if (pending || state === 'pending') return 'skipped';
-  if (state === 'failed') return 'failed';
+  if (skipped) {
+    return 'skipped';
+  }
+  if (pending || state === 'pending') {
+    return 'skipped';
+  }
+  if (state === 'failed') {
+    return 'failed';
+  }
   return 'passed';
 }
 
@@ -100,7 +105,9 @@ function mapStateToStatus(state: string, skipped: boolean, pending: boolean): 'p
  * @returns Mensagem de erro ou null se não houver erro
  */
 function extractErrorMessage(err: { message?: string; estack?: string } | {}): string | null {
-  if (!err || typeof err !== 'object') return null;
+  if (!err || typeof err !== 'object') {
+    return null;
+  }
 
   const errorObj = err as { message?: string; estack?: string };
   if (errorObj.message) {
@@ -137,10 +144,7 @@ function generateTestId(test: MochawesomeTest, filePath: string): string {
  * @param baseFile - Caminho do arquivo base
  * @returns Array de objetos com teste e caminho do arquivo
  */
-function extractTestsFromSuite(
-  suite: MochawesomeSuite,
-  baseFile: string
-): Array<{ test: MochawesomeTest; file: string }> {
+function extractTestsFromSuite(suite: MochawesomeSuite, baseFile: string): Array<{ test: MochawesomeTest; file: string }> {
   const tests: Array<{ test: MochawesomeTest; file: string }> = [];
 
   const suiteFile = suite.fullFile || suite.file || baseFile;
@@ -206,7 +210,7 @@ function parseJsonFiles(jsonStrings: string[]): MochawesomeData[] {
       const parsed = JSON.parse(jsonString) as MochawesomeData;
       parsedFiles.push(parsed);
     } catch (error) {
-      console.error(`Error parsing mochawesome JSON:`, error);
+      console.error('Error parsing mochawesome JSON:', error);
       throw new Error(`Error parsing mochawesome JSON: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
@@ -231,7 +235,7 @@ export const cypressParser: Parser = {
       throw new Error('Invalid mochawesome data: no JSON files provided');
     }
 
-    if (!content.every(item => typeof item === 'string')) {
+    if (!content.every((item) => typeof item === 'string')) {
       throw new Error('Invalid mochawesome data: content array contains non-string items');
     }
 
@@ -247,7 +251,7 @@ export const cypressParser: Parser = {
         duration_s: msToSeconds(test.duration),
         file: path.basename(filePath),
         tags: [],
-        error: extractErrorMessage(test.err)
+        error: extractErrorMessage(test.err),
       };
     });
 
@@ -257,8 +261,7 @@ export const cypressParser: Parser = {
       type: file.type,
       raw: data,
       tests: parsedTests,
-      metadata: extractMetadata(data)
+      metadata: extractMetadata(data),
     };
-  }
+  },
 };
-

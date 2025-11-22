@@ -7,15 +7,7 @@ export interface PreprocessorConfig {
 /**
  * Framework suportado pelo preprocessor
  */
-export type Framework = 
-  | 'cypress-e2e' 
-  | 'cypress-ct' 
-  | 'playwright-e2e' 
-  | 'playwright-ct' 
-  | 'jest' 
-  | 'vitest' 
-  | 'robot-e2e' 
-  | 'selenium-e2e';
+export type Framework = 'cypress-e2e' | 'cypress-ct' | 'playwright-e2e' | 'playwright-ct' | 'jest' | 'vitest' | 'robot-e2e' | 'selenium-e2e';
 
 /**
  * Status de um teste
