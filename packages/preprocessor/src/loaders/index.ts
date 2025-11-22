@@ -3,8 +3,8 @@ import { loadCypress } from './loadCypress';
 import { loadJest } from './loadJest';
 import { loadPlaywright } from './loadPlaywright';
 import { loadRobot } from './loadRobot';
+import { loadSelenium } from './loadSelenium';
 import { loadVitest } from './loadVitest';
-// import { loadSelenium } from './loadSelenium';
 
 
 /**
@@ -16,6 +16,7 @@ const loaders: Loader[] = [
   loadVitest,
   loadJest,
   loadRobot,
+  loadSelenium,
   // Adicionar outros loaders conforme forem implementados
 ];
 
