@@ -1,5 +1,6 @@
 import { getLoaderFor } from '../loaders';
 import { getParserFor } from '../parsers';
+import { normalizedFrameworkDataSchema, summarySchema } from '../schema/zodSchema';
 import { Framework, NormalizedFrameworkData, ParsedData, PreprocessorConfig } from '../types';
 import { cleanProcessedDirectory } from './cleaner';
 import { normalize } from './normalizer';
@@ -45,7 +46,13 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
 
       await cleanProcessedDirectory(config);
       setTimeout(async () => {
-        await saveProcessedFile(normalized, config);
+        const validatedNormalized = normalizedFrameworkDataSchema.safeParse(normalized);
+
+        if (!validatedNormalized.success) {
+          throw new Error('Invalid normalized data');
+        }
+
+        await saveProcessedFile(validatedNormalized.data as NormalizedFrameworkData, config);
       }, 1500);
 
     } catch (error) {
@@ -57,5 +64,11 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
   }
 
   const summary = consolidateSummary(normalizedResults, processedRawFiles);
-  await saveSummaryFile(summary, config);
+  const validatedSummary = summarySchema.safeParse(summary);
+
+  if (!validatedSummary.success) {
+    throw new Error('Invalid summary data');
+  }
+
+  await saveSummaryFile(validatedSummary.data, config);
 }

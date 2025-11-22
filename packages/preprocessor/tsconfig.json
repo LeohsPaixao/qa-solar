@@ -5,6 +5,7 @@
     "target": "ES2021",
     "outDir": "./dist",
     "baseUrl": "./",
+    "strict": true,
     "sourceMap": true,
     "declaration": true,
     "incremental": true,
