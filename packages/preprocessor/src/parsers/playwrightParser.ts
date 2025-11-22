@@ -1,13 +1,6 @@
 import path from 'path';
 import { FrameworkMetadata, ParsedData, Parser, RawFile } from '../types';
-import {
-  PlaywrightData,
-  PlaywrightError,
-  PlaywrightSpec,
-  PlaywrightSuite,
-  PlaywrightTest,
-  PlaywrightTestResult
-} from '../types/playwright.types';
+import { PlaywrightData, PlaywrightError, PlaywrightSpec, PlaywrightSuite, PlaywrightTest, PlaywrightTestResult } from '../types/playwright.types';
 
 /**
  * Converte duração de milissegundos para segundos
@@ -24,8 +17,12 @@ function msToSeconds(ms: number): number {
  * @returns Status padronizado
  */
 function mapStatusToStandard(status: 'passed' | 'failed' | 'skipped' | 'timedOut'): 'passed' | 'failed' | 'skipped' {
-  if (status === 'passed') return 'passed';
-  if (status === 'failed' || status === 'timedOut') return 'failed';
+  if (status === 'passed') {
+    return 'passed';
+  }
+  if (status === 'failed' || status === 'timedOut') {
+    return 'failed';
+  }
   return 'skipped';
 }
 
@@ -36,7 +33,9 @@ function mapStatusToStandard(status: 'passed' | 'failed' | 'skipped' | 'timedOut
  * @returns Mensagem de erro limpa ou null se não houver erro
  */
 function extractErrorMessage(error: PlaywrightError | undefined): string | null {
-  if (!error) return null;
+  if (!error) {
+    return null;
+  }
 
   if (error.message) {
     return error.message.replace(/\u001b\[[0-9;]*m/g, '');
@@ -54,10 +53,14 @@ function extractErrorMessage(error: PlaywrightError | undefined): string | null 
  * @returns Mensagem de erro limpa ou null se não houver erro
  */
 function extractMainError(errors: PlaywrightError[]): string | null {
-  if (errors.length === 0) return null;
+  if (errors.length === 0) {
+    return null;
+  }
   for (const error of errors) {
     const message = extractErrorMessage(error);
-    if (message) return message;
+    if (message) {
+      return message;
+    }
   }
   return null;
 }
@@ -84,7 +87,9 @@ function generateTestId(spec: PlaywrightSpec, filePath: string): string {
  * @returns Resultado final do teste ou null se não houver resultados
  */
 function getFinalResult(test: PlaywrightTest): PlaywrightTestResult | null {
-  if (test.results.length === 0) return null;
+  if (test.results.length === 0) {
+    return null;
+  }
   return test.results[test.results.length - 1];
 }
 
@@ -145,7 +150,6 @@ export const playwrightParser: Parser = {
       throw new Error('Invalid playwright data: missing stats or suites');
     }
 
-
     const allSpecs = extractAllSpecs(data.suites);
     const parsedTests: unknown[] = [];
 
@@ -171,7 +175,7 @@ export const playwrightParser: Parser = {
           duration_s: msToSeconds(finalResult.duration),
           file: path.basename(filePath),
           tags: spec.tags || [],
-          error
+          error,
         });
       }
     }
@@ -182,7 +186,7 @@ export const playwrightParser: Parser = {
       type: file.type,
       raw: data,
       tests: parsedTests,
-      metadata: extractMetadata(data)
+      metadata: extractMetadata(data),
     };
-  }
+  },
 };

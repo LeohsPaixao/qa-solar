@@ -41,7 +41,7 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
       normalizedResults.push(normalized);
       processedRawFiles.push({
         path: rawFile.path,
-        framework: rawFile.framework
+        framework: rawFile.framework,
       });
 
       await cleanProcessedDirectory(config);
@@ -54,7 +54,6 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
 
         await saveProcessedFile(validatedNormalized.data as NormalizedFrameworkData, config);
       }, 1500);
-
     } catch (error) {
       if (error instanceof Error && (error.message.includes('No loader found') || error.message.includes('No parser found'))) {
         continue;

@@ -96,4 +96,3 @@ export interface SeleniumSkipped {
 export interface MergedSeleniumData {
   testsuites: SeleniumTestSuite[];
 }
-

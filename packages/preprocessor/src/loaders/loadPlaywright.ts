@@ -24,5 +24,5 @@ export const loadPlaywright: Loader = {
     } catch (error) {
       throw new Error(`Error loading Playwright results from ${resultsPath}: ${error instanceof Error ? error.message : String(error)}`);
     }
-  }
+  },
 };

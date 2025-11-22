@@ -7,13 +7,13 @@ import { PreprocessorConfig } from '../types';
  */
 function findWorkspaceRoot(): string {
   let currentDir = process.cwd();
-  
+
   while (currentDir !== path.dirname(currentDir)) {
     const qaResultsPath = path.join(currentDir, 'qa-results');
     if (fs.existsSync(qaResultsPath)) {
       return currentDir;
     }
-    
+
     const packageJsonPath = path.join(currentDir, 'package.json');
     if (fs.existsSync(packageJsonPath)) {
       try {
@@ -21,13 +21,12 @@ function findWorkspaceRoot(): string {
         if (packageJson.workspaces && Array.isArray(packageJson.workspaces)) {
           return currentDir;
         }
-      } catch {
-      }
+      } catch {}
     }
-    
+
     currentDir = path.dirname(currentDir);
   }
-  
+
   return process.cwd();
 }
 
@@ -37,5 +36,5 @@ function findWorkspaceRoot(): string {
 export const defaultConfig: PreprocessorConfig = {
   rawDir: path.join(findWorkspaceRoot(), 'qa-results', 'raw'),
   processedDir: path.join(findWorkspaceRoot(), 'qa-results', 'processed'),
-  logLevel: 'normal'
+  logLevel: 'normal',
 };

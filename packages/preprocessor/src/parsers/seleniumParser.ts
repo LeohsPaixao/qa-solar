@@ -18,7 +18,7 @@ async function convertXmlToJson(xmlContent: string): Promise<SeleniumData> {
       normalizeTags: false,
       attrkey: '$',
       charkey: '_',
-      explicitRoot: true
+      explicitRoot: true,
     });
 
     return jsonData as SeleniumData;
@@ -121,9 +121,7 @@ function extractErrorMessage(testCase: SeleniumTestCase): string | null {
  * @returns ID único para o teste
  */
 function generateTestId(testCase: SeleniumTestCase): string {
-  const className = testCase.$.classname
-    .split('.')
-    .pop() || 'unknown';
+  const className = testCase.$.classname.split('.').pop() || 'unknown';
 
   const testName = testCase.$.name
     .toLowerCase()
@@ -190,8 +188,7 @@ export const seleniumParser: Parser = {
     const parsedTests: unknown[] = [];
 
     for (const suite of mergedData.testsuites) {
-
-      const testCases = Array.isArray(suite.testcase) ? suite.testcase : (suite.testcase ? [suite.testcase] : []);
+      const testCases = Array.isArray(suite.testcase) ? suite.testcase : suite.testcase ? [suite.testcase] : [];
 
       if (testCases.length === 0) {
         continue;
@@ -205,7 +202,7 @@ export const seleniumParser: Parser = {
           duration_s: secondsToSeconds(testCase.$.time),
           file: extractFileName(testCase.$.classname),
           tags: [],
-          error: extractErrorMessage(testCase)
+          error: extractErrorMessage(testCase),
         });
       }
     }
@@ -216,8 +213,7 @@ export const seleniumParser: Parser = {
       type: file.type,
       raw: mergedData,
       tests: parsedTests,
-      metadata: extractMetadata(mergedData)
+      metadata: extractMetadata(mergedData),
     };
-  }
+  },
 };
-

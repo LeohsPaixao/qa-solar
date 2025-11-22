@@ -8,22 +8,30 @@ import { Framework, RawFile } from '../types';
 const FRAMEWORK_FILE_PATTERNS: Record<Framework, string[]> = {
   'cypress-e2e': ['mochawesome.json', 'mochawesome_*.json'],
   'cypress-ct': ['mochawesome.json', 'mochawesome_*.json'],
-  'jest': ['results.json'],
+  jest: ['results.json'],
   'playwright-e2e': ['results.json'],
   'playwright-ct': ['results.json'],
   'robot-e2e': ['output.xml'],
   'selenium-e2e': ['TEST-*.xml'],
-  'vitest': ['results.json']
+  vitest: ['results.json'],
 };
 
 /**
  * Detecta o tipo de teste a partir do nome do framework
  */
 function detectTypeTest(filePath: string): { type: 'ct' | 'e2e' | 'unit' | 'unknown' } {
-  if (filePath.includes("cypress-ct") || filePath.includes("playwright-ct")) return { type: 'ct' };
-  if (filePath.includes("cypress-e2e") || filePath.includes("playwright-e2e")) return { type: 'e2e' };
-  if (filePath.includes("vitest") || filePath.includes("jest")) return { type: 'unit' };
-  if (filePath.includes("robot-e2e") || filePath.includes("selenium-e2e")) return { type: 'e2e' };
+  if (filePath.includes('cypress-ct') || filePath.includes('playwright-ct')) {
+    return { type: 'ct' };
+  }
+  if (filePath.includes('cypress-e2e') || filePath.includes('playwright-e2e')) {
+    return { type: 'e2e' };
+  }
+  if (filePath.includes('vitest') || filePath.includes('jest')) {
+    return { type: 'unit' };
+  }
+  if (filePath.includes('robot-e2e') || filePath.includes('selenium-e2e')) {
+    return { type: 'e2e' };
+  }
   return { type: 'unknown' };
 }
 
@@ -40,16 +48,7 @@ function isValidTimestamp(timestamp: string): boolean {
  * Extrai o framework do caminho do diretório
  */
 function extractFramework(dirName: string): Framework | null {
-  const frameworks: Framework[] = [
-    'cypress-e2e',
-    'cypress-ct',
-    'playwright-e2e',
-    'playwright-ct',
-    'jest',
-    'vitest',
-    'robot-e2e',
-    'selenium-e2e'
-  ];
+  const frameworks: Framework[] = ['cypress-e2e', 'cypress-ct', 'playwright-e2e', 'playwright-ct', 'jest', 'vitest', 'robot-e2e', 'selenium-e2e'];
 
   return frameworks.includes(dirName as Framework) ? (dirName as Framework) : null;
 }
@@ -58,9 +57,7 @@ function extractFramework(dirName: string): Framework | null {
  * Verifica se um arquivo corresponde a um padrão
  */
 function matchesPattern(fileName: string, pattern: string): boolean {
-  const regexPattern = pattern
-    .replace(/\*/g, '.*')
-    .replace(/\?/g, '.');
+  const regexPattern = pattern.replace(/\*/g, '.*').replace(/\?/g, '.');
   const regex = new RegExp(`^${regexPattern}$`);
   return regex.test(fileName);
 }
@@ -68,15 +65,12 @@ function matchesPattern(fileName: string, pattern: string): boolean {
 /**
  * Encontra arquivos de resultado em um diretório de timestamp
  */
-async function findResultFiles(
-  timestampDir: string,
-  framework: Framework
-): Promise<string[]> {
+async function findResultFiles(timestampDir: string, framework: Framework): Promise<string[]> {
   const patterns = FRAMEWORK_FILE_PATTERNS[framework];
   const foundFiles: string[] = [];
 
   const entries = await fs.readdir(timestampDir, { withFileTypes: true });
-  const files = entries.filter(entry => entry.isFile());
+  const files = entries.filter((entry) => entry.isFile());
 
   for (const file of files) {
     for (const pattern of patterns) {
@@ -120,11 +114,11 @@ export async function scanRawDirectory(rawDir: string): Promise<RawFile[]> {
   }
 
   const entries = await fs.readdir(rawDir, { withFileTypes: true });
-  const frameworkDirs = entries.filter(entry => entry.isDirectory());
+  const frameworkDirs = entries.filter((entry) => entry.isDirectory());
 
   for (const frameworkDir of frameworkDirs) {
     const framework = extractFramework(frameworkDir.name);
-    
+
     if (!framework) {
       continue;
     }
@@ -133,9 +127,9 @@ export async function scanRawDirectory(rawDir: string): Promise<RawFile[]> {
     const timestampEntries = await fs.readdir(frameworkPath, { withFileTypes: true });
 
     const timestampDirs = timestampEntries
-      .filter(entry => entry.isDirectory())
-      .map(entry => entry.name)
-      .filter(timestamp => isValidTimestamp(timestamp))
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .filter((timestamp) => isValidTimestamp(timestamp))
       .sort(compareTimestamps);
 
     if (timestampDirs.length === 0) {
@@ -154,9 +148,7 @@ export async function scanRawDirectory(rawDir: string): Promise<RawFile[]> {
     let mainFile = resultFiles[0];
 
     if (framework === 'cypress-e2e' || framework === 'cypress-ct') {
-      const mainMochawesome = resultFiles.find(f =>
-        path.basename(f) === 'mochawesome.json'
-      );
+      const mainMochawesome = resultFiles.find((f) => path.basename(f) === 'mochawesome.json');
       if (mainMochawesome) {
         mainFile = mainMochawesome;
       }
@@ -169,7 +161,7 @@ export async function scanRawDirectory(rawDir: string): Promise<RawFile[]> {
       framework,
       timestamp: latestTimestamp,
       baseDir,
-      type: testType.type
+      type: testType.type,
     });
   }
 

@@ -20,7 +20,7 @@ async function convertXmlToJson(xmlContent: string): Promise<RobotData> {
       normalizeTags: false,
       attrkey: '$',
       charkey: '_',
-      explicitRoot: true
+      explicitRoot: true,
     });
 
     return jsonData as RobotData;
@@ -55,9 +55,15 @@ function secondsToSeconds(seconds: string | number | undefined | null): number {
  * @returns Status padronizado
  */
 function mapStatusToStandard(status: 'PASS' | 'FAIL' | 'SKIP' | 'NOT RUN' | string): 'passed' | 'failed' | 'skipped' {
-  if (status === 'PASS') return 'passed';
-  if (status === 'FAIL') return 'failed';
-  if (status === 'SKIP' || status === 'NOT RUN') return 'skipped';
+  if (status === 'PASS') {
+    return 'passed';
+  }
+  if (status === 'FAIL') {
+    return 'failed';
+  }
+  if (status === 'SKIP' || status === 'NOT RUN') {
+    return 'skipped';
+  }
   return 'failed';
 }
 
@@ -130,7 +136,9 @@ function generateTestId(test: RobotTest, filePath: string): string {
  * @returns Nome do arquivo (retorna 'unknown.robot' se não houver source)
  */
 function extractFileName(source: string | undefined): string {
-  if (!source) return 'unknown.robot';
+  if (!source) {
+    return 'unknown.robot';
+  }
   return path.basename(source);
 }
 
@@ -213,7 +221,7 @@ export const robotParser: Parser = {
         duration_s: secondsToSeconds(status.$.elapsed),
         file: filePath,
         tags: test.tag || [],
-        error: extractErrorMessage(test)
+        error: extractErrorMessage(test),
       });
     }
 
@@ -223,7 +231,7 @@ export const robotParser: Parser = {
       type: file.type,
       raw: data,
       tests: parsedTests,
-      metadata: extractMetadata(data)
+      metadata: extractMetadata(data),
     };
-  }
+  },
 };

@@ -19,12 +19,24 @@ function msToSeconds(ms: number | undefined | null): number {
  * @param status - Status do teste
  * @returns Status padronizado
  */
-function mapStatusToStandard(status: 'passed' | 'failed' | 'pending' | 'skipped' | 'todo' | 'unknown'): 'passed' | 'failed' | 'skipped' | 'pending' | 'todo' | 'unknown' {
-  if (status === 'passed') return 'passed';
-  if (status === 'failed') return 'failed';
-  if (status === 'pending') return 'pending';
-  if (status === 'skipped') return 'skipped';
-  if (status === 'todo') return 'todo';
+function mapStatusToStandard(
+  status: 'passed' | 'failed' | 'pending' | 'skipped' | 'todo' | 'unknown',
+): 'passed' | 'failed' | 'skipped' | 'pending' | 'todo' | 'unknown' {
+  if (status === 'passed') {
+    return 'passed';
+  }
+  if (status === 'failed') {
+    return 'failed';
+  }
+  if (status === 'pending') {
+    return 'pending';
+  }
+  if (status === 'skipped') {
+    return 'skipped';
+  }
+  if (status === 'todo') {
+    return 'todo';
+  }
   return 'unknown';
 }
 
@@ -113,7 +125,7 @@ export const jestParser: Parser = {
         duration_s: msToSeconds(test.duration),
         file: filePath,
         tags: [],
-        error: extractErrorMessage(test.message)
+        error: extractErrorMessage(test.message),
       });
     }
     return {
@@ -122,7 +134,7 @@ export const jestParser: Parser = {
       type: file.type,
       raw: data,
       tests: parsedTests,
-      metadata: extractMetadata(data)
+      metadata: extractMetadata(data),
     };
-  }
-}
+  },
+};

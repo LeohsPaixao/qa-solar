@@ -8,15 +8,12 @@ import { Framework, NormalizedFrameworkData, PreprocessorConfig, SummaryData, Te
  * @param config - a configuração do preprocessador
  * @returns void
  */
-export async function saveProcessedFile(
-  normalized: NormalizedFrameworkData, 
-  config: PreprocessorConfig
-): Promise<void> {
+export async function saveProcessedFile(normalized: NormalizedFrameworkData, config: PreprocessorConfig): Promise<void> {
   const { processedDir } = config;
 
   const fileName = `${normalized.framework}.json`;
   const filePath = path.join(processedDir, fileName);
-  
+
   await fs.writeJSON(filePath, normalized, { spaces: 2 });
 }
 
@@ -28,7 +25,7 @@ export async function saveProcessedFile(
  */
 export function consolidateSummary(
   normalizedResults: NormalizedFrameworkData[],
-  rawFiles: Array<{ path: string; framework: Framework }>
+  rawFiles: Array<{ path: string; framework: Framework }>,
 ): SummaryData {
   const byFramework: Record<Framework, TestSummary> = {} as Record<Framework, TestSummary>;
   const overall: TestSummary = {
@@ -36,7 +33,7 @@ export function consolidateSummary(
     passed: 0,
     failed: 0,
     skipped: 0,
-    duration_s: 0
+    duration_s: 0,
   };
 
   for (const normalized of normalizedResults) {
@@ -49,7 +46,10 @@ export function consolidateSummary(
     overall.duration_s += normalized.summary.duration_s;
   }
 
-  const timestamps = normalizedResults.map(r => r.timestamp).sort().reverse();
+  const timestamps = normalizedResults
+    .map((r) => r.timestamp)
+    .sort()
+    .reverse();
   const latestTimestamp = timestamps[0];
 
   let timestamp: string;
@@ -66,8 +66,8 @@ export function consolidateSummary(
     timestamp = `${year}-${month}-${day}T${hours}-${minutes}-${seconds}`;
   }
 
-  const processedFiles = normalizedResults.map(r => `${r.framework}.json`);
-  const rawFilesList = rawFiles.map(f => f.path);
+  const processedFiles = normalizedResults.map((r) => `${r.framework}.json`);
+  const rawFilesList = rawFiles.map((f) => f.path);
 
   return {
     timestamp,
@@ -76,8 +76,8 @@ export function consolidateSummary(
     byFramework,
     artifacts: {
       processedFiles,
-      rawFiles: rawFilesList
-    }
+      rawFiles: rawFilesList,
+    },
   };
 }
 
@@ -87,10 +87,7 @@ export function consolidateSummary(
  * @param config - a configuração do preprocessador
  * @returns void
  */
-export async function saveSummaryFile(
-  summary: SummaryData,
-  config: PreprocessorConfig
-): Promise<void> {
+export async function saveSummaryFile(summary: SummaryData, config: PreprocessorConfig): Promise<void> {
   const { processedDir } = config;
 
   const fileName = 'summary.json';

@@ -19,12 +19,24 @@ function msToSeconds(ms: number | undefined | null): number {
  * @param status - Status do Vitest
  * @returns Status padronizado
  */
-function mapStatusToStandard(status: 'passed' | 'failed' | 'pending' | 'skipped' | 'todo'): 'passed' | 'failed' | 'skipped' | 'pending' | 'todo' | 'unknown' {
-  if (status === 'passed') return 'passed';
-  if (status === 'failed') return 'failed';
-  if (status === 'pending') return 'pending';
-  if (status === 'skipped') return 'skipped';
-  if (status === 'todo') return 'todo';
+function mapStatusToStandard(
+  status: 'passed' | 'failed' | 'pending' | 'skipped' | 'todo',
+): 'passed' | 'failed' | 'skipped' | 'pending' | 'todo' | 'unknown' {
+  if (status === 'passed') {
+    return 'passed';
+  }
+  if (status === 'failed') {
+    return 'failed';
+  }
+  if (status === 'pending') {
+    return 'pending';
+  }
+  if (status === 'skipped') {
+    return 'skipped';
+  }
+  if (status === 'todo') {
+    return 'todo';
+  }
   return 'unknown';
 }
 
@@ -35,8 +47,10 @@ function mapStatusToStandard(status: 'passed' | 'failed' | 'pending' | 'skipped'
  * @returns Mensagem de erro limpa ou null se não houver erro
  */
 function extractErrorMessage(failureMessages: VitestError[] | string[] | undefined): string | null {
-  if (!failureMessages || failureMessages.length === 0) return null;
-  
+  if (!failureMessages || failureMessages.length === 0) {
+    return null;
+  }
+
   const firstItem = failureMessages[0];
 
   if (typeof firstItem === 'string') {
@@ -49,7 +63,7 @@ function extractErrorMessage(failureMessages: VitestError[] | string[] | undefin
       return error.message.replace(/\u001b\[[0-9;]*m/g, '');
     }
   }
-  
+
   return null;
 }
 
@@ -124,7 +138,7 @@ export const vitestParser: Parser = {
         status: mapStatusToStandard(assertionResult.status),
         duration_s: msToSeconds(assertionResult.duration),
         file: filePath,
-        error: extractErrorMessage(assertionResult.failureMessages)
+        error: extractErrorMessage(assertionResult.failureMessages),
       });
     }
     return {
@@ -133,7 +147,7 @@ export const vitestParser: Parser = {
       type: file.type,
       raw: data,
       tests: parsedTests,
-      metadata: extractMetadata(data)
+      metadata: extractMetadata(data),
     };
-  }
-}
+  },
+};

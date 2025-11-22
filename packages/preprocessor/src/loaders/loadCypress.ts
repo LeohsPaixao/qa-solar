@@ -17,12 +17,14 @@ async function findMochawesomeFiles(baseDir: string): Promise<string[]> {
 
   const entries = await fs.readdir(baseDir, { withFileTypes: true });
   const partialFiles = entries
-    .filter(entry => {
-      if (!entry.isFile()) return false;
+    .filter((entry) => {
+      if (!entry.isFile()) {
+        return false;
+      }
       const name = entry.name;
       return /^mochawesome_\d+\.json$/.test(name);
     })
-    .map(entry => path.join(baseDir, entry.name))
+    .map((entry) => path.join(baseDir, entry.name))
     .sort();
 
   files.push(...partialFiles);
@@ -76,6 +78,5 @@ export const loadCypress: Loader = {
     }
 
     return loadedFiles;
-  }
+  },
 };
-
