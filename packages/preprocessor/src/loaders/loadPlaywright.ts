@@ -5,7 +5,6 @@ import { PlaywrightData } from '../types/playwright.types';
 
 /**
  * Loader para arquivos Playwright (results.json)
- * O Playwright gera apenas um arquivo results.json por execução
  */
 export const loadPlaywright: Loader = {
   canLoad(file: RawFile): boolean {

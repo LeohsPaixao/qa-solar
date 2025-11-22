@@ -5,7 +5,6 @@ import { VitestData } from '../types/vitest.types';
 
 /**
  * Loader para arquivos Vitest (results.json)
- * O Vitest gera apenas um arquivo results.json por execução
  */
 export const loadVitest: Loader = {
   canLoad(file: RawFile): boolean {

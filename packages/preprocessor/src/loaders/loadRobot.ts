@@ -3,9 +3,7 @@ import path from 'path';
 import { Loader, RawFile } from '../types';
 
 /**
- * Carrega o arquivo XML do Robot Framework
- * @param file - Arquivo raw do Robot Framework
- * @returns Conteúdo XML como string
+ * Loader para arquivos Robot Framework (output.xml)
  */
 export const loadRobot: Loader = {
   canLoad(file: RawFile): boolean {
