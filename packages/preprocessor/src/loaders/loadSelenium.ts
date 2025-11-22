@@ -3,8 +3,9 @@ import path from 'path';
 import { Loader, RawFile } from '../types';
 
 /**
- * Encontra todos os arquivos XML do Selenium no diretório
- * Padrão: TEST-*.xml
+ * Encontra todos os arquivos XML do Selenium no diretório (TEST-*.xml)
+ * @param baseDir - Diretório base para buscar os arquivos
+ * @returns Array de strings com os caminhos dos arquivos encontrados
  */
 async function findSeleniumFiles(baseDir: string): Promise<string[]> {
   const files: string[] = [];
@@ -18,7 +19,7 @@ async function findSeleniumFiles(baseDir: string): Promise<string[]> {
         return /^TEST-.*\.xml$/.test(name);
       })
       .map(entry => path.join(baseDir, entry.name))
-      .sort(); // Ordena para garantir ordem consistente
+      .sort();
 
     files.push(...xmlFiles);
   } catch (error) {
@@ -30,6 +31,8 @@ async function findSeleniumFiles(baseDir: string): Promise<string[]> {
 
 /**
  * Carrega um arquivo XML do Selenium como string
+ * @param filePath - Caminho do arquivo XML
+ * @returns String com o conteúdo do arquivo XML ou null se não existir
  */
 async function loadSeleniumFile(filePath: string): Promise<string | null> {
   try {
@@ -46,7 +49,6 @@ async function loadSeleniumFile(filePath: string): Promise<string | null> {
 
 /**
  * Loader para arquivos Selenium (TEST-*.xml)
- * Retorna array de strings XML (um para cada arquivo)
  */
 export const loadSelenium: Loader = {
   canLoad(file: RawFile): boolean {
@@ -54,14 +56,12 @@ export const loadSelenium: Loader = {
   },
 
   async load(file: RawFile): Promise<string[]> {
-    // Encontra todos os arquivos XML do Selenium no diretório base
     const seleniumFiles = await findSeleniumFiles(file.baseDir);
 
     if (seleniumFiles.length === 0) {
       throw new Error(`No Selenium XML files (TEST-*.xml) found in ${file.baseDir}`);
     }
 
-    // Carrega todos os arquivos
     const loadedFiles: string[] = [];
     for (const filePath of seleniumFiles) {
       const content = await loadSeleniumFile(filePath);

@@ -9,6 +9,7 @@ import { loadVitest } from './loadVitest';
 
 /**
  * Lista de todos os loaders disponíveis
+ * @returns Array de loaders
  */
 const loaders: Loader[] = [
   loadCypress,
@@ -17,13 +18,13 @@ const loaders: Loader[] = [
   loadJest,
   loadRobot,
   loadSelenium,
-  // Adicionar outros loaders conforme forem implementados
 ];
 
 /**
- * Get the loader for the given file
- * @param file - the file to get the loader for
- * @returns the loader
+ * Seleciona o loader para o arquivo dado
+ * @param file - Arquivo para selecionar o loader
+ * @returns Loader selecionado
+ * @throws Error se não encontrar nenhum loader para o arquivo
  */
 export function getLoaderFor(file: RawFile): Loader {
   const loader = loaders.find(l => l.canLoad(file));

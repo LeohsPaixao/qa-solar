@@ -11,6 +11,8 @@ import {
 
 /**
  * Converte duração de milissegundos para segundos
+ * @param ms - Duração em milissegundos
+ * @returns Duração em segundos
  */
 function msToSeconds(ms: number): number {
   return ms / 1000;
@@ -18,6 +20,8 @@ function msToSeconds(ms: number): number {
 
 /**
  * Converte o status do Playwright para o status padronizado
+ * @param status - Status do Playwright
+ * @returns Status padronizado
  */
 function mapStatusToStandard(status: 'passed' | 'failed' | 'skipped' | 'timedOut'): 'passed' | 'failed' | 'skipped' {
   if (status === 'passed') return 'passed';
@@ -26,13 +30,15 @@ function mapStatusToStandard(status: 'passed' | 'failed' | 'skipped' | 'timedOut
 }
 
 /**
- * Extrai mensagem de erro do objeto error do Playwright
+ * Extrai e limpa mensagem de erro do objeto error do Playwright
+ * Remove códigos ANSI das mensagens
+ * @param error - Erro do Playwright
+ * @returns Mensagem de erro limpa ou null se não houver erro
  */
 function extractErrorMessage(error: PlaywrightError | undefined): string | null {
   if (!error) return null;
 
   if (error.message) {
-    // Remove códigos ANSI de cor se presentes
     return error.message.replace(/\u001b\[[0-9;]*m/g, '');
   }
   if (error.stack) {
@@ -44,10 +50,11 @@ function extractErrorMessage(error: PlaywrightError | undefined): string | null 
 
 /**
  * Extrai o erro principal de um array de erros
+ * @param errors - Array de erros do Playwright
+ * @returns Mensagem de erro limpa ou null se não houver erro
  */
 function extractMainError(errors: PlaywrightError[]): string | null {
   if (errors.length === 0) return null;
-  // Pega o primeiro erro que tem mensagem
   for (const error of errors) {
     const message = extractErrorMessage(error);
     if (message) return message;
@@ -58,6 +65,9 @@ function extractMainError(errors: PlaywrightError[]): string | null {
 /**
  * Gera ID único para o teste
  * Formato: fileName:specTitle
+ * @param spec - Spec do Playwright
+ * @param filePath - Caminho do arquivo
+ * @returns ID único para o teste
  */
 function generateTestId(spec: PlaywrightSpec, filePath: string): string {
   const fileName = path.basename(filePath, path.extname(filePath));
@@ -69,16 +79,19 @@ function generateTestId(spec: PlaywrightSpec, filePath: string): string {
 }
 
 /**
- * Obtém o resultado final de um teste (último resultado ou o que não é retry)
+ * Obtém o resultado final de um teste (último resultado)
+ * @param test - Teste do Playwright
+ * @returns Resultado final do teste ou null se não houver resultados
  */
 function getFinalResult(test: PlaywrightTest): PlaywrightTestResult | null {
   if (test.results.length === 0) return null;
-  // Retorna o último resultado (pode ser um retry)
   return test.results[test.results.length - 1];
 }
 
 /**
  * Extrai todos os specs de todas as suites
+ * @param suites - Suites do Playwright
+ * @returns Array de objetos com spec e caminho do arquivo
  */
 function extractAllSpecs(suites: PlaywrightSuite[]): Array<{ spec: PlaywrightSpec; file: string }> {
   const allSpecs: Array<{ spec: PlaywrightSpec; file: string }> = [];
@@ -97,6 +110,8 @@ function extractAllSpecs(suites: PlaywrightSuite[]): Array<{ spec: PlaywrightSpe
 
 /**
  * Extrai metadados do Playwright se disponível
+ * @param data - Dados do Playwright
+ * @returns Metadados do Playwright ou undefined
  */
 function extractMetadata(data: PlaywrightData): FrameworkMetadata | undefined {
   const metadata: FrameworkMetadata = {};
@@ -135,19 +150,13 @@ export const playwrightParser: Parser = {
     const parsedTests: unknown[] = [];
 
     for (const { spec, file: filePath } of allSpecs) {
-      // Cada spec pode ter múltiplos tests (devido a retries ou diferentes projetos)
       for (const test of spec.tests) {
         const finalResult = getFinalResult(test);
 
         if (!finalResult) {
-          // Teste sem resultados, pula
           continue;
         }
 
-        // Determina o status baseado no resultado final
-        const status = mapStatusToStandard(finalResult.status);
-
-        // Extrai erro se houver
         let error: string | null = null;
         if (finalResult.error) {
           error = extractErrorMessage(finalResult.error);
@@ -158,7 +167,7 @@ export const playwrightParser: Parser = {
         parsedTests.push({
           id: generateTestId(spec, filePath),
           name: spec.title,
-          status,
+          status: mapStatusToStandard(finalResult.status),
           duration_s: msToSeconds(finalResult.duration),
           file: path.basename(filePath),
           tags: spec.tags || [],

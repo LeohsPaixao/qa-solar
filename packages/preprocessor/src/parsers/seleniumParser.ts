@@ -29,13 +29,16 @@ async function convertXmlToJson(xmlContent: string): Promise<SeleniumData> {
 
 /**
  * Converte múltiplos XMLs do Selenium para JSON e faz merge
+ * @param xmlContents - Array de strings XML
+ * @returns Dados do Selenium convertidos para JSON
+ * @throws Error se não conseguir converter XML para JSON
+ * @throws Error se não conseguir fazer merge dos XMLs
  */
 async function convertAndMergeXmls(xmlContents: string[]): Promise<MergedSeleniumData> {
   const testsuites: SeleniumTestSuite[] = [];
 
   for (const xmlContent of xmlContents) {
     const data = await convertXmlToJson(xmlContent);
-    // Extrai apenas o testsuite de cada SeleniumData
     if (data.testsuite) {
       testsuites.push(data.testsuite);
     }
@@ -45,8 +48,10 @@ async function convertAndMergeXmls(xmlContents: string[]): Promise<MergedSeleniu
 }
 
 /**
- * Converte duração de segundos (Selenium usa segundos) para segundos
- * O Selenium já retorna em segundos, então apenas valida
+ * Converte duração de segundos para segundos (validação)
+ * O Selenium já retorna em segundos
+ * @param seconds - Duração em segundos (string ou number)
+ * @returns Duração em segundos (retorna 0 se inválido)
  */
 function secondsToSeconds(seconds: string | number | undefined | null): number {
   if (seconds === undefined || seconds === null) {
@@ -64,30 +69,30 @@ function secondsToSeconds(seconds: string | number | undefined | null): number {
 
 /**
  * Converte status do Selenium para status padronizado
+ * @param testCase - Teste do Selenium
+ * @returns Status padronizado
  */
 function mapStatusToStandard(testCase: SeleniumTestCase): 'passed' | 'failed' | 'skipped' {
-  // Se tem failure ou error, é failed
   if (testCase.failure && testCase.failure.length > 0) {
     return 'failed';
   }
   if (testCase.error && testCase.error.length > 0) {
     return 'failed';
   }
-  // Se tem skipped, é skipped
   if (testCase.skipped && testCase.skipped.length > 0) {
     return 'skipped';
   }
-  // Caso contrário, é passed
   return 'passed';
 }
 
 /**
  * Extrai mensagem de erro do teste do Selenium
+ * @param testCase - Teste do Selenium
+ * @returns Mensagem de erro ou null se não houver erro
  */
 function extractErrorMessage(testCase: SeleniumTestCase): string | null {
   const errorMessages: string[] = [];
 
-  // Extrai mensagens de failure
   if (testCase.failure && testCase.failure.length > 0) {
     for (const failure of testCase.failure) {
       const message = failure.$?.message || failure._ || '';
@@ -97,7 +102,6 @@ function extractErrorMessage(testCase: SeleniumTestCase): string | null {
     }
   }
 
-  // Extrai mensagens de error
   if (testCase.error && testCase.error.length > 0) {
     for (const error of testCase.error) {
       const message = error.$?.message || error._ || '';
@@ -113,11 +117,13 @@ function extractErrorMessage(testCase: SeleniumTestCase): string | null {
 /**
  * Gera ID único para o teste
  * Formato: className:testName
+ * @param testCase - Teste do Selenium
+ * @returns ID único para o teste
  */
 function generateTestId(testCase: SeleniumTestCase): string {
   const className = testCase.$.classname
     .split('.')
-    .pop() || 'unknown'; // Pega apenas o último segmento (nome da classe)
+    .pop() || 'unknown';
 
   const testName = testCase.$.name
     .toLowerCase()
@@ -129,10 +135,10 @@ function generateTestId(testCase: SeleniumTestCase): string {
 
 /**
  * Extrai o nome do arquivo do classname
+ * @param classname - Nome da classe (ex: com.qa.solar.LoginTest)
+ * @returns Nome do arquivo (ex: LoginTest.java)
  */
 function extractFileName(classname: string): string {
-  // O classname é algo como "com.qa.solar.LoginTest"
-  // Extrai apenas o nome da classe (último segmento)
   const parts = classname.split('.');
   const className = parts[parts.length - 1] || 'unknown';
   return `${className}.java`;
@@ -140,11 +146,12 @@ function extractFileName(classname: string): string {
 
 /**
  * Extrai metadados do Selenium se disponível
+ * @param data - Dados do Selenium convertidos para JSON
+ * @returns Metadados do Selenium ou undefined
  */
 function extractMetadata(data: MergedSeleniumData): FrameworkMetadata | undefined {
   const metadata: FrameworkMetadata = {};
 
-  // Pega informações do primeiro testsuite
   if (data.testsuites && data.testsuites.length > 0) {
     const firstSuite = data.testsuites[0];
     if (firstSuite.$?.hostname) {
@@ -166,7 +173,6 @@ export const seleniumParser: Parser = {
     return file.framework === 'selenium-e2e';
   },
   parse: async (content: unknown, file: RawFile): Promise<ParsedData> => {
-    // Valida que o conteúdo é um array de strings (XMLs)
     if (!Array.isArray(content)) {
       throw new Error('Invalid selenium data: content is not an array of XML strings');
     }
@@ -175,19 +181,16 @@ export const seleniumParser: Parser = {
       throw new Error('Invalid selenium data: no XML files provided');
     }
 
-    // Converte todos os XMLs para JSON e faz merge
     const mergedData = await convertAndMergeXmls(content as string[]);
 
     if (!mergedData.testsuites || mergedData.testsuites.length === 0) {
       throw new Error('Invalid selenium data: no testsuites found');
     }
 
-    // Extrai todos os testes de todas as suites
     const parsedTests: unknown[] = [];
 
     for (const suite of mergedData.testsuites) {
 
-      // Garante que testcase é um array
       const testCases = Array.isArray(suite.testcase) ? suite.testcase : (suite.testcase ? [suite.testcase] : []);
 
       if (testCases.length === 0) {
@@ -195,26 +198,14 @@ export const seleniumParser: Parser = {
       }
 
       for (const testCase of testCases) {
-        // Determina o status padronizado
-        const standardStatus = mapStatusToStandard(testCase);
-
-        // Extrai duração (time está em segundos no Selenium)
-        const duration = secondsToSeconds(testCase.$.time);
-
-        // Extrai erro se houver
-        const error = extractErrorMessage(testCase);
-
-        // Extrai nome do arquivo do classname
-        const fileName = extractFileName(testCase.$.classname);
-
         parsedTests.push({
           id: generateTestId(testCase),
           name: testCase.$.name,
-          status: standardStatus,
-          duration_s: duration,
-          file: fileName,
-          tags: [], // Selenium não tem tags nativas no XML
-          error
+          status: mapStatusToStandard(testCase),
+          duration_s: secondsToSeconds(testCase.$.time),
+          file: extractFileName(testCase.$.classname),
+          tags: [],
+          error: extractErrorMessage(testCase)
         });
       }
     }

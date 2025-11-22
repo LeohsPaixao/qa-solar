@@ -7,7 +7,8 @@ import { seleniumParser } from './seleniumParser';
 import { vitestParser } from './vitestParser';
 
 /**
- * Lista de todos os parsers disponíveis
+ * Lista de todos os parsers implementados
+ * @returns Array de parsers
  */
 const parsers: Parser[] = [
   cypressParser,
@@ -16,13 +17,13 @@ const parsers: Parser[] = [
   jestParser,
   robotParser,
   seleniumParser,
-  // Adicionar outros parsers conforme forem implementados
 ];
 
 /**
- * Get the parser for the given file
- * @param file - the file to get the parser for
- * @returns the parser
+ * Seleciona o parser para o arquivo dado
+ * @param file - Arquivo para selecionar o parser
+ * @returns Parser selecionado
+ * @throws Error se não encontrar nenhum parser para o arquivo
  */
 export function getParserFor(file: RawFile): Parser {
   const parser = parsers.find(p => p.canParse(file));

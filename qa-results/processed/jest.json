@@ -16,6 +16,7 @@
       "status": "passed",
       "duration_s": 0.043,
       "file": "password-recovery.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -24,6 +25,7 @@
       "status": "passed",
       "duration_s": 0.006,
       "file": "password-recovery.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -32,6 +34,7 @@
       "status": "passed",
       "duration_s": 0.013,
       "file": "password-recovery.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -40,6 +43,7 @@
       "status": "passed",
       "duration_s": 0.027,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -48,6 +52,7 @@
       "status": "passed",
       "duration_s": 0.008,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -56,6 +61,7 @@
       "status": "passed",
       "duration_s": 0.035,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -64,6 +70,7 @@
       "status": "passed",
       "duration_s": 0.229,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -72,6 +79,7 @@
       "status": "passed",
       "duration_s": 0.006,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -80,6 +88,7 @@
       "status": "passed",
       "duration_s": 0.004,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -88,6 +97,7 @@
       "status": "passed",
       "duration_s": 0.005,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -96,6 +106,7 @@
       "status": "passed",
       "duration_s": 0.003,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -104,6 +115,7 @@
       "status": "passed",
       "duration_s": 0.005,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -112,6 +124,7 @@
       "status": "passed",
       "duration_s": 0.003,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -120,6 +133,7 @@
       "status": "passed",
       "duration_s": 0.004,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -128,6 +142,7 @@
       "status": "passed",
       "duration_s": 0.002,
       "file": "users.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -136,6 +151,7 @@
       "status": "passed",
       "duration_s": 0.056,
       "file": "auth.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -144,6 +160,7 @@
       "status": "passed",
       "duration_s": 0.015,
       "file": "auth.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -152,6 +169,7 @@
       "status": "passed",
       "duration_s": 0.018,
       "file": "auth.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -160,6 +178,7 @@
       "status": "passed",
       "duration_s": 0.009,
       "file": "auth.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -168,6 +187,7 @@
       "status": "passed",
       "duration_s": 0.01,
       "file": "auth.controller.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -176,6 +196,7 @@
       "status": "passed",
       "duration_s": 0.288,
       "file": "auth.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -184,6 +205,7 @@
       "status": "passed",
       "duration_s": 0.012,
       "file": "auth.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -192,6 +214,7 @@
       "status": "passed",
       "duration_s": 0.199,
       "file": "auth.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -200,6 +223,7 @@
       "status": "passed",
       "duration_s": 0.007,
       "file": "auth.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -208,6 +232,7 @@
       "status": "passed",
       "duration_s": 0.063,
       "file": "password-recovery.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -216,6 +241,7 @@
       "status": "passed",
       "duration_s": 0.011,
       "file": "password-recovery.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -224,6 +250,7 @@
       "status": "passed",
       "duration_s": 0.297,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -232,6 +259,7 @@
       "status": "passed",
       "duration_s": 0.015,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -240,6 +268,7 @@
       "status": "passed",
       "duration_s": 0.01,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -248,6 +277,7 @@
       "status": "passed",
       "duration_s": 0.046,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -256,6 +286,7 @@
       "status": "passed",
       "duration_s": 0.015,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -264,6 +295,7 @@
       "status": "passed",
       "duration_s": 0.012,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -272,6 +304,7 @@
       "status": "passed",
       "duration_s": 0.007,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -280,6 +313,7 @@
       "status": "passed",
       "duration_s": 0.026,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -288,6 +322,7 @@
       "status": "passed",
       "duration_s": 0.016,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -296,6 +331,7 @@
       "status": "passed",
       "duration_s": 0.014,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -304,6 +340,7 @@
       "status": "passed",
       "duration_s": 0.009,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -312,6 +349,7 @@
       "status": "passed",
       "duration_s": 0.222,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -320,6 +358,7 @@
       "status": "passed",
       "duration_s": 0.209,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -328,7 +367,12 @@
       "status": "passed",
       "duration_s": 0.207,
       "file": "users.e2e-spec.ts",
+      "tags": [],
       "error": null
     }
-  ]
+  ],
+  "metadata": {
+    "tool": "jest",
+    "startTime": 1763777354510
+  }
 }

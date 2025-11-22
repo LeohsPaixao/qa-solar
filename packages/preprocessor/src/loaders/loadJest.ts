@@ -5,7 +5,6 @@ import { JestData } from '../types/jest.types';
 
 /**
  * Loader para arquivos Jest (results.json)
- * O Jest gera apenas um arquivo results.json por execução
  */
 export const loadJest: Loader = {
   canLoad(file: RawFile): boolean {
