@@ -3,9 +3,8 @@ import { cypressParser } from './cypressParser';
 import { jestParser } from './jestParser';
 import { playwrightParser } from './playwrightParser';
 import { robotParser } from './robotParser';
+import { seleniumParser } from './seleniumParser';
 import { vitestParser } from './vitestParser';
-// Importar outros parsers conforme forem implementados
-// import { seleniumParser } from './seleniumParser';
 
 /**
  * Lista de todos os parsers disponíveis
@@ -16,6 +15,7 @@ const parsers: Parser[] = [
   vitestParser,
   jestParser,
   robotParser,
+  seleniumParser,
   // Adicionar outros parsers conforme forem implementados
 ];
 
