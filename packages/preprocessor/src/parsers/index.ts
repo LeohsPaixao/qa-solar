@@ -1,9 +1,9 @@
 import { Parser, RawFile } from '../types';
 import { cypressParser } from './cypressParser';
+import { jestParser } from './jestParser';
 import { playwrightParser } from './playwrightParser';
 import { vitestParser } from './vitestParser';
 // Importar outros parsers conforme forem implementados
-// import { jestParser } from './jestParser';
 // import { robotParser } from './robotParser';
 // import { seleniumParser } from './seleniumParser';
 
@@ -14,6 +14,7 @@ const parsers: Parser[] = [
   cypressParser,
   playwrightParser,
   vitestParser,
+  jestParser,
   // Adicionar outros parsers conforme forem implementados
 ];
 
