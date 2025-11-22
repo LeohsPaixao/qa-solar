@@ -1,6 +1,14 @@
 import path from 'path';
 import { FrameworkMetadata, ParsedData, Parser, RawFile } from '../types';
-import { PlaywrightData, PlaywrightError, PlaywrightSpec, PlaywrightSuite, PlaywrightTest, PlaywrightTestResult, PlaywrightTestResultStatus } from '../types/playwright.types';
+import {
+  PlaywrightData,
+  PlaywrightError,
+  PlaywrightSpec,
+  PlaywrightSuite,
+  PlaywrightTest,
+  PlaywrightTestResult,
+  PlaywrightTestResultStatus,
+} from '../types/playwright.types';
 
 const ANSI_ESCAPE_REGEX = new RegExp('\\u001B\\[[0-9;]*m', 'g');
 
