@@ -25,9 +25,6 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
   }
 
   const normalizedResults: NormalizedFrameworkData[] = [];
-  let successCount = 0;
-  let errorCount = 0;
-  let ignoredCount = 0;
 
   for (const rawFile of rawFiles) {
     try {
@@ -40,20 +37,16 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
       const normalized = normalize(parsed);
       normalizedResults.push(normalized);
 
-      await cleanProcessedDirectory(config).then(() => {
-        setTimeout(() => {
-          saveProcessedFile(normalized, config);
-        }, 1500);
-        return;
-      });
+      await cleanProcessedDirectory(config);
+      setTimeout(async () => {
+        await saveProcessedFile(normalized, config);
+      }, 1500);
 
-      successCount++;
     } catch (error) {
       if (error instanceof Error && (error.message.includes('No loader found') || error.message.includes('No parser found'))) {
-        ignoredCount++;
         continue;
       }
-      errorCount++;
+      throw error;
     }
   }
 

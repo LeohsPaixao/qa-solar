@@ -10,7 +10,6 @@ function validateAndConvertTest(test: unknown): TestResult {
 
   const testObj = test as Record<string, unknown>;
 
-  // Valida campos obrigatórios
   if (typeof testObj.id !== 'string') {
     throw new Error('Invalid test data: missing or invalid id');
   }
@@ -53,7 +52,6 @@ function calculateSummary(tests: TestResult[]): TestSummary {
   };
 
   for (const test of tests) {
-    // Conta por status
     if (test.status === 'passed') {
       summary.passed++;
     } else if (test.status === 'failed') {
@@ -62,7 +60,6 @@ function calculateSummary(tests: TestResult[]): TestSummary {
       summary.skipped++;
     }
 
-    // Soma a duração
     summary.duration_s += test.duration_s;
   }
 
@@ -70,28 +67,25 @@ function calculateSummary(tests: TestResult[]): TestSummary {
 }
 
 /**
- * Normalize the parsed data to the standard format
- * @param parsed - the parsed data
- * @returns the normalized data
+ * Normaliza os dados analisados para o formato padrão
+ * @param parsed - os dados analisados
+ * @returns os dados normalizados
+ * @throws Error se os dados não forem válidos
  */
 export function normalize(parsed: ParsedData): NormalizedFrameworkData {
-  // Valida que há testes
   if (!Array.isArray(parsed.tests)) {
     throw new Error('Invalid parsed data: tests is not an array');
   }
 
-  // Converte e valida todos os testes
   const normalizedTests: TestResult[] = [];
   for (const test of parsed.tests) {
     try {
       normalizedTests.push(validateAndConvertTest(test));
     } catch (error) {
-      // Log erro mas continua processando outros testes
       console.error('Error validating test:', error);
     }
   }
 
-  // Calcula o summary baseado nos testes normalizados
   const summary = calculateSummary(normalizedTests);
 
   return {
