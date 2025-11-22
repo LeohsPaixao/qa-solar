@@ -16,6 +16,7 @@
       "status": "passed",
       "duration_s": 0.13227978799999981,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -24,6 +25,7 @@
       "status": "passed",
       "duration_s": 0.027994940000000496,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -32,6 +34,7 @@
       "status": "passed",
       "duration_s": 0.022932480999999824,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -40,6 +43,7 @@
       "status": "passed",
       "duration_s": 0.007118800000000192,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -48,6 +52,7 @@
       "status": "passed",
       "duration_s": 0.01402940099999978,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -56,6 +61,7 @@
       "status": "passed",
       "duration_s": 0.009124512999999751,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -64,6 +70,7 @@
       "status": "passed",
       "duration_s": 0.011577357999999548,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -72,6 +79,7 @@
       "status": "passed",
       "duration_s": 0.004017859000000499,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -80,6 +88,7 @@
       "status": "passed",
       "duration_s": 0.006280359999999746,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -88,6 +97,7 @@
       "status": "passed",
       "duration_s": 0.0069452650000002905,
       "file": "AppFooter.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -96,6 +106,7 @@
       "status": "passed",
       "duration_s": 0.20448353499999938,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -104,6 +115,7 @@
       "status": "passed",
       "duration_s": 0.03273498599999948,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -112,6 +124,7 @@
       "status": "passed",
       "duration_s": 0.02083075199999985,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -120,6 +133,7 @@
       "status": "passed",
       "duration_s": 0.036495676999999886,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -128,6 +142,7 @@
       "status": "passed",
       "duration_s": 0.03725381899999956,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -136,6 +151,7 @@
       "status": "passed",
       "duration_s": 0.03345983799999976,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -144,6 +160,7 @@
       "status": "passed",
       "duration_s": 0.0330228560000005,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -152,6 +169,7 @@
       "status": "passed",
       "duration_s": 0.04610095199999978,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -160,6 +178,7 @@
       "status": "passed",
       "duration_s": 0.023985783000000083,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -168,6 +187,7 @@
       "status": "passed",
       "duration_s": 0.01844667500000014,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -176,6 +196,7 @@
       "status": "passed",
       "duration_s": 0.024579662999999526,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -184,6 +205,7 @@
       "status": "passed",
       "duration_s": 0.021326020999999855,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -192,6 +214,7 @@
       "status": "passed",
       "duration_s": 0.020580307999999603,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -200,6 +223,7 @@
       "status": "passed",
       "duration_s": 0.02374066100000073,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -208,6 +232,7 @@
       "status": "passed",
       "duration_s": 0.021690967000000456,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -216,6 +241,7 @@
       "status": "passed",
       "duration_s": 0.023334390999999413,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -224,6 +250,7 @@
       "status": "passed",
       "duration_s": 0.03407676600000013,
       "file": "AppHeader.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -232,6 +259,7 @@
       "status": "passed",
       "duration_s": 0.1505590710000006,
       "file": "AppHome.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -240,6 +268,7 @@
       "status": "passed",
       "duration_s": 0.042441117000000306,
       "file": "AppHome.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -248,6 +277,7 @@
       "status": "passed",
       "duration_s": 0.03361703600000055,
       "file": "AppHome.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -256,6 +286,7 @@
       "status": "passed",
       "duration_s": 0.030467634999999972,
       "file": "AppHome.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -264,6 +295,7 @@
       "status": "passed",
       "duration_s": 0.14438469799999984,
       "file": "LoadingErrorState.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -272,6 +304,7 @@
       "status": "passed",
       "duration_s": 0.01838651300000038,
       "file": "LoadingErrorState.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -280,6 +313,7 @@
       "status": "passed",
       "duration_s": 0.019559881000000133,
       "file": "LoadingErrorState.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -288,6 +322,7 @@
       "status": "passed",
       "duration_s": 0.01335193900000013,
       "file": "LoadingErrorState.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -296,6 +331,7 @@
       "status": "passed",
       "duration_s": 0.016187831999999618,
       "file": "LoadingErrorState.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -304,6 +340,7 @@
       "status": "passed",
       "duration_s": 0.007256945000000087,
       "file": "LoadingErrorState.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -312,6 +349,7 @@
       "status": "passed",
       "duration_s": 0.009856756000000131,
       "file": "LoadingErrorState.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -320,6 +358,7 @@
       "status": "passed",
       "duration_s": 0.007477102999999261,
       "file": "useDeleteUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -328,6 +367,7 @@
       "status": "skipped",
       "duration_s": 0,
       "file": "useDeleteUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -336,6 +376,7 @@
       "status": "passed",
       "duration_s": 0.01992857600000025,
       "file": "useDeleteUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -344,6 +385,7 @@
       "status": "passed",
       "duration_s": 0.005660394000000451,
       "file": "useDeleteUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -352,6 +394,7 @@
       "status": "passed",
       "duration_s": 0.003416678000000502,
       "file": "useDeleteUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -360,6 +403,7 @@
       "status": "passed",
       "duration_s": 0.00763828999999987,
       "file": "useFetchUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -368,6 +412,7 @@
       "status": "passed",
       "duration_s": 0.007994416,
       "file": "useFetchUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -376,6 +421,7 @@
       "status": "passed",
       "duration_s": 0.01283283100000017,
       "file": "useFetchUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -384,6 +430,7 @@
       "status": "passed",
       "duration_s": 0.0028294260000002397,
       "file": "useFetchUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -392,6 +439,7 @@
       "status": "passed",
       "duration_s": 0.0038939399999999296,
       "file": "useFetchUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -400,6 +448,7 @@
       "status": "passed",
       "duration_s": 0.006497774000000391,
       "file": "useFetchUsers.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -408,6 +457,7 @@
       "status": "passed",
       "duration_s": 0.008071305999999822,
       "file": "useFetchUsers.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -416,6 +466,7 @@
       "status": "passed",
       "duration_s": 0.012697674000000006,
       "file": "useFetchUsers.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -424,6 +475,7 @@
       "status": "passed",
       "duration_s": 0.00309092899999996,
       "file": "useFetchUsers.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -432,6 +484,7 @@
       "status": "passed",
       "duration_s": 0.006994265000000268,
       "file": "useForgotPassword.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -440,6 +493,7 @@
       "status": "passed",
       "duration_s": 0.00897425899999962,
       "file": "useForgotPassword.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -448,6 +502,7 @@
       "status": "passed",
       "duration_s": 0.0033883849999997435,
       "file": "useForgotPassword.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -456,6 +511,7 @@
       "status": "passed",
       "duration_s": 0.0019992839999999888,
       "file": "useForgotPassword.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -464,6 +520,7 @@
       "status": "passed",
       "duration_s": 0.0027215949999999794,
       "file": "useLoginUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -472,6 +529,7 @@
       "status": "passed",
       "duration_s": 0.0050241560000004026,
       "file": "useLoginUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -480,6 +538,7 @@
       "status": "passed",
       "duration_s": 0.007816310999999587,
       "file": "useLoginUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -488,6 +547,7 @@
       "status": "passed",
       "duration_s": 0.0021671809999998003,
       "file": "useLoginUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -496,6 +556,7 @@
       "status": "passed",
       "duration_s": 0.002133343999999852,
       "file": "useLoginUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -504,6 +565,7 @@
       "status": "passed",
       "duration_s": 0.007488777000000027,
       "file": "useLogoutUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -512,6 +574,7 @@
       "status": "passed",
       "duration_s": 0.011080781999999999,
       "file": "useLogoutUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -520,6 +583,7 @@
       "status": "passed",
       "duration_s": 0.011186507999999776,
       "file": "useLogoutUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -528,6 +592,7 @@
       "status": "passed",
       "duration_s": 0.0033714899999999944,
       "file": "useLogoutUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -536,6 +601,7 @@
       "status": "passed",
       "duration_s": 0.0028749320000001715,
       "file": "useLogoutUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -544,6 +610,7 @@
       "status": "passed",
       "duration_s": 0.011510224000000107,
       "file": "useRegisterUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -552,6 +619,7 @@
       "status": "passed",
       "duration_s": 0.009475070999999844,
       "file": "useRegisterUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -560,6 +628,7 @@
       "status": "passed",
       "duration_s": 0.011762154000000009,
       "file": "useRegisterUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -568,6 +637,7 @@
       "status": "passed",
       "duration_s": 0.0032158519999998135,
       "file": "useRegisterUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -576,6 +646,7 @@
       "status": "passed",
       "duration_s": 0.003057574999999815,
       "file": "useRegisterUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -584,6 +655,7 @@
       "status": "passed",
       "duration_s": 0.004927102000000104,
       "file": "useUpdateUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -592,6 +664,7 @@
       "status": "passed",
       "duration_s": 0.007214285000000018,
       "file": "useUpdateUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -600,6 +673,7 @@
       "status": "passed",
       "duration_s": 0.00946017299999994,
       "file": "useUpdateUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -608,6 +682,7 @@
       "status": "passed",
       "duration_s": 0.0024593039999999747,
       "file": "useUpdateUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -616,6 +691,7 @@
       "status": "passed",
       "duration_s": 0.0019362919999998667,
       "file": "useUpdateUser.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -624,6 +700,7 @@
       "status": "passed",
       "duration_s": 0.00847133199999962,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -632,6 +709,7 @@
       "status": "passed",
       "duration_s": 0.002253131000000394,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -640,6 +718,7 @@
       "status": "passed",
       "duration_s": 0.0010628630000001067,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -648,6 +727,7 @@
       "status": "passed",
       "duration_s": 0.0012287029999997685,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -656,6 +736,7 @@
       "status": "passed",
       "duration_s": 0.0019554950000001555,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -664,6 +745,7 @@
       "status": "passed",
       "duration_s": 0.0016719640000001164,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -672,6 +754,7 @@
       "status": "passed",
       "duration_s": 0.0010935739999999895,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -680,6 +763,7 @@
       "status": "passed",
       "duration_s": 0.0034482880000000476,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -688,6 +772,7 @@
       "status": "passed",
       "duration_s": 0.002464190000000144,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -696,6 +781,7 @@
       "status": "passed",
       "duration_s": 0.0018554810000000544,
       "file": "api.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -704,6 +790,7 @@
       "status": "passed",
       "duration_s": 0.0035428440000000593,
       "file": "authGuards.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -712,6 +799,7 @@
       "status": "passed",
       "duration_s": 0.0018352409999997689,
       "file": "authGuards.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -720,6 +808,7 @@
       "status": "passed",
       "duration_s": 0.001772291000000223,
       "file": "authGuards.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -728,6 +817,7 @@
       "status": "passed",
       "duration_s": 0.0007562290000000758,
       "file": "authGuards.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -736,6 +826,7 @@
       "status": "passed",
       "duration_s": 0.003891569999999774,
       "file": "formData.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -744,6 +835,7 @@
       "status": "passed",
       "duration_s": 0.036157830000000106,
       "file": "formData.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -752,6 +844,7 @@
       "status": "passed",
       "duration_s": 0.00039816599999994653,
       "file": "formData.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -760,6 +853,7 @@
       "status": "passed",
       "duration_s": 0.00034371699999974223,
       "file": "formData.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -768,6 +862,7 @@
       "status": "passed",
       "duration_s": 0.004130019000000175,
       "file": "isAuthenticated.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -776,6 +871,7 @@
       "status": "passed",
       "duration_s": 0.0007968720000003486,
       "file": "isAuthenticated.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -784,6 +880,7 @@
       "status": "passed",
       "duration_s": 0.0005599369999999908,
       "file": "isAuthenticated.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -792,6 +889,7 @@
       "status": "passed",
       "duration_s": 0.00046066899999959785,
       "file": "isAuthenticated.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -800,6 +898,7 @@
       "status": "passed",
       "duration_s": 0.0032215759999999136,
       "file": "validateCpfCnpj.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -808,6 +907,7 @@
       "status": "passed",
       "duration_s": 0.0011456519999997,
       "file": "validateCpfCnpj.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -816,6 +916,7 @@
       "status": "passed",
       "duration_s": 0.0007019440000003669,
       "file": "validateCpfCnpj.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -824,6 +925,7 @@
       "status": "passed",
       "duration_s": 0.00037255599999980405,
       "file": "validateCpfCnpj.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -832,6 +934,7 @@
       "status": "passed",
       "duration_s": 0.00021373399999993125,
       "file": "validateCpfCnpj.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -840,6 +943,7 @@
       "status": "passed",
       "duration_s": 0.00032213799999999536,
       "file": "validateCpfCnpj.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -848,6 +952,7 @@
       "status": "passed",
       "duration_s": 0.00033255300000018906,
       "file": "validateCpfCnpj.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -856,6 +961,7 @@
       "status": "passed",
       "duration_s": 0.004644960999999967,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -864,6 +970,7 @@
       "status": "passed",
       "duration_s": 0.0033630190000003496,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -872,6 +979,7 @@
       "status": "passed",
       "duration_s": 0.0013702899999998408,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -880,6 +988,7 @@
       "status": "passed",
       "duration_s": 0.0017037540000001171,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -888,6 +997,7 @@
       "status": "passed",
       "duration_s": 0.0010915640000002894,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -896,6 +1006,7 @@
       "status": "passed",
       "duration_s": 0.0013113100000000486,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -904,6 +1015,7 @@
       "status": "passed",
       "duration_s": 0.0012398020000000543,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -912,6 +1024,7 @@
       "status": "passed",
       "duration_s": 0.0009772449999995842,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -920,6 +1033,7 @@
       "status": "passed",
       "duration_s": 0.0014779419999999845,
       "file": "validateProfile.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -928,6 +1042,7 @@
       "status": "passed",
       "duration_s": 0.24582920000000014,
       "file": "LoginTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -936,6 +1051,7 @@
       "status": "passed",
       "duration_s": 0.136543944,
       "file": "LoginTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -944,6 +1060,7 @@
       "status": "passed",
       "duration_s": 0.20031066499999997,
       "file": "LoginTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -952,6 +1069,7 @@
       "status": "passed",
       "duration_s": 0.2808865300000007,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -960,6 +1078,7 @@
       "status": "passed",
       "duration_s": 0.07118772799999988,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -968,6 +1087,7 @@
       "status": "passed",
       "duration_s": 0.1364934459999995,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -976,6 +1096,7 @@
       "status": "passed",
       "duration_s": 0.11521471900000052,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -984,6 +1105,7 @@
       "status": "passed",
       "duration_s": 0.0777401230000005,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -992,6 +1114,7 @@
       "status": "passed",
       "duration_s": 0.06383850799999982,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1000,6 +1123,7 @@
       "status": "passed",
       "duration_s": 0.04290613699999994,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1008,6 +1132,7 @@
       "status": "passed",
       "duration_s": 0.0736830259999997,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1016,6 +1141,7 @@
       "status": "passed",
       "duration_s": 0.08706239600000026,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1024,6 +1150,7 @@
       "status": "passed",
       "duration_s": 0.03768562199999997,
       "file": "RecoverPasswordTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1032,6 +1159,7 @@
       "status": "passed",
       "duration_s": 0.4119853969999995,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1040,6 +1168,7 @@
       "status": "passed",
       "duration_s": 0.06825744599999962,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1048,6 +1177,7 @@
       "status": "passed",
       "duration_s": 0.24608152700000027,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1056,6 +1186,7 @@
       "status": "passed",
       "duration_s": 0.1881665010000006,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1064,6 +1195,7 @@
       "status": "passed",
       "duration_s": 0.11247169100000065,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1072,6 +1204,7 @@
       "status": "passed",
       "duration_s": 0.09714556900000025,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1080,6 +1213,7 @@
       "status": "passed",
       "duration_s": 0.04877286999999887,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1088,6 +1222,7 @@
       "status": "passed",
       "duration_s": 0.06116614799999843,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1096,6 +1231,7 @@
       "status": "passed",
       "duration_s": 0.041159373000000415,
       "file": "ProfileTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1104,6 +1240,7 @@
       "status": "passed",
       "duration_s": 0.31152963399999956,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1112,6 +1249,7 @@
       "status": "passed",
       "duration_s": 0.11799211000000014,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1120,6 +1258,7 @@
       "status": "passed",
       "duration_s": 0.16293933800000013,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1128,6 +1267,7 @@
       "status": "passed",
       "duration_s": 0.42186380199999984,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1136,6 +1276,7 @@
       "status": "passed",
       "duration_s": 0.19058671799999866,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1144,6 +1285,7 @@
       "status": "passed",
       "duration_s": 0.13025590700000067,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1152,6 +1294,7 @@
       "status": "passed",
       "duration_s": 0.12135683999999855,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1160,6 +1303,7 @@
       "status": "passed",
       "duration_s": 0.13111187699999938,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1168,6 +1312,7 @@
       "status": "passed",
       "duration_s": 0.1385721229999999,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1176,6 +1321,7 @@
       "status": "passed",
       "duration_s": 0.14351788900000065,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1184,6 +1330,7 @@
       "status": "passed",
       "duration_s": 0.17460521199999857,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1192,6 +1339,7 @@
       "status": "passed",
       "duration_s": 0.1291362599999993,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1200,6 +1348,7 @@
       "status": "passed",
       "duration_s": 0.13270624399999906,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1208,6 +1357,7 @@
       "status": "passed",
       "duration_s": 0.11367521300000044,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1216,6 +1366,7 @@
       "status": "passed",
       "duration_s": 0.12718036399999982,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1224,6 +1375,7 @@
       "status": "passed",
       "duration_s": 0.09590789399999994,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1232,6 +1384,7 @@
       "status": "passed",
       "duration_s": 0.06834025199999996,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1240,6 +1393,7 @@
       "status": "passed",
       "duration_s": 0.09769378199999847,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1248,6 +1402,7 @@
       "status": "passed",
       "duration_s": 0.1039615159999994,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1256,6 +1411,7 @@
       "status": "passed",
       "duration_s": 0.1203901480000004,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1264,6 +1420,7 @@
       "status": "passed",
       "duration_s": 0.08349469500000123,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1272,6 +1429,7 @@
       "status": "passed",
       "duration_s": 0.04932781699999941,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1280,6 +1438,7 @@
       "status": "passed",
       "duration_s": 0.044282796999999846,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1288,6 +1447,7 @@
       "status": "passed",
       "duration_s": 0.03600374499999998,
       "file": "RegisterTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1296,6 +1456,7 @@
       "status": "passed",
       "duration_s": 0.3643589389999997,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1304,6 +1465,7 @@
       "status": "passed",
       "duration_s": 0.06989702000000034,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1312,6 +1474,7 @@
       "status": "passed",
       "duration_s": 0.07192037100000016,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1320,6 +1483,7 @@
       "status": "passed",
       "duration_s": 0.09545056000000023,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1328,6 +1492,7 @@
       "status": "passed",
       "duration_s": 0.17277576599999975,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1336,6 +1501,7 @@
       "status": "passed",
       "duration_s": 0.28252878899999906,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1344,6 +1510,7 @@
       "status": "passed",
       "duration_s": 0.14221036100000128,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1352,6 +1519,7 @@
       "status": "passed",
       "duration_s": 0.14800295899999946,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1360,6 +1528,7 @@
       "status": "passed",
       "duration_s": 0.13620208199999978,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1368,6 +1537,7 @@
       "status": "passed",
       "duration_s": 0.022117336999999678,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     },
     {
@@ -1376,6 +1546,7 @@
       "status": "passed",
       "duration_s": 0.016391266000000543,
       "file": "ListUsersTemplate.spec.ts",
+      "tags": [],
       "error": null
     }
   ],
