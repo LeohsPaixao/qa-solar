@@ -126,6 +126,6 @@ export interface Loader {
  * Responsável por fazer o parsing dos dados carregados
  */
 export interface Parser {
-  parse(content: unknown, file: RawFile): ParsedData;
+  parse(content: unknown, file: RawFile): ParsedData | Promise<ParsedData>;
   canParse(file: RawFile): boolean;
 }
