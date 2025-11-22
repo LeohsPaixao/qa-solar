@@ -1,9 +1,9 @@
 import { getLoaderFor } from '../loaders';
 import { getParserFor } from '../parsers';
-import { NormalizedFrameworkData, ParsedData, PreprocessorConfig } from '../types';
+import { Framework, NormalizedFrameworkData, ParsedData, PreprocessorConfig } from '../types';
 import { cleanProcessedDirectory } from './cleaner';
 import { normalize } from './normalizer';
-import { saveProcessedFile } from './saver';
+import { consolidateSummary, saveProcessedFile, saveSummaryFile } from './saver';
 import { scanRawDirectory } from './scanner';
 
 /**
@@ -14,6 +14,7 @@ import { scanRawDirectory } from './scanner';
  * 4. Normaliza os dados analisados
  * 5. Limpa o diretório processed
  * 6. Salva os dados normalizados no diretório processed
+ * 7. Consolida todos os dados e cria o summary.json
  * @param config - configuração do preprocessador
  * @returns void
  */
@@ -25,6 +26,7 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
   }
 
   const normalizedResults: NormalizedFrameworkData[] = [];
+  const processedRawFiles: Array<{ path: string; framework: Framework }> = [];
 
   for (const rawFile of rawFiles) {
     try {
@@ -36,6 +38,10 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
 
       const normalized = normalize(parsed);
       normalizedResults.push(normalized);
+      processedRawFiles.push({
+        path: rawFile.path,
+        framework: rawFile.framework
+      });
 
       await cleanProcessedDirectory(config);
       setTimeout(async () => {
@@ -50,6 +56,6 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
     }
   }
 
-  // TODO: Gerar summary.json agregado com todos os resultados
-  // await saveSummaryFile(normalizedResults, config);
+  const summary = consolidateSummary(normalizedResults, processedRawFiles);
+  await saveSummaryFile(summary, config);
 }
