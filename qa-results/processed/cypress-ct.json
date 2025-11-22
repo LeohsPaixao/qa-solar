@@ -623,5 +623,22 @@
       "error": null
     }
   ],
-  "metadata": {}
+  "metadata": {
+    "mochawesomeVersion": "7.1.4",
+    "mochawesomeOptions": {
+      "quiet": false,
+      "reportFilename": "mochawesome",
+      "saveHtml": false,
+      "saveJson": true,
+      "consoleReporter": "spec",
+      "useInlineDiffs": false,
+      "code": true
+    },
+    "margeOptions": {
+      "reportDir": "/home/leopaixao/Documentos/Projetos/qa-solar/qa-results/raw/cypress-ct/2025-11-20T15-39-16",
+      "overwrite": false,
+      "html": false,
+      "json": true
+    }
+  }
 }

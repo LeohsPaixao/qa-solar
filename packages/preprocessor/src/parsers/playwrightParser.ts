@@ -1,6 +1,16 @@
 import path from 'path';
 import { FrameworkMetadata, ParsedData, Parser, RawFile } from '../types';
-import { PlaywrightData, PlaywrightError, PlaywrightSpec, PlaywrightSuite, PlaywrightTest, PlaywrightTestResult } from '../types/playwright.types';
+import {
+  PlaywrightData,
+  PlaywrightError,
+  PlaywrightSpec,
+  PlaywrightSuite,
+  PlaywrightTest,
+  PlaywrightTestResult,
+  PlaywrightTestResultStatus,
+} from '../types/playwright.types';
+
+const ANSI_ESCAPE_REGEX = new RegExp('\\u001B\\[[0-9;]*m', 'g');
 
 /**
  * Converte duração de milissegundos para segundos
@@ -16,14 +26,20 @@ function msToSeconds(ms: number): number {
  * @param status - Status do Playwright
  * @returns Status padronizado
  */
-function mapStatusToStandard(status: 'passed' | 'failed' | 'skipped' | 'timedOut'): 'passed' | 'failed' | 'skipped' {
+function mapStatusToStandard(status: PlaywrightTestResultStatus): PlaywrightTestResultStatus {
   if (status === 'passed') {
     return 'passed';
   }
   if (status === 'failed' || status === 'timedOut') {
     return 'failed';
   }
-  return 'skipped';
+  if (status === 'interrupted') {
+    return 'interrupted';
+  }
+  if (status === 'skipped') {
+    return 'skipped';
+  }
+  return 'unknown';
 }
 
 /**
@@ -38,11 +54,11 @@ function extractErrorMessage(error: PlaywrightError | undefined): string | null 
   }
 
   if (error.message) {
-    return error.message.replace(/\u001b\[[0-9;]*m/g, '');
+    return error.message.replace(ANSI_ESCAPE_REGEX, '');
   }
   if (error.stack) {
     const firstLine = error.stack.split('\n')[0];
-    return firstLine.replace(/\u001b\[[0-9;]*m/g, '') || null;
+    return firstLine.replace(ANSI_ESCAPE_REGEX, '') || null;
   }
   return null;
 }

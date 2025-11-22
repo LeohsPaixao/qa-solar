@@ -189,11 +189,12 @@ function extractMetadata(data: MochawesomeData): FrameworkMetadata | undefined {
 
   if (data.meta) {
     if (Object.keys(data.meta).length > 0) {
-      return metadata;
+      metadata.mochawesomeVersion = data.meta.mochawesome?.version as string | undefined;
+      metadata.mochawesomeOptions = data.meta.mochawesome?.options as unknown | undefined;
+      metadata.margeOptions = data.meta.marge?.options as unknown | undefined;
     }
   }
-
-  return undefined;
+  return metadata;
 }
 
 /**

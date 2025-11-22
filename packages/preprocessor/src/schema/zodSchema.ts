@@ -54,6 +54,9 @@ const normalizedMetadataSchema = z.object({
   playwright: z.string().optional(),
   workers: z.number().optional(),
   version: z.string().optional(),
+  mochawesomeVersion: z.string().optional(),
+  mochawesomeOptions: z.unknown().optional(),
+  margeOptions: z.unknown().optional(),
 });
 
 export const normalizedFrameworkDataSchema = z.object({

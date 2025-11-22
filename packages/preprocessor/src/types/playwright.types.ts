@@ -43,7 +43,7 @@ export interface PlaywrightSuite {
   column: number;
   line: number;
   specs: PlaywrightSpec[];
-  suites: PlaywrightSuite[]; // Suites aninhadas
+  suites: PlaywrightSuite[];
 }
 
 /**
@@ -70,7 +70,7 @@ export interface PlaywrightTest {
   projectId: string;
   projectName: string;
   results: PlaywrightTestResult[];
-  status: 'expected' | 'unexpected';
+  status: 'expected' | 'unexpected' | 'skipped' | 'flaky';
 }
 
 /**
@@ -87,8 +87,8 @@ export interface PlaywrightAnnotation {
  */
 export interface PlaywrightTestResult {
   workerIndex: number;
-  status: 'passed' | 'failed' | 'skipped' | 'timedOut';
-  duration: number; // em milissegundos
+  status: PlaywrightTestResultStatus;
+  duration: number;
   errors: PlaywrightError[];
   stdout: unknown[];
   stderr: unknown[];
@@ -97,6 +97,8 @@ export interface PlaywrightTestResult {
   attachments: PlaywrightAttachment[];
   error?: PlaywrightError;
 }
+
+export type PlaywrightTestResultStatus = 'passed' | 'failed' | 'timedOut' | 'skipped' | 'interrupted' | 'unknown';
 
 /**
  * Erro do Playwright

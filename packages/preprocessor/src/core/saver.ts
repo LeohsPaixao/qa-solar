@@ -67,7 +67,7 @@ export function consolidateSummary(
   }
 
   const processedFiles = normalizedResults.map((r) => `${r.framework}.json`);
-  const rawFilesList = rawFiles.map((f) => f.path);
+  const rawFilesPaths = rawFiles.map((f) => path.basename(f.path));
 
   return {
     timestamp,
@@ -76,7 +76,7 @@ export function consolidateSummary(
     byFramework,
     artifacts: {
       processedFiles,
-      rawFiles: rawFilesList,
+      rawFiles: rawFilesPaths,
     },
   };
 }

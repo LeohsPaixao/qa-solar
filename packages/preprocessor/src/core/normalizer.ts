@@ -16,7 +16,7 @@ function validateAndConvertTest(test: unknown): TestResult {
   if (typeof testObj.name !== 'string') {
     throw new Error('Invalid test data: missing or invalid name');
   }
-  if (!['passed', 'failed', 'skipped'].includes(testObj.status as string)) {
+  if (!['passed', 'failed', 'skipped', 'pending', 'todo', 'unknown'].includes(testObj.status as string)) {
     throw new Error(`Invalid test data: invalid status ${testObj.status}`);
   }
   if (typeof testObj.duration_s !== 'number') {
