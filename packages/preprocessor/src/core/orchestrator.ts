@@ -35,7 +35,7 @@ export async function orchestrator(config: PreprocessorConfig): Promise<void> {
       const content = await loader.load(rawFile);
 
       const parser = getParserFor(rawFile);
-      const parsed: ParsedData = parser.parse(content, rawFile);
+      const parsed: ParsedData = await parser.parse(content, rawFile);
 
       const normalized = normalize(parsed);
       normalizedResults.push(normalized);
