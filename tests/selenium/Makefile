@@ -2,7 +2,7 @@
 OUTPUT_DIR_BASE = ../../qa-results/raw/selenium-e2e
 
 define get_timestamp
-	$(eval TIMESTAMP := $(shell npx tsx ../../scripts/timestamp.ts))
+	$(eval TIMESTAMP := $(shell npx tsx ../../packages/scripts/timestamp.ts))
 	$(if $(TIMESTAMP),,$(error Erro: Falha ao gerar timestamp))
 	$(eval OUTPUT_DIR := $(OUTPUT_DIR_BASE)/$(TIMESTAMP))
 	@mkdir -p $(OUTPUT_DIR)
