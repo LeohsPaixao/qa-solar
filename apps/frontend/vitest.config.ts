@@ -1,6 +1,6 @@
 import path from 'path';
 import { mergeConfig } from 'vite';
-import { timestamp } from '../../scripts/timestamp';
+import { timestamp } from '../../packages/scripts/timestamp';
 import viteConfig from './vite.config';
 
 export default mergeConfig(viteConfig, {
