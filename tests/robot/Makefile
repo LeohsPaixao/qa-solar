@@ -7,7 +7,7 @@ PROCESSES = 4
 
 # Função para obter timestamp e criar diretório de saída
 define get_timestamp
-	$(eval TIMESTAMP := $(shell npx tsx ../../scripts/timestamp.ts))
+	$(eval TIMESTAMP := $(shell npx tsx ../../packages/scripts/timestamp.ts))
 	$(if $(TIMESTAMP),,$(error Erro: Falha ao gerar timestamp))
 	$(eval OUTPUT_DIR := $(OUTPUT_DIR_BASE)/$(TIMESTAMP))
 	@mkdir -p $(OUTPUT_DIR)
