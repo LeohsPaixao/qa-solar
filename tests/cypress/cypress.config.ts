@@ -3,7 +3,7 @@ import codeCoverage from '@cypress/code-coverage/task';
 import { defineConfig } from 'cypress';
 import dotenv from 'dotenv';
 import path from 'path';
-import { timestamp } from '../../scripts/timestamp';
+import { timestamp } from '../../packages/scripts/timestamp';
 
 dotenv.config();
 
