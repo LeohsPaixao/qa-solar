@@ -6,9 +6,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "nest build",
-    "dev": "rimraf dist && nest start",
-    "dev:debug": "rimraf dist && nest start --debug --watch",
+    "build": "rimraf dist && nest build",
+    "dev": "nest start",
+    "start": "yarn build && yarn dev",
     "lint": "eslint --fix",
     "test": "jest --config jest.config.js",
     "test:coverage": "jest --coverage",
