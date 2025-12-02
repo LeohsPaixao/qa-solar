@@ -71,6 +71,11 @@ dist/
 # TypeScript build info
 *.tsbuildinfo
 
+# Vue generated files
+**/*.vue.js
+**/*.vue.d.ts
+**/*.vue.js.map
+
 # Coverage reports
 *.clover.xml
 coverage-final.json
