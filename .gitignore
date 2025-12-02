@@ -121,3 +121,6 @@ temp/
 /docs/build
 /docs/.docusaurus
 /docs/.cache-loader
+
+# Planos de desenvolvimento
+.planos/

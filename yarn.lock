@@ -13691,7 +13691,7 @@ pify@^4.0.1:
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
-pinia@^3.0.4:
+pinia@3.0.4:
   version "3.0.4"
   resolved "https://solarmarket-905951455563.d.codeartifact.us-east-1.amazonaws.com/npm/solarmarket/pinia/-/pinia-3.0.4.tgz#75dde12784a61e34c1fa6abcd13c1a1061c360c0"
   integrity sha512-l7pqLUFTI/+ESXn6k3nu30ZIzW5E2WZF/LaHJEpoq6ElcLD+wduZoB2kBN19du6K/4FDpPMazY2wJr+IndBtQw==
@@ -17065,13 +17065,6 @@ vue-eslint-parser@^10.1.1:
     espree "^10.3.0"
     esquery "^1.6.0"
     semver "^7.6.3"
-
-vue-router@4:
-  version "4.6.3"
-  resolved "https://solarmarket-905951455563.d.codeartifact.us-east-1.amazonaws.com/npm/solarmarket/vue-router/-/vue-router-4.6.3.tgz#52a40a231b910806438a8203c065a411fd3f1faa"
-  integrity sha512-ARBedLm9YlbvQomnmq91Os7ck6efydTSpRP3nuOKCvgJOHNrhRoJDSKtee8kcL1Vf7nz6U+PMBL+hTvR3bTVQg==
-  dependencies:
-    "@vue/devtools-api" "^6.6.4"
 
 vue-router@4.4.5:
   version "4.4.5"
