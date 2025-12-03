@@ -39,23 +39,14 @@
       <div class="filters-section">
         <select v-model="selectedFramework" class="framework-filter">
           <option value="">Todos os Frameworks</option>
-          <option
-            v-for="framework in availableFrameworks"
-            :key="framework"
-            :value="framework"
-          >
+          <option v-for="framework in availableFrameworks" :key="framework" :value="framework">
             {{ formatFrameworkName(String(framework)) }}
           </option>
         </select>
       </div>
 
       <div class="table-section">
-        <TestsTable
-          :tests="filteredTests"
-          title="Lista de Testes"
-          :show-error="true"
-          :items-per-page="10"
-        />
+        <TestsTable :tests="filteredTests" title="Lista de Testes" :show-error="true" :items-per-page="10" />
       </div>
     </div>
   </div>
@@ -90,40 +81,28 @@ const filteredTests = computed(() => {
     return allTests.value;
   }
   const frameworkData = frameworkStore.frameworks.get(selectedFramework.value);
-  if (!frameworkData) return [];
-  
-  const frameworkTestIds = new Set(frameworkData.tests.map(t => t.id));
+  if (!frameworkData) {
+    return [];
+  }
+
+  const frameworkTestIds = new Set(frameworkData.tests.map((t) => t.id));
   return allTests.value.filter((test) => {
     return frameworkTestIds.has(test.id);
   });
 });
 
-const passedCount = computed(() =>
-  filteredTests.value.filter((t) => t.status === 'passed').length
-);
+const passedCount = computed(() => filteredTests.value.filter((t) => t.status === 'passed').length);
 
-const failedCount = computed(() =>
-  filteredTests.value.filter((t) => t.status === 'failed').length
-);
+const failedCount = computed(() => filteredTests.value.filter((t) => t.status === 'failed').length);
 
-const skippedCount = computed(() =>
-  filteredTests.value.filter((t) => t.status === 'skipped').length
-);
+const skippedCount = computed(() => filteredTests.value.filter((t) => t.status === 'skipped').length);
 
 async function loadAllTests() {
   loading.value = true;
   error.value = null;
 
   try {
-    const frameworks: FrameworkName[] = [
-      'cypress-ct',
-      'cypress-e2e',
-      'jest',
-      'playwright-e2e',
-      'robot-e2e',
-      'selenium-e2e',
-      'vitest',
-    ];
+    const frameworks: FrameworkName[] = ['cypress-ct', 'cypress-e2e', 'jest', 'playwright-e2e', 'robot-e2e', 'selenium-e2e', 'vitest'];
 
     const tests: TestResult[] = [];
 
@@ -134,7 +113,7 @@ async function loadAllTests() {
         if (data && data.tests) {
           tests.push(...data.tests);
         }
-      })
+      }),
     );
 
     allTests.value = tests;

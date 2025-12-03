@@ -16,85 +16,36 @@
 
     <div v-else-if="overall" class="overview-content">
       <div class="summary-cards grid grid-cols-4">
-        <SummaryCard
-          v-if="overall"
-          title="Total de Testes"
-          :value="String(overall.total)"
-          variant="default"
-        />
-        <SummaryCard
-          v-if="overall"
-          title="Passed"
-          :value="String(overall.passed)"
-          :label="`${successRate}% de sucesso`"
-          variant="success"
-        />
-        <SummaryCard
-          v-if="overall"
-          title="Failed"
-          :value="String(overall.failed)"
-          :label="`${failedRate}% de falhas`"
-          variant="danger"
-        />
-        <SummaryCard
-          title="Duração Total"
-          :value="formattedDuration"
-          variant="info"
-        />
+        <SummaryCard v-if="overall" title="Total de Testes" :value="String(overall.total)" variant="default" />
+        <SummaryCard v-if="overall" title="Passed" :value="String(overall.passed)" :label="`${successRate}% de sucesso`" variant="success" />
+        <SummaryCard v-if="overall" title="Failed" :value="String(overall.failed)" :label="`${failedRate}% de falhas`" variant="danger" />
+        <SummaryCard title="Duração Total" :value="formattedDuration" variant="info" />
       </div>
 
       <div v-if="overall && frameworkData.length > 0" class="charts-row grid grid-cols-2">
         <div class="chart-card card">
-          <PassFailDonut
-            :passed="overall.passed"
-            :failed="overall.failed"
-            :skipped="overall.skipped"
-            title="Distribuição de Resultados"
-          />
+          <PassFailDonut :passed="overall.passed" :failed="overall.failed" :skipped="overall.skipped" title="Distribuição de Resultados" />
         </div>
         <div class="chart-card card">
           <div class="chart-header">
             <h4 class="chart-title">Testes por Framework</h4>
             <div class="chart-controls">
               <label class="view-mode-label">
-                <input
-                  type="radio"
-                  :value="'consolidated'"
-                  v-model="viewMode"
-                  class="view-mode-radio"
-                />
+                <input type="radio" :value="'consolidated'" v-model="viewMode" class="view-mode-radio" />
                 <span>Consolidado</span>
               </label>
               <label class="view-mode-label">
-                <input
-                  type="radio"
-                  :value="'individual'"
-                  v-model="viewMode"
-                  class="view-mode-radio"
-                />
+                <input type="radio" :value="'individual'" v-model="viewMode" class="view-mode-radio" />
                 <span>Individual</span>
               </label>
             </div>
-            <select
-              v-if="viewMode === 'individual'"
-              v-model="selectedFrameworks"
-              multiple
-              class="framework-select"
-              size="4"
-            >
-              <option
-                v-for="framework in allFrameworks"
-                :key="framework"
-                :value="framework"
-              >
+            <select v-if="viewMode === 'individual'" v-model="selectedFrameworks" multiple class="framework-select" size="4">
+              <option v-for="framework in allFrameworks" :key="framework" :value="framework">
                 {{ formatFrameworkName(framework) }}
               </option>
             </select>
           </div>
-          <TotalBarChart
-            :frameworks="displayedFrameworkData"
-            title=""
-          />
+          <TotalBarChart :frameworks="displayedFrameworkData" title="" />
         </div>
       </div>
 
@@ -127,21 +78,24 @@ import { computed, onMounted, ref, watch } from 'vue';
 
 const summaryStore = useSummaryStore();
 
-const { overall, successRate, formattedDuration, byFramework, loading, error } =
-  storeToRefs(summaryStore);
+const { overall, successRate, formattedDuration, byFramework, loading, error } = storeToRefs(summaryStore);
 const { fetchSummary } = summaryStore;
 
 const viewMode = ref<'consolidated' | 'individual'>('consolidated');
 const selectedFrameworks = ref<string[]>([]);
 
 const failedRate = computed(() => {
-  if (!overall.value) return 0;
+  if (!overall.value) {
+    return 0;
+  }
   return Math.round((overall.value.failed / overall.value.total) * 100);
 });
 
 const allFrameworks = computed(() => {
   const frameworks = byFramework.value;
-  if (!frameworks) return [];
+  if (!frameworks) {
+    return [];
+  }
   return Object.keys(frameworks);
 });
 
@@ -167,9 +121,7 @@ const displayedFrameworkData = computed(() => {
     if (selectedFrameworks.value.length === 0) {
       return [];
     }
-    return frameworkData.value.filter((f) =>
-      selectedFrameworks.value.includes(f.originalName)
-    );
+    return frameworkData.value.filter((f) => selectedFrameworks.value.includes(f.originalName));
   }
 });
 
@@ -179,11 +131,15 @@ watch(viewMode, (mode) => {
   }
 });
 
-watch(allFrameworks, (frameworks) => {
-  if (frameworks.length > 0 && viewMode.value === 'individual' && selectedFrameworks.value.length === 0) {
-    selectedFrameworks.value = [...frameworks];
-  }
-}, { immediate: true });
+watch(
+  allFrameworks,
+  (frameworks) => {
+    if (frameworks.length > 0 && viewMode.value === 'individual' && selectedFrameworks.value.length === 0) {
+      selectedFrameworks.value = [...frameworks];
+    }
+  },
+  { immediate: true },
+);
 
 onMounted(() => {
   fetchSummary();
@@ -191,4 +147,3 @@ onMounted(() => {
 </script>
 
 <style src="./OverviewPage.css"></style>
-
