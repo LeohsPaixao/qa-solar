@@ -1,9 +1,5 @@
 <template>
-  <router-link
-    :to="`/frameworks/${framework}`"
-    class="framework-card card"
-    @click="handleClick"
-  >
+  <router-link :to="`/frameworks/${framework}`" class="framework-card card" @click="handleClick">
     <div class="card-header">
       <h3 class="framework-name">{{ displayName }}</h3>
       <div class="framework-badge" :class="badgeClass">
@@ -30,11 +26,7 @@
         </div>
       </div>
       <div class="progress-bar">
-        <div
-          class="progress-fill"
-          :style="{ width: `${successRate}%` }"
-          :class="progressClass"
-        ></div>
+        <div class="progress-fill" :style="{ width: `${successRate}%` }" :class="progressClass" />
       </div>
       <div class="card-footer">
         <span class="duration">{{ formattedDuration }}</span>
@@ -56,13 +48,9 @@ const displayName = computed(() => {
   return formatFrameworkName(props.framework);
 });
 
-const successRate = computed(() =>
-  calculateSuccessRate(props.summary.passed, props.summary.total)
-);
+const successRate = computed(() => calculateSuccessRate(props.summary.passed, props.summary.total));
 
-const formattedDuration = computed(() =>
-  formatDuration(props.summary.duration_s)
-);
+const formattedDuration = computed(() => formatDuration(props.summary.duration_s));
 
 const badgeClass = computed(() => {
   const classes: Record<string, string> = {
@@ -74,8 +62,12 @@ const badgeClass = computed(() => {
 });
 
 const progressClass = computed(() => {
-  if (successRate.value >= 90) return 'progress-success';
-  if (successRate.value >= 70) return 'progress-warning';
+  if (successRate.value >= 90) {
+    return 'progress-success';
+  }
+  if (successRate.value >= 70) {
+    return 'progress-warning';
+  }
   return 'progress-danger';
 });
 

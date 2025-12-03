@@ -1,8 +1,4 @@
-import type {
-  FrameworkName,
-  FrameworkResult,
-  SummaryData,
-} from '@/types/results.types';
+import type { FrameworkName, FrameworkResult, SummaryData } from '@/types/results.types';
 
 const RESULTS_BASE_PATH = '/qa-results/processed';
 
@@ -28,9 +24,7 @@ export async function loadSummary(): Promise<SummaryData | null> {
  * @param framework - Nome do framework
  * @returns Resultados do framework
  */
-export async function loadFrameworkResults(
-  framework: FrameworkName
-): Promise<FrameworkResult | null> {
+export async function loadFrameworkResults(framework: FrameworkName): Promise<FrameworkResult | null> {
   try {
     const filename = `${framework}.json`;
     const response = await fetch(`${RESULTS_BASE_PATH}/${filename}`);
@@ -48,18 +42,8 @@ export async function loadFrameworkResults(
  * Carrega todos os resultados de frameworks
  * @returns Map de frameworks e seus resultados
  */
-export async function loadAllFrameworkResults(): Promise<
-  Map<FrameworkName, FrameworkResult>
-> {
-  const frameworks: FrameworkName[] = [
-    'cypress-ct',
-    'cypress-e2e',
-    'jest',
-    'playwright-e2e',
-    'robot-e2e',
-    'selenium-e2e',
-    'vitest',
-  ];
+export async function loadAllFrameworkResults(): Promise<Map<FrameworkName, FrameworkResult>> {
+  const frameworks: FrameworkName[] = ['cypress-ct', 'cypress-e2e', 'jest', 'playwright-e2e', 'robot-e2e', 'selenium-e2e', 'vitest'];
 
   const results = new Map<FrameworkName, FrameworkResult>();
 
@@ -69,7 +53,7 @@ export async function loadAllFrameworkResults(): Promise<
       if (data) {
         results.set(framework, data);
       }
-    })
+    }),
   );
 
   return results;
@@ -127,10 +111,9 @@ export function formatTimestamp(timestamp: string): string {
  * @param total - Número total de testes
  * @returns Taxa de sucesso em porcentagem
  */
-export function calculateSuccessRate(
-  passed: number,
-  total: number
-): number {
-  if (total === 0) return 0;
+export function calculateSuccessRate(passed: number, total: number): number {
+  if (total === 0) {
+    return 0;
+  }
   return Math.round((passed / total) * 100);
 }

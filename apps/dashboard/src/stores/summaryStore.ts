@@ -1,8 +1,4 @@
-import {
-  calculateSuccessRate,
-  formatDuration,
-  loadSummary,
-} from '@/services/resultsService';
+import { calculateSuccessRate, formatDuration, loadSummary } from '@/services/resultsService';
 import type { SummaryData } from '@/types/results.types';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
@@ -18,12 +14,16 @@ export const useSummaryStore = defineStore('summary', () => {
   const overall = computed(() => summary.value?.overall ?? null);
 
   const successRate = computed(() => {
-    if (!overall.value) return 0;
+    if (!overall.value) {
+      return 0;
+    }
     return calculateSuccessRate(overall.value.passed, overall.value.total);
   });
 
   const formattedDuration = computed(() => {
-    if (!overall.value) return '0s';
+    if (!overall.value) {
+      return '0s';
+    }
     return formatDuration(overall.value.duration_s);
   });
 

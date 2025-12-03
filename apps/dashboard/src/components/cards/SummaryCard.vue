@@ -19,16 +19,8 @@
       <div class="card-label">{{ label }}</div>
       <div v-if="trend" class="card-trend" :class="trendClass">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path
-            v-if="trend > 0"
-            d="M8 4l4 4H9v4H7V8H4l4-4z"
-            fill="currentColor"
-          />
-          <path
-            v-else
-            d="M8 12l-4-4h3V4h2v4h3l-4 4z"
-            fill="currentColor"
-          />
+          <path v-if="trend > 0" d="M8 4l4 4H9v4H7V8H4l4-4z" fill="currentColor" />
+          <path v-else d="M8 12l-4-4h3V4h2v4h3l-4 4z" fill="currentColor" />
         </svg>
         <span>{{ trendValue }}%</span>
       </div>
@@ -50,12 +42,16 @@ const props = withDefaults(defineProps<SummaryCardProps>(), {
 const iconClass = computed(() => `icon-${props.variant}`);
 
 const trendValue = computed(() => {
-  if (props.trend === undefined) return 0;
+  if (props.trend === undefined) {
+    return 0;
+  }
   return Math.abs(props.trend);
 });
 
 const trendClass = computed(() => {
-  if (props.trend === undefined) return '';
+  if (props.trend === undefined) {
+    return '';
+  }
   return props.trend > 0 ? 'trend-up' : 'trend-down';
 });
 </script>

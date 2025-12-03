@@ -1,9 +1,4 @@
-import {
-  calculateSuccessRate,
-  formatDuration,
-  loadAllFrameworkResults,
-  loadFrameworkResults,
-} from '@/services/resultsService';
+import { calculateSuccessRate, formatDuration, loadAllFrameworkResults, loadFrameworkResults } from '@/services/resultsService';
 import type { FrameworkName, FrameworkResult } from '@/types/results.types';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
@@ -18,7 +13,9 @@ export const useFrameworkStore = defineStore('framework', () => {
   const error = ref<string | null>(null);
 
   const currentData = computed(() => {
-    if (!currentFramework.value) return null;
+    if (!currentFramework.value) {
+      return null;
+    }
 
     const data = frameworks.value.get(currentFramework.value);
 
@@ -26,37 +23,34 @@ export const useFrameworkStore = defineStore('framework', () => {
   });
 
   const currentSummary = computed(() => {
-    if (!currentData.value) return null;
+    if (!currentData.value) {
+      return null;
+    }
     const data = currentData.value;
     return data?.summary ?? null;
   });
 
   const currentSuccessRate = computed(() => {
-    if (!currentSummary.value) return 0;
-    return calculateSuccessRate(
-      currentSummary.value.passed,
-      currentSummary.value.total
-    );
+    if (!currentSummary.value) {
+      return 0;
+    }
+    return calculateSuccessRate(currentSummary.value.passed, currentSummary.value.total);
   });
 
   const currentFormattedDuration = computed(() => {
-    if (!currentSummary.value) return '0s';
+    if (!currentSummary.value) {
+      return '0s';
+    }
     return formatDuration(currentSummary.value.duration_s);
   });
 
   const currentTests = computed(() => currentData.value?.tests ?? []);
 
-  const passedTests = computed(() =>
-    currentTests.value.filter((test) => test.status === 'passed')
-  );
+  const passedTests = computed(() => currentTests.value.filter((test) => test.status === 'passed'));
 
-  const failedTests = computed(() =>
-    currentTests.value.filter((test) => test.status === 'failed')
-  );
+  const failedTests = computed(() => currentTests.value.filter((test) => test.status === 'failed'));
 
-  const skippedTests = computed(() =>
-    currentTests.value.filter((test) => test.status === 'skipped')
-  );
+  const skippedTests = computed(() => currentTests.value.filter((test) => test.status === 'skipped'));
 
   async function fetchFramework(name: FrameworkName) {
     if (loading.value && currentFramework.value === name && frameworks.value.has(name)) {
