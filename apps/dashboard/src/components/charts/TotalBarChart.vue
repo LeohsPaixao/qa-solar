@@ -12,14 +12,7 @@
 
 <script setup lang="ts">
 import type { BarChartProps } from '@/types/BarChart.types';
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Tooltip,
-} from 'chart.js';
+import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Tooltip } from 'chart.js';
 import { computed } from 'vue';
 import { Bar } from 'vue-chartjs';
 
@@ -98,7 +91,7 @@ const chartOptions = computed(() => ({
         intersect: false,
       },
     },
-  }
+  },
 }));
 </script>
 

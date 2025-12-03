@@ -3,12 +3,7 @@
     <div class="table-header">
       <h4 v-if="title" class="table-title">{{ title }}</h4>
       <div class="table-controls">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Buscar testes..."
-          class="search-input"
-        />
+        <input v-model="searchQuery" type="text" placeholder="Buscar testes..." class="search-input" />
         <select v-model="statusFilter" class="filter-select">
           <option value="">Todos</option>
           <option value="passed">Passed</option>
@@ -45,16 +40,9 @@
         </thead>
         <tbody>
           <tr v-if="filteredTests.length === 0" class="empty-row">
-            <td :colspan="showError ? 5 : 4" class="empty-state">
-              Nenhum teste encontrado
-            </td>
+            <td :colspan="showError ? 5 : 4" class="empty-state">Nenhum teste encontrado</td>
           </tr>
-          <tr
-            v-for="test in paginatedTests"
-            :key="test.id"
-            class="test-row"
-            :class="`status-${test.status}`"
-          >
+          <tr v-for="test in paginatedTests" :key="test.id" class="test-row" :class="`status-${test.status}`">
             <td class="test-name">
               <span class="name-text">{{ test.name }}</span>
             </td>
@@ -70,11 +58,7 @@
               <span class="file-name">{{ test.file }}</span>
             </td>
             <td v-if="showError" class="error-cell">
-              <button
-                v-if="test.error"
-                @click="toggleError(test.id)"
-                class="error-toggle"
-              >
+              <button v-if="test.error" @click="toggleError(test.id)" class="error-toggle">
                 {{ expandedErrors.has(test.id) ? 'Ocultar' : 'Ver erro' }}
               </button>
               <div v-if="expandedErrors.has(test.id) && test.error" class="error-details">
@@ -86,21 +70,9 @@
       </table>
     </div>
     <div v-if="totalPages > 1" class="table-pagination">
-      <button
-        @click="currentPage = Math.max(1, currentPage - 1)"
-        :disabled="currentPage === 1"
-        class="pagination-btn"
-      >
-        Anterior
-      </button>
-      <span class="pagination-info">
-        Página {{ currentPage }} de {{ totalPages }}
-      </span>
-      <button
-        @click="currentPage = Math.min(totalPages, currentPage + 1)"
-        :disabled="currentPage === totalPages"
-        class="pagination-btn"
-      >
+      <button @click="currentPage = Math.max(1, currentPage - 1)" :disabled="currentPage === 1" class="pagination-btn">Anterior</button>
+      <span class="pagination-info"> Página {{ currentPage }} de {{ totalPages }} </span>
+      <button @click="currentPage = Math.min(totalPages, currentPage + 1)" :disabled="currentPage === totalPages" class="pagination-btn">
         Próxima
       </button>
     </div>
@@ -130,11 +102,7 @@ const filteredTests = computed(() => {
 
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase();
-    result = result.filter(
-      (test) =>
-        test.name.toLowerCase().includes(query) ||
-        test.file.toLowerCase().includes(query)
-    );
+    result = result.filter((test) => test.name.toLowerCase().includes(query) || test.file.toLowerCase().includes(query));
   }
 
   if (statusFilter.value) {
@@ -156,9 +124,7 @@ const filteredTests = computed(() => {
   return result;
 });
 
-const totalPages = computed(() =>
-  Math.ceil(filteredTests.value.length / props.itemsPerPage)
-);
+const totalPages = computed(() => Math.ceil(filteredTests.value.length / props.itemsPerPage));
 
 const paginatedTests = computed(() => {
   const start = (currentPage.value - 1) * props.itemsPerPage;

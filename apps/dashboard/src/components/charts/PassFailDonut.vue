@@ -6,15 +6,15 @@
     </div>
     <div class="chart-legend">
       <div class="legend-item">
-        <span class="legend-color" style="background: #28a745;"></span>
+        <span class="legend-color" style="background: #28a745" />
         <span>Passed: {{ passed }}</span>
       </div>
       <div class="legend-item">
-        <span class="legend-color" style="background: #dc3545;"></span>
+        <span class="legend-color" style="background: #dc3545" />
         <span>Failed: {{ failed }}</span>
       </div>
       <div v-if="skipped > 0" class="legend-item">
-        <span class="legend-color" style="background: #6c757d;"></span>
+        <span class="legend-color" style="background: #6c757d" />
         <span>Skipped: {{ skipped }}</span>
       </div>
     </div>
@@ -38,16 +38,8 @@ const chartData = computed(() => ({
   labels: ['Passed', 'Failed', ...(props.skipped > 0 ? ['Skipped'] : [])],
   datasets: [
     {
-      data: [
-        props.passed,
-        props.failed,
-        ...(props.skipped > 0 ? [props.skipped] : []),
-      ],
-      backgroundColor: [
-        '#28a745',
-        '#dc3545',
-        ...(props.skipped > 0 ? ['#6c757d'] : []),
-      ],
+      data: [props.passed, props.failed, ...(props.skipped > 0 ? [props.skipped] : [])],
+      backgroundColor: ['#28a745', '#dc3545', ...(props.skipped > 0 ? ['#6c757d'] : [])],
       borderWidth: 0,
     },
   ],
