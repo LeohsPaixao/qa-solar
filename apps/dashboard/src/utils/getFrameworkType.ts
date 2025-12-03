@@ -5,10 +5,10 @@
  * @returns `'ct'` se `frameworkName` contiver `'ct'`, `'e2e'` se contiver `'e2e'`, `'unit'` se contiver `'jest'` ou `'vitest'`, `'default'` caso contrário
  */
 export function getFrameworkType(frameworkName: string): string {
-  if (frameworkName.includes('ct')) {
+  if (frameworkName.endsWith('ct')) {
     return 'ct';
   }
-  if (frameworkName.includes('e2e')) {
+  if (frameworkName.endsWith('e2e')) {
     return 'e2e';
   }
   if (frameworkName.includes('jest') || frameworkName.includes('vitest')) {

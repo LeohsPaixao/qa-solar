@@ -143,11 +143,13 @@ function sortBy(field: 'name' | 'status' | 'duration') {
 }
 
 function toggleError(testId: string) {
-  if (expandedErrors.value.has(testId)) {
-    expandedErrors.value.delete(testId);
+  const newExpandedErrors = new Set(expandedErrors.value);
+  if (newExpandedErrors.has(testId)) {
+    newExpandedErrors.delete(testId);
   } else {
-    expandedErrors.value.add(testId);
+    newExpandedErrors.add(testId);
   }
+  expandedErrors.value = newExpandedErrors;
 }
 </script>
 

@@ -21,21 +21,25 @@
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "ES2021",
-      "DOM",
-      "DOM.Iterable"
+      "dom"
+    ],
+    "types": [
+      "playwright",
+      "node"
     ],
     "paths": {
       "@/*": [
-        "./src/*"
+        "./tests/playwright/*"
+      ],
+      "@frontend/*": [
+        "../../apps/frontend/src/*"
       ]
     }
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "test/vitest-setup.ts",
-    "test/global-stubs.ts"
+    "tests",
+  ],
+  "exclude": [
+    "node_modules",
   ]
 }
