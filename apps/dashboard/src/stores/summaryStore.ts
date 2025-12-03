@@ -33,6 +33,11 @@ export const useSummaryStore = defineStore('summary', () => {
     return Object.keys(byFramework.value);
   });
 
+  /**
+   * Carrega o resumo usando `loadSummary` e atualiza o estado reativo do store.
+   *
+   * Define `loading` como `true` enquanto a operação ocorre, limpa erros prévios, atribui os dados retornados a `summary` quando presentes, define uma mensagem em `error` se o carregamento falhar e garante que `loading` seja revertido para `false` ao final.
+   */
   async function fetchSummary() {
     loading.value = true;
     error.value = null;
