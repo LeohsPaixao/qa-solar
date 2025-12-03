@@ -53,7 +53,12 @@ export const useFrameworkStore = defineStore('framework', () => {
   const skippedTests = computed(() => currentTests.value.filter((test) => test.status === 'skipped'));
 
   async function fetchFramework(name: FrameworkName) {
-    if (loading.value && currentFramework.value === name && frameworks.value.has(name)) {
+    if (frameworks.value.has(name) && !loading.value) {
+      currentFramework.value = name;
+      return;
+    }
+
+    if (loading.value && currentFramework.value === name) {
       return;
     }
 

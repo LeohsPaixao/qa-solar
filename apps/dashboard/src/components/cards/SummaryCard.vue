@@ -3,7 +3,8 @@
     <div class="card-header">
       <h3 class="card-title">{{ title }}</h3>
       <div class="card-icon" :class="iconClass">
-        <svg v-if="!icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <component v-if="icon" :is="icon" width="24" height="24" />
+        <svg v-else width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path
             d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
             stroke="currentColor"
@@ -49,7 +50,7 @@ const trendValue = computed(() => {
 });
 
 const trendClass = computed(() => {
-  if (props.trend === undefined) {
+  if (props.trend === undefined || props.trend === 0) {
     return '';
   }
   return props.trend > 0 ? 'trend-up' : 'trend-down';

@@ -88,7 +88,13 @@ const failedRate = computed(() => {
   if (!overall.value) {
     return 0;
   }
-  return Math.round((overall.value.failed / overall.value.total) * 100);
+
+  if (overall.value.total === 0) {
+    return 0;
+  }
+
+  const rate = (overall.value.failed / overall.value.total) * 100;
+  return Math.round(rate);
 });
 
 const allFrameworks = computed(() => {

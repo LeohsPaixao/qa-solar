@@ -61,35 +61,32 @@ const chartData = computed(() => {
 const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
-  animation: {
-    duration: 0,
-    scales: {
-      x: {
-        stacked: true,
-        grid: {
-          display: false,
-        },
-      },
-      y: {
-        stacked: true,
-        beginAtZero: true,
-        grid: {
-          color: 'rgba(0, 0, 0, 0.05)',
-        },
+  scales: {
+    x: {
+      stacked: true,
+      grid: {
+        display: false,
       },
     },
-    plugins: {
-      legend: {
-        position: 'top' as const,
-        labels: {
-          usePointStyle: true,
-          padding: 15,
-        },
+    y: {
+      stacked: true,
+      beginAtZero: true,
+      grid: {
+        color: 'rgba(0, 0, 0, 0.05)',
       },
-      tooltip: {
-        mode: 'index' as const,
-        intersect: false,
+    },
+  },
+  plugins: {
+    legend: {
+      position: 'top' as const,
+      labels: {
+        usePointStyle: true,
+        padding: 15,
       },
+    },
+    tooltip: {
+      mode: 'index' as const,
+      intersect: false,
     },
   },
 }));

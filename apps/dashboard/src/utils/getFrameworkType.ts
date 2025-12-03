@@ -4,10 +4,10 @@
  * @returns Tipo de framework
  */
 export function getFrameworkType(frameworkName: string): string {
-  if (frameworkName.includes('ct')) {
+  if (frameworkName.endsWith('ct')) {
     return 'ct';
   }
-  if (frameworkName.includes('e2e')) {
+  if (frameworkName.endsWith('e2e')) {
     return 'e2e';
   }
   if (frameworkName.includes('jest') || frameworkName.includes('vitest')) {
