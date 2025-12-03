@@ -1,4 +1,5 @@
 import typescript from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import prettier from 'eslint-plugin-prettier';
 import pluginVue from 'eslint-plugin-vue';
 import vueParser from 'vue-eslint-parser';
@@ -10,9 +11,9 @@ export default {
   languageOptions: {
     parser: vueParser,
     parserOptions: {
+      parser: tsParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
-      parser: '@typescript-eslint/parser',
     },
   },
   plugins: {

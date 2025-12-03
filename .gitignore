@@ -104,7 +104,6 @@ temp/
 # Test results and reports
 *.jtl
 *.csv
-*.html
 !package.*
 !tsconfig.*
 !eslint.config.*
