@@ -71,6 +71,11 @@ dist/
 # TypeScript build info
 *.tsbuildinfo
 
+# Vue generated files
+**/*.vue.js
+**/*.vue.d.ts
+**/*.vue.js.map
+
 # Coverage reports
 *.clover.xml
 coverage-final.json
@@ -99,7 +104,6 @@ temp/
 # Test results and reports
 *.jtl
 *.csv
-*.html
 !package.*
 !tsconfig.*
 !eslint.config.*
@@ -116,3 +120,6 @@ temp/
 /docs/build
 /docs/.docusaurus
 /docs/.cache-loader
+
+# Planos de desenvolvimento
+.planos/
