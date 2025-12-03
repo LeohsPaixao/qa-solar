@@ -6,7 +6,7 @@ import vueParser from 'vue-eslint-parser';
 
 /** @type {import('eslint').Linter.Config} */
 export default {
-  ignores: ['eslint.config.js', 'dist', 'node_modules'],
+  ignores: ['eslint.config.js', 'dist', 'node_modules', 'src/**/*.js', 'src/**/*.d.ts', 'src/**/*.js.map', 'tsconfig.tsbuildinfo'],
   files: ['**/*.{js,ts,vue}'],
   languageOptions: {
     parser: vueParser,
