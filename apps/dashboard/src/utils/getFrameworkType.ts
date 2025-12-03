@@ -1,7 +1,8 @@
 /**
- * Obtém o tipo de framework a partir do nome do framework (ct, e2e, unit)
- * @param frameworkName - Nome do framework
- * @returns Tipo de framework
+ * Determina a categoria do framework a partir do nome fornecido.
+ *
+ * @param frameworkName - String que identifica o framework (por exemplo, um nome ou identificador)
+ * @returns `'ct'` se `frameworkName` contiver `'ct'`, `'e2e'` se contiver `'e2e'`, `'unit'` se contiver `'jest'` ou `'vitest'`, `'default'` caso contrário
  */
 export function getFrameworkType(frameworkName: string): string {
   if (frameworkName.includes('ct')) {

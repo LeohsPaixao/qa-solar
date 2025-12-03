@@ -52,6 +52,13 @@ export const useFrameworkStore = defineStore('framework', () => {
 
   const skippedTests = computed(() => currentTests.value.filter((test) => test.status === 'skipped'));
 
+  /**
+   * Carrega os resultados de um framework específico e atualiza o estado da store.
+   *
+   * Atualiza o cache de frameworks, o indicador de framework atual, o estado de carregamento e a mensagem de erro conforme o resultado da operação.
+   *
+   * @param name - Nome do framework cujos resultados devem ser carregados
+   */
   async function fetchFramework(name: FrameworkName) {
     if (loading.value && currentFramework.value === name && frameworks.value.has(name)) {
       return;
@@ -89,6 +96,12 @@ export const useFrameworkStore = defineStore('framework', () => {
     }
   }
 
+  /**
+   * Carrega resultados de todos os frameworks e atualiza o estado da store.
+   *
+   * Define o indicador de carregamento, limpa erros anteriores, substitui o `frameworks` pelo
+   * mapa carregado e, em caso de falha, grava a mensagem em `error` e registra o erro no console.
+   */
   async function fetchAllFrameworks() {
     loading.value = true;
     error.value = null;
@@ -104,6 +117,11 @@ export const useFrameworkStore = defineStore('framework', () => {
     }
   }
 
+  /**
+   * Atualiza a framework atualmente selecionada na store.
+   *
+   * @param name - Nome da framework a definir como selecionada; use `null` para limpar a seleção
+   */
   function setCurrentFramework(name: FrameworkName | null) {
     currentFramework.value = name;
   }

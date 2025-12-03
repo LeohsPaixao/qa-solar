@@ -3,8 +3,9 @@ import type { FrameworkName, FrameworkResult, SummaryData } from '@/types/result
 const RESULTS_BASE_PATH = '/qa-results/processed';
 
 /**
- * Carrega o arquivo de resumo geral
- * @returns Resumo geral
+ * Carrega o resumo geral de resultados.
+ *
+ * @returns O objeto de resumo geral, ou `null` se não for possível carregá-lo.
  */
 export async function loadSummary(): Promise<SummaryData | null> {
   try {
@@ -20,9 +21,10 @@ export async function loadSummary(): Promise<SummaryData | null> {
 }
 
 /**
- * Carrega os resultados de um framework específico
- * @param framework - Nome do framework
- * @returns Resultados do framework
+ * Carrega os resultados do framework especificado.
+ *
+ * @param framework - Nome do framework cujo arquivo `${framework}.json` será lido
+ * @returns Um `FrameworkResult` com os dados do framework, ou `null` se não for possível carregar ou parsear o arquivo
  */
 export async function loadFrameworkResults(framework: FrameworkName): Promise<FrameworkResult | null> {
   try {
@@ -39,8 +41,9 @@ export async function loadFrameworkResults(framework: FrameworkName): Promise<Fr
 }
 
 /**
- * Carrega todos os resultados de frameworks
- * @returns Map de frameworks e seus resultados
+ * Carrega os resultados de todos os frameworks suportados.
+ *
+ * @returns Map cujas chaves são nomes de framework e os valores são os resultados correspondentes; inclui apenas frameworks que retornaram dados.
  */
 export async function loadAllFrameworkResults(): Promise<Map<FrameworkName, FrameworkResult>> {
   const frameworks: FrameworkName[] = ['cypress-ct', 'cypress-e2e', 'jest', 'playwright-e2e', 'robot-e2e', 'selenium-e2e', 'vitest'];
@@ -79,9 +82,13 @@ export function formatDuration(seconds: number): string {
 }
 
 /**
- * Formata timestamp para data legível
- * @param timestamp - Timestamp
- * @returns Timestamp formatado
+ * Converte um timestamp em uma string de data e hora legível no formato local pt-BR.
+ *
+ * Aceita variações comuns de timestamp (tentando normalizar algumas formas com 'T') e,
+ * se não for possível parsear a data, retorna o valor original recebido.
+ *
+ * @param timestamp - String que representa a data/hora a ser formatada
+ * @returns A data e hora formatadas em pt-BR (ex.: `dd/mm/yyyy hh:mm`) ou o `timestamp` original se inválido
  */
 export function formatTimestamp(timestamp: string): string {
   try {
@@ -106,10 +113,11 @@ export function formatTimestamp(timestamp: string): string {
 }
 
 /**
- * Calcula a taxa de sucesso em porcentagem
- * @param passed - Número de testes passados
+ * Calcula a porcentagem de testes bem-sucedidos.
+ *
+ * @param passed - Número de testes que passaram
  * @param total - Número total de testes
- * @returns Taxa de sucesso em porcentagem
+ * @returns Porcentagem de testes bem-sucedidos, arredondada para o inteiro mais próximo; retorna 0 se `total` for 0
  */
 export function calculateSuccessRate(passed: number, total: number): number {
   if (total === 0) {
