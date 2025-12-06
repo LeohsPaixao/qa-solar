@@ -47,5 +47,5 @@ jobs:
       - name: Upload raw results (Jest)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results-jest
+          name: jest
           path: qa-results/raw/jest

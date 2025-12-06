@@ -18,9 +18,6 @@ jobs:
         with:
           path: qa-results/raw
 
-      - name: Mostrar o que foi baixado (debug)
-        run: ls -R qa-results || true
-
       - name: Configurar Node.js
         uses: actions/setup-node@v4.4.0
         with:

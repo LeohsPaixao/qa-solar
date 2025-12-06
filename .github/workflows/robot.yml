@@ -78,5 +78,5 @@ jobs:
       - name: Upload raw results (Robot Framework E2E)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results-robot-e2e
+          name: robot-e2e
           path: qa-results/raw/robot-e2e

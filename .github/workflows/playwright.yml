@@ -72,5 +72,5 @@ jobs:
       - name: Upload raw results (Playwright E2E)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results-playwright-e2e
+          name: playwright-e2e
           path: qa-results/raw/playwright-e2e

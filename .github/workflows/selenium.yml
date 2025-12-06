@@ -87,5 +87,5 @@ jobs:
       - name: Upload raw results (Selenium E2E)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results-selenium-e2e
+          name: selenium-e2e
           path: qa-results/raw/selenium-e2e

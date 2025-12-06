@@ -32,5 +32,5 @@ jobs:
       - name: Upload raw results (Cypress CT)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results-cypress-ct
+          name: cypress-ct
           path: qa-results/raw/cypress-ct
