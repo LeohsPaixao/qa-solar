@@ -2,7 +2,11 @@
   <img src="https://github.com/user-attachments/assets/4c269162-e3a0-4199-a65b-b2f51bb74a57" alt="logoqae2e" width="200"/>
 </div>
 
----
+<br/><br/><br/>
+
+# QA Solar - Resumo dos Testes
+![QA Solar - Test Summary](https://leohspaixao.github.io/qa-solar/qa-results/summary.svg)
+
 
 # QA Solar Monorepo
 
@@ -13,7 +17,6 @@
 
 Este é um projeto monorepo desenvolvido para fins de estudo e aprimoramento de conhecimentos em programação, tanto no backend quanto no frontend. O foco principal do projeto está no desenvolvimento e na prática de testes, explorando frameworks amplamente conhecidos, como **Cypress**, **Playwright** e **Robot Framework**, para criar testes de interface de usuário (UI Tests), componentes e, possivelmente, APIs.
 
----
 
 ## 📚 Documentação
 
