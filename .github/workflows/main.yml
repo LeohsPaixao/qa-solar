@@ -82,6 +82,15 @@ jobs:
       (needs.cypress-component-tests.result == 'success' || needs.cypress-component-tests.result == 'skipped')
     uses: ./.github/workflows/selenium.yml
 
+  preprocess:
+    needs: [filter, backend-unit-tests, frontend-unit-tests, cypress-component-tests]
+    if: >-
+      always() &&
+      (needs.backend-unit-tests.result == 'success' || needs.backend-unit-tests.result == 'skipped') &&
+      (needs.frontend-unit-tests.result == 'success' || needs.frontend-unit-tests.result == 'skipped') &&
+      (needs.cypress-component-tests.result == 'success' || needs.cypress-component-tests.result == 'skipped')
+    uses: ./.github/workflows/preprocess.yml
+  
   docker-deploy:
     if: github.base_ref == 'main'
     needs:
@@ -95,16 +104,9 @@ jobs:
     secrets:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  docs-deploy:
-    needs:
-      [
-        filter,
-        cypress-tests,
-        playwright-tests,
-        robot-framework-tests,
-        selenium-tests,
-      ]
-    if: github.base_ref == 'main' && needs.filter.outputs.docs == 'true'
-    uses: ./.github/workflows/docs-deploy.yml
+  pages-deploy:
+    needs: [filter, preprocess]
+    if: github.base_ref == 'main' && needs.filter.outputs.docs == 'true' && needs.preprocess.result == 'success'
+    uses: ./.github/workflows/pages-deploy.yml
     permissions:
       contents: write
