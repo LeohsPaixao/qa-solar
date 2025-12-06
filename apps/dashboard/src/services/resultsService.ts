@@ -1,6 +1,6 @@
 import type { FrameworkName, FrameworkResult, SummaryData } from '@/types/results.types';
 
-const RESULTS_BASE_PATH = '/qa-results/processed';
+const RESULTS_BASE_PATH = '/qa-solar/dashboard/qa-results/processed';
 
 /**
  * Carrega o resumo geral de resultados.
