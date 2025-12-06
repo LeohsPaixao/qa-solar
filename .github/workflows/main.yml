@@ -22,8 +22,8 @@ jobs:
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' &&
-      (needs.frontend-unit-tests.result == 'success' &&
-      (needs.cypress-component-tests.result == 'success' &&
+      needs.frontend-unit-tests.result == 'success' &&
+      needs.cypress-component-tests.result == 'success')
     uses: ./.github/workflows/cypress.yml
 
   playwright-tests:
@@ -31,8 +31,8 @@ jobs:
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' &&
-      (needs.frontend-unit-tests.result == 'success' &&
-      (needs.cypress-component-tests.result == 'success' &&
+      needs.frontend-unit-tests.result == 'success' &&
+      needs.cypress-component-tests.result == 'success')
     uses: ./.github/workflows/playwright.yml
 
   robot-framework-tests:
@@ -40,8 +40,8 @@ jobs:
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' &&
-      (needs.frontend-unit-tests.result == 'success' &&
-      (needs.cypress-component-tests.result == 'success' &&
+      needs.frontend-unit-tests.result == 'success' &&
+      needs.cypress-component-tests.result == 'success')
     uses: ./.github/workflows/robot.yml
 
   selenium-tests:
@@ -49,8 +49,8 @@ jobs:
     if: >-
       always() &&
       (needs.backend-unit-tests.result == 'success' &&
-      (needs.frontend-unit-tests.result == 'success' &&
-      (needs.cypress-component-tests.result == 'success' &&
+      needs.frontend-unit-tests.result == 'success' &&
+      needs.cypress-component-tests.result == 'success')
     uses: ./.github/workflows/selenium.yml
 
   preprocess:
@@ -58,9 +58,10 @@ jobs:
       [cypress-tests, playwright-tests, robot-framework-tests, selenium-tests]
     if: >-
       always() &&
-      (needs.backend-unit-tests.result == 'success' &&
-      (needs.frontend-unit-tests.result == 'success' &&
-      (needs.cypress-component-tests.result == 'success' &&
+      (needs.cypress-tests.result == 'success' &&
+      needs.playwright-tests.result == 'success' &&
+      needs.robot-framework-tests.result == 'success' &&
+      needs.selenium-tests.result == 'success')
     uses: ./.github/workflows/preprocess.yml
 
   docker-deploy:
