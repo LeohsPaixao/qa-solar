@@ -33,9 +33,26 @@ jobs:
       - name: Construir Dashboard
         run: yarn workspace dashboard build
 
-      - name: Preparar pasta public
+      - name: Criar redirecionamento para a página inicial
         run: |
           rm -rf public
+          mkdir -p public
+          cat <<EOF > public/index.html
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="UTF-8" />
+              <meta http-equiv="refresh" content="0; url=/qa-solar/docs/" />
+              <script>
+                location.replace('/qa-solar/docs/');
+              </script>
+            </head>
+            <body></body>
+          </html>
+          EOF
+
+      - name: Preparar pasta public
+        run: |
           mkdir -p public/docs
           mkdir -p public/dashboard
 

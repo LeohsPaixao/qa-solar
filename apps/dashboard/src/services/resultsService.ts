@@ -1,6 +1,6 @@
 import type { FrameworkName, FrameworkResult, SummaryData } from '@/types/results.types';
 
-const RESULTS_BASE_PATH = '/qa-results/processed';
+const RESULTS_BASE_PATH = '/qa-solar/dashboard/qa-results/processed';
 
 /**
  * Carrega o resumo geral de resultados.
@@ -9,7 +9,7 @@ const RESULTS_BASE_PATH = '/qa-results/processed';
  */
 export async function loadSummary(): Promise<SummaryData | null> {
   try {
-    const response = await fetch(new URL(`${RESULTS_BASE_PATH}/summary.json`, import.meta.url));
+    const response = await fetch(`${RESULTS_BASE_PATH}/summary.json`);
     if (!response.ok) {
       throw new Error(`Failed to load summary: ${response.statusText}`);
     }
@@ -29,7 +29,7 @@ export async function loadSummary(): Promise<SummaryData | null> {
 export async function loadFrameworkResults(framework: FrameworkName): Promise<FrameworkResult | null> {
   try {
     const filename = `${framework}.json`;
-    const response = await fetch(new URL(`${RESULTS_BASE_PATH}/${filename}`, import.meta.url));
+    const response = await fetch(`${RESULTS_BASE_PATH}/${filename}`);
     if (!response.ok) {
       throw new Error(`Failed to load ${framework}: ${response.statusText}`);
     }
