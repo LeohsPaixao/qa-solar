@@ -33,10 +33,17 @@ jobs:
           name: qa-results
           path: qa-results/processed
 
+      - naem: Debugar resultados processados
+        run: |
+          ls -la qa-results/processed
+          ls -la apps/dashboard/public/qa-results/processed
+          cat qa-results/processed/summary.json
+          cat apps/dashboard/public/qa-results/processed/summary.json
+
       - name: Sincronizar resultados processados com o Dashboard
         run: |
-          rm -rf apps/dashboard/public/qa-results/processed/
-          cp -R qa-results/processed/ apps/dashboard/public/qa-results/processed/
+          rm -rf apps/dashboard/public/qa-results/processed
+          cp -R qa-results/processed apps/dashboard/public/qa-results/processed
 
       - name: Construir site do Docusaurus
         run: yarn workspace docs build
