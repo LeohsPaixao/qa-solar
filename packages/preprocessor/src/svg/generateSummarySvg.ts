@@ -32,28 +32,38 @@ export async function generateSummarySvg(summaryData: SummaryData, config: Prepr
 
   const frameworks = Object.keys(summary.byFramework);
 
-  // Mapeamento de cores para frameworks
   const frameworkColors: Record<string, string> = {
     'cypress-ct': '#58a6ff',
     'cypress-e2e': '#58a6ff',
     'playwright-e2e': '#2ea043',
+    'playwright-ct': '#2ea043',
     'robot-e2e': '#f85149',
     'selenium-e2e': '#a5a5a5',
     vitest: '#f1e05a',
     jest: '#c21325',
+    appium: '#7c3aed',
+    k6: '#7d3c98',
   };
 
-  // Função para formatar o nome do framework
   const formatFrameworkName = (framework: string): string => {
     return framework.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
   };
 
-  // Calcular altura do header baseado no número de frameworks
+  const paddingLeft = 24;
+  const paddingRight = 24;
+  const badgeWidth = 110;
+  const badgeSpacing = 10;
+  const badgeTotalWidth = badgeWidth + badgeSpacing;
+  const minSvgWidth = 800;
+  const badgesWidth = frameworks.length > 0 ? frameworks.length * badgeTotalWidth - badgeSpacing : 0;
+  const requiredWidth = paddingLeft + badgesWidth + paddingRight;
+  const svgWidth = Math.max(minSvgWidth, requiredWidth);
+  const progressBarWidth = svgWidth - paddingLeft - paddingRight;
   const headerHeight = 70;
   const svgHeight = 220;
 
   const summarySvg = `
-<svg width="800" height="${svgHeight}" viewBox="0 0 800 ${svgHeight}" xmlns="http://www.w3.org/2000/svg">
+<svg width="${svgWidth}" height="${svgHeight}" viewBox="0 0 ${svgWidth} ${svgHeight}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#238636;stop-opacity:0.1" />
@@ -147,10 +157,10 @@ export async function generateSummarySvg(summaryData: SummaryData, config: Prepr
 
   <!-- Progress Bar -->
   <g transform="translate(24, ${headerHeight + 115})">
-    <rect x="0" y="0" width="752" height="8" rx="4" class="progress-bg"/>
-    ${passedPercent > 0 ? `<rect x="0" y="0" width="${Math.max((passedPercent / 100) * 752, 0)}" height="8" rx="4" class="progress-passed"/>` : ''}
-    ${failedPercent > 0 ? `<rect x="${(passedPercent / 100) * 752}" y="0" width="${Math.max((failedPercent / 100) * 752, 0)}" height="8" rx="4" class="progress-failed"/>` : ''}
-    ${skippedPercent > 0 ? `<rect x="${((passedPercent + failedPercent) / 100) * 752}" y="0" width="${Math.max((skippedPercent / 100) * 752, 0)}" height="8" rx="4" class="progress-skipped"/>` : ''}
+    <rect x="0" y="0" width="${progressBarWidth}" height="8" rx="4" class="progress-bg"/>
+    ${passedPercent > 0 ? `<rect x="0" y="0" width="${Math.max((passedPercent / 100) * progressBarWidth, 0)}" height="8" rx="4" class="progress-passed"/>` : ''}
+    ${failedPercent > 0 ? `<rect x="${(passedPercent / 100) * progressBarWidth}" y="0" width="${Math.max((failedPercent / 100) * progressBarWidth, 0)}" height="8" rx="4" class="progress-failed"/>` : ''}
+    ${skippedPercent > 0 ? `<rect x="${((passedPercent + failedPercent) / 100) * progressBarWidth}" y="0" width="${Math.max((skippedPercent / 100) * progressBarWidth, 0)}" height="8" rx="4" class="progress-skipped"/>` : ''}
   </g>
 
   <!-- Footer -->

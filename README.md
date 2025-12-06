@@ -5,7 +5,7 @@
 <br/><br/><br/>
 
 # QA Solar - Resumo dos Testes
-![QA Solar - Test Summary](https://leohspaixao.github.io/qa-solar/qa-results/summary.svg)
+![QA Solar - Test Summary](https://leohspaixao.github.io/qa-solar/dashboard/qa-results/processed/summary.svg)
 
 
 # QA Solar Monorepo
