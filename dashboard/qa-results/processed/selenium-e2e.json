@@ -1,20 +1,20 @@
 {
   "framework": "selenium-e2e",
-  "timestamp": "2025-11-22-03-48-32",
+  "timestamp": "2025-12-06-15-45-11",
   "type": "e2e",
   "summary": {
     "total": 37,
-    "passed": 36,
-    "failed": 1,
+    "passed": 37,
+    "failed": 0,
     "skipped": 0,
-    "duration_s": 222.53
+    "duration_s": 74.93200000000002
   },
   "tests": [
     {
       "id": "ListUsers:deveria-ser-possvel-visualizar-os-elementos-da-tela-de-listagem-de-usurios",
       "name": "Deveria ser possível visualizar os elementos da tela de listagem de usuários",
       "status": "passed",
-      "duration_s": 11.309,
+      "duration_s": 14.444,
       "file": "ListUsers.java",
       "tags": [],
       "error": null
@@ -22,17 +22,17 @@
     {
       "id": "ListUsers:deveria-ser-possvel-selecionar-um-usurio-e-exclu-lo",
       "name": "Deveria ser possível selecionar um usuário e excluí-lo",
-      "status": "failed",
-      "duration_s": 18.171,
+      "status": "passed",
+      "duration_s": 3.09,
       "file": "ListUsers.java",
       "tags": [],
-      "error": "org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.cssSelector: [data-testid='toast-content'] (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '4.35.0', revision: '1c58e5028b'\nSystem info: os.name: 'Linux', os.arch: 'amd64', os.version: '6.14.0-35-generic', java.version: '21.0.9'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 142.0.7444.162, chrome: {chromedriverVersion: 142.0.7444.175 (302067f14a4..., userDataDir: /tmp/.org.chromium.Chromium...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:40219}, goog:processID: 109460, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://localhost:40219/devtoo..., se:cdpVersion: 142.0.7444.162, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}\nSession ID: c4f6a5877d7f296beac6a0e0ed46051b"
+      "error": null
     },
     {
       "id": "ListUsers:deveria-ser-possvel-selecionar-todos-os-usurios",
       "name": "Deveria ser possível selecionar todos os usuários",
       "status": "passed",
-      "duration_s": 7.854,
+      "duration_s": 2.383,
       "file": "ListUsers.java",
       "tags": [],
       "error": null
@@ -41,7 +41,7 @@
       "id": "LoginTest:deveria-ser-possvel-visualizar-a-mensagem-de-erro-embaixo-dos-inputs-de-email-e-senha-quando-esto-vazios",
       "name": "Deveria ser possível visualizar a mensagem de erro embaixo dos inputs de email e senha quando estão vazios",
       "status": "passed",
-      "duration_s": 19.653,
+      "duration_s": 15.827,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -50,7 +50,7 @@
       "id": "LoginTest:deveria-ser-possvel-visualizar-o-erro-de-email-invlido-embaixo-do-input-de-email",
       "name": "Deveria ser possível visualizar o erro de email inválido embaixo do input de email",
       "status": "passed",
-      "duration_s": 3.718,
+      "duration_s": 0.806,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -59,7 +59,7 @@
       "id": "LoginTest:deveria-ser-possvel-fazer-login-com-credenciais-vlidas",
       "name": "Deveria ser possível fazer login com credenciais válidas",
       "status": "passed",
-      "duration_s": 5.503,
+      "duration_s": 1.857,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -68,7 +68,7 @@
       "id": "LoginTest:no-deveria-ser-possvel-fazer-login-com-credenciais-invlidas",
       "name": "Não deveria ser possível fazer login com credenciais inválidas",
       "status": "passed",
-      "duration_s": 4.26,
+      "duration_s": 1.341,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -77,7 +77,7 @@
       "id": "LoginTest:deveria-ser-possvel-visualizar-os-elementos-da-tela",
       "name": "Deveria ser possível visualizar os elementos da tela",
       "status": "passed",
-      "duration_s": 2.278,
+      "duration_s": 0.793,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -86,7 +86,7 @@
       "id": "LoginTest:no-deveria-ser-possvel-fazer-login-com-a-senha-invlida",
       "name": "Não deveria ser possível fazer login com a senha inválida",
       "status": "passed",
-      "duration_s": 3.03,
+      "duration_s": 1.385,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -95,7 +95,7 @@
       "id": "LoginTest:deveria-ser-possvel-ir-para-a-tela-de-esqueci-a-senha",
       "name": "Deveria ser possível ir para a tela de esqueci a senha",
       "status": "passed",
-      "duration_s": 3.141,
+      "duration_s": 1.086,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -104,7 +104,7 @@
       "id": "LoginTest:deveria-ser-possvel-ir-para-a-tela-de-cadastro",
       "name": "Deveria ser possível ir para a tela de cadastro",
       "status": "passed",
-      "duration_s": 3.073,
+      "duration_s": 0.841,
       "file": "LoginTest.java",
       "tags": [],
       "error": null
@@ -113,7 +113,7 @@
       "id": "Profile:no-deveria-ser-possvel-salvar-a-alterao-com-apenas-o-nome",
       "name": "Não deveria ser possível salvar a alteração com apenas o nome",
       "status": "passed",
-      "duration_s": 19.883,
+      "duration_s": 2.271,
       "file": "Profile.java",
       "tags": [],
       "error": null
@@ -122,7 +122,7 @@
       "id": "Profile:no-deveria-ser-possvel-salvar-a-alterao-com-letras-no-telefone",
       "name": "Não deveria ser possível salvar a alteração com letras no telefone",
       "status": "passed",
-      "duration_s": 5.882,
+      "duration_s": 2.255,
       "file": "Profile.java",
       "tags": [],
       "error": null
@@ -131,7 +131,7 @@
       "id": "Profile:no-deveria-ser-possvel-salvar-a-alterao-com-menos-de-10-dgitos-no-telefone",
       "name": "Não deveria ser possível salvar a alteração com menos de 10 dígitos no telefone",
       "status": "passed",
-      "duration_s": 5.422,
+      "duration_s": 2.03,
       "file": "Profile.java",
       "tags": [],
       "error": null
@@ -140,7 +140,7 @@
       "id": "Profile:no-deveria-ser-possvel-salvar-a-alterao-sem-colocar-algum-dado-no-nome-completo",
       "name": "Não deveria ser possível salvar a alteração sem colocar algum dado no Nome Completo",
       "status": "passed",
-      "duration_s": 4.787,
+      "duration_s": 1.887,
       "file": "Profile.java",
       "tags": [],
       "error": null
@@ -149,7 +149,7 @@
       "id": "Profile:deveria-ser-possvel-visualizar-os-elementos-da-tela-de-perfil",
       "name": "Deveria ser possível visualizar os elementos da tela de perfil",
       "status": "passed",
-      "duration_s": 4.464,
+      "duration_s": 1.818,
       "file": "Profile.java",
       "tags": [],
       "error": null
@@ -158,7 +158,7 @@
       "id": "Profile:deveria-ser-possvel-salvar-a-alterao",
       "name": "Deveria ser possível salvar a alteração",
       "status": "passed",
-      "duration_s": 6.419,
+      "duration_s": 2.694,
       "file": "Profile.java",
       "tags": [],
       "error": null
@@ -167,7 +167,7 @@
       "id": "Profile:no-deveria-ser-possvel-salvar-a-alterao-com-mais-de-11-dgitos-no-telefone",
       "name": "Não deveria ser possível salvar a alteração com mais de 11 dígitos no telefone",
       "status": "passed",
-      "duration_s": 3.934,
+      "duration_s": 1.893,
       "file": "Profile.java",
       "tags": [],
       "error": null
@@ -176,7 +176,7 @@
       "id": "RecoverPassword:deveria-ser-possvel-voltar-para-a-tela-de-login-pelo-link",
       "name": "Deveria ser possível voltar para a tela de login pelo link",
       "status": "passed",
-      "duration_s": 18.337,
+      "duration_s": 0.757,
       "file": "RecoverPassword.java",
       "tags": [],
       "error": null
@@ -185,7 +185,7 @@
       "id": "RecoverPassword:deveria-ser-possvel-aparecer-um-toast-de-feedback-caso-coloque-um-email-invlido",
       "name": "Deveria ser possível aparecer um toast de feedback caso coloque um email inválido",
       "status": "passed",
-      "duration_s": 4.844,
+      "duration_s": 1.513,
       "file": "RecoverPassword.java",
       "tags": [],
       "error": null
@@ -194,7 +194,7 @@
       "id": "RecoverPassword:deveria-ser-possvel-enviar-o-email-de-recuperao-de-senha",
       "name": "Deveria ser possível enviar o email de recuperação de senha",
       "status": "passed",
-      "duration_s": 4.359,
+      "duration_s": 1.367,
       "file": "RecoverPassword.java",
       "tags": [],
       "error": null
@@ -203,7 +203,7 @@
       "id": "RecoverPassword:deveria-ser-possvel-visualizar-os-elementos-da-tela-de-recuperao-de-senha",
       "name": "Deveria ser possível visualizar os elementos da tela de recuperação de senha",
       "status": "passed",
-      "duration_s": 2.97,
+      "duration_s": 0.656,
       "file": "RecoverPassword.java",
       "tags": [],
       "error": null
@@ -212,7 +212,7 @@
       "id": "RecoverPassword:deveria-ser-possvel-aparecer-uma-mensagem-de-erro-quando-o-email-est-vazio",
       "name": "Deveria ser possível aparecer uma mensagem de erro quando o email está vazio",
       "status": "passed",
-      "duration_s": 2.781,
+      "duration_s": 0.713,
       "file": "RecoverPassword.java",
       "tags": [],
       "error": null
@@ -221,7 +221,7 @@
       "id": "RegisterTest:deveria-ser-possvel-ir-para-a-tela-de-login-ao-clicar-no-link",
       "name": "Deveria ser possível ir para a tela de login ao clicar no link",
       "status": "passed",
-      "duration_s": 17.639,
+      "duration_s": 0.662,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -230,7 +230,7 @@
       "id": "RegisterTest:deveria-ser-possvel-visualizar-os-elementos-da-tela-de-cadastro",
       "name": "Deveria ser possível visualizar os elementos da tela de cadastro",
       "status": "passed",
-      "duration_s": 4.178,
+      "duration_s": 0.691,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -239,7 +239,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-criar-o-usurio-com-o-cpf-invlido",
       "name": "Não deveria ser possível criar o usuário com o CPF inválido",
       "status": "passed",
-      "duration_s": 3.315,
+      "duration_s": 0.658,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -248,7 +248,7 @@
       "id": "RegisterTest:deveria-ser-possvel-cadastrar-um-usurio",
       "name": "Deveria ser possível cadastrar um usuário",
       "status": "passed",
-      "duration_s": 6.7,
+      "duration_s": 1.67,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -257,7 +257,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-colocar-letras-no-campo-de-telefone",
       "name": "Não deveria ser possível colocar letras no campo de telefone",
       "status": "passed",
-      "duration_s": 2.635,
+      "duration_s": 0.665,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -266,7 +266,7 @@
       "id": "RegisterTest:deveria-ser-possvel-visualizar-os-erros-embaixo-dos-inputs-ao-adicionar-um-valor-e-remover",
       "name": "Deveria ser possível visualizar os erros embaixo dos inputs ao adicionar um valor e remover",
       "status": "passed",
-      "duration_s": 4.382,
+      "duration_s": 1.029,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -275,7 +275,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-colocar-mais-de-11-dgitos-no-campo-de-telefone",
       "name": "Não deveria ser possível colocar mais de 11 dígitos no campo de telefone",
       "status": "passed",
-      "duration_s": 2.832,
+      "duration_s": 0.661,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -284,7 +284,7 @@
       "id": "RegisterTest:deveria-ser-possvel-visualizar-o-erro-de-senha-e-senha-de-confirmao-diferentes",
       "name": "Deveria ser possível visualizar o erro de senha e senha de confirmação diferentes",
       "status": "passed",
-      "duration_s": 2.559,
+      "duration_s": 0.696,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -293,7 +293,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-criar-o-usurio-com-o-cnpj-invlido",
       "name": "Não deveria ser possível criar o usuário com o CNPJ inválido",
       "status": "passed",
-      "duration_s": 2.783,
+      "duration_s": 0.751,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -302,7 +302,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-criar-o-usurio-com-o-nome-completo-errado",
       "name": "Não deveria ser possível criar o usuário com o Nome Completo errado",
       "status": "passed",
-      "duration_s": 2.096,
+      "duration_s": 0.664,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -311,7 +311,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-criar-o-usurio-com-uma-senha-com-menos-de-6-caracteres",
       "name": "Não deveria ser possível criar o usuário com uma senha com menos de 6 caracteres",
       "status": "passed",
-      "duration_s": 1.812,
+      "duration_s": 1.144,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -320,7 +320,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-criar-o-usurio-com-o-email-invlido",
       "name": "Não deveria ser possível criar o usuário com o email inválido",
       "status": "passed",
-      "duration_s": 1.937,
+      "duration_s": 0.652,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -329,7 +329,7 @@
       "id": "RegisterTest:no-deveria-ser-possvel-criar-o-usurio-com-uma-senha-com-mais-de-20-caracteres",
       "name": "Não deveria ser possível criar o usuário com uma senha com mais de 20 caracteres",
       "status": "passed",
-      "duration_s": 1.692,
+      "duration_s": 0.649,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
@@ -338,14 +338,14 @@
       "id": "RegisterTest:no-deveria-ser-possvel-colocar-menos-de-10-dgitos-no-campo-de-telefone",
       "name": "Não deveria ser possível colocar menos de 10 dígitos no campo de telefone",
       "status": "passed",
-      "duration_s": 1.898,
+      "duration_s": 0.633,
       "file": "RegisterTest.java",
       "tags": [],
       "error": null
     }
   ],
   "metadata": {
-    "hostname": "Colossus",
-    "timestamp": "2025-11-22T03:48:51"
+    "hostname": "runnervmoqczp",
+    "timestamp": "2025-12-06T15:45:17"
   }
 }
