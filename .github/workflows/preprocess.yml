@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v4.4.0
         with:
           node-version: 22.19.0
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Instalar dependências do Monorepo
         run: yarn install --frozen-lockfile
@@ -40,4 +40,4 @@ jobs:
       - name: Sincronizar resultados com o dashboard
         run: |
           rm -rf ./apps/dashboard/public/qa-results/processed/*
-          cp -R ./qa-results/processed ./apps/dashboard/public/qa-results/processed
+          cp -R ./qa-results/processed ./apps/dashboard/public/qa-results/

@@ -6,7 +6,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy Docs + Dashboard
+    name: Deploy Pages
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -19,9 +19,9 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.4.0
         with:
-          node-version: 22.1.0
+          node-version: 22.19.0
           cache: "yarn"
 
       - name: Instalar dependências do Monorepo
