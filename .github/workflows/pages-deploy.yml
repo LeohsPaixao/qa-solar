@@ -33,7 +33,7 @@ jobs:
           name: qa-results
           path: qa-results/processed
 
-      - naem: Debugar resultados processados
+      - name: Debugar resultados processados
         run: |
           ls -la qa-results/processed
           ls -la apps/dashboard/public/qa-results/processed
