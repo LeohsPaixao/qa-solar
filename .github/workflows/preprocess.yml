@@ -13,6 +13,14 @@ jobs:
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
+      - name: Baixar todos os artifacts (raw)
+        uses: actions/download-artifact@v4.4.0
+        with:
+          path: qa-results/raw
+
+      - name: Mostrar o que foi baixado (debug)
+        run: ls -R qa-results || true
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4.4.0
         with:

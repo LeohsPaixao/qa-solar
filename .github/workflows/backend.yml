@@ -43,3 +43,12 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/tests_base?schema=public
           JWT_SECRET: jwt_secret
+
+      - name: Mostrar arquivos gerados (debug)
+        run: ls -R qa-results || true
+
+      - name: Upload raw results (Backend)
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: raw-results
+          path: qa-results/raw/backend

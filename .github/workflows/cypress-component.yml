@@ -28,3 +28,12 @@ jobs:
         with:
           working-directory: tests/cypress
           command: npx cypress run --component --config-file cypress.config.ts
+
+      - name: Mostrar arquivos gerados (debug)
+        run: ls -R qa-results || true
+
+      - name: Upload raw results (Cypress Component)
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: raw-results
+          path: qa-results/raw/cypress-component

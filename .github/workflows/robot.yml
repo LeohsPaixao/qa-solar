@@ -75,10 +75,11 @@ jobs:
         working-directory: tests/robot
         run: make test
 
-      - name: Salvar relatórios Robot Framework
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
+      - name: Mostrar arquivos gerados (debug)
+        run: ls -R qa-results || true
+
+      - name: Upload raw results (Robot Framework)
+        uses: actions/upload-artifact@v4.4.0
         with:
-          name: robot-report
-          path: tests/robot/results/reports/
-          retention-days: 10
+          name: raw-results
+          path: qa-results/raw/robot-e2e

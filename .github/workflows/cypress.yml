@@ -67,3 +67,12 @@ jobs:
           CYPRESS_API_URL: ${{ secrets.CYPRESS_API_URL }}
           CYPRESS_BASE_URL: ${{ secrets.CYPRESS_BASE_URL }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_CYPRESS }}
+
+      - name: Mostrar arquivos gerados (debug)
+        run: ls -R qa-results || true
+
+      - name: Upload raw results (Cypress E2E)
+        uses: actions/upload-artifact@v4.4.0
+        with:
+          name: raw-results
+          path: qa-results/raw/cypress-e2e
