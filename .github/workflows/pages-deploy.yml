@@ -1,0 +1,50 @@
+on:
+  workflow_call:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Deploy Docs + Dashboard
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TURBO_TELEMETRY_DISABLED: 1
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.1.0
+          cache: "yarn"
+
+      - name: Instalar dependências do Monorepo
+        run: yarn install --frozen-lockfile
+
+      - name: Construir site do Docusaurus
+        run: yarn workspace docs build
+
+      - name: Construir Dashboard
+        run: yarn workspace dashboard build
+
+      - name: Preparar pasta public
+        run: |
+          rm -rf public
+          mkdir -p public/docs
+          mkdir -p public/dashboard
+
+          cp -R docs/build/* public/docs/
+          cp -R dashboard/dist/* public/dashboard/
+
+      - name: Deploy para GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
+          publish_branch: gh-pages
