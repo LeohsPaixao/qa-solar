@@ -1,20 +1,20 @@
 {
   "framework": "robot-e2e",
-  "timestamp": "2025-12-06-14-53-10",
+  "timestamp": "2025-11-20-21-39-05",
   "type": "e2e",
   "summary": {
     "total": 36,
     "passed": 36,
     "failed": 0,
     "skipped": 0,
-    "duration_s": 26.492203999999997
+    "duration_s": 54.36395799999999
   },
   "tests": [
     {
       "id": "listUsers:deveria-ser-possvel-visualizar-elementos-da-tela-de-listagem-de-usurios",
       "name": "Deveria Ser Possível Visualizar Elementos Da Tela De Listagem De Usuários",
       "status": "passed",
-      "duration_s": 2.943077,
+      "duration_s": 3.115855,
       "file": "listUsers.robot",
       "tags": [],
       "error": null
@@ -23,7 +23,7 @@
       "id": "listUsers:deveria-ser-possvel-selecionar-todos-os-usurios",
       "name": "Deveria Ser Possível Selecionar Todos Os Usuários",
       "status": "passed",
-      "duration_s": 0.728219,
+      "duration_s": 2.378624,
       "file": "listUsers.robot",
       "tags": [],
       "error": null
@@ -32,7 +32,7 @@
       "id": "listUsers:deveria-ser-possvel-selecionar-um-usurio-e-exclu-lo",
       "name": "Deveria Ser Possível Selecionar Um Usuário E Excluí-lo",
       "status": "passed",
-      "duration_s": 0.813213,
+      "duration_s": 2.910996,
       "file": "listUsers.robot",
       "tags": [],
       "error": null
@@ -41,7 +41,7 @@
       "id": "login:cenrio-1-deveria-ser-possivel-visualizar-os-elementos-da-tela",
       "name": "Cenário 1: Deveria Ser Possivel Visualizar Os Elementos Da Tela",
       "status": "passed",
-      "duration_s": 0.526543,
+      "duration_s": 1.313982,
       "file": "login.robot",
       "tags": [],
       "error": null
@@ -50,7 +50,7 @@
       "id": "login:cenrio-2-no-deveria-ser-possivel-fazer-login-com-credenciais-invalidas",
       "name": "Cenário 2: Não Deveria Ser Possivel Fazer Login Com Credenciais Invalidas",
       "status": "passed",
-      "duration_s": 0.650307,
+      "duration_s": 1.511296,
       "file": "login.robot",
       "tags": [],
       "error": null
@@ -59,7 +59,7 @@
       "id": "login:cenrio-3-no-deveria-ser-possivel-fazer-login-com-a-senha-invlida",
       "name": "Cenário 3: Não Deveria Ser Possivel Fazer Login Com A Senha Inválida",
       "status": "passed",
-      "duration_s": 0.794262,
+      "duration_s": 1.799224,
       "file": "login.robot",
       "tags": [],
       "error": null
@@ -68,7 +68,7 @@
       "id": "login:cenrio-4-deveria-ser-possivel-fazer-login-com-as-credenciais-vlidas",
       "name": "Cenário 4: Deveria Ser Possivel Fazer Login Com As Credenciais Válidas",
       "status": "passed",
-      "duration_s": 0.783383,
+      "duration_s": 1.691505,
       "file": "login.robot",
       "tags": [],
       "error": null
@@ -77,7 +77,7 @@
       "id": "login:cenrio-5-deveria-ser-possvel-visualizar-a-mensagem-de-erro-embaixo-dos-inputs-de-email-e-senha-quando-esto-vazios",
       "name": "Cenário 5: Deveria Ser Possível visualizar a mensagem de erro embaixo dos inputs de email e senha quando estão vazios",
       "status": "passed",
-      "duration_s": 0.595901,
+      "duration_s": 1.476463,
       "file": "login.robot",
       "tags": [],
       "error": null
@@ -86,7 +86,7 @@
       "id": "login:cenrio-5-deveria-ser-possivel-ir-para-a-tela-de-cadastro",
       "name": "Cenário 5: Deveria Ser Possivel Ir Para A Tela De Cadastro",
       "status": "passed",
-      "duration_s": 0.643227,
+      "duration_s": 1.326806,
       "file": "login.robot",
       "tags": [],
       "error": null
@@ -95,7 +95,7 @@
       "id": "login:cenrio-6-deveria-ser-possivel-ir-para-a-tela-de-esqueci-a-senha",
       "name": "Cenário 6: Deveria Ser Possivel Ir Para A Tela De Esqueci A Senha",
       "status": "passed",
-      "duration_s": 0.642765,
+      "duration_s": 1.368329,
       "file": "login.robot",
       "tags": [],
       "error": null
@@ -104,7 +104,7 @@
       "id": "profile:cenrio-1-deveria-ser-possvel-visualizar-os-elementos-da-tela-de-perfil",
       "name": "Cenário 1: Deveria Ser Possível Visualizar Os Elementos Da Tela De Perfil",
       "status": "passed",
-      "duration_s": 0.659377,
+      "duration_s": 1.475706,
       "file": "profile.robot",
       "tags": [],
       "error": null
@@ -113,7 +113,7 @@
       "id": "profile:cenrio-2-no-deveria-ser-possvel-salvar-sem-nome-completo",
       "name": "Cenário 2: Não Deveria Ser Possível Salvar Sem Nome Completo",
       "status": "passed",
-      "duration_s": 0.662041,
+      "duration_s": 1.515933,
       "file": "profile.robot",
       "tags": [],
       "error": null
@@ -122,7 +122,7 @@
       "id": "profile:cenrio-3-no-deveria-ser-possvel-salvar-apenas-com-nome",
       "name": "Cenário 3: Não Deveria Ser Possível Salvar Apenas Com Nome",
       "status": "passed",
-      "duration_s": 0.653163,
+      "duration_s": 1.505805,
       "file": "profile.robot",
       "tags": [],
       "error": null
@@ -131,7 +131,7 @@
       "id": "profile:cenrio-4-no-deveria-ser-possvel-salvar-com-letras-no-telefone",
       "name": "Cenário 4: Não Deveria Ser Possível Salvar Com Letras No Telefone",
       "status": "passed",
-      "duration_s": 0.672495,
+      "duration_s": 1.557372,
       "file": "profile.robot",
       "tags": [],
       "error": null
@@ -140,7 +140,7 @@
       "id": "profile:cenrio-5-no-deveria-ser-possvel-salvar-telefone-com-mais-de-11-dgitos",
       "name": "Cenário 5: Não Deveria Ser Possível Salvar Telefone Com Mais De 11 Dígitos",
       "status": "passed",
-      "duration_s": 0.738443,
+      "duration_s": 1.430167,
       "file": "profile.robot",
       "tags": [],
       "error": null
@@ -149,7 +149,7 @@
       "id": "profile:cenrio-6-no-deveria-ser-possvel-salvar-telefone-com-menos-de-10-dgitos",
       "name": "Cenário 6: Não Deveria Ser Possível Salvar Telefone Com Menos De 10 Dígitos",
       "status": "passed",
-      "duration_s": 0.729495,
+      "duration_s": 1.462912,
       "file": "profile.robot",
       "tags": [],
       "error": null
@@ -158,7 +158,7 @@
       "id": "profile:cenrio-7-deveria-ser-possvel-salvar-alterao",
       "name": "Cenário 7: Deveria Ser Possível Salvar Alteração",
       "status": "passed",
-      "duration_s": 0.82756,
+      "duration_s": 1.610354,
       "file": "profile.robot",
       "tags": [],
       "error": null
@@ -167,7 +167,7 @@
       "id": "recoverPassword:cenrio-1-deveria-ser-possvel-visualizar-os-elementos-da-tela-e-recuperar-a-senha",
       "name": "Cenário 1: Deveria Ser Possível Visualizar Os Elementos Da Tela E Recuperar A Senha",
       "status": "passed",
-      "duration_s": 0.576151,
+      "duration_s": 1.08031,
       "file": "recoverPassword.robot",
       "tags": [],
       "error": null
@@ -176,7 +176,7 @@
       "id": "recoverPassword:cenrio-2-no-deveria-ser-possvel-aparecer-o-toast-de-feedback-para-usurio-apenas-clicando-no-boto",
       "name": "Cenário 2: Não Deveria Ser Possível Aparecer O Toast De Feedback Para Usuário Apenas Clicando No Botão",
       "status": "passed",
-      "duration_s": 0.616851,
+      "duration_s": 1.207565,
       "file": "recoverPassword.robot",
       "tags": [],
       "error": null
@@ -185,7 +185,7 @@
       "id": "recoverPassword:cenrio-3-deveria-ser-possvel-aparecer-um-toast-de-feedback-caso-coloque-um-email-invlido",
       "name": "Cenário 3: Deveria Ser Possível Aparecer Um Toast De Feedback Caso Coloque Um Email Inválido",
       "status": "passed",
-      "duration_s": 0.692839,
+      "duration_s": 1.31118,
       "file": "recoverPassword.robot",
       "tags": [],
       "error": null
@@ -194,7 +194,7 @@
       "id": "recoverPassword:cenrio-4-deveria-ser-possvel-enviar-o-email-de-recuperao-de-senha",
       "name": "Cenário 4: Deveria Ser Possível Enviar O Email De Recuperação De Senha",
       "status": "passed",
-      "duration_s": 0.704595,
+      "duration_s": 1.34698,
       "file": "recoverPassword.robot",
       "tags": [],
       "error": null
@@ -203,7 +203,7 @@
       "id": "recoverPassword:cenrio-5-deveria-ser-possvel-voltar-para-a-tela-de-login-pelo-link",
       "name": "Cenário 5: Deveria Ser Possível Voltar Para A Tela De Login Pelo Link",
       "status": "passed",
-      "duration_s": 0.654242,
+      "duration_s": 1.188303,
       "file": "recoverPassword.robot",
       "tags": [],
       "error": null
@@ -212,7 +212,7 @@
       "id": "register:cenrio-1-deveria-ser-possvel-visualizar-os-elementos-da-tela-de-cadastros",
       "name": "Cenário 1: Deveria Ser Possível Visualizar Os Elementos Da Tela De Cadastros",
       "status": "passed",
-      "duration_s": 0.599695,
+      "duration_s": 1.229748,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -221,7 +221,7 @@
       "id": "register:cenrio-2-no-deveria-ser-possvel-criar-o-usurio-com-o-nome-completo-errado",
       "name": "Cenário 2: Não Deveria Ser Possível Criar O Usuário Com O Nome Completo Errado",
       "status": "passed",
-      "duration_s": 0.633053,
+      "duration_s": 1.23264,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -230,7 +230,7 @@
       "id": "register:cenrio-3-no-deveria-ser-possvel-criar-o-usurio-com-o-cpf-invlido",
       "name": "Cenário 3: Não Deveria Ser Possível Criar O Usuário Com O CPF Inválido",
       "status": "passed",
-      "duration_s": 0.630105,
+      "duration_s": 1.250735,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -239,7 +239,7 @@
       "id": "register:cenrio-4-no-deveria-ser-possvel-criar-o-usurio-com-o-cnpj-invlido",
       "name": "Cenário 4: Não Deveria Ser Possível Criar O Usuário Com O CNPJ Inválido",
       "status": "passed",
-      "duration_s": 0.679164,
+      "duration_s": 1.368432,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -248,7 +248,7 @@
       "id": "register:cenrio-5-no-deveria-ser-possvel-colocar-letras-no-campo-de-telefone",
       "name": "Cenário 5: Não Deveria Ser Possível Colocar Letras No Campo De Telefone",
       "status": "passed",
-      "duration_s": 0.684987,
+      "duration_s": 1.249654,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -257,7 +257,7 @@
       "id": "register:cenrio-6-no-deveria-ser-possvel-colocar-mais-do-que-11-dgitos-no-campo-de-telefone",
       "name": "Cenário 6: Não Deveria Ser Possível Colocar Mais Do Que 11 Dígitos No Campo De Telefone",
       "status": "passed",
-      "duration_s": 0.637549,
+      "duration_s": 1.278336,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -266,7 +266,7 @@
       "id": "register:cenrio-7-no-deveria-ser-possvel-colocar-menos-do-que-10-dgitos-no-campo-de-telefone",
       "name": "Cenário 7: Não Deveria Ser Possível Colocar Menos Do Que 10 Dígitos No Campo De Telefone",
       "status": "passed",
-      "duration_s": 0.623367,
+      "duration_s": 1.314313,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -275,7 +275,7 @@
       "id": "register:cenrio-8",
       "name": "Cenário 8",
       "status": "passed",
-      "duration_s": 0.649608,
+      "duration_s": 1.239159,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -284,7 +284,7 @@
       "id": "register:cenrio-9-no-deveria-ser-possvel-criar-o-usurio-com-uma-senha-com-menos-de-6-caracteres",
       "name": "Cenário 9: Não Deveria Ser Possível Criar O Usuário Com Uma Senha Com Menos De 6 Caracteres",
       "status": "passed",
-      "duration_s": 0.611118,
+      "duration_s": 1.239328,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -293,7 +293,7 @@
       "id": "register:cenrio-10-no-deveria-ser-possvel-criar-o-usurio-com-uma-senha-com-mais-de-20-caracteres",
       "name": "Cenário 10: Não Deveria Ser Possível Criar O Usuário Com Uma Senha Com Mais De 20 Caracteres",
       "status": "passed",
-      "duration_s": 0.64371,
+      "duration_s": 1.234687,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -302,7 +302,7 @@
       "id": "register:cenrio-11-deveria-ser-possvel-visualizar-os-erros-embaixo-dos-inputs-ao-adicionar-um-valor-e-remover",
       "name": "Cenário 11: Deveria Ser Possível Visualizar Os Erros Embaixo Dos Inputs Ao Adicionar Um Valor e Remover",
       "status": "passed",
-      "duration_s": 0.808875,
+      "duration_s": 1.934163,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -311,7 +311,7 @@
       "id": "register:cenrio-12-no-deveria-ser-possvel-criar-o-usurio-com-uma-senha-diferente-da-confirmao",
       "name": "Cenário 12: Não Deveria Ser Possível Criar O Usuário Com Uma Senha Diferente Da Confirmação",
       "status": "passed",
-      "duration_s": 0.608604,
+      "duration_s": 1.251668,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -320,7 +320,7 @@
       "id": "register:cenrio-13-deveria-ser-possvel-cadastrar-um-usurio",
       "name": "Cenário 13: Deveria Ser Possível Cadastrar Um Usuário",
       "status": "passed",
-      "duration_s": 0.819251,
+      "duration_s": 1.742399,
       "file": "register.robot",
       "tags": [],
       "error": null
@@ -329,14 +329,14 @@
       "id": "register:cenrio-14-deveria-ser-possvel-voltar-para-a-tela-de-login-pelo-link",
       "name": "Cenário 14: Deveria Ser Possível Voltar Para A Tela De Login Pelo Link",
       "status": "passed",
-      "duration_s": 0.554969,
+      "duration_s": 1.213029,
       "file": "register.robot",
       "tags": [],
       "error": null
     }
   ],
   "metadata": {
-    "generated": "2025-12-06T14:53:10.594910",
-    "robot": "Robot 7.1.1 (Python 3.11.14 on linux)"
+    "generated": "2025-11-20T18:39:05.796918",
+    "robot": "Robot 7.1.1 (Python 3.12.3 on linux)"
   }
 }
