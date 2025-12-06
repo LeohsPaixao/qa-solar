@@ -40,7 +40,7 @@ jobs:
           mkdir -p public/dashboard
 
           cp -R docs/build/* public/docs/
-          cp -R dashboard/dist/* public/dashboard/
+          cp -R ./apps/dashboard/dist/* public/dashboard/
 
       - name: Deploy para GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
