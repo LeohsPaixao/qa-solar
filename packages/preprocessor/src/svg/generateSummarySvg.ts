@@ -75,7 +75,7 @@ export async function generateSummarySvg(summaryData: SummaryData, config: Prepr
   </defs>
 
   <style>
-    .bg { fill: #0d1117; }
+    .bg { fill: #0d1116; }
     .header-bg { fill: url(#headerGradient); }
     .title { fill: #f0f6fc; font-size: 20px; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
     .subtitle { fill: #8b949e; font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; }
@@ -100,8 +100,7 @@ export async function generateSummarySvg(summaryData: SummaryData, config: Prepr
   
   <!-- Header -->
   <rect width="100%" height="${headerHeight}" rx="8" class="header-bg"/>
-  <text x="24" y="28" class="title">QA Solar</text>
-  <text x="140" y="28" class="subtitle">Test Results Summary</text>
+  <text x="24" y="28" class="title">Frameworks:</text>
   
   <!-- Frameworks Badges -->
   <g transform="translate(24, 42)">
