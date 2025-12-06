@@ -30,11 +30,8 @@ jobs:
         working-directory: apps/frontend
         run: yarn test
 
-      - name: Mostrar arquivos gerados (debug)
-        run: ls -R qa-results || true
-
-      - name: Upload raw results (Frontend)
+      - name: Upload raw results (Vitest)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results
-          path: qa-results/raw/frontend
+          name: raw-results-vitest
+          path: qa-results/raw/vitest

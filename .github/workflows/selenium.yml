@@ -84,11 +84,8 @@ jobs:
         env:
           HEADLESS: true
 
-      - name: Mostrar arquivos gerados (debug)
-        run: ls -R qa-results || true
-
-      - name: Upload raw results (Selenium)
+      - name: Upload raw results (Selenium E2E)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results
+          name: raw-results-selenium-e2e
           path: qa-results/raw/selenium-e2e

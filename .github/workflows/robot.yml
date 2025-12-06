@@ -75,11 +75,8 @@ jobs:
         working-directory: tests/robot
         run: make test
 
-      - name: Mostrar arquivos gerados (debug)
-        run: ls -R qa-results || true
-
-      - name: Upload raw results (Robot Framework)
+      - name: Upload raw results (Robot Framework E2E)
         uses: actions/upload-artifact@v4.4.0
         with:
-          name: raw-results
+          name: raw-results-robot-e2e
           path: qa-results/raw/robot-e2e
