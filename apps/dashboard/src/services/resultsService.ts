@@ -9,7 +9,7 @@ const RESULTS_BASE_PATH = '/qa-results/processed';
  */
 export async function loadSummary(): Promise<SummaryData | null> {
   try {
-    const response = await fetch(`${RESULTS_BASE_PATH}/summary.json`);
+    const response = await fetch(new URL(`${RESULTS_BASE_PATH}/summary.json`, import.meta.url));
     if (!response.ok) {
       throw new Error(`Failed to load summary: ${response.statusText}`);
     }
@@ -29,7 +29,7 @@ export async function loadSummary(): Promise<SummaryData | null> {
 export async function loadFrameworkResults(framework: FrameworkName): Promise<FrameworkResult | null> {
   try {
     const filename = `${framework}.json`;
-    const response = await fetch(`${RESULTS_BASE_PATH}/${filename}`);
+    const response = await fetch(new URL(`${RESULTS_BASE_PATH}/${filename}`, import.meta.url));
     if (!response.ok) {
       throw new Error(`Failed to load ${framework}: ${response.statusText}`);
     }
