@@ -36,8 +36,3 @@ jobs:
         with:
           name: qa-results
           path: qa-results/processed
-
-      - name: Sincronizar resultados com o dashboard
-        run: |
-          rm -rf ./apps/dashboard/public/qa-results/processed/*
-          cp -R ./qa-results/processed ./apps/dashboard/public/qa-results/

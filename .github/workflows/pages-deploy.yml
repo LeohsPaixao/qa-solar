@@ -33,6 +33,13 @@ jobs:
       - name: Construir Dashboard
         run: yarn workspace dashboard build
 
+
+      - name: Baixar resultados processados do Preprocessamento
+        uses: actions/download-artifact@v6.0.0
+        with:
+          name: qa-results
+          path: qa-results/processed
+
       - name: Criar redirecionamento para a página inicial
         run: |
           rm -rf public
@@ -55,9 +62,13 @@ jobs:
         run: |
           mkdir -p public/docs
           mkdir -p public/dashboard
+          mkdir -p public/dashboard/qa-results/processed
 
           cp -R docs/build/* public/docs/
           cp -R ./apps/dashboard/dist/* public/dashboard/
+
+          rm -rf public/dashboard/qa-results/processed/
+          cp -R ./qa-results/processed/ public/dashboard/qa-results/processed/
 
       - name: Deploy para GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
